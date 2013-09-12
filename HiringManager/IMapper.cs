@@ -5,8 +5,8 @@ using System.Text;
 
 namespace HiringManager
 {
-    public interface IMapper
+    public interface IMapper<TInput, TOutput>
     {
-        TOutput Map<TInput, TOutput>(TInput input);
+        TOutput Map(TInput input);
     }
 }
