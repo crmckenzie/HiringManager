@@ -43,6 +43,7 @@
     <Compile Include="CreatePositionResponse.cs" />
     <Compile Include="HireCandidateRequest.cs" />
     <Compile Include="HireCandidateResponse.cs" />
+    <Compile Include="HiringService.cs" />
     <Compile Include="IHiringService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

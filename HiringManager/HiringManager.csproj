@@ -43,6 +43,9 @@
     <Compile Include="IClock.cs" />
     <Compile Include="IEnumerableBuilderSyntax.cs" />
     <Compile Include="IFluentMapper.cs" />
+    <Compile Include="IFluentTransactionBuilder.cs" />
+    <Compile Include="IFluentTransactionDecoratorSyntax.cs" />
+    <Compile Include="IFluentTransactionRequestSyntax.cs" />
     <Compile Include="IMapper.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ITransaction.cs" />

@@ -7,6 +7,7 @@ namespace HiringManager.DomainServices
 {
     public interface IHiringService
     {
+        CreatePositionResponse CreatePosition(CreatePositionRequest request);
         HireCandidateResponse Hire(HireCandidateRequest request);
     }
 }
