@@ -39,7 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBuilderSyntax.cs" />
     <Compile Include="IClock.cs" />
+    <Compile Include="IEnumerableBuilderSyntax.cs" />
+    <Compile Include="IFluentMapper.cs" />
+    <Compile Include="IMapper.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ITransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

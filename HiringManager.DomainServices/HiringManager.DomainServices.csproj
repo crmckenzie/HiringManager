@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreatePositionRequest.cs" />
+    <Compile Include="CreatePositionResponse.cs" />
     <Compile Include="HireCandidateRequest.cs" />
     <Compile Include="HireCandidateResponse.cs" />
     <Compile Include="IHiringService.cs" />
