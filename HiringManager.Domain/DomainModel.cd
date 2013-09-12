@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HiringManager.Domain.Candidate">
+    <Position X="6.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAYAAAAAEAACAAAAAQAAAAA=</HashCode>
+      <FileName>Candidate.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ContactInfo" />
+      <Property Name="AppliedTo" />
+      <Property Name="Documents" />
+      <Property Name="Messages" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HiringManager.Domain.ContactInfo">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAgBAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>ContactInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HiringManager.Domain.Document">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Document.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HiringManager.Domain.HiringManager">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAgAAAAAAYAAAAAAAAAIAAAAQAAAAA=</HashCode>
+      <FileName>HiringManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Positions" />
+      <Property Name="ContactInfo" />
+      <Property Name="Messages" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HiringManager.Domain.Message">
+    <Position X="3.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAEAAIABAAAAAAABAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HiringManager.Domain.Position">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAgAQAAAAAAACAIAAAABAAAAAAAAE=</HashCode>
+      <FileName>Position.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Candidates" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HiringManager.Domain.CandidateStatus">
+    <Position X="10.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAgAAAAAIAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CandidateStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
