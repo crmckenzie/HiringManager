@@ -1,8 +1,7 @@
-﻿using System;
-using HiringManager.Domain;
-using HiringManager.DomainServices;
+﻿using HiringManager.Domain;
+using HiringManager.Transactions;
 
-namespace HiringManager.Transactions
+namespace HiringManager.DomainServices.Transactions
 {
     public class CreatePosition : ITransaction<CreatePositionRequest, CreatePositionResponse>
     {

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using HiringManager.Domain;
-using HiringManager.DomainServices;
+using HiringManager.Transactions;
 
-namespace HiringManager.Transactions
+namespace HiringManager.DomainServices.Transactions
 {
     public class HireCandidate : ITransaction<HireCandidateRequest, HireCandidateResponse>
     {

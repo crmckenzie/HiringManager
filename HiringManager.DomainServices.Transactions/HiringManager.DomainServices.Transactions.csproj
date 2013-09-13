@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CCA019CB-F851-4C5F-BC8D-64A4B239D106}</ProjectGuid>
+    <ProjectGuid>{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HiringManager.Transactions.UnitTests</RootNamespace>
-    <AssemblyName>HiringManager.Transactions.UnitTests</AssemblyName>
+    <RootNamespace>HiringManager.DomainServices.Transactions</RootNamespace>
+    <AssemblyName>HiringManager.DomainServices.Transactions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,15 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FizzWare.NBuilder">
-      <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
-    </Reference>
-    <Reference Include="NSubstitute">
-      <HintPath>..\packages\NSubstitute.1.6.1.0\lib\NET40\NSubstitute.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,12 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatePositionTests.cs" />
-    <Compile Include="HireCandidateTests.cs" />
+    <Compile Include="CreatePosition.cs" />
+    <Compile Include="HireCandidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
@@ -63,10 +51,6 @@
     <ProjectReference Include="..\HiringManager.Domain\HiringManager.Domain.csproj">
       <Project>{77B8DB13-EC9D-4E56-B298-083B04A8D167}</Project>
       <Name>HiringManager.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HiringManager.Transactions\HiringManager.Transactions.csproj">
-      <Project>{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}</Project>
-      <Name>HiringManager.Transactions</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>

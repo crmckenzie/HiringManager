@@ -2,6 +2,7 @@
 using FizzWare.NBuilder;
 using HiringManager.Domain;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Transactions;
 using NSubstitute;
 using NUnit.Framework;
 

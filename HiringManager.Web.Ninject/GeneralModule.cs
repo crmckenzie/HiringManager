@@ -5,7 +5,7 @@ using System.Text;
 using HiringManager.Domain.EntityFramework;
 using HiringManager.Domain.Mappers;
 using HiringManager.DomainServices;
-using HiringManager.Transactions;
+using HiringManager.DomainServices.Transactions;
 using HiringManager.Web.ApplicationServices;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
