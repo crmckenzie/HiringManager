@@ -6,7 +6,7 @@ namespace HiringManager.Domain
     {
         public int? MessageId { get; set; }
 
-        public HiringManager HiringManager { get; set; }
+        public Manager Manager { get; set; }
         public Candidate Candidate { get; set; }
 
         public string Subject { get; set; }

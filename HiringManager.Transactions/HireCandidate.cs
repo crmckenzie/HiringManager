@@ -18,7 +18,7 @@ namespace HiringManager.Transactions
 
         public HireCandidateResponse Execute(HireCandidateRequest request)
         {
-            var candidate = _repository.Get<Candidate>(request.CandidateId);
+            var candidate = _repository.Get<Candidate>(request.CandidateId.Value);
             var candidatePositionStatus = candidate.AppliedTo.Single(row => row.PositionId == request.PositionId);
             candidatePositionStatus.Status = "Hired";
             candidatePositionStatus.Position.FilledBy = candidate;

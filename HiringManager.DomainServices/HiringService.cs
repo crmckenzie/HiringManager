@@ -1,4 +1,5 @@
 ﻿using System;
+using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices
 {

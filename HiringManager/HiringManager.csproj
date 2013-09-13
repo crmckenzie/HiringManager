@@ -39,18 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBuilderSyntax.cs" />
+    <Compile Include="Clock.cs" />
+    <Compile Include="Mappers\IFluentMapperSyntax.cs" />
     <Compile Include="IClock.cs" />
-    <Compile Include="IEnumerableBuilderSyntax.cs" />
-    <Compile Include="IFluentMapper.cs" />
-    <Compile Include="IFluentTransactionBuilder.cs" />
-    <Compile Include="IFluentTransactionDecoratorSyntax.cs" />
-    <Compile Include="IFluentTransactionRequestSyntax.cs" />
-    <Compile Include="IMapper.cs" />
+    <Compile Include="Mappers\IEnumerableFluentMapperSyntax.cs" />
+    <Compile Include="Mappers\IFluentMapper.cs" />
+    <Compile Include="Transactions\IFluentTransactionBuilder.cs" />
+    <Compile Include="Transactions\IFluentTransactionPipelineSyntax.cs" />
+    <Compile Include="Transactions\IFluentTransactionRequestSyntax.cs" />
+    <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="ITransaction.cs" />
+    <Compile Include="Transactions\ITransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

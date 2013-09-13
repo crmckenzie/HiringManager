@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using FizzWare.NBuilder;
+using HiringManager.Transactions;
 using NSubstitute;
 using NUnit.Framework;
 
