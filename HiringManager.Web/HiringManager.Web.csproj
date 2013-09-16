@@ -208,11 +208,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\Positions\PositionIndexItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -323,6 +326,7 @@
     <Content Include="Content\sass\bootstrap\_alerts.scss" />
     <Content Include="Content\sass\bootstrap\_accordion.scss" />
     <Content Include="Content\sass\bootstrap.scss" />
+    <Content Include="Views\Positions\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -413,6 +417,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Accounts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -425,6 +430,10 @@
     <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
       <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>
       <Name>HiringManager.Web.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager\HiringManager.csproj">
+      <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>
+      <Name>HiringManager</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

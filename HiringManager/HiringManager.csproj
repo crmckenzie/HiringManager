@@ -44,6 +44,7 @@
     <Compile Include="IClock.cs" />
     <Compile Include="Mappers\IEnumerableFluentMapperSyntax.cs" />
     <Compile Include="Mappers\IFluentMapper.cs" />
+    <Compile Include="QueryResponse.cs" />
     <Compile Include="Transactions\IFluentTransactionBuilder.cs" />
     <Compile Include="Transactions\IFluentTransactionPipelineSyntax.cs" />
     <Compile Include="Transactions\IFluentTransactionRequestSyntax.cs" />
