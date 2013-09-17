@@ -39,15 +39,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Web.Common">
       <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net40-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.Validation, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.Validation.0.7.1\lib\net40\Simple.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.Validation.Ninject, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.Validation.Ninject.0.7.1\lib\net40\Simple.Validation.Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -202,6 +221,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DatabaseConfiguration.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -213,9 +233,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
+    <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Accounts\RegisterManagerViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
-    <Compile Include="Models\Positions\PositionIndexItem.cs" />
+    <Compile Include="Models\Positions\PositionSummaryIndexItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -417,15 +440,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Accounts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HiringManager.Web.ApplicationServices\HiringManager.Web.ApplicationServices.csproj">
-      <Project>{C08CC594-CB22-4CBB-905B-41D3B40A140A}</Project>
-      <Name>HiringManager.Web.ApplicationServices</Name>
+    <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.Domain.EntityFramework.csproj">
+      <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
+      <Name>HiringManager.Domain.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
+      <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
+      <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
       <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>

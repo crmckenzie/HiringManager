@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace HiringManager.Web.ApplicationServices
+namespace HiringManager.Web.Models.Accounts
 {
-    public class RegisterModel
+    public class RegisterManagerViewModel
     {
         [Required]
         [Display(Name = "User name")]

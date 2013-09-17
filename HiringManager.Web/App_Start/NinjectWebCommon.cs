@@ -1,3 +1,4 @@
+using HiringManager.Web.Infrastructure.Ninject;
 using Ninject;
 using Ninject.Web.Common;
 
@@ -57,7 +58,7 @@ namespace HiringManager.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(new GeneralModule());
+            new NinjectConfiguration().Configure(kernel);
         }        
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Cache;
+﻿using System.Net.Cache;
 using HiringManager.DomainServices;
 
 namespace HiringManager.Domain.Mappers

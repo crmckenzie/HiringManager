@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using HiringManager.Web.App_Start;
 
 namespace HiringManager.Web
 {
@@ -23,6 +24,7 @@ namespace HiringManager.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            DatabaseConfiguration.Configure();
         }
     }
 }

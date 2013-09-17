@@ -5,6 +5,10 @@ namespace HiringManager.Web.Models
 {
     public class IndexViewModel<T>
     {
-        public IList<T> Data { get; set; }
+        public IndexViewModel()
+        {
+            this.Data = new List<T>();
+        }
+        public List<T> Data { get; set; }
     }
 }

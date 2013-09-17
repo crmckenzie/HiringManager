@@ -5,7 +5,8 @@ using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
-using HiringManager.Web.ApplicationServices;
+using HiringManager.DomainServices;
+using HiringManager.Web.Models.Accounts;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using HiringManager.Web.Filters;
@@ -79,14 +80,21 @@ namespace HiringManager.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterManagerViewModel model)
         {
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 try
                 {
-                    _accountService.Register(model);
+                    var registerManagerRequest = new RegisterManagerRequest()
+                                                 {
+                                                     DisplayName = model.DisplayName,
+                                                     Password = model.Password,
+                                                     Title = model.Title,
+                                                     UserName = model.UserName,
+                                                 };
+                    _accountService.Register(registerManagerRequest);
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

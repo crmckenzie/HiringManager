@@ -1,4 +1,4 @@
-﻿namespace HiringManager
+﻿namespace HiringManager.Mappers
 {
     public interface IFluentMapper
     {

@@ -5,6 +5,14 @@ namespace HiringManager.Domain.EntityFramework
 {
     public class Repository : DbContext, IRepository
     {
+        internal IDbSet<Candidate> Candidates { get; set; }
+        internal IDbSet<CandidateStatus> CandidateStatuses { get; set; }
+        internal IDbSet<ContactInfo> ContactInfo { get; set; }
+        internal IDbSet<Document> Documents { get; set; }
+        internal IDbSet<Manager> Managers { get; set; }
+        internal IDbSet<Message> Messages { get; set; }
+        internal IDbSet<Position> Positions { get; set; }
+
         public IQueryable<T> Query<T>() where T: class
         {
             return base.Set<T>();

@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappers\PositionSummaryIndexMapperTests.cs" />
     <Compile Include="PositionsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,9 +84,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HiringManager.Web.ApplicationServices\HiringManager.Web.ApplicationServices.csproj">
-      <Project>{C08CC594-CB22-4CBB-905B-41D3B40A140A}</Project>
-      <Name>HiringManager.Web.ApplicationServices</Name>
+    <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
+      <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
+      <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.Web\HiringManager.Web.csproj">
       <Project>{9406BF32-1749-4A2E-9028-E4D8217F68EF}</Project>
@@ -95,6 +96,9 @@
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>
       <Name>HiringManager</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

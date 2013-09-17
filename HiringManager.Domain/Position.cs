@@ -20,6 +20,7 @@ namespace HiringManager.Domain
 
         public IList<CandidateStatus> Candidates { get; set; }
 
+        public string Status { get; set; }
 
         public string Title { get; set; }
         public DateTime? OpenDate { get; set; }

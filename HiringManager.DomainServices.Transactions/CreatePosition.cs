@@ -1,4 +1,5 @@
 ﻿using HiringManager.Domain;
+using HiringManager.Mappers;
 using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Transactions

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.WebPages;
-using HiringManager.Web.ApplicationServices.Positions;
+﻿using System.Linq;
+using HiringManager.DomainServices;
+using HiringManager.Mappers;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Models;
 using HiringManager.Web.Models.Positions;
@@ -24,14 +21,14 @@ namespace HiringManager.Web.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.PositionApplicationService = Substitute.For<IPositionApplicationService>();
+            this.PositionService = Substitute.For<IPositionService>();
             this.FluentMapper = Substitute.For<IFluentMapper>();
-            this.Controller = new PositionsController(this.PositionApplicationService, this.FluentMapper);
+            this.Controller = new PositionsController(this.PositionService, this.FluentMapper);
         }
 
         public IFluentMapper FluentMapper { get; set; }
 
-        public IPositionApplicationService PositionApplicationService { get; set; }
+        public IPositionService PositionService { get; set; }
 
         public PositionsController Controller { get; set; }
 
@@ -40,7 +37,7 @@ namespace HiringManager.Web.UnitTests
         {
             // Arrange
             var queryResponse = new QueryResponse<PositionSummary>();
-            this.PositionApplicationService.GetOpenPositions().Returns(queryResponse);
+            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses.Contains("Open"))).Returns(queryResponse);
 
             var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
             this.FluentMapper.Map<IndexViewModel<PositionSummaryIndexItem>>()

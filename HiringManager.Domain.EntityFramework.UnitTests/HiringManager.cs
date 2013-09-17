@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using FizzWare.NBuilder;
@@ -10,6 +11,12 @@ namespace HiringManager.Domain.EntityFramework.UnitTests
     [TestFixture]
     public class HiringManagerTests
     {
+        [TestFixtureSetUp]
+        public void BeforeAnyTestRuns()
+        {
+            Database.SetInitializer(new DropCreateDatabaseAlways<Repository>());
+        }
+
         [Test]
         public void Insert()
         {

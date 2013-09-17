@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
+using System.Web;
 using HiringManager.Domain.EntityFramework;
 using HiringManager.Domain.Mappers;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;
-using HiringManager.Web.ApplicationServices;
+using HiringManager.Mappers;
+using HiringManager.Transactions;
+using HiringManager.Web.Ninject.Mappers;
+using HiringManager.Web.Ninject.Transactions;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
+using Simple.Validation;
 
 namespace HiringManager.Web.Ninject
 {
@@ -16,13 +23,10 @@ namespace HiringManager.Web.Ninject
     {
         public override void Load()
         {
-            Kernel.Bind(configuration => configuration
-                .FromAssemblyContaining<AccountService>()
-                .SelectAllClasses()
-                .BindAllInterfaces());
+            Kernel.Bind<IClock>().To<Clock>();
 
             Kernel.Bind(configuration => configuration
-                .FromAssemblyContaining<HiringService>()
+                .FromAssemblyContaining<PositionService>()
                 .SelectAllClasses()
                 .BindAllInterfaces()
                 );
@@ -39,7 +43,19 @@ namespace HiringManager.Web.Ninject
                 .BindAllInterfaces()
                 );
 
+            Kernel.Bind<IFluentTransactionBuilder>()
+                .To<FluentTransactionBuilder>()
+                ;
+
+            Kernel.Bind<IFluentMapper>()
+                .To<FluentMapper>()
+                ;
+
             Kernel.Bind<IRepository>().To<Repository>();
+
+            Kernel.Bind<IPrincipal>()
+                .ToMethod(context => HttpContext.Current.User)
+                ;
         }
     }
 }

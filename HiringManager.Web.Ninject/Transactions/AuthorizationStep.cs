@@ -18,12 +18,22 @@ namespace HiringManager.Web.Ninject.Transactions
 
         public override TResponse Execute(TRequest request)
         {
-            var isAuthorized = _roles.Any(role => _principal.IsInRole(role));
-            if (!isAuthorized)
-                throw new AuthorizationException();
+            if (_roles.Any())
+            {
+                var isAuthorized = _roles.Any(role => _principal.IsInRole(role));
+                if (!isAuthorized)
+                    throw new AuthorizationException();
 
-            var result = base.InnerCommand.Execute(request);
-            return result;
+                var result = base.InnerCommand.Execute(request);
+                return result;
+                
+            }
+            else
+            {
+                var result = base.InnerCommand.Execute(request);
+                return result;
+            }
+
         }
     }
 }

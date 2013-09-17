@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using FizzWare.NBuilder;
+using HiringManager.DomainServices.Impl;
+using HiringManager.Mappers;
 using HiringManager.Transactions;
 using NSubstitute;
 using NUnit.Framework;
@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace HiringManager.DomainServices.UnitTests
 {
     [TestFixture]
-    public class HiringServiceTests
+    public class PositionServiceTests
     {
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
@@ -20,13 +20,51 @@ namespace HiringManager.DomainServices.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
+            this.Transaction = Substitute.For<ITransaction<QueryPositionSummariesRequest, QueryResponse<PositionSummary>>>();
             this.TransactionBuilder = Substitute.For<IFluentTransactionBuilder>();
-            this.HiringService = new HiringService(this.TransactionBuilder);
+            this.Mapper = Substitute.For<IFluentMapper>();
+
+            this.TransactionBuilder
+                .Receives<QueryPositionSummariesRequest>()
+                .Returns<QueryResponse<PositionSummary>>()
+                .WithAuthorization()
+                .WithRequestValidation()
+                .WithPerformanceLogging()
+                .Build()
+                .Returns(this.Transaction)
+                ;
+
+            this.PositionService = new PositionService(this.TransactionBuilder, this.Mapper);
         }
+
+        public IFluentMapper Mapper { get; set; }
 
         public IFluentTransactionBuilder TransactionBuilder { get; set; }
 
-        public HiringService HiringService { get; set; }
+        public ITransaction<QueryPositionSummariesRequest, QueryResponse<PositionSummary>> Transaction { get; set; }
+
+        public PositionService PositionService { get; set; }
+
+        [Test]
+        public void Query()
+        {
+            // Arrange
+
+            var request = new QueryPositionSummariesRequest();
+            var queryResponse = new QueryResponse<PositionSummary>();
+
+            this.Transaction
+                .Execute(request)
+                .Returns(queryResponse)
+                ;
+
+
+            // Act
+            var summaries = this.PositionService.Query(request);
+
+            // Assert
+            Assert.That(summaries, Is.SameAs(queryResponse));
+        }
 
         [Test]
         public void Hire()
@@ -56,7 +94,7 @@ namespace HiringManager.DomainServices.UnitTests
                 ;
 
             // Act
-            var response = this.HiringService.Hire(request);
+            var response = this.PositionService.Hire(request);
 
             // Assert
             Assert.That(response, Is.SameAs(expectedResponse));
@@ -90,7 +128,7 @@ namespace HiringManager.DomainServices.UnitTests
                 ;
 
             // Act
-            var response = this.HiringService.CreatePosition(request);
+            var response = this.PositionService.CreatePosition(request);
 
             // Assert
             Assert.That(response, Is.SameAs(expectedResponse));
