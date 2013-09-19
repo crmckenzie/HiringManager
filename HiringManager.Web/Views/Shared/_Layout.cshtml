@@ -6,6 +6,8 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
+        <link href="http://cdn.kendostatic.com/2013.1.514/styles/kendo.common.min.css" rel="stylesheet">        
+        <link href="http://cdn.kendostatic.com/2013.1.514/styles/kendo.default.min.css" rel="stylesheet">          
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body style="margin-top: 40px">
@@ -47,7 +49,9 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/js")
+        <script src="http://cdn.kendostatic.com/2013.2.716/js/kendo.all.min.js" type="text/javascript"></script>
         @RenderSection("scripts", required: false)
     </body>
 </html>

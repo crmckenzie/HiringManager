@@ -1,0 +1,40 @@
+﻿@model HiringManager.Web.Models.Positions.CreatePositionViewModel
+
+@{
+    ViewBag.Title = "Create Position";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Position</h2>
+<div class="container-fluid span12">
+    <form class="well" action="Create" method="POST">
+        <div class="control-group">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new {placeholder = "Position Title"})
+            <span class="help-inline">*</span>
+            @Html.ValidationMessageFor(m => m.Title)
+        </div>
+        
+        <div class="control-group">
+            @Html.LabelFor(m => m.OpenDate)
+            @Html.TextBoxFor(m => m.OpenDate, new {placeholder = "Open Date", @class="k-ui-datepicker"})
+            <span class="help-inline">*</span>
+            @Html.ValidationMessageFor(m => m.OpenDate)
+        </div>
+        
+        <div class="container">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a href="@Url.Action("Index")" class="btn ">Cancel</a>            
+        </div>
+    </form>    
+</div>
+
+@Html.ValidationSummary();
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $(".k-ui-datepicker").kendoDatePicker();
+        })
+    </script>    
+}

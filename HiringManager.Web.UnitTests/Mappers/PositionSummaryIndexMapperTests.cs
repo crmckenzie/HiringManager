@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.Web.Mappers.Positions;
-using NSubstitute.Core;
 using NUnit.Framework;
 
 namespace HiringManager.Web.UnitTests.Mappers

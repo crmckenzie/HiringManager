@@ -9,6 +9,7 @@ namespace HiringManager.Domain.Mappers
         {
             var result = AutoMapper.Mapper.DynamicMap<CreatePositionRequest, Position>(input);
             result.CreatedById = input.HiringManagerId;
+            result.Status = "Open";
             return result;
         }
     }

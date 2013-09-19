@@ -234,10 +234,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
+    <Compile Include="Mappers\Positions\CreatePositionViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Accounts\RegisterManagerViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\Positions\CreatePositionViewModel.cs" />
     <Compile Include="Models\Positions\PositionSummaryIndexItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -350,6 +352,7 @@
     <Content Include="Content\sass\bootstrap\_accordion.scss" />
     <Content Include="Content\sass\bootstrap.scss" />
     <Content Include="Views\Positions\Index.cshtml" />
+    <Content Include="Views\Positions\Create.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -452,6 +455,10 @@
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.Domain\HiringManager.Domain.csproj">
+      <Project>{77B8DB13-EC9D-4E56-B298-083B04A8D167}</Project>
+      <Name>HiringManager.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
       <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>

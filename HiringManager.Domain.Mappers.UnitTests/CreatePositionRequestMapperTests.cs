@@ -43,6 +43,7 @@ namespace HiringManager.Domain.Mappers.UnitTests
             Assert.That(result.CreatedById, Is.EqualTo(request.HiringManagerId));
             Assert.That(result.FilledBy, Is.Null);
             Assert.That(result.OpenDate, Is.EqualTo(request.OpenDate));
+            Assert.That(result.Status, Is.EqualTo("Open"));
             Assert.That(result.Title, Is.EqualTo(request.Title));
         }
 
