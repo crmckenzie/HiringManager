@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Isg.Specification">
+      <HintPath>..\packages\Isg.Specification.0.1\lib\net40\Isg.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,10 +42,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clock.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Mappers\IFluentMapperSyntax.cs" />
     <Compile Include="IClock.cs" />
+    <Compile Include="Mappers\IEnumerableFluentMapperSyntax.cs" />
+    <Compile Include="Mappers\IFluentMapper.cs" />
+    <Compile Include="QueryResponse.cs" />
+    <Compile Include="Specifications\AlwaysTrueSpecification.cs" />
+    <Compile Include="Transactions\IFluentTransactionBuilder.cs" />
+    <Compile Include="Transactions\IFluentTransactionPipelineSyntax.cs" />
+    <Compile Include="Transactions\IFluentTransactionRequestSyntax.cs" />
+    <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="ITransaction.cs" />
+    <Compile Include="Transactions\ITransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

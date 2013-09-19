@@ -1,0 +1,36 @@
+﻿@model HiringManager.Web.Models.IndexViewModel<HiringManager.Web.Models.Positions.PositionSummaryIndexItem>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Open Positions</h2>
+<div class="container-fluid span12">
+    <div class="container btn-group">
+        <a href="@Url.Action("Create")" class="btn" type="button">New</a>
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th>Candidates Awaiting Review</th>         
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Data)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.CreatedByName</td>
+                        <td>@item.Status</td>
+                        <td>@item.CandidatesAwaitingReview</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+
+</div>
