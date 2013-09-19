@@ -15,11 +15,11 @@ namespace HiringManager.Domain
         public int? CandidateId { get; set; }
         public string Name { get; set; }
 
-        public IList<ContactInfo> ContactInfo { get; set; } 
-        public IList<CandidateStatus> AppliedTo { get; set; } 
+        public virtual IList<ContactInfo> ContactInfo { get; set; } 
+        public virtual IList<CandidateStatus> AppliedTo { get; set; } 
     
-        public IList<Document> Documents { get; set; } 
+        public virtual IList<Document> Documents { get; set; } 
 
-        public IList<Message> Messages { get; set; } 
+        public virtual IList<Message> Messages { get; set; } 
     }
 }

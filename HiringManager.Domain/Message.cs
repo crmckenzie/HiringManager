@@ -12,6 +12,6 @@ namespace HiringManager.Domain
         public string Subject { get; set; }
         public string Body { get; set; }
 
-        public IList<Document> Attachments { get; set; } 
+        public virtual IList<Document> Attachments { get; set; } 
     }
 }

@@ -18,7 +18,7 @@ namespace HiringManager.Domain
         public int? CreatedById { get; set; }
         public Manager CreatedBy { get; set; }
 
-        public IList<CandidateStatus> Candidates { get; set; }
+        public virtual IList<CandidateStatus> Candidates { get; set; }
 
         public string Status { get; set; }
 
