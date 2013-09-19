@@ -1,7 +1,8 @@
 ﻿using FizzWare.NBuilder;
+using HiringManager.Domain;
 using NUnit.Framework;
 
-namespace HiringManager.Domain.Mappers.UnitTests
+namespace HiringManager.Mappers.UnitTests
 {
     [TestFixture]
     public class PositionSummaryMapperTests

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HiringManager.Domain.Specifications;
+﻿using HiringManager.Domain.Specifications;
 using HiringManager.DomainServices;
 using NUnit.Framework;
 
-namespace HiringManager.Domain.Mappers.UnitTests
+namespace HiringManager.Mappers.UnitTests
 {
     [TestFixture]
     public class QueryPositionSummariesRequestMapperTests

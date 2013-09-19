@@ -10,10 +10,10 @@ namespace HiringManager.Domain
         public int? CandidateStatusId { get; set; }
         
         public int? CandidateId { get; set; }
-        public Candidate Candidate { get; set; }
+        public virtual Candidate Candidate { get; set; }
 
         public int? PositionId { get; set; }
-        public Position Position { get; set; }
+        public virtual Position Position { get; set; }
 
         public string Status { get; set; }
     }

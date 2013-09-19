@@ -100,5 +100,29 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .CreatePosition(request)
                 ;
         }
+
+        [Test]
+        public void Candidates()
+        {
+            // Arrange
+            var positionDetails = new PositionDetails();
+            var viewModel = new PositionCandidatesViewModel();
+
+            this.PositionService.Details(1).Returns(positionDetails);
+
+            this.FluentMapper
+                .Map<PositionCandidatesViewModel>()
+                .From(positionDetails)
+                .Returns(viewModel)
+                ;
+
+            this.PositionService.Details(1).Returns(positionDetails);
+
+            // Act
+            var viewResult = this.PositionsController.Candidates(1);
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
     }
 }

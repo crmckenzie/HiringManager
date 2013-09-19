@@ -1,0 +1,38 @@
+﻿@model HiringManager.Web.Models.Positions.PositionCandidatesViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Candidates for @Model.Title</h2>
+<div class="container-fluid span12">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact Info</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var candidate in Model.Candidates)
+            {
+                <tr>
+                    <td>@candidate.Name</td>
+                    <td>
+                        <ul>
+                            @foreach (var contactInfo in candidate.ContactInfo)
+                            {
+                                <li>@contactInfo.Type : @contactInfo.Value</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        @candidate.Status
+                    </td>
+                </tr>                
+            }
+        </tbody>
+    </table>
+</div>

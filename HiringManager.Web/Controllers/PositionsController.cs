@@ -57,5 +57,16 @@ namespace HiringManager.Web.Controllers
             }
             return View(viewModel);
         }
+
+        public ViewResult Candidates(int id)
+        {
+            var details = this._positionService.Details(id);
+            var viewModel = this._fluentMapper
+                .Map<PositionCandidatesViewModel>()
+                .From(details)
+                ;
+
+            return View(viewModel);
+        }
     }
 }

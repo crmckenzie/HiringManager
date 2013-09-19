@@ -1,7 +1,7 @@
-﻿using System.Net.Cache;
+﻿using HiringManager.Domain;
 using HiringManager.DomainServices;
 
-namespace HiringManager.Domain.Mappers
+namespace HiringManager.Mappers
 {
     public class CreatePositionRequestMapper : IMapper<CreatePositionRequest, Position>
     {

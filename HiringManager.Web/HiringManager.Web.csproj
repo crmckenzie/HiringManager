@@ -235,11 +235,15 @@
     </Compile>
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
     <Compile Include="Mappers\Positions\CreatePositionViewModelMapper.cs" />
+    <Compile Include="Mappers\Positions\PositionCandidatesViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Accounts\RegisterManagerViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\Positions\ContactInfoViewModel.cs" />
+    <Compile Include="Models\Positions\PositionCandidatesViewModel.cs" />
     <Compile Include="Models\Positions\CreatePositionViewModel.cs" />
+    <Compile Include="Models\Positions\PositionCandidateViewModel.cs" />
     <Compile Include="Models\Positions\PositionSummaryIndexItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -353,6 +357,7 @@
     <Content Include="Content\sass\bootstrap.scss" />
     <Content Include="Views\Positions\Index.cshtml" />
     <Content Include="Views\Positions\Create.cshtml" />
+    <Content Include="Views\Positions\Candidates.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -448,9 +453,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.Domain.EntityFramework.csproj">
+    <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj">
       <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
-      <Name>HiringManager.Domain.EntityFramework</Name>
+      <Name>HiringManager.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>

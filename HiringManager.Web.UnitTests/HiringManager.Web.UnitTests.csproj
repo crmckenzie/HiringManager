@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Controllers\PositionsControllerTests.cs" />
     <Compile Include="Mappers\CreatePositionViewModelMapperTests.cs" />
+    <Compile Include="Mappers\PositionCandidatesViewModelMapperTests.cs" />
     <Compile Include="Mappers\PositionSummaryIndexMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using HiringManager.Domain;
 using HiringManager.DomainServices;
 
-namespace HiringManager.Domain.Mappers
+namespace HiringManager.Mappers
 {
     public class PositionSummaryMapper : IMapper<Position, PositionSummary>
     {
