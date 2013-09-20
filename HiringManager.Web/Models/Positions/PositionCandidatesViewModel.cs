@@ -7,5 +7,6 @@ namespace HiringManager.Web.Models.Positions
     {
         public string Title { get; set; }
         public List<PositionCandidateViewModel> Candidates { get; set; }
+        public int PositionId { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
+using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.Mappers;
 using HiringManager.Web.Controllers;
@@ -123,6 +125,50 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             // Assert
             Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void AddCandidate_HttpGet()
+        {
+            // Arrange
+
+            // Act
+            var viewResult = this.PositionsController.AddCandidate(1);
+
+            // Assert
+            var viewModel = viewResult.Model as AddCandidateViewModel;
+            Assert.That(viewModel.PositionId, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AddCandidate_HttpPost()
+        {
+            // Arrange
+            var viewModel = new AddCandidateViewModel();
+
+            var request = new AddCandidateRequest();
+            this.FluentMapper
+                .Map<AddCandidateRequest>()
+                .From(viewModel)
+                .Returns(request)
+                ;
+
+            var response = Builder<AddCandidateResponse>
+                .CreateNew()
+                .Build();
+
+            this.PositionService.AddCandidate(request).Returns(response);
+
+            // Act
+            var actionResult = this.PositionsController.AddCandidate(viewModel);
+
+            // Assert
+            var redirectToRouteResult = actionResult as RedirectToRouteResult;
+            Assert.That(redirectToRouteResult, Is.Not.Null);
+
+            Assert.That(redirectToRouteResult.RouteName, Is.EqualTo("Candidates"));
+            Assert.That(redirectToRouteResult.RouteValues.ContainsKey("id"), Is.True);
+            Assert.That(redirectToRouteResult.RouteValues["id"], Is.EqualTo(response.PositionId));
         }
     }
 }

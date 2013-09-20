@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCandidateTests.cs" />
     <Compile Include="CreatePositionTests.cs" />
     <Compile Include="HireCandidateTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +72,10 @@
     <ProjectReference Include="..\HiringManager.DomainServices.Transactions\HiringManager.DomainServices.Transactions.csproj">
       <Project>{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}</Project>
       <Name>HiringManager.DomainServices.Transactions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
+      <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>
+      <Name>HiringManager.Web.Ninject</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>

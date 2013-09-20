@@ -72,6 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCandidateRequest.cs" />
+    <Compile Include="AddCandidateResponse.cs" />
     <Compile Include="CandidateStatusDetails.cs" />
     <Compile Include="ContactInfoDetails.cs" />
     <Compile Include="CreatePositionRequest.cs" />

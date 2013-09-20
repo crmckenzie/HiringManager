@@ -49,6 +49,7 @@ namespace HiringManager.Web.UnitTests.Mappers
 
             // Assert
             Assert.That(viewModel, Is.Not.Null);
+            Assert.That(viewModel.PositionId, Is.EqualTo(positionDetails.PositionId));
             Assert.That(viewModel.Title, Is.EqualTo(positionDetails.Title));
             Assert.That(viewModel.Candidates, Has.Count.EqualTo(positionDetails.Candidates.Count));
 
