@@ -91,7 +91,8 @@ namespace HiringManager.Web.Controllers
 
                 var response = this._positionService.AddCandidate(request);
 
-                return RedirectToRoute("Candidates", new {id = response.PositionId});
+
+                return RedirectToAction("Candidates", new {id = response.PositionId});
             }
             return View(viewModel);
         }

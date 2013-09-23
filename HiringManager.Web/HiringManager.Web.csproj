@@ -234,6 +234,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
+    <Compile Include="Mappers\Positions\AddCandidateViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\CreatePositionViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionCandidatesViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />

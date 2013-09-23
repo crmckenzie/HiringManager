@@ -163,12 +163,16 @@ namespace HiringManager.Web.UnitTests.Controllers
             var actionResult = this.PositionsController.AddCandidate(viewModel);
 
             // Assert
-            var redirectToRouteResult = actionResult as RedirectToRouteResult;
-            Assert.That(redirectToRouteResult, Is.Not.Null);
+            var redirectToAction = actionResult as RedirectToRouteResult;
+            Assert.That(redirectToAction, Is.Not.Null);
 
-            Assert.That(redirectToRouteResult.RouteName, Is.EqualTo("Candidates"));
-            Assert.That(redirectToRouteResult.RouteValues.ContainsKey("id"), Is.True);
-            Assert.That(redirectToRouteResult.RouteValues["id"], Is.EqualTo(response.PositionId));
+            Assert.That(redirectToAction.RouteName, Is.EqualTo(""));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("action"), Is.True);
+            Assert.That(redirectToAction.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("id"), Is.True);
+            Assert.That(redirectToAction.RouteValues["id"], Is.EqualTo(response.PositionId));
         }
     }
 }

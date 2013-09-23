@@ -11,7 +11,7 @@ namespace HiringManager.Web.Models.Positions
         public string Name { get; set; }
         
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Email")]
         public string EmailAddress { get; set; }
 
         [Required]

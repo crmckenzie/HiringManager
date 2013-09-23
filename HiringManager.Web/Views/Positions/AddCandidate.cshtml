@@ -9,7 +9,8 @@
 
 <div class="container">
     <h2>Add Candidate</h2>
-    <form>
+    @using (@Html.BeginForm())
+    {
         @Html.HiddenFor(m => m.PositionId)
 
         <div class="control-group">
@@ -19,18 +20,18 @@
         </div>
         <div class="control-group">
             @Html.LabelFor(m => m.EmailAddress)
-            <input type="email" value="@Model.EmailAddress" />
+            <input name="EmailAddress" type="email" value="@Model.EmailAddress" />
             @Html.ValidationMessageFor(m => m.EmailAddress)
         </div>
         <div class="control-group">
             @Html.LabelFor(m => m.PhoneNumber)
-            <input type="tel" value="@Model.PhoneNumber" />
+            <input name="PhoneNumber" type="tel" value="@Model.PhoneNumber" />
             @Html.ValidationMessageFor(m => m.PhoneNumber)
         </div>
         
         <div class="btn-group">
-            <button type="submit" class="btn">OK</button>
+            <button type="submit" class="btn btn-primary">OK</button>
             <a href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn">Cancel</a>            
         </div>
-    </form>
+    }
 </div>

@@ -8,7 +8,7 @@
 <h2>Candidates for @Model.Title</h2>
 <div class="container-fluid span12">
     <div class="btn-group">
-        <a href="@Url.Action("AddCandidate")" class="btn">New Candidate</a>
+        <a href="@Url.Action("AddCandidate",new {id=Model.PositionId})" class="btn">New Candidate</a>
     </div>
 
     <div class="container" >
