@@ -1,8 +1,34 @@
-﻿@model int
+﻿@model HiringManager.Web.Models.Positions.CandidateStatusViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Hire Candidate";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<h2>@ViewBag.Title</h2>
+<div class="container-fluid span12">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.PositionId)
+        @Html.HiddenFor(m => m.CandidateId)
+        @Html.HiddenFor(m => m.CandidateStatusId)
+        <div class="container-fluid">
+            <div class="control-group">
+                @Html.LabelFor(m => m.PositionTitle)
+                @Html.DisplayFor(m => m.PositionTitle)
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(m => m.CandidateName)
+                @Html.DisplayFor(m => m.CandidateName)            
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(m => m.Status)
+                @Html.DisplayFor(m => m.Status)
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Ok</button>
+            <a href="@Url.Action("Candidates", new {id=Model.PositionId})" class="btn">Cancel</a>
+        </div>
+    } 
+</div>

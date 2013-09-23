@@ -143,10 +143,32 @@ namespace HiringManager.Web.Controllers
             return View(model);
         }
 
-
-        public ActionResult Hire(int id)
+        [HttpGet]
+        public ViewResult Hire(int id)
         {
-            return View(id);
+            var details = this._positionService.GetCandidateStatusDetails(id);
+            var viewModel = this._fluentMapper
+                .Map<CandidateStatusViewModel>()
+                .From(details)
+                ;
+
+            return View(viewModel);
         }
+
+        [HttpPost]
+        public ActionResult Hire(CandidateStatusViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                this._positionService.Hire(new HireCandidateRequest()
+                                           {
+                                               CandidateId = model.CandidateId,
+                                               PositionId = model.PositionId,   
+                                           });
+                return RedirectToAction("Candidates", new { id = model.PositionId });
+            }
+            return View(model);
+        }
+
     }
 }

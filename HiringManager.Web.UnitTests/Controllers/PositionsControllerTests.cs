@@ -268,5 +268,55 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Received()
                 .SetCandidateStatus(model.CandidateStatusId, model.Status);
         }
+
+        [Test]
+        public void Hire_HttpGet()
+        {
+            // Arrange
+            var candidateStatusDetails = new CandidateStatusDetails();
+            this.PositionService.GetCandidateStatusDetails(1)
+                .Returns(candidateStatusDetails);
+
+            var viewModel = new CandidateStatusViewModel();
+            this.FluentMapper.Map<CandidateStatusViewModel>()
+                .From(candidateStatusDetails)
+                .Returns(viewModel)
+                ;
+
+            // Act
+            var viewResult = this.PositionsController.Hire(1);
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void Hire_HttpPost()
+        {
+            // Arrange
+            var model = Builder<CandidateStatusViewModel>
+                .CreateNew()
+                .Build()
+                ;
+
+            // Act
+            var result = this.PositionsController.Hire(model) as RedirectToRouteResult;
+
+            // Assert
+            Assert.That(result.RouteName, Is.EqualTo(""));
+
+            Assert.That(result.RouteValues.ContainsKey("action"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(result.RouteValues.ContainsKey("id"));
+            Assert.That(result.RouteValues["id"], Is.EqualTo(model.PositionId));
+
+            var request = Arg.Is<HireCandidateRequest>(
+                arg => arg.PositionId == model.PositionId && arg.CandidateId == model.CandidateId);
+            this.PositionService
+                .Received()
+                .Hire(request);
+        }
+
     }
 }

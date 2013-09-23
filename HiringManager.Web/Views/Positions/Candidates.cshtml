@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Candidates for @Model.Title</h2>
+<h2>Candidates for @Model.Title (@Model.Status)</h2>
 <div class="container-fluid span12">
     <div class="btn-group">
         <a href="@Url.Action("AddCandidate",new {id=Model.PositionId})" class="btn">New Candidate</a>
