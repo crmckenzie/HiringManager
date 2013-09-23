@@ -311,11 +311,9 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(result.RouteValues.ContainsKey("id"));
             Assert.That(result.RouteValues["id"], Is.EqualTo(model.PositionId));
 
-            var request = Arg.Is<HireCandidateRequest>(
-                arg => arg.PositionId == model.PositionId && arg.CandidateId == model.CandidateId);
             this.PositionService
                 .Received()
-                .Hire(request);
+                .Hire(model.CandidateStatusId);
         }
 
     }

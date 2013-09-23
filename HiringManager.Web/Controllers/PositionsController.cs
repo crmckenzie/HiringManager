@@ -160,11 +160,7 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                this._positionService.Hire(new HireCandidateRequest()
-                                           {
-                                               CandidateId = model.CandidateId,
-                                               PositionId = model.PositionId,   
-                                           });
+                this._positionService.Hire(model.CandidateStatusId);
                 return RedirectToAction("Candidates", new { id = model.PositionId });
             }
             return View(model);

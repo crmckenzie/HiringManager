@@ -60,8 +60,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             // Act
             var request = new HireCandidateRequest()
                           {
-                              CandidateId = candidate.CandidateId,
-                              PositionId = position.PositionId,
+                              CandidateStatusId = candidateStatus.CandidateStatusId.Value
                           };
             var response = this.Command.Execute(request);
 

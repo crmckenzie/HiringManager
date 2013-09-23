@@ -75,14 +75,9 @@ namespace HiringManager.DomainServices.UnitTests
                 .CreateNew()
                 .Build()
                 ;
-
-            var request = Builder<HireCandidateRequest>
-                .CreateNew()
-                .Build()
-                ;
-
             var hireCandidate = Substitute.For<ITransaction<HireCandidateRequest, CandidateStatusResponse>>();
-            hireCandidate.Execute(request).Returns(expectedResponse);
+            const int candidateStatusId = 1;
+            hireCandidate.Execute(Arg.Is<HireCandidateRequest>(arg => arg.CandidateStatusId == candidateStatusId)).Returns(expectedResponse);
 
             this.TransactionBuilder
                 .Receives<HireCandidateRequest>()
@@ -94,7 +89,7 @@ namespace HiringManager.DomainServices.UnitTests
                 ;
 
             // Act
-            var response = this.PositionService.Hire(request);
+            var response = this.PositionService.Hire(candidateStatusId);
 
             // Assert
             Assert.That(response, Is.SameAs(expectedResponse));
