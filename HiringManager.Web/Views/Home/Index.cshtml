@@ -4,13 +4,14 @@
 <h3>Manage Your Hiring Process</h3>
 <ol class="round">
     <li class="one">
-        <h5>Create and view your open positions</h5>
-        Create and track your @Html.ActionLink("open positions.", "Index", "Positions") 
+        <h5>Create and view your @Html.ActionLink("open positions.", "Index", "Positions", new {status="Open"}, null) </h5>
+        See your list of open positions.
     </li>
 
     <li class="two">
         <h5>Track the candidates through the interview process.</h5>
-        How many candidates do you have? Where is each candidate in the process?
+        How many candidates do you have? 
+        Where is each candidate in the process?
     </li>
 
     <li class="three">

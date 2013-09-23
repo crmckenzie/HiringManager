@@ -24,7 +24,7 @@
                     <tr>
                         <td>@item.Title</td>
                         <td>@item.CreatedByName</td>
-                        <td>@item.Status</td>
+                        <td>@Html.ActionLink(item.Status, "Index", "Positions", new {status = item.Status}, null)</td>
                         <td>@Html.ActionLink(item.CandidatesAwaitingReview.ToString(), "Candidates", new {id=item.PositionId})</td>
                     </tr>
                 }

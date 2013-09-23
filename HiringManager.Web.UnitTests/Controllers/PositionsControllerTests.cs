@@ -47,6 +47,29 @@ namespace HiringManager.Web.UnitTests.Controllers
         {
             // Arrange
             var response = new QueryResponse<PositionSummary>();
+            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses == null ))
+                .Returns(response)
+                ;
+
+            var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
+            this.FluentMapper
+                .Map<IndexViewModel<PositionSummaryIndexItem>>()
+                .From(response)
+                .Returns(indexViewModel)
+                ;
+
+            // Act
+            var viewResult = this.PositionsController.Index("");
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
+        }
+
+        [Test]
+        public void Index_WithStatus()
+        {
+            // Arrange
+            var response = new QueryResponse<PositionSummary>();
             this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses.Contains("Open")))
                 .Returns(response)
                 ;
@@ -59,7 +82,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 ;
 
             // Act
-            var viewResult = this.PositionsController.Index();
+            var viewResult = this.PositionsController.Index("Open");
 
             // Assert
             Assert.That(viewResult.Model, Is.SameAs(indexViewModel));

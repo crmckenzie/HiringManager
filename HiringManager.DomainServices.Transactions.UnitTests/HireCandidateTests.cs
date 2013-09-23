@@ -53,9 +53,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
 
 
-            this.Repository.Get<Candidate>(candidate.CandidateId.Value).Returns(candidate);
-            this.Repository.Get<Position>(position.PositionId.Value).Returns(position);
-            this.Repository.Query<CandidateStatus>().Returns(new[] {candidateStatus}.AsQueryable());
+            this.Repository.Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value).Returns(candidateStatus);
 
             // Act
             var request = new HireCandidateRequest()

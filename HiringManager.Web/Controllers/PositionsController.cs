@@ -21,12 +21,13 @@ namespace HiringManager.Web.Controllers
             _clock = clock;
         }
 
-        public ViewResult Index()
+        public ViewResult Index(string status)
         {
-            var openPositions = this._positionService.Query(new QueryPositionSummariesRequest()
-                                                            {
-                                                                Statuses = new []{"Open"},
-                                                            });
+            var request = new QueryPositionSummariesRequest();
+            if (!string.IsNullOrWhiteSpace(status))
+                request.Statuses = new[] {status};
+
+            var openPositions = this._positionService.Query(request);
             var viewModel = this._fluentMapper
                 .Map<IndexViewModel<PositionSummaryIndexItem>>()
                 .From(openPositions)
