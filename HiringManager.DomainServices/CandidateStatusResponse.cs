@@ -1,6 +1,6 @@
 ﻿namespace HiringManager.DomainServices
 {
-    public class HireCandidateResponse
+    public class CandidateStatusResponse
     {
         public int? CandidateStatusId { get; set; }
         public string Status { get; set; }

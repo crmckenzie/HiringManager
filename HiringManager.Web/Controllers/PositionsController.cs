@@ -97,9 +97,27 @@ namespace HiringManager.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Pass(int id)
+        [HttpGet]
+        public ViewResult Pass(int id)
         {
-            return View(id);
+            var details = this._positionService.GetCandidateStatusDetails(id);
+            var viewModel = this._fluentMapper
+                .Map<CandidateStatusViewModel>()
+                .From(details)
+                ;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Pass(CandidateStatusViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                this._positionService.PassOnCandidate(model.CandidateStatusId);
+                return RedirectToAction("Candidates", new {id = model.PositionId});
+            }
+            return View(model);
         }
 
         public ActionResult Status(int id)

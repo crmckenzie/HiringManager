@@ -71,7 +71,7 @@ namespace HiringManager.DomainServices.UnitTests
         public void Hire()
         {
             // Arrange
-            var expectedResponse = Builder<HireCandidateResponse>
+            var expectedResponse = Builder<CandidateStatusResponse>
                 .CreateNew()
                 .Build()
                 ;
@@ -81,12 +81,12 @@ namespace HiringManager.DomainServices.UnitTests
                 .Build()
                 ;
 
-            var hireCandidate = Substitute.For<ITransaction<HireCandidateRequest, HireCandidateResponse>>();
+            var hireCandidate = Substitute.For<ITransaction<HireCandidateRequest, CandidateStatusResponse>>();
             hireCandidate.Execute(request).Returns(expectedResponse);
 
             this.TransactionBuilder
                 .Receives<HireCandidateRequest>()
-                .Returns<HireCandidateResponse>()
+                .Returns<CandidateStatusResponse>()
                 .WithRequestValidation()
                 .WithPerformanceLogging()
                 .Build()
@@ -157,6 +157,49 @@ namespace HiringManager.DomainServices.UnitTests
             // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.SameAs(positionDetails));
+        }
+
+        [Test]
+        public void GetCandidateStatusDetails()
+        {
+            // Arrange
+            var position = Builder<Position>
+                .CreateNew()
+                .Build()
+                ;
+
+            var candidate = Builder<Candidate>
+                .CreateNew()
+                .Build()
+                ;
+
+            var candidateStatus = Builder<CandidateStatus>
+                .CreateNew()
+                .Do(row => row.Position = position)
+                .Do(row => row.Candidate = candidate)
+                .Build()
+                ;
+
+            this.Repository
+                .Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value)
+                .Returns(candidateStatus);
+
+            var details = new CandidateStatusDetails();
+
+            this.Mapper
+                .Map<CandidateStatusDetails>()
+                .From(candidateStatus)
+                .Returns(details)
+                ;
+
+
+            // Act
+            var result = this.PositionService.GetCandidateStatusDetails(candidateStatus.CandidateStatusId.Value);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.SameAs(details));
+
         }
     }
 }

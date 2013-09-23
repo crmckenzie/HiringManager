@@ -174,5 +174,52 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(redirectToAction.RouteValues.ContainsKey("id"), Is.True);
             Assert.That(redirectToAction.RouteValues["id"], Is.EqualTo(response.PositionId));
         }
+
+        [Test]
+        public void PassOnCandidate_HttpGet()
+        {
+            // Arrange
+            var candidateStatusDetails = new CandidateStatusDetails();
+            this.PositionService.GetCandidateStatusDetails(1)
+                .Returns(candidateStatusDetails);
+
+            var viewModel = new CandidateStatusViewModel();
+            this.FluentMapper.Map<CandidateStatusViewModel>()
+                .From(candidateStatusDetails)
+                .Returns(viewModel)
+                ;
+
+            // Act
+            var viewResult = this.PositionsController.Pass(1);
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void PassOnCandidate_HttpPost()
+        {
+            // Arrange
+            var model = Builder<CandidateStatusViewModel>
+                .CreateNew()
+                .Build()
+                ;
+
+            // Act
+            var result = this.PositionsController.Pass(model) as RedirectToRouteResult;
+
+            // Assert
+            Assert.That(result.RouteName, Is.EqualTo(""));
+
+            Assert.That(result.RouteValues.ContainsKey("action"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(result.RouteValues.ContainsKey("id"));
+            Assert.That(result.RouteValues["id"], Is.EqualTo(model.PositionId));
+
+            this.PositionService
+                .Received()
+                .PassOnCandidate(model.CandidateStatusId);
+        }
     }
 }

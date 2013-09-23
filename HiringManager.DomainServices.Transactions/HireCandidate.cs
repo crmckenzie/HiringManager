@@ -4,7 +4,7 @@ using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Transactions
 {
-    public class HireCandidate : ITransaction<HireCandidateRequest, HireCandidateResponse>
+    public class HireCandidate : ITransaction<HireCandidateRequest, CandidateStatusResponse>
     {
         private readonly IRepository _repository;
         private readonly IClock _clock;
@@ -15,7 +15,7 @@ namespace HiringManager.DomainServices.Transactions
             _clock = clock;
         }
 
-        public HireCandidateResponse Execute(HireCandidateRequest request)
+        public CandidateStatusResponse Execute(HireCandidateRequest request)
         {
             var candidate = _repository.Get<Candidate>(request.CandidateId.Value);
             var candidatePositionStatus = candidate.AppliedTo.Single(row => row.PositionId == request.PositionId);
@@ -25,7 +25,7 @@ namespace HiringManager.DomainServices.Transactions
             
             _repository.Commit();
 
-            return new HireCandidateResponse()
+            return new CandidateStatusResponse()
                    {
                        CandidateStatusId = candidatePositionStatus.CandidateStatusId,
                        Status = candidatePositionStatus.Status,

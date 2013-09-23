@@ -11,9 +11,13 @@ namespace HiringManager.DomainServices
 
         public int CandidateStatusId { get; set; }
         public int CandidateId { get; set; }
-        public string Name { get; set; }
+
+        public int PositionId { get; set; }
+        public string PositionTitle { get; set; }
+
+        public string CandidateName { get; set; }
         public string Status { get; set; }
 
-        public IList<ContactInfoDetails> ContactInfo { get; set; } 
+        public IList<ContactInfoDetails> ContactInfo { get; set; }
     }
 }

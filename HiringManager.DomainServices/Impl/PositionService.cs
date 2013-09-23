@@ -1,4 +1,5 @@
-﻿using HiringManager.Domain;
+﻿using System.Diagnostics;
+using HiringManager.Domain;
 using HiringManager.Mappers;
 using HiringManager.Transactions;
 
@@ -33,9 +34,9 @@ namespace HiringManager.DomainServices.Impl
             return result;
         }
 
-        public HireCandidateResponse Hire(HireCandidateRequest request)
+        public CandidateStatusResponse Hire(HireCandidateRequest request)
         {
-            var result = base.Execute<HireCandidateRequest, HireCandidateResponse>(request);
+            var result = base.Execute<HireCandidateRequest, CandidateStatusResponse>(request);
             return result;
         }
 
@@ -46,6 +47,26 @@ namespace HiringManager.DomainServices.Impl
                 .Map<PositionDetails>()
                 .From(position)
                 ;
+            return details;
+        }
+
+        public void PassOnCandidate(int candidateStatusId)
+        {
+            var result = base.Execute<PassOnCandidateRequest, CandidateStatusResponse>(new PassOnCandidateRequest()
+                                                                                       {
+                                                                                           CandidateStatusId =
+                                                                                               candidateStatusId
+                                                                                       });
+        }
+
+        public CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId)
+        {
+            var candidateStatus = this._repository.Get<CandidateStatus>(candidateStatusId);
+            var details = _mapper
+                .Map<CandidateStatusDetails>()
+                .From(candidateStatus)
+                ;
+
             return details;
         }
     }

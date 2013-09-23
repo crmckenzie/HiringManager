@@ -79,12 +79,13 @@
     <Compile Include="CreatePositionRequest.cs" />
     <Compile Include="CreatePositionResponse.cs" />
     <Compile Include="HireCandidateRequest.cs" />
-    <Compile Include="HireCandidateResponse.cs" />
+    <Compile Include="CandidateStatusResponse.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="Impl\AccountService.cs" />
     <Compile Include="Impl\DomainServiceBase.cs" />
     <Compile Include="Impl\PositionService.cs" />
     <Compile Include="IPositionService.cs" />
+    <Compile Include="PassOnCandidateRequest.cs" />
     <Compile Include="PositionDetails.cs" />
     <Compile Include="PositionSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

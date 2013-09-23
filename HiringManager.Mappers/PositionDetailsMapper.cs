@@ -13,7 +13,7 @@ namespace HiringManager.Mappers
             {
                 var candidate = result.Candidates[i];
                 var source = input.Candidates[i];
-                candidate.Name = source.Candidate.Name;
+                candidate.CandidateName = source.Candidate.Name;
 
                 for (var j = 0; j < source.Candidate.ContactInfo.Count; j++)
                 {

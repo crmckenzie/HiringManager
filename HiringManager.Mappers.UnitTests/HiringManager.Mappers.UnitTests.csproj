@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CandidateStatusDetailsMapperTests.cs" />
     <Compile Include="CreatePositionRequestMapperTests.cs" />
     <Compile Include="PositionDetailsMapperTests.cs" />
     <Compile Include="PositionSummaryMapperTests.cs" />

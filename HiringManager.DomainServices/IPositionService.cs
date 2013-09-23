@@ -7,7 +7,9 @@ namespace HiringManager.DomainServices
         QueryResponse<PositionSummary> Query(QueryPositionSummariesRequest request);
         CreatePositionResponse CreatePosition(CreatePositionRequest request);
         AddCandidateResponse AddCandidate(AddCandidateRequest request);
-        HireCandidateResponse Hire(HireCandidateRequest request);
+        CandidateStatusResponse Hire(HireCandidateRequest request);
         PositionDetails Details(int id);
+        void PassOnCandidate(int candidateStatusId);
+        CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId);
     }
 }

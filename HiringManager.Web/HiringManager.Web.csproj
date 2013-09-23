@@ -235,6 +235,7 @@
     </Compile>
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
     <Compile Include="Mappers\Positions\AddCandidateViewModelMapper.cs" />
+    <Compile Include="Mappers\Positions\CandidateStatusViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\CreatePositionViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionCandidatesViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Models\Accounts\RegisterManagerViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\Positions\AddCandidateViewModel.cs" />
+    <Compile Include="Models\Positions\CandidateStatusViewModel.cs" />
     <Compile Include="Models\Positions\ContactInfoViewModel.cs" />
     <Compile Include="Models\Positions\PositionCandidatesViewModel.cs" />
     <Compile Include="Models\Positions\CreatePositionViewModel.cs" />

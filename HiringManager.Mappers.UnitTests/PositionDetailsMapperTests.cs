@@ -57,7 +57,7 @@ namespace HiringManager.Mappers.UnitTests
                 var expected = candidates[i];
                 var actual = details.Candidates[i];
 
-                Assert.That(actual.Name, Is.EqualTo(expected.Candidate.Name));
+                Assert.That(actual.CandidateName, Is.EqualTo(expected.Candidate.Name));
                 Assert.That(actual.CandidateStatusId, Is.EqualTo(expected.CandidateStatusId));
                 Assert.That(actual.CandidateId, Is.EqualTo(expected.CandidateId));
 

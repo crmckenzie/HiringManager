@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CandidateStatusDetailsMapper.cs" />
     <Compile Include="CreatePositionRequestMapper.cs" />
     <Compile Include="PositionDetailsMapper.cs" />
     <Compile Include="PositionSummaryMapper.cs" />
