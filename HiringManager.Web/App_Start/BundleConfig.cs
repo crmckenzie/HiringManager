@@ -19,7 +19,8 @@ namespace HiringManager.Web
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                    "~/Scripts/bootstrap.js"
+                    "~/Scripts/bootstrap.js",
+                    "~/Scripts/bootstrap-modal.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

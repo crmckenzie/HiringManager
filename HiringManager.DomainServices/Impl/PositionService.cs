@@ -1,63 +1,52 @@
-﻿using HiringManager.Mappers;
+﻿using HiringManager.Domain;
+using HiringManager.Mappers;
 using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Impl
 {
-    public class PositionService : IPositionService
+    public class PositionService : DomainServiceBase, IPositionService
     {
-        private readonly IFluentTransactionBuilder _builder;
+        private readonly IRepository _repository;
         private readonly IFluentMapper _mapper;
 
-        public PositionService(IFluentTransactionBuilder builder, IFluentMapper mapper)
+        public PositionService(IFluentTransactionBuilder builder, IRepository repository, IFluentMapper mapper) : base(builder)
         {
-            _builder = builder;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public QueryResponse<PositionSummary> Query(QueryPositionSummariesRequest request)
         {
-            var transaction = _builder
-                .Receives<QueryPositionSummariesRequest>()
-                .Returns<QueryResponse<PositionSummary>>()
-                .WithAuthorization()
-                .WithRequestValidation()
-                .WithPerformanceLogging()
-                .Build()
-                ;
-
-            var response = transaction.Execute(request);
-
-            return response;
+            var result = base.Execute<QueryPositionSummariesRequest, QueryResponse<PositionSummary>>(request);
+            return result;
         }
 
         public CreatePositionResponse CreatePosition(CreatePositionRequest request)
         {
-            var transaction = this._builder
-                .Receives<CreatePositionRequest>()
-                .Returns<CreatePositionResponse>()
-                .WithRequestValidation()
-                .WithAuthorization()
-                .WithPerformanceLogging()
-                .Build()
-                ;
+            var result = base.Execute<CreatePositionRequest, CreatePositionResponse>(request);
+            return result;
+        }
 
-            var response = transaction.Execute(request);
-            return response;
+        public AddCandidateResponse AddCandidate(AddCandidateRequest request)
+        {
+            var result = base.Execute<AddCandidateRequest, AddCandidateResponse>(request);
+            return result;
         }
 
         public HireCandidateResponse Hire(HireCandidateRequest request)
         {
-            var transaction = this._builder
-                .Receives<HireCandidateRequest>()
-                .Returns<HireCandidateResponse>()
-                .WithRequestValidation()
-                .WithAuthorization()
-                .WithPerformanceLogging()
-                .Build()
-                ;
+            var result = base.Execute<HireCandidateRequest, HireCandidateResponse>(request);
+            return result;
+        }
 
-            var response = transaction.Execute(request);
-            return response;
+        public PositionDetails Details(int id)
+        {
+            var position = _repository.Get<Position>(id);
+            var details = _mapper
+                .Map<PositionDetails>()
+                .From(position)
+                ;
+            return details;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.Mappers;
 using HiringManager.Web.Models;
@@ -56,6 +57,59 @@ namespace HiringManager.Web.Controllers
                 return RedirectToAction("Index", "Positions");
             }
             return View(viewModel);
+        }
+
+        public ViewResult Candidates(int id)
+        {
+            var details = this._positionService.Details(id);
+            var viewModel = this._fluentMapper
+                .Map<PositionCandidatesViewModel>()
+                .From(details)
+                ;
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public ViewResult AddCandidate(int id)
+        {
+            var viewModel = new AddCandidateViewModel()
+                            {
+                                PositionId = id,
+                            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddCandidate(AddCandidateViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var request = this._fluentMapper
+                    .Map<AddCandidateRequest>()
+                    .From(viewModel);
+
+                var response = this._positionService.AddCandidate(request);
+
+
+                return RedirectToAction("Candidates", new {id = response.PositionId});
+            }
+            return View(viewModel);
+        }
+
+        public ActionResult Pass(int id)
+        {
+            return View(id);
+        }
+
+        public ActionResult Status(int id)
+        {
+            return View(id);
+        }
+
+        public ActionResult Hire(int id)
+        {
+            return View(id);
         }
     }
 }

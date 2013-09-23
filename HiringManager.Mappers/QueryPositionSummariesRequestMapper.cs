@@ -1,9 +1,9 @@
-﻿using System;
+﻿using HiringManager.Domain;
 using HiringManager.Domain.Specifications;
 using HiringManager.DomainServices;
 using Isg.Specification;
 
-namespace HiringManager.Domain.Mappers
+namespace HiringManager.Mappers
 {
     public class QueryPositionSummariesRequestMapper : IMapper<QueryPositionSummariesRequest, ISpecification<Position>>
     {

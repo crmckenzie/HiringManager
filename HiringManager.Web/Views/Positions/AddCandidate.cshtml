@@ -1,0 +1,37 @@
+﻿@using Microsoft.Ajax.Utilities
+@using Ninject
+@model HiringManager.Web.Models.Positions.AddCandidateViewModel
+
+@{
+    ViewBag.Title = "Add Candidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Add Candidate</h2>
+    @using (@Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.PositionId)
+
+        <div class="control-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.EmailAddress)
+            <input name="EmailAddress" type="email" value="@Model.EmailAddress" />
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.PhoneNumber)
+            <input name="PhoneNumber" type="tel" value="@Model.PhoneNumber" />
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+        
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">OK</button>
+            <a href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn">Cancel</a>            
+        </div>
+    }
+</div>

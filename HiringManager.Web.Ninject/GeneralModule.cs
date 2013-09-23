@@ -5,7 +5,6 @@ using System.Security.Principal;
 using System.Text;
 using System.Web;
 using HiringManager.Domain.EntityFramework;
-using HiringManager.Domain.Mappers;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;

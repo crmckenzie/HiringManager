@@ -13,12 +13,12 @@ namespace HiringManager.Domain
         public int? PositionId { get; set; }
 
         public int? FilledById { get; set; }
-        public Candidate FilledBy { get; set; }
+        public virtual Candidate FilledBy { get; set; }
 
         public int? CreatedById { get; set; }
-        public Manager CreatedBy { get; set; }
+        public virtual Manager CreatedBy { get; set; }
 
-        public IList<CandidateStatus> Candidates { get; set; }
+        public virtual IList<CandidateStatus> Candidates { get; set; }
 
         public string Status { get; set; }
 

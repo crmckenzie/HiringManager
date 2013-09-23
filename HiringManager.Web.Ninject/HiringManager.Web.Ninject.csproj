@@ -80,9 +80,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.Domain.EntityFramework.csproj">
+    <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj">
       <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
-      <Name>HiringManager.Domain.EntityFramework</Name>
+      <Name>HiringManager.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.DomainServices.Transactions\HiringManager.DomainServices.Transactions.csproj">
       <Project>{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}</Project>
@@ -92,9 +92,9 @@
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HiringManager.Mappers\HiringManager.Domain.Mappers.csproj">
+    <ProjectReference Include="..\HiringManager.Mappers\HiringManager.Mappers.csproj">
       <Project>{CF86D312-49E5-43B2-9397-E2F2721DEAB2}</Project>
-      <Name>HiringManager.Domain.Mappers</Name>
+      <Name>HiringManager.Mappers</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>

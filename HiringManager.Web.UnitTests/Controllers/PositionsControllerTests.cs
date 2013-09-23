@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
+using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.Mappers;
 using HiringManager.Web.Controllers;
@@ -99,6 +101,78 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Received()
                 .CreatePosition(request)
                 ;
+        }
+
+        [Test]
+        public void Candidates()
+        {
+            // Arrange
+            var positionDetails = new PositionDetails();
+            var viewModel = new PositionCandidatesViewModel();
+
+            this.PositionService.Details(1).Returns(positionDetails);
+
+            this.FluentMapper
+                .Map<PositionCandidatesViewModel>()
+                .From(positionDetails)
+                .Returns(viewModel)
+                ;
+
+            this.PositionService.Details(1).Returns(positionDetails);
+
+            // Act
+            var viewResult = this.PositionsController.Candidates(1);
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void AddCandidate_HttpGet()
+        {
+            // Arrange
+
+            // Act
+            var viewResult = this.PositionsController.AddCandidate(1);
+
+            // Assert
+            var viewModel = viewResult.Model as AddCandidateViewModel;
+            Assert.That(viewModel.PositionId, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AddCandidate_HttpPost()
+        {
+            // Arrange
+            var viewModel = new AddCandidateViewModel();
+
+            var request = new AddCandidateRequest();
+            this.FluentMapper
+                .Map<AddCandidateRequest>()
+                .From(viewModel)
+                .Returns(request)
+                ;
+
+            var response = Builder<AddCandidateResponse>
+                .CreateNew()
+                .Build();
+
+            this.PositionService.AddCandidate(request).Returns(response);
+
+            // Act
+            var actionResult = this.PositionsController.AddCandidate(viewModel);
+
+            // Assert
+            var redirectToAction = actionResult as RedirectToRouteResult;
+            Assert.That(redirectToAction, Is.Not.Null);
+
+            Assert.That(redirectToAction.RouteName, Is.EqualTo(""));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("action"), Is.True);
+            Assert.That(redirectToAction.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("id"), Is.True);
+            Assert.That(redirectToAction.RouteValues["id"], Is.EqualTo(response.PositionId));
         }
     }
 }

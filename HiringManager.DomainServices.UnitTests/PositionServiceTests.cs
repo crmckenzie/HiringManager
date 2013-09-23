@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
+using HiringManager.Domain;
 using HiringManager.DomainServices.Impl;
 using HiringManager.Mappers;
 using HiringManager.Transactions;
@@ -20,22 +21,14 @@ namespace HiringManager.DomainServices.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Transaction = Substitute.For<ITransaction<QueryPositionSummariesRequest, QueryResponse<PositionSummary>>>();
             this.TransactionBuilder = Substitute.For<IFluentTransactionBuilder>();
             this.Mapper = Substitute.For<IFluentMapper>();
+            this.Repository = Substitute.For<IRepository>();
 
-            this.TransactionBuilder
-                .Receives<QueryPositionSummariesRequest>()
-                .Returns<QueryResponse<PositionSummary>>()
-                .WithAuthorization()
-                .WithRequestValidation()
-                .WithPerformanceLogging()
-                .Build()
-                .Returns(this.Transaction)
-                ;
-
-            this.PositionService = new PositionService(this.TransactionBuilder, this.Mapper);
+            this.PositionService = new PositionService(this.TransactionBuilder, this.Repository, this.Mapper);
         }
+
+        public IRepository Repository { get; set; }
 
         public IFluentMapper Mapper { get; set; }
 
@@ -49,15 +42,23 @@ namespace HiringManager.DomainServices.UnitTests
         public void Query()
         {
             // Arrange
-
             var request = new QueryPositionSummariesRequest();
             var queryResponse = new QueryResponse<PositionSummary>();
+            var transaction = Substitute.For<ITransaction<QueryPositionSummariesRequest, QueryResponse<PositionSummary>>>();
 
-            this.Transaction
+            this.TransactionBuilder
+                .Receives<QueryPositionSummariesRequest>()
+                .Returns<QueryResponse<PositionSummary>>()
+                .WithRequestValidation()
+                .WithPerformanceLogging()
+                .Build()
+                .Returns(transaction)
+                ;
+
+            transaction
                 .Execute(request)
                 .Returns(queryResponse)
                 ;
-
 
             // Act
             var summaries = this.PositionService.Query(request);
@@ -87,7 +88,6 @@ namespace HiringManager.DomainServices.UnitTests
                 .Receives<HireCandidateRequest>()
                 .Returns<HireCandidateResponse>()
                 .WithRequestValidation()
-                .WithAuthorization()
                 .WithPerformanceLogging()
                 .Build()
                 .Returns(hireCandidate)
@@ -121,7 +121,6 @@ namespace HiringManager.DomainServices.UnitTests
                 .Receives<CreatePositionRequest>()
                 .Returns<CreatePositionResponse>()
                 .WithRequestValidation()
-                .WithAuthorization()
                 .WithPerformanceLogging()
                 .Build()
                 .Returns(createPosition)
@@ -134,5 +133,30 @@ namespace HiringManager.DomainServices.UnitTests
             Assert.That(response, Is.SameAs(expectedResponse));
         }
 
+        [Test]
+        public void Details()
+        {
+            // Arrange
+            var position = Builder<Position>
+                .CreateNew()
+                .Build();
+
+            this.Repository
+                .Get<Position>(1)
+                .Returns(position);
+
+            var positionDetails = new PositionDetails();
+            this.Mapper.Map<PositionDetails>()
+                .From(position)
+                .Returns(positionDetails)
+                ;
+
+            // Act
+            var result = this.PositionService.Details(1);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.SameAs(positionDetails));
+        }
     }
 }

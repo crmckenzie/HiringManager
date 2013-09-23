@@ -6,12 +6,12 @@ namespace HiringManager.Domain
     {
         public int? MessageId { get; set; }
 
-        public Manager Manager { get; set; }
-        public Candidate Candidate { get; set; }
+        public virtual Manager Manager { get; set; }
+        public virtual Candidate Candidate { get; set; }
 
         public string Subject { get; set; }
         public string Body { get; set; }
 
-        public IList<Document> Attachments { get; set; } 
+        public virtual IList<Document> Attachments { get; set; } 
     }
 }

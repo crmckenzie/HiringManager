@@ -25,7 +25,7 @@
                         <td>@item.Title</td>
                         <td>@item.CreatedByName</td>
                         <td>@item.Status</td>
-                        <td>@item.CandidatesAwaitingReview</td>
+                        <td>@Html.ActionLink(item.CandidatesAwaitingReview.ToString(), "Candidates", new {id=item.PositionId})</td>
                     </tr>
                 }
             </tbody>
