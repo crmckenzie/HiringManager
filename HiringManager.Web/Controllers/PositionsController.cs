@@ -114,16 +114,35 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                this._positionService.PassOnCandidate(model.CandidateStatusId);
+                this._positionService.SetCandidateStatus(model.CandidateStatusId, "Passed");
                 return RedirectToAction("Candidates", new {id = model.PositionId});
             }
             return View(model);
         }
 
-        public ActionResult Status(int id)
+        [HttpGet]
+        public ViewResult Status(int id)
         {
-            return View(id);
+            var details = this._positionService.GetCandidateStatusDetails(id);
+            var viewModel = this._fluentMapper
+                .Map<CandidateStatusViewModel>()
+                .From(details)
+                ;
+
+            return View(viewModel);
         }
+
+        [HttpPost]
+        public ActionResult Status(CandidateStatusViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                this._positionService.SetCandidateStatus(model.CandidateStatusId, model.Status);
+                return RedirectToAction("Candidates", new { id = model.PositionId });
+            }
+            return View(model);
+        }
+
 
         public ActionResult Hire(int id)
         {

@@ -45,7 +45,7 @@
     <Compile Include="AddCandidate.cs" />
     <Compile Include="CreatePosition.cs" />
     <Compile Include="HireCandidate.cs" />
-    <Compile Include="PassOnCandidate.cs" />
+    <Compile Include="SetCandidateStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryPositions.cs" />
   </ItemGroup>

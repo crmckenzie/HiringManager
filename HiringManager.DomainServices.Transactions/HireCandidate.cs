@@ -20,9 +20,11 @@ namespace HiringManager.DomainServices.Transactions
             var candidate = _repository.Get<Candidate>(request.CandidateId.Value);
             var candidatePositionStatus = candidate.AppliedTo.Single(row => row.PositionId == request.PositionId);
             candidatePositionStatus.Status = "Hired";
+            
             candidatePositionStatus.Position.FilledBy = candidate;
             candidatePositionStatus.Position.FilledDate = _clock.Now;
-            
+            candidatePositionStatus.Position.Status = "Filled";
+
             _repository.Commit();
 
             return new CandidateStatusResponse()

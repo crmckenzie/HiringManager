@@ -11,6 +11,7 @@ namespace HiringManager.Web.Models.Positions
 
         public int CandidateId { get; set; }
         public string CandidateName { get; set; }
+
         public string Status { get; set; }
     }
 }

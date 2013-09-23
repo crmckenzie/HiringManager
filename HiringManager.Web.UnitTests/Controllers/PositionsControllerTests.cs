@@ -219,7 +219,54 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             this.PositionService
                 .Received()
-                .PassOnCandidate(model.CandidateStatusId);
+                .SetCandidateStatus(model.CandidateStatusId, "Passed");
+        }
+
+        [Test]
+        public void Status_HttpGet()
+        {
+            // Arrange
+            var candidateStatusDetails = new CandidateStatusDetails();
+            this.PositionService.GetCandidateStatusDetails(1)
+                .Returns(candidateStatusDetails);
+
+            var viewModel = new CandidateStatusViewModel();
+            this.FluentMapper.Map<CandidateStatusViewModel>()
+                .From(candidateStatusDetails)
+                .Returns(viewModel)
+                ;
+
+            // Act
+            var viewResult = this.PositionsController.Status(1);
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void Status_HttpPost()
+        {
+            // Arrange
+            var model = Builder<CandidateStatusViewModel>
+                .CreateNew()
+                .Build()
+                ;
+
+            // Act
+            var result = this.PositionsController.Status(model) as RedirectToRouteResult;
+
+            // Assert
+            Assert.That(result.RouteName, Is.EqualTo(""));
+
+            Assert.That(result.RouteValues.ContainsKey("action"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(result.RouteValues.ContainsKey("id"));
+            Assert.That(result.RouteValues["id"], Is.EqualTo(model.PositionId));
+
+            this.PositionService
+                .Received()
+                .SetCandidateStatus(model.CandidateStatusId, model.Status);
         }
     }
 }

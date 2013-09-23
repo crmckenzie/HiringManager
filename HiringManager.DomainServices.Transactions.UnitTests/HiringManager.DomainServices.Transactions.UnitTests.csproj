@@ -54,7 +54,7 @@
     <Compile Include="AddCandidateTests.cs" />
     <Compile Include="CreatePositionTests.cs" />
     <Compile Include="HireCandidateTests.cs" />
-    <Compile Include="PassOnCandidateTests.cs" />
+    <Compile Include="SetCandidateStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryPositionSummariesTests.cs" />
   </ItemGroup>

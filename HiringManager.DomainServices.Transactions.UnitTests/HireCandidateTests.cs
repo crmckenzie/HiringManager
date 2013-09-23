@@ -72,6 +72,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
             Assert.That(position.FilledBy, Is.SameAs(candidate));
             Assert.That(position.FilledDate, Is.EqualTo(Clock.Now));
+            Assert.That(position.Status, Is.EqualTo("Filled"));
 
             this.Repository.Received().Commit();
         }

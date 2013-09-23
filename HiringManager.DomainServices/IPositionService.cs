@@ -9,7 +9,7 @@ namespace HiringManager.DomainServices
         AddCandidateResponse AddCandidate(AddCandidateRequest request);
         CandidateStatusResponse Hire(HireCandidateRequest request);
         PositionDetails Details(int id);
-        void PassOnCandidate(int candidateStatusId);
+        void SetCandidateStatus(int candidateStatusId, string status);
         CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId);
     }
 }

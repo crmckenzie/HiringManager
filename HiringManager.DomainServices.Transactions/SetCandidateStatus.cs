@@ -5,21 +5,19 @@ using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Transactions
 {
-    public class PassOnCandidate : ITransaction<PassOnCandidateRequest, CandidateStatusResponse>
+    public class SetCandidateStatus : ITransaction<SetCandidateStatusRequest, CandidateStatusResponse>
     {
         private readonly IRepository _repository;
-        private readonly IClock _clock;
 
-        public PassOnCandidate(IRepository repository, IClock clock)
+        public SetCandidateStatus(IRepository repository)
         {
             _repository = repository;
-            _clock = clock;
         }
 
-        public CandidateStatusResponse Execute(PassOnCandidateRequest request)
+        public CandidateStatusResponse Execute(SetCandidateStatusRequest request)
         {
             var candidateStatus = _repository.Get<CandidateStatus>(request.CandidateStatusId);
-            candidateStatus.Status = "Passed";
+            candidateStatus.Status = request.Status;
             
             _repository.Commit();
 

@@ -7,18 +7,18 @@ using NUnit.Framework;
 namespace HiringManager.DomainServices.Transactions.UnitTests
 {
     [TestFixture]
-    public class PassOnCandidateTests
+    public class SetCandidateStatusTests
     {
         [SetUp]
         public void BeforeEachTestRuns()
         {
             this.Repository = Substitute.For<IRepository>();
-            this.Command = new PassOnCandidate(this.Repository, this.Clock);
+            this.Command = new SetCandidateStatus(this.Repository);
         }
 
         public IClock Clock { get; set; }
 
-        public PassOnCandidate Command { get; set; }
+        public SetCandidateStatus Command { get; set; }
 
         public IRepository Repository { get; set; }
 
@@ -39,9 +39,10 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             this.Repository.Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value).Returns(candidateStatus);
 
             // Act
-            var request = new PassOnCandidateRequest()
+            var request = new SetCandidateStatusRequest()
                           {
-                              CandidateStatusId = candidateStatus.CandidateStatusId.Value
+                              CandidateStatusId = candidateStatus.CandidateStatusId.Value,
+                              Status = "Passed"
                           };
             var response = this.Command.Execute(request);
 

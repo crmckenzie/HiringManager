@@ -50,13 +50,14 @@ namespace HiringManager.DomainServices.Impl
             return details;
         }
 
-        public void PassOnCandidate(int candidateStatusId)
+        public void SetCandidateStatus(int candidateStatusId, string status)
         {
-            var result = base.Execute<PassOnCandidateRequest, CandidateStatusResponse>(new PassOnCandidateRequest()
-                                                                                       {
-                                                                                           CandidateStatusId =
-                                                                                               candidateStatusId
-                                                                                       });
+            var setCandidateStatusRequest = new SetCandidateStatusRequest()
+                                            {
+                                                CandidateStatusId = candidateStatusId,
+                                                Status = status,
+                                            };
+            var result = base.Execute<SetCandidateStatusRequest, CandidateStatusResponse>(setCandidateStatusRequest);
         }
 
         public CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId)

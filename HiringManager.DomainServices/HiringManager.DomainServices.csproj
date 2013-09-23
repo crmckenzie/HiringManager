@@ -85,7 +85,7 @@
     <Compile Include="Impl\DomainServiceBase.cs" />
     <Compile Include="Impl\PositionService.cs" />
     <Compile Include="IPositionService.cs" />
-    <Compile Include="PassOnCandidateRequest.cs" />
+    <Compile Include="SetCandidateStatusRequest.cs" />
     <Compile Include="PositionDetails.cs" />
     <Compile Include="PositionSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

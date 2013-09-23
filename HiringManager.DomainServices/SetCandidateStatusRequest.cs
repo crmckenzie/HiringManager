@@ -1,7 +1,8 @@
 ﻿namespace HiringManager.DomainServices
 {
-    public class PassOnCandidateRequest
+    public class SetCandidateStatusRequest
     {
         public int CandidateStatusId { get; set; }
+        public string Status { get; set; }
     }
 }
