@@ -54,7 +54,7 @@ namespace HiringManager.DomainServices.Impl
             return details;
         }
 
-        public void SetCandidateStatus(int candidateStatusId, string status)
+        public CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status)
         {
             var setCandidateStatusRequest = new SetCandidateStatusRequest()
                                             {
@@ -62,6 +62,7 @@ namespace HiringManager.DomainServices.Impl
                                                 Status = status,
                                             };
             var result = base.Execute<SetCandidateStatusRequest, CandidateStatusResponse>(setCandidateStatusRequest);
+            return result;
         }
 
         public CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId)

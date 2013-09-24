@@ -31,8 +31,11 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             this.PositionService = Substitute.For<IPositionService>();
             this.FluentMapper = Substitute.For<IFluentMapper>();
-            this.PositionsController = new PositionsController(this.PositionService, this.FluentMapper, this.Clock);
+            this.UserSession = Substitute.For<IUserSession>();
+            this.PositionsController = new PositionsController(this.PositionService, this.FluentMapper, this.UserSession, this.Clock);
         }
+
+        public IUserSession UserSession { get; set; }
 
         public IClock Clock { get; set; }
 
@@ -46,8 +49,15 @@ namespace HiringManager.Web.UnitTests.Controllers
         public void Index()
         {
             // Arrange
+            this.UserSession.ManagerId.Returns(12345);
+
             var response = new QueryResponse<PositionSummary>();
-            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses == null ))
+
+            Func<QueryPositionSummariesRequest, bool> constraint = arg => 
+                arg.Statuses == null && arg.ManagerIds.Contains(12345);
+
+
+            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => constraint(arg) ))
                 .Returns(response)
                 ;
 
@@ -69,8 +79,9 @@ namespace HiringManager.Web.UnitTests.Controllers
         public void Index_WithStatus()
         {
             // Arrange
+            this.UserSession.ManagerId.Returns(12345);
             var response = new QueryResponse<PositionSummary>();
-            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses.Contains("Open")))
+            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses.Contains("Open") && arg.ManagerIds.Contains(12345)))
                 .Returns(response)
                 ;
 

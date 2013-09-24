@@ -12,18 +12,23 @@ namespace HiringManager.Web.Controllers
     {
         private readonly IPositionService _positionService;
         private readonly IFluentMapper _fluentMapper;
+        private readonly IUserSession _userSession;
         private readonly IClock _clock;
 
-        public PositionsController(IPositionService positionService, IFluentMapper fluentMapper, IClock clock)
+        public PositionsController(IPositionService positionService, IFluentMapper fluentMapper, IUserSession userSession, IClock clock)
         {
             _positionService = positionService;
             _fluentMapper = fluentMapper;
+            _userSession = userSession;
             _clock = clock;
         }
 
         public ViewResult Index(string status)
         {
-            var request = new QueryPositionSummariesRequest();
+            var request = new QueryPositionSummariesRequest()
+                          {
+                              ManagerIds = new[] { this._userSession.ManagerId.Value }
+                          };
             if (!string.IsNullOrWhiteSpace(status))
                 request.Statuses = new[] {status};
 

@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Text;
 using FizzWare.NBuilder;
 using HiringManager.Domain;
+using HiringManager.DomainServices;
 using HiringManager.Web.Mappers.Positions;
 using HiringManager.Web.Models.Positions;
 using NSubstitute;
@@ -24,10 +25,11 @@ namespace HiringManager.Web.UnitTests.Mappers
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
-            this.Principal = Substitute.For<IPrincipal>();
-            this.Mapper = new CreatePositionViewModelMapper(this.Repository, this.Principal);
+            this.UserSession = Substitute.For<IUserSession>();
+            this.Mapper = new CreatePositionViewModelMapper(this.UserSession);
         }
+
+        public IUserSession UserSession { get; set; }
 
         public IPrincipal Principal { get; set; }
 
@@ -39,18 +41,8 @@ namespace HiringManager.Web.UnitTests.Mappers
         public void Map()
         {
             // Arrange
-            this.Principal.Identity.Name.Returns("Sally Forth");
-            var manager = new Manager()
-                          {
-                              ManagerId = 12341,
-                              UserName = "Sally Forth",
-                          };
-            this.Repository.Query<Manager>()
-                .Returns(new[]
-                         {
-                             manager
-                         }.AsQueryable())
-                ;
+            var managerId = 5;
+            this.UserSession.ManagerId.Returns(managerId);
 
             var viewModel = Builder<CreatePositionViewModel>
                 .CreateNew()
@@ -65,7 +57,7 @@ namespace HiringManager.Web.UnitTests.Mappers
 
             Assert.That(result.OpenDate, Is.EqualTo(viewModel.OpenDate));
             Assert.That(result.Title, Is.EqualTo(viewModel.Title));
-            Assert.That(result.HiringManagerId, Is.EqualTo(manager.ManagerId));
+            Assert.That(result.HiringManagerId, Is.EqualTo(managerId));
         }
 
     }
