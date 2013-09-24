@@ -34,8 +34,12 @@ namespace HiringManager.DomainServices.Impl
             return result;
         }
 
-        public CandidateStatusResponse Hire(HireCandidateRequest request)
+        public CandidateStatusResponse Hire(int candidateStatusId)
         {
+            var request = new HireCandidateRequest()
+                                       {
+                                           CandidateStatusId = candidateStatusId
+                                       };
             var result = base.Execute<HireCandidateRequest, CandidateStatusResponse>(request);
             return result;
         }
@@ -50,7 +54,7 @@ namespace HiringManager.DomainServices.Impl
             return details;
         }
 
-        public void SetCandidateStatus(int candidateStatusId, string status)
+        public CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status)
         {
             var setCandidateStatusRequest = new SetCandidateStatusRequest()
                                             {
@@ -58,6 +62,7 @@ namespace HiringManager.DomainServices.Impl
                                                 Status = status,
                                             };
             var result = base.Execute<SetCandidateStatusRequest, CandidateStatusResponse>(setCandidateStatusRequest);
+            return result;
         }
 
         public CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId)

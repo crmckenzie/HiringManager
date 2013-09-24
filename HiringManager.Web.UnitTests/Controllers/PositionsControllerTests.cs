@@ -31,8 +31,11 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             this.PositionService = Substitute.For<IPositionService>();
             this.FluentMapper = Substitute.For<IFluentMapper>();
-            this.PositionsController = new PositionsController(this.PositionService, this.FluentMapper, this.Clock);
+            this.UserSession = Substitute.For<IUserSession>();
+            this.PositionsController = new PositionsController(this.PositionService, this.FluentMapper, this.UserSession, this.Clock);
         }
+
+        public IUserSession UserSession { get; set; }
 
         public IClock Clock { get; set; }
 
@@ -46,8 +49,15 @@ namespace HiringManager.Web.UnitTests.Controllers
         public void Index()
         {
             // Arrange
+            this.UserSession.ManagerId.Returns(12345);
+
             var response = new QueryResponse<PositionSummary>();
-            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses.Contains("Open")))
+
+            Func<QueryPositionSummariesRequest, bool> constraint = arg => 
+                arg.Statuses == null && arg.ManagerIds.Contains(12345);
+
+
+            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => constraint(arg) ))
                 .Returns(response)
                 ;
 
@@ -59,7 +69,31 @@ namespace HiringManager.Web.UnitTests.Controllers
                 ;
 
             // Act
-            var viewResult = this.PositionsController.Index();
+            var viewResult = this.PositionsController.Index("");
+
+            // Assert
+            Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
+        }
+
+        [Test]
+        public void Index_WithStatus()
+        {
+            // Arrange
+            this.UserSession.ManagerId.Returns(12345);
+            var response = new QueryResponse<PositionSummary>();
+            this.PositionService.Query(Arg.Is<QueryPositionSummariesRequest>(arg => arg.Statuses.Contains("Open") && arg.ManagerIds.Contains(12345)))
+                .Returns(response)
+                ;
+
+            var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
+            this.FluentMapper
+                .Map<IndexViewModel<PositionSummaryIndexItem>>()
+                .From(response)
+                .Returns(indexViewModel)
+                ;
+
+            // Act
+            var viewResult = this.PositionsController.Index("Open");
 
             // Assert
             Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
@@ -311,11 +345,9 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(result.RouteValues.ContainsKey("id"));
             Assert.That(result.RouteValues["id"], Is.EqualTo(model.PositionId));
 
-            var request = Arg.Is<HireCandidateRequest>(
-                arg => arg.PositionId == model.PositionId && arg.CandidateId == model.CandidateId);
             this.PositionService
                 .Received()
-                .Hire(request);
+                .Hire(model.CandidateStatusId);
         }
 
     }

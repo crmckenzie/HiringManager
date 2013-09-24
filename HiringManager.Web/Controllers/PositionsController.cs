@@ -12,21 +12,27 @@ namespace HiringManager.Web.Controllers
     {
         private readonly IPositionService _positionService;
         private readonly IFluentMapper _fluentMapper;
+        private readonly IUserSession _userSession;
         private readonly IClock _clock;
 
-        public PositionsController(IPositionService positionService, IFluentMapper fluentMapper, IClock clock)
+        public PositionsController(IPositionService positionService, IFluentMapper fluentMapper, IUserSession userSession, IClock clock)
         {
             _positionService = positionService;
             _fluentMapper = fluentMapper;
+            _userSession = userSession;
             _clock = clock;
         }
 
-        public ViewResult Index()
+        public ViewResult Index(string status)
         {
-            var openPositions = this._positionService.Query(new QueryPositionSummariesRequest()
-                                                            {
-                                                                Statuses = new []{"Open"},
-                                                            });
+            var request = new QueryPositionSummariesRequest()
+                          {
+                              ManagerIds = new[] { this._userSession.ManagerId.Value }
+                          };
+            if (!string.IsNullOrWhiteSpace(status))
+                request.Statuses = new[] {status};
+
+            var openPositions = this._positionService.Query(request);
             var viewModel = this._fluentMapper
                 .Map<IndexViewModel<PositionSummaryIndexItem>>()
                 .From(openPositions)
@@ -160,11 +166,7 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                this._positionService.Hire(new HireCandidateRequest()
-                                           {
-                                               CandidateId = model.CandidateId,
-                                               PositionId = model.PositionId,   
-                                           });
+                this._positionService.Hire(model.CandidateStatusId);
                 return RedirectToAction("Candidates", new { id = model.PositionId });
             }
             return View(model);

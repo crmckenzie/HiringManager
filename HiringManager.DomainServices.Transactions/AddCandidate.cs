@@ -16,21 +16,16 @@ namespace HiringManager.DomainServices.Transactions
 
         public AddCandidateResponse Execute(AddCandidateRequest request)
         {
-            var contactInfos = request.ContactInfo.Select(row => new ContactInfo()
-                                                                 {
-                                                                     Type = row.Type,
-                                                                     Value = row.Value,
-                                                                 }).ToList();
             var candidate = new Candidate()
                             {
                                 Name = request.CandidateName,
-                                ContactInfo = contactInfos,
                             };
-
-            foreach (var contactInfo in contactInfos)
-            {
-                contactInfo.Candidate = candidate;
-            }
+            candidate.ContactInfo = request.ContactInfo.Select(row => new ContactInfo()
+                                                                 {
+                                                                     Type = row.Type,
+                                                                     Value = row.Value,
+                                                                     Candidate = candidate,
+                                                                 }).ToList();
 
             var candidateStatus = new CandidateStatus()
                                   {
@@ -39,13 +34,10 @@ namespace HiringManager.DomainServices.Transactions
                                       Candidate = candidate
                                   };
 
-
             _repository.Store(candidate);
 
-            foreach (var contactInfo in contactInfos)
-            {
+            foreach (var contactInfo in candidate.ContactInfo)
                 _repository.Store(contactInfo);
-            }
 
             _repository.Store(candidateStatus);
 
