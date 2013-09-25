@@ -17,7 +17,7 @@ namespace HiringManager.Domain
         public virtual Candidate FilledBy { get; set; }
 
         [Required]
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
 
         public virtual Manager CreatedBy { get; set; }
 

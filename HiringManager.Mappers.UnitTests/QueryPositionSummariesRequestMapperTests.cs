@@ -62,5 +62,23 @@ namespace HiringManager.Mappers.UnitTests
             Assert.That(specification, Is.Not.Null);
             Assert.That(specification.Statuses, Is.EquivalentTo(request.Statuses));
         }
+
+        [Test]
+        public void ManagerIds()
+        {
+            // Arrange
+            var request = new QueryPositionSummariesRequest()
+            {
+                ManagerIds = new []{7, 8, 9}
+            };
+
+            // Act
+            var specification = this.Mapper.Map(request) as PositionSpecification;
+
+            // Assert
+            Assert.That(specification, Is.Not.Null);
+            Assert.That(specification.ManagerIds, Is.EquivalentTo(request.ManagerIds));
+        }
+
     }
 }

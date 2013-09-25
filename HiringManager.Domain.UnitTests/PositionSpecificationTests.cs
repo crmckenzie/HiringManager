@@ -14,7 +14,6 @@ namespace HiringManager.Domain.UnitTests
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-            this.Specification = new PositionSpecification();
         }
 
         public PositionSpecification Specification { get; set; }
@@ -22,6 +21,7 @@ namespace HiringManager.Domain.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
+            this.Specification = new PositionSpecification();
             this.AllPositions = Builder<Position>
                 .CreateListOfSize(100)
                 .Build()
@@ -47,7 +47,7 @@ namespace HiringManager.Domain.UnitTests
         }
 
         [Test]
-        public void Status()
+        public void Statuses()
         {
             // Arrange
             this.Specification.Statuses = new[] {"Status2", "Status4", "Status6"};
@@ -66,6 +66,29 @@ namespace HiringManager.Domain.UnitTests
             Assert.That(results[0].Status, Is.EqualTo("Status2"));
             Assert.That(results[1].Status, Is.EqualTo("Status4"));
             Assert.That(results[2].Status, Is.EqualTo("Status6"));
+
+        }
+
+        [Test]
+        public void ManagerIds()
+        {
+            // Arrange
+            this.Specification.ManagerIds = new[] {7, 8, 9};
+
+            // Act
+            var results = this.AllPositions
+                .AsQueryable()
+                .Where(this.Specification.IsSatisfied())
+                .OrderBy(row => row.Status)
+                .ToList()
+                ;
+
+            // Assert
+            Assert.That(results.Count, Is.EqualTo(3));
+            Assert.That(results[0].CreatedById, Is.EqualTo(7));
+            Assert.That(results[1].CreatedById, Is.EqualTo(8));
+            Assert.That(results[2].CreatedById, Is.EqualTo(9));
+
 
         }
     }
