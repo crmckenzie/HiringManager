@@ -1,5 +1,5 @@
 ﻿using FizzWare.NBuilder;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 using NUnit.Framework;
 
 namespace HiringManager.Mappers.UnitTests

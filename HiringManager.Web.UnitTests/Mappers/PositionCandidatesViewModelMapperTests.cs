@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime;
 using System.Text;
 using FizzWare.NBuilder;
-using HiringManager.Domain;
 using HiringManager.DomainServices;
 using HiringManager.Web.Mappers.Positions;
 using NUnit.Framework;

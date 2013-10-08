@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 
 namespace HiringManager.DomainServices.Impl
 {

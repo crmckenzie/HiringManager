@@ -71,9 +71,9 @@
       <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
       <Name>HiringManager.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HiringManager.Domain\HiringManager.Domain.csproj">
+    <ProjectReference Include="..\HiringManager.EntityModel\HiringManager.EntityModel.csproj">
       <Project>{77B8DB13-EC9D-4E56-B298-083B04A8D167}</Project>
-      <Name>HiringManager.Domain</Name>
+      <Name>HiringManager.EntityModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using HiringManager.Domain;
+﻿using HiringManager.EntityModel;
 using HiringManager.Mappers;
 using HiringManager.Transactions;
 

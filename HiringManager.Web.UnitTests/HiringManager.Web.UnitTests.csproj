@@ -93,10 +93,6 @@
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HiringManager.Domain\HiringManager.Domain.csproj">
-      <Project>{77B8DB13-EC9D-4E56-B298-083B04A8D167}</Project>
-      <Name>HiringManager.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HiringManager.Web\HiringManager.Web.csproj">
       <Project>{9406BF32-1749-4A2E-9028-E4D8217F68EF}</Project>
       <Name>HiringManager.Web</Name>

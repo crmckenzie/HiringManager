@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using FizzWare.NBuilder;
+using HiringManager.EntityFramework;
+using HiringManager.EntityModel;
 using NUnit.Framework;
 
 namespace HiringManager.Domain.EntityFramework.UnitTests

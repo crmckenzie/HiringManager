@@ -7,8 +7,8 @@
     <ProjectGuid>{CA9AA2FD-A6BA-4641-8E31-2C31F69C7E03}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HiringManager.Domain.UnitTests</RootNamespace>
-    <AssemblyName>HiringManager.Domain.UnitTests</AssemblyName>
+    <RootNamespace>HiringManager.EntityModel.UnitTests</RootNamespace>
+    <AssemblyName>HiringManager.EntityModel.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -58,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HiringManager.Domain\HiringManager.Domain.csproj">
+    <ProjectReference Include="..\HiringManager.EntityModel\HiringManager.EntityModel.csproj">
       <Project>{77B8DB13-EC9D-4E56-B298-083B04A8D167}</Project>
-      <Name>HiringManager.Domain</Name>
+      <Name>HiringManager.EntityModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

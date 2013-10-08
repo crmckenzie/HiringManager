@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FizzWare.NBuilder;
-using HiringManager.Domain.Specifications;
+using HiringManager.EntityModel.Specifications;
 using NUnit.Framework;
 
-namespace HiringManager.Domain.UnitTests
+namespace HiringManager.EntityModel.UnitTests
 {
     [TestFixture]
     public class PositionSpecificationTests

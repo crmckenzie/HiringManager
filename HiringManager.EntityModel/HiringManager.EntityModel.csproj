@@ -7,8 +7,8 @@
     <ProjectGuid>{77B8DB13-EC9D-4E56-B298-083B04A8D167}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HiringManager.Domain</RootNamespace>
-    <AssemblyName>HiringManager.Domain</AssemblyName>
+    <RootNamespace>HiringManager.EntityModel</RootNamespace>
+    <AssemblyName>HiringManager.EntityModel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Isg.Specification;
-using HiringManager;
 
-namespace HiringManager.Domain.Specifications
+namespace HiringManager.EntityModel.Specifications
 {
     public class PositionSpecification : CompositeSpecification<Position>
     {
-
         public string[] Statuses { get; set; }
         public int[] ManagerIds { get; set; }
 

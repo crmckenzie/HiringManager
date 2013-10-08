@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using FizzWare.NBuilder;
-using HiringManager.Domain;
+﻿using FizzWare.NBuilder;
 using HiringManager.DomainServices.Impl;
+using HiringManager.EntityModel;
 using HiringManager.Mappers;
 using HiringManager.Transactions;
 using NSubstitute;

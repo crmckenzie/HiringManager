@@ -1,7 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using HiringManager.EntityModel;
 
-namespace HiringManager.Domain.EntityFramework
+namespace HiringManager.EntityFramework
 {
     public class Repository : DbContext, IRepository
     {

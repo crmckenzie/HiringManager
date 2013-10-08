@@ -1,5 +1,5 @@
 ﻿using FizzWare.NBuilder;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 using NSubstitute;
 using NUnit.Framework;
 

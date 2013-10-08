@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HiringManager.Domain
+namespace HiringManager.EntityModel
 {
     public class Message
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FizzWare.NBuilder;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 using NUnit.Framework;
 
 namespace HiringManager.Mappers.UnitTests
