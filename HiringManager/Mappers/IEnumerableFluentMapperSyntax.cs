@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HiringManager
+namespace HiringManager.Mappers
 {
     public interface IEnumerableFluentMapperSyntax<out TOutput>
     {
