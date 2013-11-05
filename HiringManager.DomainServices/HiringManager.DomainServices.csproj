@@ -67,14 +67,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.0.0\lib\net45\WebMatrix.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.0.0\lib\net45\WebMatrix.WebData.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddCandidateRequest.cs" />
@@ -85,8 +77,6 @@
     <Compile Include="CreatePositionResponse.cs" />
     <Compile Include="HireCandidateRequest.cs" />
     <Compile Include="CandidateStatusResponse.cs" />
-    <Compile Include="IAccountService.cs" />
-    <Compile Include="Impl\AccountService.cs" />
     <Compile Include="Impl\DomainServiceBase.cs" />
     <Compile Include="Impl\PositionService.cs" />
     <Compile Include="Impl\UserSession.cs" />
