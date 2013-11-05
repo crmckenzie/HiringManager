@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using HiringManager.EntityFramework;
+using HiringManager.Web.Models;
 using HiringManager.Web.Models.Accounts;
 
 namespace HiringManager.Web.App_Start
@@ -12,12 +13,8 @@ namespace HiringManager.Web.App_Start
     {
         public static void Configure()
         {
-#if DEBUG
-
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Repository>());
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
-
-#endif
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Repository, EntityFramework.Migrations.Configuration>());
+            new Repository().Database.Initialize(force: false);
         }
     }
 }
