@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 
 namespace HiringManager.DomainServices.Impl
 {
@@ -17,9 +16,23 @@ namespace HiringManager.DomainServices.Impl
 
         private readonly Lazy<Manager> _manager;
 
-        private Manager GetManager()
+        private Manager GetOrCreateManager()
         {
-            return _repository.Query<Manager>().Single(row => row.UserName == _principal.Identity.Name);
+            var result = _repository.Query<Manager>().SingleOrDefault(row => row.UserName == _principal.Identity.Name);
+
+            if (result == null)
+            {
+                result = new Manager()
+                         {
+                             Name = _principal.Identity.Name,
+                             UserName = _principal.Identity.Name,
+                         };
+
+                _repository.Store(result);
+                _repository.Commit();
+            }
+            
+            return result;
         }        
 
         public UserSession(IPrincipal principal, IRepository repository)
@@ -27,7 +40,7 @@ namespace HiringManager.DomainServices.Impl
             _principal = principal;
             _repository = repository;
 
-            this._manager = new Lazy<Manager>(GetManager);
+            this._manager = new Lazy<Manager>(GetOrCreateManager);
         }
     }
 }

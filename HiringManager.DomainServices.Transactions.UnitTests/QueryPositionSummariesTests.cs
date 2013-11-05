@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using FizzWare.NBuilder;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 using HiringManager.Mappers;
 using HiringManager.Specifications;
 using Isg.Specification;

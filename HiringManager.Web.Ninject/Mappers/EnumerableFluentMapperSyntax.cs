@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HiringManager.Mappers;
 using Ninject;
 
 namespace HiringManager.Web.Ninject.Mappers

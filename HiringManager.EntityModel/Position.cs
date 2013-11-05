@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HiringManager.Domain
+namespace HiringManager.EntityModel
 {
     public class Position
     {

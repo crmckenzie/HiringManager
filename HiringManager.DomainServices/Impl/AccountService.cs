@@ -1,4 +1,4 @@
-﻿using HiringManager.Domain;
+﻿using HiringManager.EntityModel;
 using WebMatrix.WebData;
 
 namespace HiringManager.DomainServices.Impl

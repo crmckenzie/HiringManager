@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FizzWare.NBuilder;
-using HiringManager.Domain;
-using HiringManager.DomainServices;
-using HiringManager.DomainServices.Transactions;
+﻿using FizzWare.NBuilder;
+using HiringManager.EntityModel;
 using HiringManager.Mappers;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace HiringManager.Transactions.UnitTests
+namespace HiringManager.DomainServices.Transactions.UnitTests
 {
     [TestFixture]
     public class CreatePositionTests

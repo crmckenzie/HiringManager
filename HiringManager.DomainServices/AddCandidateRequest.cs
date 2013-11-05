@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using HiringManager.Domain;
 
 namespace HiringManager.DomainServices
 {

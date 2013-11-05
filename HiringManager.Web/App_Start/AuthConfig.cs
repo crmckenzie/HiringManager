@@ -1,32 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using HiringManager.Web.Models;
+﻿using HiringManager.Web.App_Start;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Owin;
 
-namespace HiringManager.Web
+[assembly: OwinStartup(typeof(AuthConfig))]
+
+namespace HiringManager.Web.App_Start
 {
-    public static class AuthConfig
+    public partial class AuthConfig
     {
-        public static void RegisterAuth()
+        public void Configuration(IAppBuilder app)
         {
-            // To let users of this site log in using their accounts from other sites such as Microsoft, Facebook, and Twitter,
-            // you must update this site. For more information visit http://go.microsoft.com/fwlink/?LinkID=252166
+            ConfigureAuth(app);
+        }
 
-            //OAuthWebSecurity.RegisterMicrosoftClient(
+        // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+        public void ConfigureAuth(IAppBuilder app)
+        {
+            // Enable the application to use a cookie to store information for the signed in user
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login")
+            });
+            // Use a cookie to temporarily store information about a user logging in with a third party login provider
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            // Uncomment the following lines to enable logging in with third party login providers
+            //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
             //    clientSecret: "");
 
-            //OAuthWebSecurity.RegisterTwitterClient(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            //app.UseTwitterAuthentication(
+            //   consumerKey: "",
+            //   consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            //app.UseFacebookAuthentication(
+            //   appId: "",
+            //   appSecret: "");
 
-            //OAuthWebSecurity.RegisterGoogleClient();
+            //app.UseGoogleAuthentication();
         }
     }
+    
 }

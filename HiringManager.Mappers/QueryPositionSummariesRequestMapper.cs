@@ -1,6 +1,7 @@
-﻿using HiringManager.Domain;
-using HiringManager.Domain.Specifications;
+﻿using HiringManager.EntityModel;
 using HiringManager.DomainServices;
+using HiringManager.EntityModel;
+using HiringManager.EntityModel.Specifications;
 using Isg.Specification;
 
 namespace HiringManager.Mappers

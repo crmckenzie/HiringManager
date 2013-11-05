@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace HiringManager.Domain
+﻿
+namespace HiringManager.EntityModel
 {
     public class CandidateStatus
     {

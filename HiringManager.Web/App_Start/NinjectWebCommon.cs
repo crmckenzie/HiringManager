@@ -1,5 +1,7 @@
+using System.Web.Mvc;
 using HiringManager.Web.Infrastructure.Ninject;
 using Ninject;
+using Ninject.Components;
 using Ninject.Web.Common;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(HiringManager.Web.App_Start.NinjectWebCommon), "Start")]
@@ -49,6 +51,8 @@ namespace HiringManager.Web.App_Start
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             
             RegisterServices(kernel);
+
+
             return kernel;
         }
 

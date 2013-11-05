@@ -1,4 +1,4 @@
-﻿namespace HiringManager.Domain
+﻿namespace HiringManager.EntityModel
 {
     public class Document
     {

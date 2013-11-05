@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HiringManager.DomainServices;
+using HiringManager.Mappers;
 using HiringManager.Web.Models.Positions;
 
 namespace HiringManager.Web.Mappers.Positions

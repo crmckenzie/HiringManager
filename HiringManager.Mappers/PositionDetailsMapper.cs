@@ -1,5 +1,5 @@
-﻿using HiringManager.Domain;
-using HiringManager.DomainServices;
+﻿using HiringManager.DomainServices;
+using HiringManager.EntityModel;
 
 namespace HiringManager.Mappers
 {

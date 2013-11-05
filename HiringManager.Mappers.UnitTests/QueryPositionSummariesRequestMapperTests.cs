@@ -1,5 +1,5 @@
-﻿using HiringManager.Domain.Specifications;
-using HiringManager.DomainServices;
+﻿using HiringManager.DomainServices;
+using HiringManager.EntityModel.Specifications;
 using NUnit.Framework;
 
 namespace HiringManager.Mappers.UnitTests

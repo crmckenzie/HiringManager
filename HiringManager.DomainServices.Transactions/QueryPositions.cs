@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using HiringManager.Domain;
+using HiringManager.EntityModel;
 using HiringManager.Mappers;
 using HiringManager.Transactions;
 using Isg.Specification;

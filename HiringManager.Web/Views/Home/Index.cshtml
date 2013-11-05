@@ -1,21 +1,33 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<h3>Manage Your Hiring Process</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Create and view your @Html.ActionLink("open positions.", "Index", "Positions", new {status="Open"}, null) </h5>
-        See your list of open positions.
-    </li>
+<div class="jumbotron">
+    <h1>Hiring Manager</h1>
+    <p class="lead">Hiring Manager is tool to manage the hiring process for an organization.</p>
+    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
 
-    <li class="two">
-        <h5>Track the candidates through the interview process.</h5>
-        How many candidates do you have? 
-        Where is each candidate in the process?
-    </li>
-
-    <li class="three">
-        <h5>Hire your favorite candidates!</h5>
-        Hire and close your open positions.
-    </li>
-</ol>
+<div class="row">
+    <div class="col-md-3">
+        <h2>Create Positions</h2>
+        <p>
+            Create open positions within your organization.
+        </p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-3">
+        <h2>Track Candidates</h2>
+        <p>Track Candidates through the interview process. How many candidates have you interviewed for a position? Where is each candidate in the process?</p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-3">
+        <h2>Hire</h2>
+        <p>Hire your favorite candidate.</p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-3">
+        <h2>Reports</h2>
+        <p>Which recruiters send you the best candidates?</p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+</div>
