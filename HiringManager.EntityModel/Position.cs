@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HiringManager.EntityModel
 {
@@ -17,8 +18,10 @@ namespace HiringManager.EntityModel
         public virtual Candidate FilledBy { get; set; }
 
         [Required]
+        [ForeignKey("CreatedBy")]
         public int CreatedById { get; set; }
 
+        [Required]
         public virtual Manager CreatedBy { get; set; }
 
         public virtual IList<CandidateStatus> Candidates { get; set; }

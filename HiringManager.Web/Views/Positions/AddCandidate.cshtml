@@ -9,29 +9,30 @@
 
 <div class="container">
     <h2>Add Candidate</h2>
-    @using (@Html.BeginForm())
+    @using (@Html.BeginForm(null, null, null, FormMethod.Post, new {@class="form-horizontal"}))
     {
         @Html.HiddenFor(m => m.PositionId)
 
-        <div class="control-group">
-            @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name)
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Name, "Name", new {@class="col-xs-1 control-label"})
+            @Html.TextBoxFor(m => m.Name, new {@class="form-control"})
             @Html.ValidationMessageFor(m => m.Name)
         </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.EmailAddress)
-            <input name="EmailAddress" type="email" value="@Model.EmailAddress" />
+        <div class="form-group row">
+            @Html.LabelFor(m => m.EmailAddress, "Email", new { @class = "col-xs-1 control-label" })
+            <input name="EmailAddress" type="email" value="@Model.EmailAddress" class="form-control" />
             @Html.ValidationMessageFor(m => m.EmailAddress)
         </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.PhoneNumber)
-            <input name="PhoneNumber" type="tel" value="@Model.PhoneNumber" />
+        <div class="form-group row">
+            @Html.LabelFor(m => m.PhoneNumber, "Phone", new { @class = "col-xs-1 control-label" })
+            <input name="PhoneNumber" type="tel" value="@Model.PhoneNumber" class="form-control" />
             @Html.ValidationMessageFor(m => m.PhoneNumber)
         </div>
         
         <div class="btn-group">
             <button type="submit" class="btn btn-primary">OK</button>
-            <a href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn">Cancel</a>            
+            <a type="button" href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn btn-default" role="button">Cancel</a>            
         </div>
+       
     }
 </div>

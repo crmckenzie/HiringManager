@@ -1,36 +1,40 @@
-﻿@model HiringManager.Web.Models.IndexViewModel<HiringManager.Web.Models.Positions.PositionSummaryIndexItem>
-    @{
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+﻿@using HiringManager.Web.Models
+@using HiringManager.Web.Models.Positions
 
-    <h2>Open Positions</h2>
-    <div class="container-fluid span12">
-        <div class="container btn-group">
-            <a href="@Url.Action("Create")" class="btn" type="button">New</a>
-        </div>
-        <div class="container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Position</th>
-                        <th>Created</th>
-                        <th>Status</th>
-                        <th>Candidates Awaiting Review</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Data)
-                    {
-                        <tr>
-                            <td>@item.Title</td>
-                            <td>@item.CreatedByName</td>
-                            <td>@Html.ActionLink(item.Status, "Index", "Positions", new { status = item.Status }, null)</td>
-                            <td>@Html.ActionLink(item.CandidatesAwaitingReview.ToString(), "Candidates", new { id = item.PositionId })</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+@model IndexViewModel<PositionSummaryIndexItem>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-        </div>
+<h2>Open Positions</h2>
+    
+<div class="container row col-md-2">
+    <div class="btn-group">
+        <a href="@Url.Action("Create")" class="btn btn-default" role="button">New</a>
+    </div>    
+</div>
 
-    </div>
+<div class="container row col-md-12">
+    <table class="table table-bordered table-hover table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Candidates Awaiting Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Data)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Title, MVC.Positions.Candidates(item.PositionId))</td>
+                    <td>@item.CreatedByName</td>
+                    <td>@Html.ActionLink(item.Status, "Index", "Positions", new {status = item.Status}, null)</td>
+                    <td>@item.CandidatesAwaitingReview.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
