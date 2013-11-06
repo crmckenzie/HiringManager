@@ -7,18 +7,18 @@
 
 <h2>Create Position</h2>
 <div class="container-fluid span12">
-    <form action="Create" method="POST" class="form-horizontal">
-        <div class="form-group row">
-            @Html.LabelFor(m => m.Title, "Title", new {@class="col-xs-2 control-label"})
+    <form action="Create" method="POST">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, "Title")
             @Html.TextBoxFor(m => m.Title, new {placeholder = "Position Title", @class="form-control"})
-            <span class="help-inline">*</span>
             @Html.ValidationMessageFor(m => m.Title)
         </div>
         
-        <div class="form-group row">
-            @Html.LabelFor(m => m.OpenDate, "Open Date", new { @class = "col-xs-2 control-label" })
-            @Html.TextBoxFor(m => m.OpenDate, new {placeholder = "Open Date", @class="k-ui-datepicker form-control"})
-            <span class="help-inline">*</span>
+        <div class="form-group">
+            @Html.LabelFor(m => m.OpenDate, "Open Date")
+            <div>
+                @Html.TextBoxFor(m => m.OpenDate, new { placeholder = "Open Date", @class = "k-ui-datepicker form-control" })
+            </div>
             @Html.ValidationMessageFor(m => m.OpenDate)
         </div>
         

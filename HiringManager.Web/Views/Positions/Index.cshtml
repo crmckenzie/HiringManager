@@ -9,14 +9,19 @@
 <h2>Open Positions</h2>
     
 <div class="container row col-md-2">
-    <div class="btn-group">
-        <a href="@Url.Action("Create")" class="btn btn-default" role="button">New</a>
-    </div>    
+   
 </div>
 
 <div class="container row col-md-12">
     <table class="table table-bordered table-hover table-striped table-responsive">
         <thead>
+            <tr>
+                <td colspan="4">
+                    <div class="btn-group">
+                        <a href="@Url.Action("Create")" class="btn btn-default" role="button">New Position</a>
+                    </div>                    
+                </td>
+            </tr>
             <tr>
                 <th>Position</th>
                 <th>Created</th>
