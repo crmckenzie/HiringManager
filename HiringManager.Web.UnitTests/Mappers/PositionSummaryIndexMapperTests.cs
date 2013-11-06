@@ -48,7 +48,7 @@ namespace HiringManager.Web.UnitTests.Mappers
 
             Assert.That(actual.CandidatesAwaitingReview, Is.EqualTo(expected.CandidatesAwaitingReview));
             Assert.That(actual.OpenDate, Is.EqualTo(expected.OpenDate));
-            Assert.That(actual.CreatedByName, Is.EqualTo(expected.CreatedByName));
+            Assert.That(actual.CreatedByName, Is.EqualTo(expected.CreatedByName), "CreatedByName");
             Assert.That(actual.Title, Is.EqualTo(expected.Title));
             Assert.That(actual.Status, Is.EqualTo(expected.Status));
         }

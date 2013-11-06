@@ -6,31 +6,30 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<div class="container-fluid span12">
-    @using (Html.BeginForm())
-    {
-        @Html.HiddenFor(m => m.PositionId)
-        @Html.HiddenFor(m => m.CandidateStatusId)
-        <div class="container-fluid">
-            <div class="control-group">
-                @Html.LabelFor(m => m.PositionTitle)
-                @Html.DisplayFor(m => m.PositionTitle)
-            </div>
-            <div class="control-group">
-                @Html.LabelFor(m => m.CandidateName)
-                @Html.DisplayFor(m => m.CandidateName)            
-            </div>
-            <div class="control-group">
-                @Html.LabelFor(m => m.Status)
-                @Html.DisplayFor(m => m.Status)
-            </div>
-            <p>
-                Are you sure you wish to pass on this candidate?
-            </p>
-        </div>
-        <div class="btn-group">
-            <button type="submit" class="btn btn-primary">Ok</button>
-            <a href="@Url.Action("Candidates", new {id=Model.PositionId})" class="btn">Cancel</a>
-        </div>
-    } 
-</div>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.PositionId)
+    @Html.HiddenFor(m => m.CandidateStatusId)
+    <div class="control-group">
+        @Html.LabelFor(m => m.PositionTitle)
+        <br/>
+        @Html.DisplayFor(m => m.PositionTitle)
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.CandidateName)
+        <br/>
+        @Html.DisplayFor(m => m.CandidateName)            
+    </div>
+    <div class="control-group">
+        @Html.LabelFor(m => m.Status)
+        <br/>
+        @Html.DisplayFor(m => m.Status)
+    </div>
+    <p class=" well text-primary">
+        Are you sure you wish to pass on this candidate?
+    </p>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary">Ok</button>
+        <a class="btn btn-default" href="@Url.Action("Candidates", new {id=Model.PositionId})" class="btn">Cancel</a>
+    </div>
+} 

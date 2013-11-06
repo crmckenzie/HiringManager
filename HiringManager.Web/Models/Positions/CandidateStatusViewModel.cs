@@ -10,6 +10,8 @@ namespace HiringManager.Web.Models.Positions
         public string PositionTitle { get; set; }
 
         public int CandidateId { get; set; }
+
+        [Display(Prompt = "Candidate Name")]
         public string CandidateName { get; set; }
 
         public string Status { get; set; }

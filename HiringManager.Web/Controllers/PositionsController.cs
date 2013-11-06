@@ -8,7 +8,7 @@ using HiringManager.Web.Models.Positions;
 namespace HiringManager.Web.Controllers
 {
     [Authorize]
-    public class PositionsController : Controller
+    public partial class PositionsController : Controller
     {
         private readonly IPositionService _positionService;
         private readonly IFluentMapper _fluentMapper;
@@ -23,7 +23,7 @@ namespace HiringManager.Web.Controllers
             _clock = clock;
         }
 
-        public ViewResult Index(string status)
+        public virtual ViewResult Index(string status)
         {
             var request = new QueryPositionSummariesRequest()
                           {
@@ -41,7 +41,7 @@ namespace HiringManager.Web.Controllers
             return View(viewModel);
         }
 
-        public ViewResult Create()
+        public virtual ViewResult Create()
         {
             var viewModel = new CreatePositionViewModel()
                             {
@@ -51,7 +51,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreatePositionViewModel viewModel)
+        public virtual ActionResult Create(CreatePositionViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace HiringManager.Web.Controllers
             return View(viewModel);
         }
 
-        public ViewResult Candidates(int id)
+        public virtual ViewResult Candidates(int id)
         {
             var details = this._positionService.Details(id);
             var viewModel = this._fluentMapper
@@ -77,7 +77,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpGet]
-        public ViewResult AddCandidate(int id)
+        public virtual ViewResult AddCandidate(int id)
         {
             var viewModel = new AddCandidateViewModel()
                             {
@@ -87,7 +87,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCandidate(AddCandidateViewModel viewModel)
+        public virtual ActionResult AddCandidate(AddCandidateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpGet]
-        public ViewResult Pass(int id)
+        public virtual ViewResult Pass(int id)
         {
             var details = this._positionService.GetCandidateStatusDetails(id);
             var viewModel = this._fluentMapper
@@ -116,7 +116,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Pass(CandidateStatusViewModel model)
+        public virtual ActionResult Pass(CandidateStatusViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpGet]
-        public ViewResult Status(int id)
+        public virtual ViewResult Status(int id)
         {
             var details = this._positionService.GetCandidateStatusDetails(id);
             var viewModel = this._fluentMapper
@@ -139,7 +139,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Status(CandidateStatusViewModel model)
+        public virtual ActionResult Status(CandidateStatusViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -150,7 +150,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpGet]
-        public ViewResult Hire(int id)
+        public virtual ViewResult Hire(int id)
         {
             var details = this._positionService.GetCandidateStatusDetails(id);
             var viewModel = this._fluentMapper
@@ -162,7 +162,7 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Hire(CandidateStatusViewModel model)
+        public virtual ActionResult Hire(CandidateStatusViewModel model)
         {
             if (ModelState.IsValid)
             {

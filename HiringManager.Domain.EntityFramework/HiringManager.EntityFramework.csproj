@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201311051741447_InitialCreate.Designer.cs">
       <DependentUpon>201311051741447_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311060021096_Position CreatedBy Relationship.cs" />
+    <Compile Include="Migrations\201311060021096_Position CreatedBy Relationship.Designer.cs">
+      <DependentUpon>201311060021096_Position CreatedBy Relationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
@@ -78,6 +82,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201311051741447_InitialCreate.resx">
       <DependentUpon>201311051741447_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311060021096_Position CreatedBy Relationship.resx">
+      <DependentUpon>201311060021096_Position CreatedBy Relationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
