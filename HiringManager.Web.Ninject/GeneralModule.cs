@@ -53,7 +53,13 @@ namespace HiringManager.Web.Ninject
             Kernel.Bind<IRepository>().To<Repository>();
 
             Kernel.Bind<IPrincipal>()
-                .ToMethod(context => HttpContext.Current.User)
+                .ToMethod(context =>
+                          {
+                              if (HttpContext.Current != null)
+                                  return HttpContext.Current.User;
+
+                              return System.Threading.Thread.CurrentPrincipal;
+                          })
                 ;
         }
     }

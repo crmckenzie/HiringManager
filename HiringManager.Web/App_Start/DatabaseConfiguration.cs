@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Interception;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -12,29 +13,32 @@ using Configuration = HiringManager.EntityFramework.Migrations.Configuration;
 
 namespace HiringManager.Web.App_Start
 {
-    public static class DatabaseConfiguration
+    public class DatabaseConfiguration : DbConfiguration
     {
         public static void Configure()
         {
-            try
+            foreach (var connectionString in ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>())
             {
-                foreach (var connectionString in ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>()
-                    )
-                {
-                    var message = string.Format("Connection String Name: {0}; Value: {1}; Provider: {2};",
-                        connectionString.Name, connectionString.ConnectionString, connectionString.ProviderName);
-                    Trace.WriteLine(message);
-
-                    Database.SetInitializer(new MigrateDatabaseToLatestVersion<Repository, Configuration>());
-
-
-                    new Repository().Database.Initialize(force: false);
-                }
+                var message = string.Format("Connection String Name: {0}; Value: {1}; Provider: {2};",
+                    connectionString.Name, connectionString.ConnectionString, connectionString.ProviderName);
+                Trace.WriteLine(message);
             }
-            catch (Exception e)
-            {
-                throw;
-            }
+
+            SetConfiguration(new DatabaseConfiguration());
+            new Repository().Database.Initialize(force: false);
         }
+
+        public DatabaseConfiguration()
+        {
+            var migrateDatabaseToLatestVersion = new MigrateDatabaseToLatestVersion<Repository, Configuration>();
+            base.SetDatabaseInitializer(migrateDatabaseToLatestVersion);
+
+            var databaseLogFormatter = new DatabaseLogFormatter(row => Trace.WriteLine(row));
+            base.AddInterceptor(databaseLogFormatter);
+        }
+
+
     }
+
+
 }
