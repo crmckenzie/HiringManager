@@ -22,9 +22,9 @@ namespace HiringManager.Web.Integration.Tests
                 
                 //    Database.Delete(nameOrConnectionString);
 
-                DatabaseConfiguration.Configure();
+//                DatabaseConfiguration.Configure();
 
-                //Database.SetInitializer(new DropCreateDatabaseAlways<Repository>());
+                Database.SetInitializer(new DropCreateDatabaseAlways<Repository>());
                 //new Repository().Database.Initialize(force: true);
 
 

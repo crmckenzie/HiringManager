@@ -27,8 +27,10 @@ namespace HiringManager.EntityModel
         public virtual IList<CandidateStatus> Candidates { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string Status { get; set; }
 
+        [StringLength(250)]
         public string Title { get; set; }
         public DateTime? OpenDate { get; set; }
         public DateTime? FilledDate { get; set; }

@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace HiringManager.EntityModel
 {
     public class CandidateStatus
@@ -11,6 +13,7 @@ namespace HiringManager.EntityModel
         public int? PositionId { get; set; }
         public virtual Position Position { get; set; }
 
+        [StringLength(50)]
         public string Status { get; set; }
     }
 }

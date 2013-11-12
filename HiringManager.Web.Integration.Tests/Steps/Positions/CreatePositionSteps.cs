@@ -73,7 +73,15 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Then(@"the requested position should have a status of '(.*)'")]
         public void ThenTheRequestedPositionShouldHaveAStatusOf(string p0)
         {
-            ScenarioContext.Current.Pending();
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index("Open") as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+            var viewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
+
+            var targetRecord =
+                model.Data.SingleOrDefault(row => row.Title == viewModel.Title && row.OpenDate == viewModel.OpenDate);
+
+            Assert.That(targetRecord.Status, Is.EqualTo("Open"));
         }
 
     }

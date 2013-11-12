@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HiringManager.EntityModel
 {
@@ -13,6 +14,8 @@ namespace HiringManager.EntityModel
         }
 
         public int? CandidateId { get; set; }
+
+        [StringLength(250)]
         public string Name { get; set; }
 
         public virtual IList<ContactInfo> ContactInfo { get; set; } 

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using HiringManager.EntityFramework;
-using HiringManager.Web.Models;
-using HiringManager.Web.Models.Accounts;
 using Configuration = HiringManager.EntityFramework.Migrations.Configuration;
-
+  
 namespace HiringManager.Web.App_Start
 {
     public class DatabaseConfiguration : DbConfiguration
