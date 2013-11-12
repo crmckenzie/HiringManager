@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System.Configuration;
+using System.Data.Entity;
+using System.Diagnostics;
+using System.Linq;
 using HiringManager.EntityFramework;
 using HiringManager.Web.App_Start;
 using Ninject;
@@ -17,16 +20,12 @@ namespace HiringManager.Web.Integration.Tests
         {
             if (!current.ContainsKey("Ninject.Kernel"))
             {
-                //var nameOrConnectionString = typeof(Repository).FullName;
-                //if (Database.Exists(nameOrConnectionString))
-                
-                //    Database.Delete(nameOrConnectionString);
-
-//                DatabaseConfiguration.Configure();
-
-                Database.SetInitializer(new DropCreateDatabaseAlways<Repository>());
-                //new Repository().Database.Initialize(force: true);
-
+                foreach (var connectionString in System.Configuration.ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>())
+                {
+                    var message = string.Format("Connection String Name: {0}; Value: {1}; Provider: {2};",
+                        connectionString.Name, connectionString.ConnectionString, connectionString.ProviderName);
+                    Trace.WriteLine(message);
+                }
 
                 var kernel = IntegrationTestConfiguration.Configure();
                 current.Add("Ninject.Kernel", kernel);

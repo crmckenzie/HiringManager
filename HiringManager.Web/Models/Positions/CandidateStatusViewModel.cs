@@ -6,6 +6,7 @@ namespace HiringManager.Web.Models.Positions
     {
         public int CandidateStatusId { get; set; }
         public int PositionId { get; set; }
+
         [Display(Name = "Position Title")]
         public string PositionTitle { get; set; }
 

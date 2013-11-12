@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using HiringManager.EntityModel;
 
@@ -51,6 +52,11 @@ namespace HiringManager.EntityFramework
             modelBuilder.Entity<Manager>();
             modelBuilder.Entity<Message>();
             modelBuilder.Entity<Position>();
+        }
+
+        public Repository()
+        {
+            Trace.WriteLine("Connecting to: " + base.Database.Connection.ConnectionString);
         }
     }
 }
