@@ -96,10 +96,11 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var response = controller.Create(viewModel) as RedirectToRouteResult;            
         }
 
+
         [When(@"I receive resumes from the following candidates")]
+        [Given(@"I have received resumes from the following candidates")]
         public void WhenIReceiveResumesFromTheFollowingCandidates(Table table)
         {
-
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
             var view = controller.Index("Open") as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
@@ -113,6 +114,59 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
                 addCandidateViewModel.PositionId = positionSummaryItem.PositionId;
                 controller.AddCandidate(addCandidateViewModel);
             }
+        }
+
+        [When(@"I pass on the candidate '(.*)'")]
+        public void WhenIPassOnTheCandidate(string candidateName)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index("Open") as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+            var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
+            var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
+            var positionDetailsView = controller.Candidates(positionSummaryItem.PositionId) as ViewResult;
+            var positionCandidatesViewModel = positionDetailsView.Model as PositionCandidatesViewModel;
+
+            var candidateViewModel =
+                positionCandidatesViewModel.Candidates.Single(row => row.CandidateName == candidateName);
+
+            var response = controller.Pass(new CandidateStatusViewModel()
+                            {
+                                CandidateId = candidateViewModel.CandidateId,
+                                CandidateName = candidateViewModel.CandidateName,
+                                CandidateStatusId = candidateViewModel.CandidateStatusId,
+                                PositionId = positionCandidatesViewModel.PositionId,
+                                PositionTitle = positionCandidatesViewModel.Title,
+                                Status = positionCandidatesViewModel.Status,
+                            });
+
+
+
+        }
+
+        [When(@"I set the candidate status for '(.*)' to '(.*)'")]
+        public void WhenISetTheCandidateStatusForTo(string candidateName, string status)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index("Open") as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+            var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
+            var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
+            var positionDetailsView = controller.Candidates(positionSummaryItem.PositionId) as ViewResult;
+            var positionCandidatesViewModel = positionDetailsView.Model as PositionCandidatesViewModel;
+
+            var candidateViewModel =
+                positionCandidatesViewModel.Candidates.Single(row => row.CandidateName == candidateName);
+
+            var response = controller.Status(new CandidateStatusViewModel()
+            {
+                CandidateId = candidateViewModel.CandidateId,
+                CandidateName = candidateViewModel.CandidateName,
+                CandidateStatusId = candidateViewModel.CandidateStatusId,
+                PositionId = positionCandidatesViewModel.PositionId,
+                PositionTitle = positionCandidatesViewModel.Title,
+                Status = status,
+            });
         }
 
         [Then(@"the requested position should have a (.*) candidate\(s\) awaiting review count")]
