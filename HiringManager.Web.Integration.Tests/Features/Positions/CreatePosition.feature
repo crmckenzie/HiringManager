@@ -47,3 +47,17 @@ Scenario: Pass on a Candidate
 	| Name     | EmailAddress | PhoneNumber  | Status          |
 	| Fred Bob | fred@bob.com | 555-123-1234 | Passed          |
 	| Bob Fred | bob@fred.com | 555-234-1231 | Resume Received |
+
+Scenario: Hire Candidate
+	Given I have created the position 'Senior Software Developer' to start on 'June 1, 2011'
+	And I have received resumes from the following candidates
+	| Name     | EmailAddress | PhoneNumber  |
+	| Fred Bob | fred@bob.com | 555-123-1234 |
+	| Bob Fred | bob@fred.com | 555-234-1231 |
+	When I hire the candidate 'Fred Bob'
+	Then the requested position should have a 0 candidate(s) awaiting review count
+	And the position details should contain the following candidates
+	| Name     | EmailAddress | PhoneNumber  | Status |
+	| Fred Bob | fred@bob.com | 555-123-1234 | Hired  |
+	| Bob Fred | bob@fred.com | 555-234-1231 | Passed |
+	And the position should be filled by 'Fred Bob' on 'Today'

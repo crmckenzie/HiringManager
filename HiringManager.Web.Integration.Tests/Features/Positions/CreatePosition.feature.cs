@@ -237,6 +237,59 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Hire Candidate")]
+        public virtual void HireCandidate()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Hire Candidate", ((string[])(null)));
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 52
+ testRunner.Given("I have created the position \'Senior Software Developer\' to start on \'June 1, 2011" +
+                    "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "EmailAddress",
+                        "PhoneNumber"});
+            table7.AddRow(new string[] {
+                        "Fred Bob",
+                        "fred@bob.com",
+                        "555-123-1234"});
+            table7.AddRow(new string[] {
+                        "Bob Fred",
+                        "bob@fred.com",
+                        "555-234-1231"});
+#line 53
+ testRunner.And("I have received resumes from the following candidates", ((string)(null)), table7, "And ");
+#line 57
+ testRunner.When("I hire the candidate \'Fred Bob\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
+ testRunner.Then("the requested position should have a 0 candidate(s) awaiting review count", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "EmailAddress",
+                        "PhoneNumber",
+                        "Status"});
+            table8.AddRow(new string[] {
+                        "Fred Bob",
+                        "fred@bob.com",
+                        "555-123-1234",
+                        "Hired"});
+            table8.AddRow(new string[] {
+                        "Bob Fred",
+                        "bob@fred.com",
+                        "555-234-1231",
+                        "Passed"});
+#line 59
+ testRunner.And("the position details should contain the following candidates", ((string)(null)), table8, "And ");
+#line 63
+ testRunner.And("the position should be filled by \'Fred Bob\' on \'Today\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

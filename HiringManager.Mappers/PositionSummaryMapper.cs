@@ -10,7 +10,9 @@ namespace HiringManager.Mappers
         {
             var result = AutoMapper.Mapper.DynamicMap<Position, PositionSummary>(input);
 
-            var passedCandidates = input.Candidates.Where(row => row.Status == "Passed");
+            if (result.Status == "Filled") return result;
+            
+            var passedCandidates = input.Candidates.Where(row => row.Status == "Passed" || row.Status == "Hired");
             var inReview = input.Candidates.Except(passedCandidates);
             result.CandidatesAwaitingReview = inReview.Count();
 

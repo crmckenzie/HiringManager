@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using HiringManager.EntityModel;
@@ -32,7 +33,24 @@ namespace HiringManager.EntityFramework
 
         public void Commit()
         {
-            base.SaveChanges();
+            try
+            {
+                base.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbeve)
+            {
+                foreach (var dbEntityValidationResult in dbeve.EntityValidationErrors)
+                {
+                    var typeName = dbEntityValidationResult.Entry.Entity.GetType().Name;
+                    var message = string.Format("Error saving {0}; {1}", typeName, dbEntityValidationResult.Entry.State.ToString());
+                    Trace.WriteLine(message);
+                    foreach (var dbValidationError in dbEntityValidationResult.ValidationErrors)
+                    {
+                        Trace.WriteLine(dbValidationError.PropertyName + "; " + dbValidationError.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
 
         public T Get<T>(int key) where T:class

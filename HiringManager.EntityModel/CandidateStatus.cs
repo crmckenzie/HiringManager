@@ -8,9 +8,11 @@ namespace HiringManager.EntityModel
     {
         public int? CandidateStatusId { get; set; }
         
+        [ForeignKey("Candidate")]
         public int? CandidateId { get; set; }
         public virtual Candidate Candidate { get; set; }
 
+        [ForeignKey("Position")]
         public int? PositionId { get; set; }
         public virtual Position Position { get; set; }
 

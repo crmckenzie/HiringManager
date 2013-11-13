@@ -15,8 +15,8 @@ namespace HiringManager.Web.Integration.Tests
         {
             base.SetDatabaseInitializer(new DropCreateDatabaseAlways<Repository>());
 
-            var databaseLogFormatter = new DatabaseLogFormatter(message => Trace.WriteLine(message));
-            base.AddInterceptor(databaseLogFormatter);
+            //var databaseLogFormatter = new DatabaseLogFormatter(message => Trace.WriteLine(message));
+            //base.AddInterceptor(databaseLogFormatter);
 
 
         }

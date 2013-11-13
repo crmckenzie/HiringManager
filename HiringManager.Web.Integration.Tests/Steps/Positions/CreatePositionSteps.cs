@@ -169,11 +169,41 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             });
         }
 
+        [When(@"I hire the candidate '(.*)'")]
+        public void WhenIHireTheCandidate(string candidateName)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index("Open") as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+            var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
+            var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
+            var positionDetailsView = controller.Candidates(positionSummaryItem.PositionId) as ViewResult;
+            var positionCandidatesViewModel = positionDetailsView.Model as PositionCandidatesViewModel;
+
+            var candidateViewModel =
+                positionCandidatesViewModel.Candidates.Single(row => row.CandidateName == candidateName);
+
+            var response = controller.Hire(new CandidateStatusViewModel()
+            {
+                CandidateId = candidateViewModel.CandidateId,
+                CandidateName = candidateViewModel.CandidateName,
+                CandidateStatusId = candidateViewModel.CandidateStatusId,
+                PositionId = positionCandidatesViewModel.PositionId,
+                PositionTitle = positionCandidatesViewModel.Title,
+            });
+        }
+
+        [Then(@"the position should be filled by '(.*)' on '(.*)'")]
+        public void ThenThePositionShouldBeFilledByOn(string candidateName, string filledByDate)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
         [Then(@"the requested position should have a (.*) candidate\(s\) awaiting review count")]
         public void ThenTheRequestedPositionShouldHaveACandidateSAwaitingReviewCountOf(int candidatesAwaitingReview)
         {
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var view = controller.Index("Open") as ViewResult;
+            var view = controller.Index(status: null) as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
             var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
@@ -185,7 +215,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         public void ThenThePositionDetailsShouldContainTheFollowingCandidates(Table table)
         {
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var indexView = controller.Index("Open") as ViewResult;
+            var indexView = controller.Index(status: null) as ViewResult;
             var model = indexView.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
             var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
