@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="HiringManager.EntityModel.Candidate">
-    <Position X="5" Y="3" Width="1.5" />
+    <Position X="7.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAAAAYAAAAAEAACAAAAAQAAAAA=</HashCode>
       <FileName>Candidate.cs</FileName>
@@ -9,37 +9,17 @@
     <ShowAsCollectionAssociation>
       <Property Name="ContactInfo" />
       <Property Name="AppliedTo" />
-      <Property Name="Documents" />
-      <Property Name="Messages" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HiringManager.EntityModel.ContactInfo">
     <Position X="3" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgBBAAAAQAgAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAAAAAIAAAAAAgBBAAAAQAgAAAAAAA=</HashCode>
       <FileName>ContactInfo.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Manager" />
       <Property Name="Candidate" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="HiringManager.EntityModel.Document">
-    <Position X="11" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
-      <FileName>Document.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HiringManager.EntityModel.Message">
-    <Position X="8.25" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAIABAAAAAAABBAAEAAAAAAAAAAA=</HashCode>
-      <FileName>Message.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
       <Property Name="Manager" />
-      <Property Name="Candidate" />
     </ShowAsAssociation>
   </Class>
   <Class Name="HiringManager.EntityModel.CandidateStatus">

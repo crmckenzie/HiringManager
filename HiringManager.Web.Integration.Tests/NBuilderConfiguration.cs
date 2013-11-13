@@ -12,11 +12,9 @@ namespace HiringManager.Web.Integration.Tests
             BuilderSetup.DisablePropertyNamingFor<Candidate, int?>(model => model.CandidateId);
 
             BuilderSetup.DisablePropertyNamingFor<CandidateStatus, int?>(model => model.CandidateStatusId);
-            BuilderSetup.DisablePropertyNamingFor<Document, int?>(model => model.DocumentId);
 
             BuilderSetup.DisablePropertyNamingFor<Manager, int?>(model => model.ManagerId);
 
-            BuilderSetup.DisablePropertyNamingFor<Message, int?>(model => model.MessageId);
             return this;
         }
 

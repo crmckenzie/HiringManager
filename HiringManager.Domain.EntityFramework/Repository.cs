@@ -11,9 +11,7 @@ namespace HiringManager.EntityFramework
         internal IDbSet<Candidate> Candidates { get; set; }
         internal IDbSet<CandidateStatus> CandidateStatuses { get; set; }
         internal IDbSet<ContactInfo> ContactInfo { get; set; }
-        internal IDbSet<Document> Documents { get; set; }
         internal IDbSet<Manager> Managers { get; set; }
-        internal IDbSet<Message> Messages { get; set; }
         internal IDbSet<Position> Positions { get; set; }
 
         public IQueryable<T> Query<T>() where T: class
@@ -39,6 +37,8 @@ namespace HiringManager.EntityFramework
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException dbeve)
             {
+                Trace.Indent();
+
                 foreach (var dbEntityValidationResult in dbeve.EntityValidationErrors)
                 {
                     var typeName = dbEntityValidationResult.Entry.Entity.GetType().Name;
@@ -46,9 +46,13 @@ namespace HiringManager.EntityFramework
                     Trace.WriteLine(message);
                     foreach (var dbValidationError in dbEntityValidationResult.ValidationErrors)
                     {
-                        Trace.WriteLine(dbValidationError.PropertyName + "; " + dbValidationError.ErrorMessage);
+                        var errorMessage = dbValidationError.PropertyName + "; " + dbValidationError.ErrorMessage;
+                        Trace.WriteLine(errorMessage);
                     }
                 }
+                Trace.Flush();
+
+                Trace.Unindent();
                 throw;
             }
         }
@@ -63,18 +67,32 @@ namespace HiringManager.EntityFramework
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Candidate>();
+            modelBuilder.Entity<Candidate>()
+                .HasMany(row => row.AppliedTo)
+                .WithRequired(row => row.Candidate)
+                ;
             modelBuilder.Entity<CandidateStatus>();
             modelBuilder.Entity<ContactInfo>();
-            modelBuilder.Entity<Document>();
-            modelBuilder.Entity<Manager>();
-            modelBuilder.Entity<Message>();
-            modelBuilder.Entity<Position>();
+            modelBuilder.Entity<Manager>()
+                ;
+
+
+
+            modelBuilder.Entity<Position>()
+                .HasMany(row => row.Candidates)
+                .WithRequired(row => row.Position)
+                ;
+
+            modelBuilder.Entity<Position>()
+                .HasRequired(row => row.CreatedBy)
+                .WithMany(row => row.Positions)
+                ;
+
+            modelBuilder.Entity<Position>()
+                .HasOptional(row => row.FilledBy)
+                ;
+
         }
 
-        public Repository()
-        {
-            Trace.WriteLine("Connecting to: " + base.Database.Connection.ConnectionString);
-        }
     }
 }

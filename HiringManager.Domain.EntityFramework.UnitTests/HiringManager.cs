@@ -68,5 +68,84 @@ namespace HiringManager.Domain.EntityFramework.UnitTests
             }
 
         }
+
+        [Test]
+        public void AddCandidateUsingReferences()
+        {
+            using (var repository = new Repository())
+            {
+                var hiringManager = Builder<Manager>
+                    .CreateNew()
+                    .Build()
+                    ;
+
+                var position = Builder<Position>
+                    .CreateNew()
+                    .Do(row => row.CreatedBy = hiringManager)
+                    .Build()
+                    ;
+
+                var candidate = Builder<Candidate>
+                    .CreateNew()
+                    .Build()
+                    ;
+
+                var candidateStatus = new CandidateStatus()
+                                      {
+                                          Candidate = candidate,
+                                          Position = position,
+                                          Status = "Resume Received"
+                                      };
+
+                repository.Store(hiringManager);
+                repository.Store(position);
+                repository.Store(candidate);
+                repository.Store(candidateStatus);
+
+                repository.Commit();
+
+
+            }
+
+        }
+
+        [Test]
+        public void AddCandidateUsingIds()
+        {
+            using (var repository = new Repository())
+            {
+                var hiringManager = Builder<Manager>
+                    .CreateNew()
+                    .Build()
+                    ;
+
+                var position = Builder<Position>
+                    .CreateNew()
+                    .Do(row => row.CreatedBy = hiringManager)
+                    .Build()
+                    ;
+
+                var candidate = Builder<Candidate>
+                    .CreateNew()
+                    .Build()
+                    ;
+
+                var candidateStatus = new CandidateStatus()
+                {
+                    CandidateId = candidate.CandidateId,
+                    PositionId = position.PositionId,
+                    Status = "Resume Received"
+                };
+
+                repository.Store(hiringManager);
+                repository.Store(position);
+                repository.Store(candidate);
+                repository.Store(candidateStatus);
+
+                repository.Commit();
+
+
+            }
+        }
     }
 }
