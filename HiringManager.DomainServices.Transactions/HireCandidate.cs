@@ -17,20 +17,26 @@ namespace HiringManager.DomainServices.Transactions
 
         public CandidateStatusResponse Execute(HireCandidateRequest request)
         {
-            var candidateStatus = _repository.Get<CandidateStatus>(request.CandidateStatusId);
-            var candidate = candidateStatus.Candidate;
-            candidateStatus.Status = "Hired";
+            var candidateToHire = _repository.Get<CandidateStatus>(request.CandidateStatusId);
+            candidateToHire.Status = "Hired";
             
-            candidateStatus.Position.FilledBy = candidate;
-            candidateStatus.Position.FilledDate = _clock.Now;
-            candidateStatus.Position.Status = "Filled";
+            candidateToHire.Position.FilledBy = candidateToHire.Candidate;
+            candidateToHire.Position.FilledDate = _clock.Now;
+            candidateToHire.Position.Status = "Filled";
+
+            var otherCandidates = candidateToHire.Position.Candidates.ToList();
+            otherCandidates.Remove(candidateToHire);
+            foreach (var candidateStatus in otherCandidates)
+            {
+                candidateStatus.Status = "Passed";
+            }
 
             _repository.Commit();
 
             return new CandidateStatusResponse()
                    {
-                       CandidateStatusId = candidateStatus.CandidateStatusId,
-                       Status = candidateStatus.Status,
+                       CandidateStatusId = candidateToHire.CandidateStatusId,
+                       Status = candidateToHire.Status,
                    };
         }
     }

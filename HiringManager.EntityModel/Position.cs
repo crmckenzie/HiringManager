@@ -15,21 +15,22 @@ namespace HiringManager.EntityModel
         public int? PositionId { get; set; }
 
         public int? FilledById { get; set; }
+
         public virtual Candidate FilledBy { get; set; }
 
-        [Required]
-        [ForeignKey("CreatedBy")]
         public int CreatedById { get; set; }
 
-        [Required]
         public virtual Manager CreatedBy { get; set; }
 
         public virtual IList<CandidateStatus> Candidates { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string Status { get; set; }
 
+        [StringLength(250)]
         public string Title { get; set; }
+
         public DateTime? OpenDate { get; set; }
         public DateTime? FilledDate { get; set; }
 

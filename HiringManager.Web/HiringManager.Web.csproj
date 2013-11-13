@@ -539,6 +539,10 @@
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HiringManager.EntityFramework.Migrations\HiringManager.EntityFramework.Migrations.csproj">
+      <Project>{26757989-4b6b-48cc-8196-256cd5d6aaab}</Project>
+      <Name>HiringManager.EntityFramework.Migrations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
       <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>
       <Name>HiringManager.Web.Ninject</Name>

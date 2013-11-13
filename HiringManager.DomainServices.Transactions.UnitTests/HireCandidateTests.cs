@@ -73,5 +73,55 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
             this.Repository.Received().Commit();
         }
+
+        [Test]
+        public void OtherCandidatesAreMarkedPassed()
+        {
+            // Arrange
+            var candidate = Builder<Candidate>
+                .CreateNew()
+                .Build()
+                ;
+
+            var position = Builder<Position>
+                .CreateNew()
+                .Build()
+                ;
+
+            var candidateStatuses = Builder<CandidateStatus>
+                .CreateListOfSize(3)
+                .All()
+                .Do(arg =>
+                {
+                    arg.Candidate = candidate;
+                    arg.Position = position;
+                    arg.Status = "Applied";
+
+                    candidate.AppliedTo.Add(arg);
+                    position.Candidates.Add(arg);
+                })
+                .Build()
+                ;
+
+            var hiredStatus = candidateStatuses.Skip(1).First();
+            
+            this.Repository.Get<CandidateStatus>(hiredStatus.CandidateStatusId.Value).Returns(hiredStatus);
+
+            // Act
+            var request = new HireCandidateRequest()
+            {
+                CandidateStatusId = hiredStatus.CandidateStatusId.Value
+            };
+            var response = this.Command.Execute(request);
+
+            // Assert
+            candidateStatuses.Remove(hiredStatus);
+
+            foreach (var candidateStatus in candidateStatuses)
+            {
+                Assert.That(candidateStatus.Status, Is.EqualTo("Passed"));
+            }
+
+        }
     }
 }

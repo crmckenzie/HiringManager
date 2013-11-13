@@ -135,6 +135,14 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Received()
                 .CreatePosition(request)
                 ;
+
+            var redirect = result as RedirectToRouteResult;
+
+            Assert.That(redirect, Is.Not.Null);
+            Assert.That(redirect.RouteValues["action"], Is.EqualTo("Index"));
+            Assert.That(redirect.RouteValues["controller"], Is.EqualTo("Positions"));
+            Assert.That(redirect.RouteValues["status"], Is.EqualTo("Open"));
+
         }
 
         [Test]

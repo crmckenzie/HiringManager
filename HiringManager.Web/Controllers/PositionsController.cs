@@ -60,7 +60,7 @@ namespace HiringManager.Web.Controllers
                     .From(viewModel)
                     ;
                 this._positionService.CreatePosition(request);
-                return RedirectToAction("Index", "Positions");
+                return RedirectToAction(MVC.Positions.Index("Open"));
             }
             return View(viewModel);
         }
