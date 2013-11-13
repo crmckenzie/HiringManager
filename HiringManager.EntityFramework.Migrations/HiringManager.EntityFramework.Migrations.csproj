@@ -62,6 +62,10 @@
       <DependentUpon>201311090001082_StringFieldLengths.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
+    <Compile Include="201311132048309_FkClarification.cs" />
+    <Compile Include="201311132048309_FkClarification.Designer.cs">
+      <DependentUpon>201311132048309_FkClarification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="201311090001082_StringFieldLengths.resx">
       <DependentUpon>201311090001082_StringFieldLengths.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="201311132048309_FkClarification.resx">
+      <DependentUpon>201311132048309_FkClarification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
