@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Web.Mvc;
 using HiringManager.Web.Controllers;
@@ -194,9 +195,25 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         }
 
         [Then(@"the position should be filled by '(.*)' on '(.*)'")]
-        public void ThenThePositionShouldBeFilledByOn(string candidateName, string filledByDate)
+        public void ThenThePositionShouldBeFilledByOn(string candidateName, string filledByDateArg)
         {
-            ScenarioContext.Current.Pending();
+            DateTime? filledByDate = null;
+            if (filledByDateArg == "Today")
+            {
+                filledByDate = DateTime.Today;
+            }
+            else if (!string.IsNullOrWhiteSpace(filledByDateArg))
+            {
+                filledByDate = DateTime.Parse(filledByDateArg);
+            }
+
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index(status: null) as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+            var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
+            var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
+            Assert.That(positionSummaryItem.FilledByName, Is.EqualTo(candidateName));
+            Assert.That(positionSummaryItem.FilledDate.Date, Is.EqualTo(filledByDate));
         }
 
         [Then(@"the requested position should have a (.*) candidate\(s\) awaiting review count")]
