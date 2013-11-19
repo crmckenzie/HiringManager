@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Data.Entity;
 using FizzWare.NBuilder;
 using HiringManager.EntityFramework;
 using HiringManager.EntityModel;
 using NUnit.Framework;
 
-namespace HiringManager.Domain.EntityFramework.UnitTests
+namespace HiringManager.Domain.EntityFramework.IntegrationTests
 {
     [TestFixture]
     public class HiringManagerTests

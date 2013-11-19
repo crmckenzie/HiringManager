@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.Web.Ninject",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.EntityFramework", "HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj", "{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.EntityFramework.UnitTests", "HiringManager.Domain.EntityFramework.UnitTests\HiringManager.EntityFramework.UnitTests.csproj", "{62A22E4D-9699-424F-835E-409BAE6CCF8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.EntityFramework.IntegrationTests", "HiringManager.Domain.EntityFramework.UnitTests\HiringManager.EntityFramework.IntegrationTests.csproj", "{62A22E4D-9699-424F-835E-409BAE6CCF8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.DomainServices.Transactions", "HiringManager.DomainServices.Transactions\HiringManager.DomainServices.Transactions.csproj", "{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}"
 EndProject
@@ -50,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B2C909
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration Tests", "Integration Tests", "{C0F66176-DBAD-434C-B050-63598BD07563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.Web.Integration.Tests", "HiringManager.Web.Integration.Tests\HiringManager.Web.Integration.Tests.csproj", "{4A30FC22-4086-430C-B50D-B51AEBE488F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.Web.Integration.IntegrationTests", "HiringManager.Web.Integration.Tests\HiringManager.Web.Integration.IntegrationTests.csproj", "{4A30FC22-4086-430C-B50D-B51AEBE488F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.EntityFramework.Migrations", "HiringManager.EntityFramework.Migrations\HiringManager.EntityFramework.Migrations.csproj", "{26757989-4B6B-48CC-8196-256CD5D6AAAB}"
 EndProject
@@ -139,7 +139,6 @@ Global
 		{77B8DB13-EC9D-4E56-B298-083B04A8D167} = {EBC440B8-A54B-4AA4-8BC8-A1D8ED0C55AD}
 		{24CF5B92-CD60-4E10-89E8-722327EE3F95} = {34B2C909-9139-449B-BB06-58949F6A1AD2}
 		{C0F66176-DBAD-434C-B050-63598BD07563} = {34B2C909-9139-449B-BB06-58949F6A1AD2}
-		{62A22E4D-9699-424F-835E-409BAE6CCF8C} = {24CF5B92-CD60-4E10-89E8-722327EE3F95}
 		{CCA019CB-F851-4C5F-BC8D-64A4B239D106} = {24CF5B92-CD60-4E10-89E8-722327EE3F95}
 		{DB83D5B0-E165-4C15-9CA7-6C76F996B805} = {24CF5B92-CD60-4E10-89E8-722327EE3F95}
 		{F5EDD768-C081-406A-838C-3E1B5B40B940} = {24CF5B92-CD60-4E10-89E8-722327EE3F95}
@@ -147,5 +146,6 @@ Global
 		{72D83EDA-19FF-40B3-9107-EC9F8C18763F} = {24CF5B92-CD60-4E10-89E8-722327EE3F95}
 		{9406BF32-1749-4A2E-9028-E4D8217F68EF} = {BA66A988-8AF2-43D9-8F65-964645D2F066}
 		{4A30FC22-4086-430C-B50D-B51AEBE488F0} = {C0F66176-DBAD-434C-B050-63598BD07563}
+		{62A22E4D-9699-424F-835E-409BAE6CCF8C} = {C0F66176-DBAD-434C-B050-63598BD07563}
 	EndGlobalSection
 EndGlobal

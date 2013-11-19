@@ -16,10 +16,12 @@ namespace HiringManager.EntityModel
 
         public int? FilledById { get; set; }
 
+        [ForeignKey("FilledById")]
         public virtual Candidate FilledBy { get; set; }
 
         public int CreatedById { get; set; }
 
+        [ForeignKey("CreatedById")]
         public virtual Manager CreatedBy { get; set; }
 
         public virtual IList<CandidateStatus> Candidates { get; set; }

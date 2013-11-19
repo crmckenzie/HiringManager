@@ -62,9 +62,9 @@
       <DependentUpon>201311090001082_StringFieldLengths.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
-    <Compile Include="201311132048309_FkClarification.cs" />
-    <Compile Include="201311132048309_FkClarification.Designer.cs">
-      <DependentUpon>201311132048309_FkClarification.cs</DependentUpon>
+    <Compile Include="201311192144468_FkCleanup.cs" />
+    <Compile Include="201311192144468_FkCleanup.Designer.cs">
+      <DependentUpon>201311192144468_FkCleanup.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,8 +78,8 @@
     <EmbeddedResource Include="201311090001082_StringFieldLengths.resx">
       <DependentUpon>201311090001082_StringFieldLengths.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="201311132048309_FkClarification.resx">
-      <DependentUpon>201311132048309_FkClarification.cs</DependentUpon>
+    <EmbeddedResource Include="201311192144468_FkCleanup.resx">
+      <DependentUpon>201311192144468_FkCleanup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

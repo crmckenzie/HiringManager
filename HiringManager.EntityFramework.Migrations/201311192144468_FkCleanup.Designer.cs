@@ -7,13 +7,13 @@ namespace HiringManager.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.1-21010")]
-    public sealed partial class FkClarification : IMigrationMetadata
+    public sealed partial class FkCleanup : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FkClarification));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FkCleanup));
         
         string IMigrationMetadata.Id
         {
-            get { return "201311132048309_FkClarification"; }
+            get { return "201311192144468_FkCleanup"; }
         }
         
         string IMigrationMetadata.Source

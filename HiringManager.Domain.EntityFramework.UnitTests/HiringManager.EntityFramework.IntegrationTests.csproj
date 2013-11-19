@@ -7,8 +7,8 @@
     <ProjectGuid>{62A22E4D-9699-424F-835E-409BAE6CCF8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HiringManager.Domain.EntityFramework.UnitTests</RootNamespace>
-    <AssemblyName>HiringManager.Domain.EntityFramework.UnitTests</AssemblyName>
+    <RootNamespace>HiringManager.Domain.EntityFramework.IntegrationTests</RootNamespace>
+    <AssemblyName>HiringManager.Domain.EntityFramework.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
