@@ -265,8 +265,6 @@
     <Compile Include="Mappers\Positions\PositionCandidatesViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Accounts\ApplicationDbContext.cs" />
-    <Compile Include="Models\Accounts\ApplicationUser.cs" />
     <Compile Include="Models\Accounts\RegisterManagerViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\Positions\AddCandidateViewModel.cs" />

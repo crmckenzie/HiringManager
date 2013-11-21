@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace HiringManager.Web.Models.Accounts
+namespace HiringManager.DomainServices.Impl
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
