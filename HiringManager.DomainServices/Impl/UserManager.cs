@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -7,13 +6,15 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HiringManager.DomainServices.Impl
 {
+
     public class UserManager : IUserManager
     {
-        private readonly Microsoft.AspNet.Identity.UserManager<ApplicationUser> _db;
+        private readonly UserManager<ApplicationUser> _db;
 
-        public UserManager()
+        public UserManager(UserManager<ApplicationUser> db)
         {
-            this._db = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            this._db = db;
+            _db.ClaimsIdentityFactory = new CustomClaimsIdentityFactory();
         }
 
         public Task<ApplicationUser> FindAsync(string userName, string password)
@@ -64,6 +65,7 @@ namespace HiringManager.DomainServices.Impl
         public Task<ClaimsIdentity> CreateIdentityAsync(ApplicationUser user, string applicationCookie)
         {
             return _db.CreateIdentityAsync(user, applicationCookie);
+        
         }
 
         public ApplicationUser FindById(string getUserId)
