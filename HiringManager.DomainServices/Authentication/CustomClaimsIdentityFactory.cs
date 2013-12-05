@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace HiringManager.DomainServices.Impl
+namespace HiringManager.DomainServices.Authentication
 {
     public class CustomClaimsIdentityFactory : ClaimsIdentityFactory<ApplicationUser>
     {
@@ -29,7 +29,8 @@ namespace HiringManager.DomainServices.Impl
             if (manager.SupportsUserClaim)
                 id.AddClaims(await manager.GetClaimsAsync(user.Id));
 
-            id.Label = user.DisplayName;
+            id.AddClaim(new Claim(Claims.DisplayNameKey, user.DisplayName));
+
             return id;
         }
     }

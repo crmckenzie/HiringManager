@@ -316,7 +316,6 @@ namespace HiringManager.Web.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             _authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);

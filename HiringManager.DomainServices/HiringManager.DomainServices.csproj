@@ -84,14 +84,14 @@
     <Compile Include="AddCandidateRequest.cs" />
     <Compile Include="AddCandidateResponse.cs" />
     <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Authentication\CustomClaimsIdentityFactory.cs" />
+    <Compile Include="Authentication\Claims.cs" />
     <Compile Include="CandidateStatusDetails.cs" />
     <Compile Include="ContactInfoDetails.cs" />
     <Compile Include="CreatePositionRequest.cs" />
     <Compile Include="CreatePositionResponse.cs" />
     <Compile Include="HireCandidateRequest.cs" />
     <Compile Include="CandidateStatusResponse.cs" />
-    <Compile Include="IdentityExtensions.cs" />
-    <Compile Include="Impl\CustomClaimsIdentityFactory.cs" />
     <Compile Include="Impl\DomainServiceBase.cs" />
     <Compile Include="Impl\PositionService.cs" />
     <Compile Include="Impl\UserSession.cs" />
