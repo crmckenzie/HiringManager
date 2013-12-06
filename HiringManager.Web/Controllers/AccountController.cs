@@ -46,10 +46,8 @@ namespace HiringManager.Web.Controllers
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+
+                ModelState.AddModelError("", "Invalid username or password.");
             }
 
             // If we got this far, something failed, redisplay form
