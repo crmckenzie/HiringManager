@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using HiringManager.DomainServices;
+using HiringManager.DomainServices.Impl;
 using HiringManager.Web.Models.Accounts;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using HiringManager.Web.Models;
 
 namespace HiringManager.Web.Controllers
 {
     [Authorize]
     public partial class AccountController : Controller
     {
-        public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-        {
-        }
+        private readonly IAuthenticationManager _authenticationManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(IUserManager userManager, IAuthenticationManager authenticationManager)
         {
+            _authenticationManager = authenticationManager;
             UserManager = userManager;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public IUserManager UserManager { get; private set; }
 
         //
         // GET: /Account/Login
@@ -52,10 +46,8 @@ namespace HiringManager.Web.Controllers
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+
+                ModelState.AddModelError("", "Invalid username or password.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -108,15 +100,10 @@ namespace HiringManager.Web.Controllers
         public virtual async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             ManageMessageId? message = null;
-            IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
-            if (result.Succeeded)
-            {
-                message = ManageMessageId.RemoveLoginSuccess;
-            }
-            else
-            {
-                message = ManageMessageId.Error;
-            }
+            var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
+            var userId = User.Identity.GetUserId();
+            var result = await UserManager.RemoveLoginAsync(userId, userLoginInfo);
+            message = result.Succeeded ? ManageMessageId.RemoveLoginSuccess : ManageMessageId.Error;
             return RedirectToAction("Manage", new { Message = message });
         }
 
@@ -148,7 +135,7 @@ namespace HiringManager.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -162,24 +149,22 @@ namespace HiringManager.Web.Controllers
             else
             {
                 // User does not have a password so remove any validation errors caused by a missing OldPassword field
-                ModelState state = ModelState["OldPassword"];
+                var state = ModelState["OldPassword"];
                 if (state != null)
                 {
                     state.Errors.Clear();
                 }
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid) 
+                    return View(model);
+                
+                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                if (result.Succeeded)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    else
-                    {
-                        AddErrors(result);
-                    }
+                    return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
+                
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -202,7 +187,7 @@ namespace HiringManager.Web.Controllers
         [AllowAnonymous]
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo = await _authenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
@@ -220,7 +205,8 @@ namespace HiringManager.Web.Controllers
                 // If the user does not have an account, then prompt the user to create an account
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+                var externalLoginConfirmationViewModel = new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName };
+                return View("ExternalLoginConfirmation", externalLoginConfirmationViewModel);
             }
         }
 
@@ -238,7 +224,7 @@ namespace HiringManager.Web.Controllers
         // GET: /Account/LinkLoginCallback
         public virtual async Task<ActionResult> LinkLoginCallback()
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
+            var loginInfo = await _authenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
                 return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
@@ -266,7 +252,7 @@ namespace HiringManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                var info = await _authenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
@@ -295,7 +281,7 @@ namespace HiringManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            _authenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -325,23 +311,15 @@ namespace HiringManager.Web.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            _authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+            var authenticationProperties = new AuthenticationProperties() { IsPersistent = isPersistent };
+            _authenticationManager.SignIn(authenticationProperties, identity);
         }
 
         private void AddErrors(IdentityResult result)
@@ -376,13 +354,11 @@ namespace HiringManager.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            
+            return RedirectToAction("Index", "Home");
         }
 
-        private class ChallengeResult : HttpUnauthorizedResult
+        public class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)
                 : this(provider, redirectUri, null)
@@ -410,6 +386,5 @@ namespace HiringManager.Web.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
-        #endregion
     }
 }

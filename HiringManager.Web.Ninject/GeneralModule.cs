@@ -12,6 +12,8 @@ using HiringManager.Mappers;
 using HiringManager.Transactions;
 using HiringManager.Web.Ninject.Mappers;
 using HiringManager.Web.Ninject.Transactions;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
 using Simple.Validation;
@@ -61,6 +63,17 @@ namespace HiringManager.Web.Ninject
                               return System.Threading.Thread.CurrentPrincipal;
                           })
                 ;
+
+            //var applicationDbContext = new ApplicationDbContext();
+            //var userStore = new UserStore<ApplicationUser>(applicationDbContext);
+
+            Kernel.Bind<IUserStore<ApplicationUser>>()
+                .ToMethod(context =>
+                                {
+                                    var applicationDbContext = new ApplicationDbContext();
+                                    var userStore = new UserStore<ApplicationUser>(applicationDbContext);
+                                    return userStore;
+                                });
         }
     }
 }

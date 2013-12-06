@@ -1,4 +1,6 @@
-﻿using HiringManager.Web.Ninject;
+﻿using System.Web;
+using HiringManager.Web.Ninject;
+using Microsoft.Owin.Security;
 using Ninject;
 using Simple.Validation.Ninject;
 using Ninject.Extensions.Conventions;
@@ -20,6 +22,9 @@ namespace HiringManager.Web.Infrastructure.Ninject
                 .BindAllInterfaces()
                 )
                 ;
+
+            kernel.Bind<IAuthenticationManager>()
+                .ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);
 
 
         }

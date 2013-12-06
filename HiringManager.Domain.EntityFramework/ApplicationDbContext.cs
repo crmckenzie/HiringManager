@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using HiringManager.DomainServices;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace HiringManager.Web.Models.Accounts
+namespace HiringManager.EntityFramework
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
