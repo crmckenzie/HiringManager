@@ -106,6 +106,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Positions\AddCandidate.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddCandidate.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Positions\CreatePosition.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,10 +122,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioContextExtensions.cs" />
     <Compile Include="Models\Positions\CandidateStatusDetailsTestModel.cs" />
+    <Compile Include="Steps\Positions\AddCandidateSteps.cs" />
     <Compile Include="Steps\Positions\CreatePositionSteps.cs" />
+    <Compile Include="Steps\Positions\Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\Positions\AddCandidate.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddCandidate.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Positions\CreatePosition.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CreatePosition.feature.cs</LastGenOutput>
