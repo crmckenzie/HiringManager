@@ -40,6 +40,10 @@
                 </li>
                 <li id="nav-bar-area-candidates"><a href="#">Candidates</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Help", MVC.HelpPage.Help.Index())</li>
+            </ul>
+
             @Html.Partial("_LoginPartial")
         </div>
     </div>
