@@ -1,4 +1,5 @@
-﻿@{
+﻿@using HiringManager.Web
+@{
     ViewBag.Title = "About";
 }
 
@@ -32,3 +33,6 @@
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
     </ul>
 </aside>
+<footer>
+    <span><strong>Version: </strong>@typeof(MvcApplication).Assembly.GetName().Version</span>
+</footer>
