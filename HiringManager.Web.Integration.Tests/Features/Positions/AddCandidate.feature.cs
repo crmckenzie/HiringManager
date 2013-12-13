@@ -111,6 +111,62 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Add Candidate after position has been filled")]
+        public virtual void AddCandidateAfterPositionHasBeenFilled()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Candidate after position has been filled", ((string[])(null)));
+#line 21
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "Name",
+                        "Fred Bob"});
+            table2.AddRow(new string[] {
+                        "Email",
+                        "fred@bob.com"});
+            table2.AddRow(new string[] {
+                        "Phone",
+                        "123-456-7890"});
+#line 22
+ testRunner.Given("I have added the following candidate", ((string)(null)), table2, "Given ");
+#line 27
+ testRunner.And("I have hired the candidate \'Fred Bob\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Name",
+                        "Sue Jane"});
+            table3.AddRow(new string[] {
+                        "Email",
+                        "sue@jane.com"});
+            table3.AddRow(new string[] {
+                        "Phone",
+                        "123-456-7890"});
+#line 28
+ testRunner.When("I add the following candidate", ((string)(null)), table3, "When ");
+#line 33
+ testRunner.Then("I should be returned to the Add Candidate page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "PropertyName",
+                        "Message"});
+            table4.AddRow(new string[] {
+                        "PositionId",
+                        "Cannot add a candidate to a filled position."});
+#line 34
+ testRunner.And("the page should report the following errors", ((string)(null)), table4, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

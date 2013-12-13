@@ -6,7 +6,7 @@ using Simple.Validation;
 
 namespace HiringManager.DomainServices.Validators.UnitTests
 {
-    public static class Extensions
+    public static class ValidationExtensions
     {
         public static void AssertIsValidFor(this IEnumerable<ValidationResult> self, ValidationResult template, string format = null, params object[] args)
         {

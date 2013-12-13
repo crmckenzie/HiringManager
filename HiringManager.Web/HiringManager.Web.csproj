@@ -278,6 +278,7 @@
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ValidatedResponseExtensions.cs" />
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
     <Compile Include="Mappers\Positions\AddCandidateViewModelMapper.cs" />
     <Compile Include="Mappers\Positions\CandidateStatusViewModelMapper.cs" />
@@ -565,6 +566,10 @@
     <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj">
       <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
       <Name>HiringManager.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.DomainServices.Validators\HiringManager.DomainServices.Validators.csproj">
+      <Project>{F44AE5B2-6B7E-41DC-B9BA-75F7595ECF74}</Project>
+      <Name>HiringManager.DomainServices.Validators</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>

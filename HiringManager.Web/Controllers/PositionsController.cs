@@ -2,8 +2,10 @@
 using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.Mappers;
+using HiringManager.Web.Infrastructure;
 using HiringManager.Web.Models;
 using HiringManager.Web.Models.Positions;
+using Simple.Validation;
 
 namespace HiringManager.Web.Controllers
 {
@@ -96,7 +98,11 @@ namespace HiringManager.Web.Controllers
                     .From(viewModel);
 
                 var response = this._positionService.AddCandidate(request);
-
+                if (response.ValidationResults.HasErrors())
+                {
+                    response.WriteValidationErrorsTo(ModelState);
+                    return View(viewModel);
+                }
 
                 return RedirectToAction("Candidates", new {id = response.PositionId});
             }
@@ -166,7 +172,13 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                this._positionService.Hire(model.CandidateStatusId);
+                var response = this._positionService.Hire(model.CandidateStatusId);
+                if (response.ValidationResults.HasErrors())
+                {
+                    response.WriteValidationErrorsTo(ModelState);
+                    return View(model);
+                }
+
                 return RedirectToAction("Candidates", new { id = model.PositionId });
             }
             return View(model);

@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using HiringManager.DomainServices.Validators;
 using HiringManager.Web.Ninject;
 using Microsoft.Owin.Security;
 using Ninject;
@@ -20,8 +21,13 @@ namespace HiringManager.Web.Infrastructure.Ninject
                 .SelectAllClasses()
                 .InNamespaces("HiringManager.Web.Mappers")
                 .BindAllInterfaces()
-                )
-                ;
+                );
+
+            kernel.Bind(configuration => configuration
+                .FromAssemblyContaining<AddCandidateRequestValidator>()
+                .SelectAllClasses()
+                .BindAllInterfaces()
+                );
 
             kernel.Bind<IAuthenticationManager>()
                 .ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);

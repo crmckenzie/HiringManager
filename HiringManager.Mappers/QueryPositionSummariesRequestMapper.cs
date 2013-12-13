@@ -1,6 +1,5 @@
 ﻿using HiringManager.EntityModel;
 using HiringManager.DomainServices;
-using HiringManager.EntityModel;
 using HiringManager.EntityModel.Specifications;
 using Isg.Specification;
 
