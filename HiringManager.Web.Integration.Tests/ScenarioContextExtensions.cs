@@ -1,9 +1,11 @@
 ﻿using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Diagnostics;
 using System.Linq;
 using HiringManager.EntityFramework;
 using HiringManager.Web.App_Start;
+using HiringManager.Web.Controllers;
 using Ninject;
 using TechTalk.SpecFlow;
 
@@ -12,6 +14,18 @@ namespace HiringManager.Web.Integration.Tests
     internal static class ScenarioContextExtensions
     {
         public static T GetFromNinject<T>(this ScenarioContext current)
+        {
+            if (!current.ContainsKey(typeof(T).FullName))
+            {
+                var t = current.GetNewInstanceFromNinject<T>();
+                current.Add(typeof(T).FullName, t);
+            }
+            return (T) current[typeof(T).FullName];
+
+        }
+
+
+        public static T GetNewInstanceFromNinject<T>(this ScenarioContext current)
         {
             return current.GetNinjectKernel().Get<T>();
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Simple.Validation;
 
-namespace HiringManager.Web.Ninject.Transactions
+namespace HiringManager.DomainServices
 {
     public interface IValidatedResponse
     {

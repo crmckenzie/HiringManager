@@ -63,6 +63,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Simple.Validation, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.Validation.0.7.1\lib\net40\Simple.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -106,6 +110,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Positions\AddCandidate.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddCandidate.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Positions\CreatePosition.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,10 +126,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioContextExtensions.cs" />
     <Compile Include="Models\Positions\CandidateStatusDetailsTestModel.cs" />
+    <Compile Include="Steps\Positions\AddCandidateSteps.cs" />
     <Compile Include="Steps\Positions\CreatePositionSteps.cs" />
+    <Compile Include="Steps\Positions\Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\Positions\AddCandidate.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddCandidate.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Positions\CreatePosition.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CreatePosition.feature.cs</LastGenOutput>
@@ -146,6 +161,10 @@
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>
       <Name>HiringManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj">
+      <Project>{8EF3434D-873D-4139-9513-758CF15D1097}</Project>
+      <Name>TestHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

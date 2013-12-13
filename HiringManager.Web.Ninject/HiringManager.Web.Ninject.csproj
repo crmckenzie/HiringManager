@@ -85,7 +85,6 @@
     <Compile Include="Transactions\FluentTransactionPipelineSyntax.cs" />
     <Compile Include="Transactions\FluentTransactionRequestSyntax.cs" />
     <Compile Include="Transactions\IPerformanceResponse.cs" />
-    <Compile Include="Transactions\IValidatedResponse.cs" />
     <Compile Include="Transactions\PerformanceStep.cs" />
     <Compile Include="Transactions\ReflectionExtensions.cs" />
     <Compile Include="Transactions\RequestValidationStep.cs" />

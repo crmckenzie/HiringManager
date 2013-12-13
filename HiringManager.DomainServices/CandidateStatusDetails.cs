@@ -19,5 +19,8 @@ namespace HiringManager.DomainServices
         public string Status { get; set; }
 
         public IList<ContactInfoDetails> ContactInfo { get; set; }
+        public bool CanHire { get; set; }
+        public bool CanPass { get; set; }
+        public bool CanSetStatus { get; set; }
     }
 }

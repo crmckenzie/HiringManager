@@ -15,27 +15,6 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
     [Binding]
     public class CreatePositionSteps
     {
-        [Given(@"I want to create the position '(.*)' to start on '(.*)'")]
-        public void GivenIWantToCreateThePositionToStartOn(string positionName, DateTime startDate)
-        {
-            var viewModel = new CreatePositionViewModel()
-                            {
-                                Title = positionName,
-                                OpenDate = startDate,
-                            };
-
-
-            ScenarioContext.Current.Set(viewModel);
-        }
-
-        [When(@"I submit the create position request")]
-        public void WhenISubmitTheCreatePositionRequest()
-        {
-            var viewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var response = controller.Create(viewModel);
-            ScenarioContext.Current.Set(response);
-        }
 
         [Then(@"the I should be redirected to the Position Index page")]
         public void ThenTheIShouldBeRedirectedToThePositionIndexPage()
@@ -67,19 +46,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
         }
 
-        [Then(@"the requested position should have a status of '(.*)'")]
-        public void ThenTheRequestedPositionShouldHaveAStatusOf(string p0)
-        {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var view = controller.Index("Open") as ViewResult;
-            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
-            var viewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
 
-            var targetRecord =
-                model.Data.SingleOrDefault(row => row.Title == viewModel.Title && row.OpenDate == viewModel.OpenDate);
-
-            Assert.That(targetRecord.Status, Is.EqualTo("Open"));
-        }
 
         [Given(@"I have created the position '(.*)' to start on '(.*)'")]
         public void GivenIHaveCreatedThePositionToStartOn(string positionName, DateTime startDate)
@@ -103,7 +70,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         public void WhenIReceiveResumesFromTheFollowingCandidates(Table table)
         {
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var view = controller.Index("Open") as ViewResult;
+            var view = controller.Index("Open");
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
             var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);

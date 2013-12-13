@@ -36,5 +36,9 @@ namespace HiringManager.EntityModel
         public DateTime? OpenDate { get; set; }
         public DateTime? FilledDate { get; set; }
 
+        public bool IsFilled()
+        {
+            return this.FilledBy != null;
+        }
     }
 }

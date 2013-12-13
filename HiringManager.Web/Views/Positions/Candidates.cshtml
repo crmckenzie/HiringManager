@@ -1,4 +1,5 @@
-﻿@model HiringManager.Web.Models.Positions.PositionCandidatesViewModel
+﻿@using HiringManager.DomainServices.Transactions
+@model HiringManager.Web.Models.Positions.PositionCandidatesViewModel
 
 @{
     ViewBag.Title = "Candidates";
@@ -12,7 +13,10 @@
             <tr>
                 <th colspan="4">
                     <div class="btn-group">
-                        <a class="btn btn-default" href="@Url.Action("AddCandidate",new {id=Model.PositionId})" class="btn">New Candidate</a>
+                        @{
+                            var canAdd = Model.CanAddCandidate ? "" : "disabled";
+                        }
+                        <a class="btn btn-default @canAdd" title="Add a candidate to an open position." href="@Url.Action("AddCandidate",new {id=Model.PositionId})">New Candidate</a>
                     </div>
 
                 </th>
@@ -41,10 +45,16 @@
                         @candidate.Status
                     </td>
                     <td>
+                        @{
+                            var canPass = candidate.CanPass ? "" : "disabled";
+                            var canSetStatus = candidate.CanSetStatus ? "" : "disabled";
+                            var canHire = candidate.CanHire ? "" : "disabled";   
+                         }
+
                         <div class="btn-group">
-                            <a class="btn btn-default" href="@Url.Action("Pass", new {id = candidate.CandidateStatusId})" class="btn">Pass</a>
-                            <a class="btn btn-default" href="@Url.Action("Status", new {id = candidate.CandidateStatusId})" class="btn">Set Status</a>
-                            <a class="btn btn-default" href="@Url.Action("Hire", new {id = candidate.CandidateStatusId})" class="btn">Hire</a>
+                            <a class="btn btn-default @canPass" href="@Url.Action("Pass", new {id = candidate.CandidateStatusId})">Pass</a>
+                            <a class="btn btn-default @canSetStatus" href="@Url.Action("Status", new {id = candidate.CandidateStatusId})" >Set Status</a>
+                            <a class="btn btn-default @canHire" href="@Url.Action("Hire", new {id = candidate.CandidateStatusId})">Hire</a>
                         </div>
                     </td>
                 </tr>

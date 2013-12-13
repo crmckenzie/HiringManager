@@ -13,6 +13,8 @@ namespace HiringManager.DomainServices
         public string Title { get; set; }
         public string Status { get; set; }
 
+        public bool CanAddCandidate { get; set; }
+
         public IList<CandidateStatusDetails>  Candidates { get; set; }
     }
 }

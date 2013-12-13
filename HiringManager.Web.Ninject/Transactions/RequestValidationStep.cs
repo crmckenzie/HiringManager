@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using HiringManager.DomainServices;
 using HiringManager.Transactions;
 using Simple.Validation;
 
@@ -18,8 +19,8 @@ namespace HiringManager.Web.Ninject.Transactions
 
         public override TResponse Execute(TRequest request)
         {
-            var isIValidatedResponse = typeof(TResponse).Implements<IValidatedResponse>();
-            if (isIValidatedResponse)
+            var isValidatedResponse = typeof(TResponse).Implements<IValidatedResponse>();
+            if (isValidatedResponse)
             {
                 var requestValidationResults = _validationEngine.Validate(request, _ruleSets).ToArray();
                 if (requestValidationResults.HasErrors())

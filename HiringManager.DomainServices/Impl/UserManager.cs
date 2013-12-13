@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace HiringManager.DomainServices.Impl
 {
 
-    public class UserManager : IUserManager
+    public class UserManager : IUserManager, System.IDisposable
     {
         private readonly UserManager<ApplicationUser> _db;
 
