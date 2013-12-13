@@ -9,6 +9,7 @@
 
 <div class="container">
     <h2>Add Candidate</h2>
+    @Html.ValidationSummary()
     @using (@Html.BeginForm())
     {
         @Html.HiddenFor(m => m.PositionId)

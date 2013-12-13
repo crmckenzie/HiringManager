@@ -73,5 +73,39 @@ namespace HiringManager.Mappers.UnitTests
             }
         }
 
+        [Test]
+        public void CanAddCandidate_WhenPositionOpen()
+        {
+            // Arrange
+            var position = Builder<Position>
+                .CreateNew()
+                .Do(row => row.FilledBy = null)
+                .Build()
+                ;
+
+            // Act
+            var details = this.Mapper.Map(position);
+
+            // Assert
+            Assert.That(details.CanAddCandidate, Is.False);
+        }
+
+        [Test]
+        public void CanAddCandidate_WhenPositionIsFilled()
+        {
+            // Arrange
+            var position = Builder<Position>
+                .CreateNew()
+                .Do(row => row.FilledBy = new Candidate())
+                .Build()
+                ;
+
+            // Act
+            var details = this.Mapper.Map(position);
+
+            // Assert
+            Assert.That(details.CanAddCandidate, Is.True);
+
+        }
     }
 }
