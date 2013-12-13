@@ -15,6 +15,13 @@ namespace HiringManager.Mappers
                 var source = input.Candidates[i];
                 candidate.CandidateName = source.Candidate.Name;
 
+                if (!input.IsFilled())
+                {
+                    candidate.CanPass = candidate.Status != "Passed";
+                    candidate.CanHire = true;
+                    candidate.CanSetStatus = true;
+                }
+
                 for (var j = 0; j < source.Candidate.ContactInfo.Count; j++)
                 {
                     var contactInfoSource = source.Candidate.ContactInfo[j];
@@ -22,6 +29,9 @@ namespace HiringManager.Mappers
                     candidate.ContactInfo.Add(contactInfo);
                 }
             }
+
+            result.CanAddCandidate = !input.IsFilled();
+
 
             return result;
         }

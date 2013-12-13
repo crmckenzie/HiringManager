@@ -35,11 +35,18 @@ namespace HiringManager.Web.UnitTests.Mappers
                 .CreateListOfSize(10)
                 .All()
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(3).Build())
+                .Do(row =>
+                    {
+                        row.CanHire = true;
+                        row.CanPass = true;
+                        row.CanSetStatus = true;
+                    })
                 .Build()
                 ;
             var positionDetails = Builder<PositionDetails>
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
+                .Do(row => row.CanAddCandidate = true)
                 .Build()
                 ;
 
@@ -51,6 +58,7 @@ namespace HiringManager.Web.UnitTests.Mappers
             Assert.That(viewModel.PositionId, Is.EqualTo(positionDetails.PositionId));
             Assert.That(viewModel.Status, Is.EqualTo(positionDetails.Status));
             Assert.That(viewModel.Title, Is.EqualTo(positionDetails.Title));
+            Assert.That(viewModel.CanAddCandidate, Is.EqualTo(positionDetails.CanAddCandidate), "CanAddCandidate");
             Assert.That(viewModel.Candidates, Has.Count.EqualTo(positionDetails.Candidates.Count));
 
             for (var i = 0; i < 10; i++)
@@ -61,6 +69,10 @@ namespace HiringManager.Web.UnitTests.Mappers
                 Assert.That(actual.CandidateName, Is.EqualTo(expected.CandidateName));
                 Assert.That(actual.CandidateStatusId, Is.EqualTo(expected.CandidateStatusId));
                 Assert.That(actual.CandidateId, Is.EqualTo(expected.CandidateId));
+
+                Assert.That(actual.CanHire, Is.EqualTo(expected.CanHire));
+                Assert.That(actual.CanPass, Is.EqualTo(expected.CanPass));
+                Assert.That(actual.CanSetStatus, Is.EqualTo(expected.CanSetStatus));
 
                 Assert.That(actual.ContactInfo, Has.Count.EqualTo(expected.ContactInfo.Count));
                 Assert.That(actual.Status, Is.EqualTo(expected.Status));

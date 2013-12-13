@@ -9,5 +9,7 @@ namespace HiringManager.Web.Models.Positions
         public List<PositionCandidateViewModel> Candidates { get; set; }
         public int PositionId { get; set; }
         public string Status { get; set; }
+
+        public bool CanAddCandidate { get; set; }
     }
 }
