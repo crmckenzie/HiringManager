@@ -112,6 +112,7 @@
     <Compile Include="QueryPositionSummariesRequest.cs" />
     <Compile Include="RegisterManagerRequest.cs" />
     <Compile Include="Impl\UserManager.cs" />
+    <Compile Include="ValidatedResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HiringManager.EntityModel\HiringManager.EntityModel.csproj">

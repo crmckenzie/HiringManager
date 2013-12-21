@@ -38,6 +38,10 @@
     <Reference Include="Isg.Specification">
       <HintPath>..\packages\Isg.Specification.0.1\lib\net40\Isg.Specification.dll</HintPath>
     </Reference>
+    <Reference Include="Simple.Validation, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simple.Validation.0.7.1\lib\net40\Simple.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddCandidate.cs" />
+    <Compile Include="ClosePosition.cs" />
     <Compile Include="CreatePosition.cs" />
     <Compile Include="HireCandidate.cs" />
     <Compile Include="SetCandidateStatus.cs" />

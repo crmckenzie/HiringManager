@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HiringManager.EntityModel;
+using HiringManager.Transactions;
+using Simple.Validation;
+
+namespace HiringManager.DomainServices.Transactions
+{
+    public class ClosePosition : ITransaction<int, ValidatedResponse>
+    {
+        private readonly IRepository _repository;
+        private readonly IValidationEngine _validationEngine;
+
+        public ClosePosition(IRepository repository, IValidationEngine validationEngine)
+        {
+            _repository = repository;
+            _validationEngine = validationEngine;
+        }
+
+        public ValidatedResponse Execute(int positionId)
+        {
+
+            var position = this._repository.Get<Position>(positionId);
+            var validationResults = this._validationEngine.Validate(position, "Close");
+            if (validationResults.HasErrors())
+            {
+                return new ValidatedResponse()
+                       {
+                           ValidationResults = validationResults,
+                       };
+            }
+
+            position.Status = "Closed";
+
+            foreach (var status in position.Candidates)
+            {
+                status.Status = "Passed";
+                _repository.Store(status);
+            }
+
+            _repository.Store(position);
+            _repository.Commit();
+
+            return new ValidatedResponse()
+                   {
+                       ValidationResults = validationResults
+                   };
+        }
+    }
+}
