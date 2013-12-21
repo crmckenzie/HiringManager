@@ -184,5 +184,30 @@ namespace HiringManager.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Close(int id)
+        {
+            var details = this._positionService.GetCandidateStatusDetails(id);
+            var viewModel = this._fluentMapper
+                .Map<CandidateStatusViewModel>()
+                .From(details)
+                ;
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Close(CandidateStatusViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = this._positionService.Close(model.CandidateStatusId);
+                if (response.ValidationResults.HasErrors())
+                {
+                    response.WriteValidationErrorsTo(ModelState);
+                    return View(model);
+                }
+                return RedirectToAction("Candidates", new { id = model.PositionId });
+            }
+            return View(model);
+        }
     }
 }

@@ -21,6 +21,11 @@ namespace HiringManager.DomainServices.Impl
             return result;
         }
 
+        public IValidatedResponse Close(int positionId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public CreatePositionResponse CreatePosition(CreatePositionRequest request)
         {
             var result = base.Execute<CreatePositionRequest, CreatePositionResponse>(request);
