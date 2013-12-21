@@ -40,5 +40,10 @@ namespace HiringManager.EntityModel
         {
             return this.FilledBy != null;
         }
+
+        public bool IsClosed()
+        {
+            return this.Status == "Closed";
+        }
     }
 }
