@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using HiringManager.EntityModel;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -43,6 +45,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
                 var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
                 var positionSummaryItem = model.Data.Single(row => row.Title == viewModel.Title);
                 ScenarioContext.Current.Set(positionSummaryItem.PositionId, "PositionId");
+                ScenarioContext.Current.Set(positionSummaryItem.PositionId, positionSummaryItem.Title);
             }
         }
 

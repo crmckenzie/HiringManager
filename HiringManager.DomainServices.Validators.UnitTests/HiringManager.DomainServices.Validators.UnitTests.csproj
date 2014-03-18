@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddCandidateRequestValidatorTests.cs" />
+    <Compile Include="ClosePositionValidatorTests.cs" />
     <Compile Include="ValidationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

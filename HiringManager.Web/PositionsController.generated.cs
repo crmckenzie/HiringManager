@@ -77,6 +77,12 @@ namespace HiringManager.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Hire);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Close()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Close);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public PositionsController Actions { get { return MVC.Positions; } }
@@ -100,6 +106,7 @@ namespace HiringManager.Web.Controllers
             public readonly string Pass = "Pass";
             public readonly string Status = "Status";
             public readonly string Hire = "Hire";
+            public readonly string Close = "Close";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -112,6 +119,7 @@ namespace HiringManager.Web.Controllers
             public const string Pass = "Pass";
             public const string Status = "Status";
             public const string Hire = "Hire";
+            public const string Close = "Close";
         }
 
 
@@ -175,6 +183,15 @@ namespace HiringManager.Web.Controllers
             public readonly string id = "id";
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_Close s_params_Close = new ActionParamsClass_Close();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Close CloseParams { get { return s_params_Close; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Close
+        {
+            public readonly string id = "id";
+            public readonly string model = "model";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -187,6 +204,7 @@ namespace HiringManager.Web.Controllers
             {
                 public readonly string AddCandidate = "AddCandidate";
                 public readonly string Candidates = "Candidates";
+                public readonly string Close = "Close";
                 public readonly string Create = "Create";
                 public readonly string Hire = "Hire";
                 public readonly string Index = "Index";
@@ -195,6 +213,7 @@ namespace HiringManager.Web.Controllers
             }
             public readonly string AddCandidate = "~/Views/Positions/AddCandidate.cshtml";
             public readonly string Candidates = "~/Views/Positions/Candidates.cshtml";
+            public readonly string Close = "~/Views/Positions/Close.cshtml";
             public readonly string Create = "~/Views/Positions/Create.cshtml";
             public readonly string Hire = "~/Views/Positions/Hire.cshtml";
             public readonly string Index = "~/Views/Positions/Index.cshtml";
@@ -227,9 +246,9 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.Models.Positions.CreatePositionViewModel viewModel);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.CreatePositionViewModel viewModel);
 
-        public override System.Web.Mvc.ActionResult Create(HiringManager.Web.Models.Positions.CreatePositionViewModel viewModel)
+        public override System.Web.Mvc.ActionResult Create(HiringManager.Web.ViewModels.Positions.CreatePositionViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
@@ -257,9 +276,9 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void AddCandidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.Models.Positions.AddCandidateViewModel viewModel);
+        partial void AddCandidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.AddCandidateViewModel viewModel);
 
-        public override System.Web.Mvc.ActionResult AddCandidate(HiringManager.Web.Models.Positions.AddCandidateViewModel viewModel)
+        public override System.Web.Mvc.ActionResult AddCandidate(HiringManager.Web.ViewModels.Positions.AddCandidateViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCandidate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
@@ -277,9 +296,9 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void PassOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.Models.Positions.CandidateStatusViewModel model);
+        partial void PassOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.CandidateStatusViewModel model);
 
-        public override System.Web.Mvc.ActionResult Pass(HiringManager.Web.Models.Positions.CandidateStatusViewModel model)
+        public override System.Web.Mvc.ActionResult Pass(HiringManager.Web.ViewModels.Positions.CandidateStatusViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pass);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -297,9 +316,9 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void StatusOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.Models.Positions.CandidateStatusViewModel model);
+        partial void StatusOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.CandidateStatusViewModel model);
 
-        public override System.Web.Mvc.ActionResult Status(HiringManager.Web.Models.Positions.CandidateStatusViewModel model)
+        public override System.Web.Mvc.ActionResult Status(HiringManager.Web.ViewModels.Positions.CandidateStatusViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Status);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -317,13 +336,33 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void HireOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.Models.Positions.CandidateStatusViewModel model);
+        partial void HireOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.CandidateStatusViewModel model);
 
-        public override System.Web.Mvc.ActionResult Hire(HiringManager.Web.Models.Positions.CandidateStatusViewModel model)
+        public override System.Web.Mvc.ActionResult Hire(HiringManager.Web.ViewModels.Positions.CandidateStatusViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Hire);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             HireOverride(callInfo, model);
+            return callInfo;
+        }
+
+        partial void CloseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        public override System.Web.Mvc.ActionResult Close(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Close);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            CloseOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void CloseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.ClosePositionViewModel model);
+
+        public override System.Web.Mvc.ActionResult Close(HiringManager.Web.ViewModels.Positions.ClosePositionViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Close);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CloseOverride(callInfo, model);
             return callInfo;
         }
 

@@ -9,6 +9,7 @@ using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityFramework;
 using HiringManager.Mappers;
+using HiringManager.Mappers.Domain;
 using HiringManager.Transactions;
 using HiringManager.Web.Ninject.Mappers;
 using HiringManager.Web.Ninject.Transactions;

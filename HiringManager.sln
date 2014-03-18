@@ -60,6 +60,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.DomainService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "TestHelpers\TestHelpers.csproj", "{8EF3434D-873D-4139-9513-758CF15D1097}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{25134E44-4928-4180-9E55-FF0F8A530587}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.Web.ViewModels", "HiringManager.Web.ViewModels\HiringManager.Web.ViewModels.csproj", "{D023737E-5EF9-45D1-800D-40CCFDE74661}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +146,10 @@ Global
 		{8EF3434D-873D-4139-9513-758CF15D1097}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EF3434D-873D-4139-9513-758CF15D1097}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EF3434D-873D-4139-9513-758CF15D1097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D023737E-5EF9-45D1-800D-40CCFDE74661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D023737E-5EF9-45D1-800D-40CCFDE74661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D023737E-5EF9-45D1-800D-40CCFDE74661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D023737E-5EF9-45D1-800D-40CCFDE74661}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,5 +176,6 @@ Global
 		{9406BF32-1749-4A2E-9028-E4D8217F68EF} = {BA66A988-8AF2-43D9-8F65-964645D2F066}
 		{62A22E4D-9699-424F-835E-409BAE6CCF8C} = {C0F66176-DBAD-434C-B050-63598BD07563}
 		{4A30FC22-4086-430C-B50D-B51AEBE488F0} = {C0F66176-DBAD-434C-B050-63598BD07563}
+		{D023737E-5EF9-45D1-800D-40CCFDE74661} = {25134E44-4928-4180-9E55-FF0F8A530587}
 	EndGlobalSection
 EndGlobal

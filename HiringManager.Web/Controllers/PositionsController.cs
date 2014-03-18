@@ -4,7 +4,8 @@ using HiringManager.DomainServices;
 using HiringManager.Mappers;
 using HiringManager.Web.Infrastructure;
 using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using Simple.Validation;
 
 namespace HiringManager.Web.Controllers
@@ -184,28 +185,28 @@ namespace HiringManager.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Close(int id)
+        public virtual ActionResult Close(int id)
         {
-            var details = this._positionService.GetCandidateStatusDetails(id);
+            var details = this._positionService.Details(id);
             var viewModel = this._fluentMapper
-                .Map<CandidateStatusViewModel>()
+                .Map<ClosePositionViewModel>()
                 .From(details)
                 ;
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Close(CandidateStatusViewModel model)
+        public virtual ActionResult Close(ClosePositionViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = this._positionService.Close(model.CandidateStatusId);
+                var response = this._positionService.Close(model.PositionId);
                 if (response.ValidationResults.HasErrors())
                 {
                     response.WriteValidationErrorsTo(ModelState);
                     return View(model);
                 }
-                return RedirectToAction("Candidates", new { id = model.PositionId });
+                return RedirectToAction(MVC.Positions.Index());
             }
             return View(model);
         }

@@ -9,7 +9,8 @@ using HiringManager.DomainServices.Validators.UnitTests;
 using HiringManager.Mappers;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
@@ -451,13 +452,13 @@ namespace HiringManager.Web.UnitTests.Controllers
         public void Close_HttpGet()
         {
             // Arrange
-            var candidateStatusDetails = new CandidateStatusDetails();
-            this.PositionService.GetCandidateStatusDetails(1)
-                .Returns(candidateStatusDetails);
+            var positionDetails = new PositionDetails();
+            this.PositionService.Details(1)
+                .Returns(positionDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
+            var viewModel = new ClosePositionViewModel();
+            this.FluentMapper.Map<ClosePositionViewModel>()
+                .From(positionDetails)
                 .Returns(viewModel)
                 ;
 
@@ -472,12 +473,12 @@ namespace HiringManager.Web.UnitTests.Controllers
         public void Close_HttpPost()
         {
             // Arrange
-            var model = Builder<CandidateStatusViewModel>
+            var model = Builder<ClosePositionViewModel>
                 .CreateNew()
                 .Build()
                 ;
 
-            this.PositionService.Close(model.CandidateStatusId).Returns(new CandidateStatusResponse());
+            this.PositionService.Close(model.PositionId).Returns(new CandidateStatusResponse());
 
             // Act
             var result = this.Controller.Close(model) as RedirectToRouteResult;
@@ -486,21 +487,19 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(result.RouteName, Is.EqualTo(""));
 
             Assert.That(result.RouteValues.ContainsKey("action"));
-            Assert.That(result.RouteValues["action"], Is.EqualTo("Candidates"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
 
-            Assert.That(result.RouteValues.ContainsKey("id"));
-            Assert.That(result.RouteValues["id"], Is.EqualTo(model.PositionId));
 
             this.PositionService
                 .Received()
-                .Close(model.CandidateStatusId);
+                .Close(model.PositionId);
 
         }
 
         [Test]
         public void Close_HttpPost_WitValidationErrors()
         {
-            var model = Builder<CandidateStatusViewModel>
+            var model = Builder<ClosePositionViewModel>
                 .CreateNew()
                 .Build()
                 ;
@@ -513,7 +512,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             {
                 ValidationResults = validationResults
             };
-            this.PositionService.Close(model.CandidateStatusId).Returns(response);
+            this.PositionService.Close(model.PositionId).Returns(response);
 
             // Act
             var result = this.Controller.Close(model) as ViewResult;
@@ -535,7 +534,7 @@ namespace HiringManager.Web.UnitTests.Controllers
         {
             this.Controller.ModelState.AddModelError("", "Test Error Message");
 
-            var model = Builder<CandidateStatusViewModel>
+            var model = Builder<ClosePositionViewModel>
                 .CreateNew()
                 .Build()
                 ;
@@ -544,7 +543,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             var result = this.Controller.Close(model) as ViewResult;
 
             // Assert
-            this.PositionService.DidNotReceive().Hire(model.CandidateStatusId);
+            this.PositionService.DidNotReceive().Close(model.PositionId);
             Assert.That(result.Model, Is.SameAs(model));
         }
 

@@ -49,12 +49,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AutoMapper, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    <Reference Include="AutoMapper.Net4, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -280,21 +281,8 @@
     </Compile>
     <Compile Include="Infrastructure\ValidatedResponseExtensions.cs" />
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />
-    <Compile Include="Mappers\Positions\AddCandidateViewModelMapper.cs" />
-    <Compile Include="Mappers\Positions\CandidateStatusViewModelMapper.cs" />
-    <Compile Include="Mappers\Positions\CreatePositionViewModelMapper.cs" />
-    <Compile Include="Mappers\Positions\PositionCandidatesViewModelMapper.cs" />
-    <Compile Include="Mappers\Positions\PositionSummaryIndexMapper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Accounts\RegisterManagerViewModel.cs" />
-    <Compile Include="Models\IndexViewModel.cs" />
-    <Compile Include="Models\Positions\AddCandidateViewModel.cs" />
-    <Compile Include="Models\Positions\CandidateStatusViewModel.cs" />
-    <Compile Include="Models\Positions\ContactInfoViewModel.cs" />
-    <Compile Include="Models\Positions\PositionCandidatesViewModel.cs" />
-    <Compile Include="Models\Positions\CreatePositionViewModel.cs" />
-    <Compile Include="Models\Positions\PositionCandidateViewModel.cs" />
-    <Compile Include="Models\Positions\PositionSummaryIndexItem.cs" />
     <Compile Include="PositionsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -309,6 +297,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\AutoMapper.3.1.0\lib\net40\AutoMapper.Net4.dll">
+      <Link>AutoMapper.Net4.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -471,6 +463,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Positions\Close.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -558,6 +551,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Mappers\Positions\" />
+    <Folder Include="Models\Positions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -582,6 +577,10 @@
     <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
       <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>
       <Name>HiringManager.Web.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.Web.ViewModels\HiringManager.Web.ViewModels.csproj">
+      <Project>{D023737E-5EF9-45D1-800D-40CCFDE74661}</Project>
+      <Name>HiringManager.Web.ViewModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>

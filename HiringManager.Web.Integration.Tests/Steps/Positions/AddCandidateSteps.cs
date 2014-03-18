@@ -2,7 +2,8 @@
 using System.Web.Mvc;
 using HiringManager.DomainServices.Validators.UnitTests;
 using HiringManager.Web.Controllers;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 using Simple.Validation;
 using TechTalk.SpecFlow;

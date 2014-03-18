@@ -26,13 +26,13 @@ namespace HiringManager.Web.Integration.Tests
 
         private static void ResetDatabase()
         {
-            var nameOrConnectionString = typeof (Repository).FullName;
-            if (!Database.Exists(nameOrConnectionString)) return;
+            //var nameOrConnectionString = typeof (Repository).FullName;
+            //if (!Database.Exists(nameOrConnectionString)) return;
 
-            Trace.WriteLine("Deleting database: " + nameOrConnectionString);
-            Database.Delete(nameOrConnectionString);
+            //Trace.WriteLine("Deleting database: " + nameOrConnectionString);
+            //Database.Delete(nameOrConnectionString);
 
-            Trace.WriteLine("Creating database: " + nameOrConnectionString);
+            //Trace.WriteLine("Creating database: " + nameOrConnectionString);
             new Repository().Database.Initialize(force: true);
         }
 

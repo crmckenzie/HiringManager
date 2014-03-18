@@ -36,12 +36,12 @@ namespace HiringManager.EntityModel
         public DateTime? OpenDate { get; set; }
         public DateTime? FilledDate { get; set; }
 
-        public bool IsFilled()
+        public virtual bool IsFilled()
         {
             return this.FilledBy != null;
         }
 
-        public bool IsClosed()
+        public virtual bool IsClosed()
         {
             return this.Status == "Closed";
         }

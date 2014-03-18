@@ -1,5 +1,5 @@
 ﻿@using HiringManager.DomainServices.Transactions
-@model HiringManager.Web.Models.Positions.PositionCandidatesViewModel
+@model HiringManager.Web.ViewModels.Positions.PositionCandidatesViewModel
 
 @{
     ViewBag.Title = "Candidates";
@@ -15,8 +15,10 @@
                     <div class="btn-group">
                         @{
                             var canAdd = Model.CanAddCandidate ? "" : "disabled";
+                            var canClose = Model.CanClose ? "" : "disabled";
                         }
-                        <a class="btn btn-default @canAdd" title="Add a candidate to an open position." href="@Url.Action("AddCandidate",new {id=Model.PositionId})">New Candidate</a>
+                        <a class="btn btn-default @canAdd" title="Add a candidate to an open position." href="@Url.Action(MVC.Positions.AddCandidate(Model.PositionId))">New Candidate</a>
+                        <a class="btn btn-default @canClose" title="Close the position without hiring a candidate" href="@Url.Action(MVC.Positions.Close(Model.PositionId))">Close Without Hiring</a>
                     </div>
 
                 </th>

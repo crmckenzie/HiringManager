@@ -9,7 +9,7 @@ using Simple.Validation;
 
 namespace HiringManager.DomainServices.Transactions
 {
-    public class ClosePosition : ITransaction<int, ValidatedResponse>
+    public class ClosePosition : ITransaction<int, IValidatedResponse>
     {
         private readonly IRepository _repository;
         private readonly IValidationEngine _validationEngine;
@@ -20,7 +20,7 @@ namespace HiringManager.DomainServices.Transactions
             _validationEngine = validationEngine;
         }
 
-        public ValidatedResponse Execute(int positionId)
+        public IValidatedResponse Execute(int positionId)
         {
 
             var position = this._repository.Get<Position>(positionId);

@@ -23,7 +23,7 @@ namespace HiringManager.DomainServices.Impl
 
         public IValidatedResponse Close(int positionId)
         {
-            throw new System.NotImplementedException();
+            return base.Execute<int, IValidatedResponse>(positionId);
         }
 
         public CreatePositionResponse CreatePosition(CreatePositionRequest request)

@@ -5,7 +5,8 @@ using System.Web.Mvc;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Integration.Tests.Models.Positions;
 using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -151,14 +152,16 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var candidateViewModel =
                 positionCandidatesViewModel.Candidates.Single(row => row.CandidateName == candidateName);
 
-            var response = controller.Hire(new CandidateStatusViewModel()
-            {
-                CandidateId = candidateViewModel.CandidateId,
-                CandidateName = candidateViewModel.CandidateName,
-                CandidateStatusId = candidateViewModel.CandidateStatusId,
-                PositionId = positionCandidatesViewModel.PositionId,
-                PositionTitle = positionCandidatesViewModel.Title,
-            });
+            var viewModel = new CandidateStatusViewModel()
+                                           {
+                                               CandidateId = candidateViewModel.CandidateId,
+                                               CandidateName = candidateViewModel.CandidateName,
+                                               CandidateStatusId = candidateViewModel.CandidateStatusId,
+                                               PositionId = positionCandidatesViewModel.PositionId,
+                                               PositionTitle = positionCandidatesViewModel.Title,
+                                           };
+            var response = controller.Hire(viewModel);
+            ScenarioContext.Current.Set(response);
         }
 
         [Then(@"the position should be filled by '(.*)' on '(.*)'")]

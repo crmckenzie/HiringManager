@@ -1,0 +1,24 @@
+﻿@model HiringManager.Web.ViewModels.Positions.ClosePositionViewModel
+
+@{
+    ViewBag.Title = "Close Position";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.PositionId)
+    <div class="control-group">
+        @Html.LabelFor(m => m.PositionTitle)
+        <br/>
+        @Html.DisplayFor(m => m.PositionTitle)
+    </div>
+    <p class=" well text-primary">
+        Are you sure you wish to close this position?
+    </p>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-primary">I want to close the position without hiring anyone.</button>
+        <a class="btn btn-default" href="@Url.Action(MVC.Positions.Candidates(Model.PositionId))">Cancel</a>
+    </div>
+} 
