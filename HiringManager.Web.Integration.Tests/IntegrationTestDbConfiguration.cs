@@ -8,17 +8,9 @@ namespace HiringManager.Web.Integration.Tests
 {
     public class IntegrationTestDbConfiguration : DbConfiguration
     {
-
-
-
         public IntegrationTestDbConfiguration()
         {
             base.SetDatabaseInitializer(new DropCreateDatabaseAlways<Repository>());
-
-            //var databaseLogFormatter = new DatabaseLogFormatter(message => Trace.WriteLine(message));
-            //base.AddInterceptor(databaseLogFormatter);
-
-
         }
     }
 }
