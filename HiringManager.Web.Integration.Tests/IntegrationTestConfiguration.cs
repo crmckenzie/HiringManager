@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Diagnostics;
 using HiringManager.EntityFramework;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using Ninject;
 
 namespace HiringManager.Web.Integration.Tests
@@ -9,6 +10,8 @@ namespace HiringManager.Web.Integration.Tests
     {
         public static IKernel Configure()
         {
+            AutoMapperConfiguration.Configure();
+
             DbConfiguration.SetConfiguration(new IntegrationTestDbConfiguration());
 
             var kernel = new StandardKernel();

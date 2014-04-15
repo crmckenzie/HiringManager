@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using HiringManager.Web.App_Start;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using WebMatrix.WebData;
 
 namespace HiringManager.Web
@@ -24,6 +25,8 @@ namespace HiringManager.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DatabaseConfiguration.Configure();
+            AutoMapperConfiguration.Configure();
+
         }
     }
 }

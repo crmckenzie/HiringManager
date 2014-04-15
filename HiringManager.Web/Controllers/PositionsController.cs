@@ -33,7 +33,7 @@ namespace HiringManager.Web.Controllers
                               ManagerIds = new[] { this._userSession.ManagerId.Value }
                           };
             if (!string.IsNullOrWhiteSpace(status))
-                request.Statuses = new[] {status};
+                request.Statuses = new[] { status };
 
             var openPositions = this._positionService.Query(request);
             var viewModel = this._fluentMapper
@@ -62,6 +62,8 @@ namespace HiringManager.Web.Controllers
                     .Map<CreatePositionRequest>()
                     .From(viewModel)
                     ;
+
+                request.HiringManagerId = _userSession.ManagerId.GetValueOrDefault();
                 this._positionService.CreatePosition(request);
                 return RedirectToAction(MVC.Positions.Index("Open"));
             }
@@ -98,6 +100,7 @@ namespace HiringManager.Web.Controllers
                     .Map<AddCandidateRequest>()
                     .From(viewModel);
 
+
                 var response = this._positionService.AddCandidate(request);
                 if (response.ValidationResults.HasErrors())
                 {
@@ -105,7 +108,7 @@ namespace HiringManager.Web.Controllers
                     return View(viewModel);
                 }
 
-                return RedirectToAction("Candidates", new {id = response.PositionId});
+                return RedirectToAction("Candidates", new { id = response.PositionId });
             }
             return View(viewModel);
         }
@@ -128,7 +131,7 @@ namespace HiringManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 this._positionService.SetCandidateStatus(model.CandidateStatusId, "Passed");
-                return RedirectToAction("Candidates", new {id = model.PositionId});
+                return RedirectToAction("Candidates", new { id = model.PositionId });
             }
             return View(model);
         }

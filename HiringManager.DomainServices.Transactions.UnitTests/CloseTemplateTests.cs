@@ -61,6 +61,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             var statuses = Builder<CandidateStatus>
                 .CreateListOfSize(3)
                 .Build()
+                .ToList()
                 ;
             var position = Builder<Position>
                 .CreateNew()
@@ -89,6 +90,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             var statuses = Builder<CandidateStatus>
                 .CreateListOfSize(3)
                 .Build()
+                .ToList()
                 ;
             var position = Builder<Position>
                 .CreateNew()

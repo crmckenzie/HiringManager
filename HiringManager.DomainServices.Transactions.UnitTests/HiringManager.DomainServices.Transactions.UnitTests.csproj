@@ -69,6 +69,7 @@
     <Compile Include="QueryPositionSummariesTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +88,10 @@
     <ProjectReference Include="..\HiringManager.Web.Ninject\HiringManager.Web.Ninject.csproj">
       <Project>{BE3EF44A-8A04-4139-90D4-04AF2FAF6B5C}</Project>
       <Name>HiringManager.Web.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.Web\HiringManager.Web.csproj">
+      <Project>{9406BF32-1749-4A2E-9028-E4D8217F68EF}</Project>
+      <Name>HiringManager.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>

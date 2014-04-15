@@ -1,27 +1,40 @@
 ﻿using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using FizzWare.NBuilder;
+using HiringManager.DomainServices;
 using HiringManager.EntityModel;
-using HiringManager.Mappers.Domain;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using NUnit.Framework;
 
 namespace HiringManager.Mappers.UnitTests.Domain
 {
     [TestFixture]
-    public class PositionSummaryMapperTests
+    public class PositionSummaryMappingTests
     {
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new PositionSummaryMapper();
         }
 
-        public PositionSummaryMapper Mapper { get; set; }
+        [Test]
+        public void RawMap()
+        {
+            // Arrange
+            var source = new Position();
+
+            // Act
+            var result = AutoMapper.Mapper.Map<PositionSummary>(source);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+        }
 
         [Test]
         public void Map()
@@ -40,6 +53,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .TheNext(1)
                     .Do(row => row.Status = "Hired")
                 .Build()
+                .ToList()
                 ;
             var position = Builder<Position>
                 .CreateNew()
@@ -52,7 +66,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var result = this.Mapper.Map(position);
+            var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
             Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
@@ -88,6 +102,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                             row.Candidate = yourHired;
                         })
                 .Build()
+                .ToList()
                 ;
 
             var position = Builder<Position>
@@ -102,7 +117,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var result = this.Mapper.Map(position);
+            var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
             Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
@@ -133,6 +148,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .TheNext(1)
                     .Do(row => row.Status = "Hired")
                 .Build()
+                .ToList()
                 ;
             var position = Builder<Position>
                 .CreateNew()
@@ -145,7 +161,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var result = this.Mapper.Map(position);
+            var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
             Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
@@ -175,6 +191,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .TheNext(1)
                     .Do(row => row.Status = "Hired")
                 .Build()
+                .ToList()
                 ;
             var position = Builder<Position>
                 .CreateNew()
@@ -188,7 +205,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var result = this.Mapper.Map(position);
+            var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
             Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
@@ -199,6 +216,34 @@ namespace HiringManager.Mappers.UnitTests.Domain
             Assert.That(result.Status, Is.EqualTo(position.Status));
             Assert.That(result.Title, Is.EqualTo(position.Title));
             Assert.That(result.CandidatesAwaitingReview, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Project_To()
+        {
+            // Arrange
+            var positions = Builder<Position>
+                .CreateListOfSize(10)
+                .All()
+                .Do(row => row.CreatedBy = Builder<Manager>.CreateNew().Build())
+                .Do(row => row.FilledBy = Builder<Candidate>.CreateNew().Build())
+                .Build()
+                ;
+
+            // Act
+            foreach (var position in positions)
+            {
+                AutoMapper.Mapper.Map<PositionSummary>(position);
+            }
+
+
+
+            var query = positions.AsQueryable()
+                .Project().To<PositionSummary>()
+                .ToList()
+                ;
+
+            // Assert
         }
     }
 }

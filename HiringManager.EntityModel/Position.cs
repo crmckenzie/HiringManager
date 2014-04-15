@@ -24,7 +24,7 @@ namespace HiringManager.EntityModel
         [ForeignKey("CreatedById")]
         public virtual Manager CreatedBy { get; set; }
 
-        public virtual IList<CandidateStatus> Candidates { get; set; }
+        public virtual List<CandidateStatus> Candidates { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -33,7 +33,7 @@ namespace HiringManager.EntityModel
         [StringLength(250)]
         public string Title { get; set; }
 
-        public DateTime? OpenDate { get; set; }
+        public DateTime OpenDate { get; set; }
         public DateTime? FilledDate { get; set; }
 
         public virtual bool IsFilled()

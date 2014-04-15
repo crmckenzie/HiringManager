@@ -53,6 +53,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
                 .Build()
+                .ToList()
                 ;
 
             var position = Builder<Position>
@@ -168,6 +169,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
                 .Build()
+                .ToList()
                 ;
 
 
@@ -198,6 +200,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
                 .Build()
+                .ToList()
                 ;
 
 
@@ -228,6 +231,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
                 .Build()
+                .ToList()
                 ;
 
 
@@ -258,6 +262,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
                 .Build()
+                .ToList()
                 ;
 
             var passedOnCandidate = candidates.First();
@@ -289,8 +294,8 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
                 .Build()
+                .ToList()
                 ;
-
 
             var position = Builder<Position>
                 .CreateNew()

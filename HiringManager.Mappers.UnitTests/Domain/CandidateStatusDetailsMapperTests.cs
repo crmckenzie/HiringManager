@@ -1,6 +1,7 @@
 ﻿using FizzWare.NBuilder;
+using HiringManager.DomainServices;
 using HiringManager.EntityModel;
-using HiringManager.Mappers.Domain;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using NUnit.Framework;
 
 namespace HiringManager.Mappers.UnitTests.Domain
@@ -11,16 +12,13 @@ namespace HiringManager.Mappers.UnitTests.Domain
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new CandidateStatusDetailsMapper();
         }
-
-        public CandidateStatusDetailsMapper Mapper { get; set; }
 
         [Test]
         public void Map()
@@ -34,13 +32,13 @@ namespace HiringManager.Mappers.UnitTests.Domain
 
             var candidateStatus = Builder<CandidateStatus>
                 .CreateNew()
-                .Do(row => row.Position =Builder<Position>.CreateNew().Build())
+                .Do(row => row.Position = Builder<Position>.CreateNew().Build())
                 .Do(row => row.Candidate = candidate)
                 .Build()
                 ;
 
             // Act
-            var result = this.Mapper.Map(candidateStatus);
+            var result = AutoMapper.Mapper.Map<CandidateStatusDetails>(candidateStatus);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -50,6 +48,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             Assert.That(result.PositionTitle, Is.EqualTo(candidateStatus.Position.Title));
             Assert.That(result.PositionId, Is.EqualTo(candidateStatus.Position.PositionId));
             Assert.That(result.Status, Is.EqualTo(candidateStatus.Status));
+            Assert.That(result.ContactInfo.Count, Is.EqualTo(candidate.ContactInfo.Count));
 
             for (var i = 0; i < candidate.ContactInfo.Count; i++)
             {

@@ -1,26 +1,24 @@
 ﻿using FizzWare.NBuilder;
 using HiringManager.DomainServices;
-using HiringManager.Mappers.Domain;
+using HiringManager.EntityModel;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using NUnit.Framework;
 
 namespace HiringManager.Mappers.UnitTests.Domain
 {
     [TestFixture]
-    public class CreatePositionRequestMapperTests
+    public class CreatePositionRequestMappingTests
     {
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new CreatePositionRequestMapper();
         }
-
-        public CreatePositionRequestMapper Mapper { get; set; }
 
         [Test]
         public void Map()
@@ -32,7 +30,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var result = this.Mapper.Map(request);
+            var result = AutoMapper.Mapper.Map<Position>(request);
 
             // Assert
             Assert.That(result, Is.Not.Null);

@@ -9,7 +9,7 @@ using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityFramework;
 using HiringManager.Mappers;
-using HiringManager.Mappers.Domain;
+using HiringManager.Mappers.Presentation.Positions;
 using HiringManager.Transactions;
 using HiringManager.Web.Ninject.Mappers;
 using HiringManager.Web.Ninject.Transactions;
@@ -34,7 +34,7 @@ namespace HiringManager.Web.Ninject
                 );
 
             Kernel.Bind(configuration => configuration
-                .FromAssemblyContaining<CreatePositionRequestMapper>()
+                .FromAssemblyContaining<AddCandidateViewModelMapper>()
                 .SelectAllClasses()
                 .BindAllInterfaces()
                 );
@@ -64,9 +64,6 @@ namespace HiringManager.Web.Ninject
                               return System.Threading.Thread.CurrentPrincipal;
                           })
                 ;
-
-            //var applicationDbContext = new ApplicationDbContext();
-            //var userStore = new UserStore<ApplicationUser>(applicationDbContext);
 
             Kernel.Bind<IUserStore<ApplicationUser>>()
                 .ToMethod(context =>

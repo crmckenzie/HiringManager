@@ -1,4 +1,5 @@
-﻿using HiringManager.DomainServices;
+﻿using System;
+using HiringManager.DomainServices;
 using HiringManager.EntityModel;
 
 namespace HiringManager.Mappers.Domain
@@ -7,6 +8,7 @@ namespace HiringManager.Mappers.Domain
     {
         public PositionDetails Map(Position input)
         {
+            throw new NotImplementedException();
             var result = AutoMapper.Mapper.DynamicMap<Position, PositionDetails>(input);
 
             for (var i = 0; i < result.Candidates.Count; i++)
