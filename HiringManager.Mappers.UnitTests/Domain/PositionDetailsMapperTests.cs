@@ -57,6 +57,11 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var position = Builder<Position>
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
+                .Do(row =>
+                {
+                    foreach (var candidate in row.Candidates)
+                        candidate.Position = row;
+                })
                 .Build()
                 ;
 
@@ -174,6 +179,11 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var position = Builder<Position>
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
+                .Do(row =>
+                {
+                    foreach (var candidate in row.Candidates)
+                        candidate.Position = row;
+                })
                 .Build()
                 ;
 
@@ -205,6 +215,11 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var position = Builder<Position>
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
+                .Do(row =>
+                {
+                    foreach (var candidate in row.Candidates)
+                        candidate.Position = row;
+                })
                 .Build()
                 ;
 
@@ -236,6 +251,11 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var position = Builder<Position>
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
+                .Do(row =>
+                {
+                    foreach (var candidate in row.Candidates)
+                        candidate.Position = row;
+                })
                 .Build()
                 ;
 
@@ -270,6 +290,11 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var position = Builder<Position>
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
+                .Do(row =>
+                    {
+                        foreach (var candidate in row.Candidates)
+                            candidate.Position = row;
+                    })
                 .Build()
                 ;
 
@@ -299,6 +324,11 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 .CreateNew()
                 .Do(row => row.FilledBy = new Candidate())
                 .Do(row => row.Candidates = candidates)
+                .Do(row =>
+                    {
+                        foreach (var candidate in row.Candidates)
+                            candidate.Position = row;
+                    })
                 .Build()
                 ;
 

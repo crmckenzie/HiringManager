@@ -26,6 +26,9 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
                 ;
             CreateMap<CandidateStatus, CandidateStatusDetails>()
                 .ForMember(c => c.ContactInfo, opt => opt.MapFrom(m => m.Candidate.ContactInfo))
+                .ForMember(c => c.CanHire, opt => opt.ResolveUsing(m => !m.Position.IsFilled()))
+                .ForMember(c => c.CanSetStatus, opt => opt.ResolveUsing(m => !m.Position.IsFilled()))
+                .ForMember(c => c.CanPass, opt => opt.ResolveUsing(m => !m.Position.IsFilled() && m.Status != "Passed"))
                 ;
         }
 
@@ -62,20 +65,22 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
             ;
 
             CreateMap<Position, PositionDetails>()
+                .ForMember(output => output.CanAddCandidate, opt => opt.ResolveUsing(input => !input.IsFilled()))
+                .ForMember(output => output.CanClose, opt => opt.ResolveUsing(input => !(input.IsClosed() || input.IsFilled())))
                 .AfterMap((position, positionDetails) =>
                     {
                         foreach (var candidate in positionDetails.Candidates)
                         {
                             if (!position.IsFilled())
                             {
-                                candidate.CanPass = candidate.Status != "Passed";
-                                candidate.CanHire = true;
-                                candidate.CanSetStatus = true;
+                                //candidate.CanPass = candidate.Status != "Passed";
+                                //candidate.CanHire = true;
+                                //candidate.CanSetStatus = true;
                             }
                         }
 
-                        positionDetails.CanAddCandidate = !position.IsFilled();
-                        positionDetails.CanClose = !(position.IsClosed() || position.IsFilled());
+                        //positionDetails.CanAddCandidate = !position.IsFilled();
+                        //positionDetails.CanClose = !(position.IsClosed() || position.IsFilled());
 
                     })
                 ;
