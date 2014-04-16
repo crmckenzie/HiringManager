@@ -1,7 +1,7 @@
 ﻿using FizzWare.NBuilder;
+using HiringManager.DomainServices.AutoMapperProfiles;
 using HiringManager.DomainServices.Impl;
 using HiringManager.EntityModel;
-using HiringManager.Mappers;
 using HiringManager.Transactions;
 using NSubstitute;
 using NUnit.Framework;
@@ -14,22 +14,20 @@ namespace HiringManager.DomainServices.UnitTests
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapper.Mapper.Reset();
+            AutoMapper.Mapper.AddProfile<DomainProfile>();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
             this.TransactionBuilder = Substitute.For<IFluentTransactionBuilder>();
-            this.Mapper = Substitute.For<IFluentMapper>();
             this.Repository = Substitute.For<IRepository>();
 
-            this.PositionService = new PositionService(this.TransactionBuilder, this.Repository, this.Mapper);
+            this.PositionService = new PositionService(this.TransactionBuilder, this.Repository);
         }
 
         public IRepository Repository { get; set; }
-
-        public IFluentMapper Mapper { get; set; }
 
         public IFluentTransactionBuilder TransactionBuilder { get; set; }
 
@@ -139,18 +137,12 @@ namespace HiringManager.DomainServices.UnitTests
                 .Get<Position>(1)
                 .Returns(position);
 
-            var positionDetails = new PositionDetails();
-            this.Mapper.Map<PositionDetails>()
-                .From(position)
-                .Returns(positionDetails)
-                ;
 
             // Act
             var result = this.PositionService.Details(1);
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.SameAs(positionDetails));
         }
 
         [Test]
@@ -178,21 +170,11 @@ namespace HiringManager.DomainServices.UnitTests
                 .Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value)
                 .Returns(candidateStatus);
 
-            var details = new CandidateStatusDetails();
-
-            this.Mapper
-                .Map<CandidateStatusDetails>()
-                .From(candidateStatus)
-                .Returns(details)
-                ;
-
-
             // Act
             var result = this.PositionService.GetCandidateStatusDetails(candidateStatus.CandidateStatusId.Value);
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.SameAs(details));
 
         }
     }

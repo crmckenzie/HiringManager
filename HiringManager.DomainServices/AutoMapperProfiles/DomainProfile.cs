@@ -45,7 +45,6 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 ;
 
             CreateMap<Position, PositionSummary>()
-                .ForMember(dest => dest.CandidatesAwaitingReview, opt => opt.Ignore())
                 .AfterMap((position, positionSummary) =>
                           {
                               if (positionSummary.Status == "Filled")

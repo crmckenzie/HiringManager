@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Mvc;
 using HiringManager.DomainServices;
-using HiringManager.DomainServices.Impl;
 using HiringManager.Web.Models.Accounts;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;

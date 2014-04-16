@@ -1,5 +1,4 @@
-﻿using HiringManager.DomainServices.Impl;
-using HiringManager.EntityModel;
+﻿using HiringManager.EntityModel;
 using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Transactions

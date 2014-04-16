@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Validators.UnitTests;
-using HiringManager.Mappers;
 using HiringManager.Web.Controllers;
-using HiringManager.Web.Models;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using Simple.Validation;
 using TestHelpers;
 
@@ -25,6 +21,7 @@ namespace HiringManager.Web.UnitTests.Controllers
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
@@ -33,17 +30,14 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.Clock = Substitute.For<IClock>();
 
             this.PositionService = Substitute.For<IPositionService>();
-            this.FluentMapper = Substitute.For<IFluentMapper>();
             this.UserSession = Substitute.For<IUserSession>();
-            this.Controller = new PositionsController(this.PositionService, this.FluentMapper, this.UserSession,
+            this.Controller = new PositionsController(this.PositionService, this.UserSession,
                 this.Clock);
         }
 
         public IUserSession UserSession { get; set; }
 
         public IClock Clock { get; set; }
-
-        public IFluentMapper FluentMapper { get; set; }
 
         public IPositionService PositionService { get; set; }
 
@@ -65,18 +59,11 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Returns(response)
                 ;
 
-            var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
-            this.FluentMapper
-                .Map<IndexViewModel<PositionSummaryIndexItem>>()
-                .From(response)
-                .Returns(indexViewModel)
-                ;
-
             // Act
             var viewResult = this.Controller.Index("");
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<IndexViewModel<PositionSummaryIndexItem>>());
         }
 
         [Test]
@@ -91,18 +78,11 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Returns(response)
                 ;
 
-            var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
-            this.FluentMapper
-                .Map<IndexViewModel<PositionSummaryIndexItem>>()
-                .From(response)
-                .Returns(indexViewModel)
-                ;
-
             // Act
             var viewResult = this.Controller.Index("Open");
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<IndexViewModel<PositionSummaryIndexItem>>());
         }
 
         [Test]
@@ -127,19 +107,13 @@ namespace HiringManager.Web.UnitTests.Controllers
             var viewModel = new CreatePositionViewModel();
             var request = new CreatePositionRequest();
 
-            this.FluentMapper
-                .Map<CreatePositionRequest>()
-                .From(viewModel)
-                .Returns(request)
-                ;
-
             // Act
             var result = this.Controller.Create(viewModel);
 
             // Assert
             this.PositionService
                 .Received()
-                .CreatePosition(request)
+                .CreatePosition(Arg.Any<CreatePositionRequest>())
                 ;
 
             var redirect = result as RedirectToRouteResult;
@@ -155,15 +129,6 @@ namespace HiringManager.Web.UnitTests.Controllers
         {
             // Arrange
             var positionDetails = new PositionDetails();
-            var viewModel = new PositionCandidatesViewModel();
-
-            this.PositionService.Details(1).Returns(positionDetails);
-
-            this.FluentMapper
-                .Map<PositionCandidatesViewModel>()
-                .From(positionDetails)
-                .Returns(viewModel)
-                ;
 
             this.PositionService.Details(1).Returns(positionDetails);
 
@@ -171,7 +136,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             var viewResult = this.Controller.Candidates(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<PositionCandidatesViewModel>());
         }
 
         [Test]
@@ -193,18 +158,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Arrange
             var viewModel = new AddCandidateViewModel();
 
-            var request = new AddCandidateRequest();
-            this.FluentMapper
-                .Map<AddCandidateRequest>()
-                .From(viewModel)
-                .Returns(request)
-                ;
-
             var response = Builder<AddCandidateResponse>
                 .CreateNew()
                 .Build();
 
-            this.PositionService.AddCandidate(request).Returns(response);
+            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>()).Returns(response);
 
             // Act
             var actionResult = this.Controller.AddCandidate(viewModel);
@@ -263,17 +221,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.GetCandidateStatusDetails(1)
                 .Returns(candidateStatusDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
             var viewResult = this.Controller.Pass(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<CandidateStatusViewModel>());
         }
 
         [Test]
@@ -310,17 +262,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.GetCandidateStatusDetails(1)
                 .Returns(candidateStatusDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
             var viewResult = this.Controller.Status(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<CandidateStatusViewModel>());
         }
 
         [Test]
@@ -357,17 +303,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.GetCandidateStatusDetails(1)
                 .Returns(candidateStatusDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
             var viewResult = this.Controller.Hire(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<CandidateStatusViewModel>());
         }
 
         [Test]
@@ -456,17 +396,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.Details(1)
                 .Returns(positionDetails);
 
-            var viewModel = new ClosePositionViewModel();
-            this.FluentMapper.Map<ClosePositionViewModel>()
-                .From(positionDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
             var viewResult = this.Controller.Close(1) as ViewResult;
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<ClosePositionViewModel>());
         }
 
         [Test]

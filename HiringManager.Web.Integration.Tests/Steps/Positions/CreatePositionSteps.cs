@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Web.Mvc;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Integration.Tests.Models.Positions;
-using HiringManager.Web.Models;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;

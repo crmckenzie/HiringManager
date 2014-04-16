@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Interception;
-using System.Diagnostics;
+﻿using System.Data.Entity;
 using HiringManager.EntityFramework;
 
 namespace HiringManager.Web.Integration.Tests

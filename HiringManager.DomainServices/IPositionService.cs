@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace HiringManager.DomainServices
+﻿namespace HiringManager.DomainServices
 {
     public interface IPositionService
     {

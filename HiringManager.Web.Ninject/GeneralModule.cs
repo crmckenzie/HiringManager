@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
+﻿using System.Security.Principal;
 using System.Web;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityFramework;
-using HiringManager.Mappers;
 using HiringManager.Transactions;
-using HiringManager.Web.Ninject.Mappers;
 using HiringManager.Web.Ninject.Transactions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
-using Simple.Validation;
 
 namespace HiringManager.Web.Ninject
 {
@@ -25,6 +18,7 @@ namespace HiringManager.Web.Ninject
         public override void Load()
         {
             Kernel.Bind<IClock>().To<Clock>();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
 
             Kernel.Bind(configuration => configuration
                 .FromAssemblyContaining<PositionService>()
@@ -40,10 +34,6 @@ namespace HiringManager.Web.Ninject
 
             Kernel.Bind<IFluentTransactionBuilder>()
                 .To<FluentTransactionBuilder>()
-                ;
-
-            Kernel.Bind<IFluentMapper>()
-                .To<FluentMapper>()
                 ;
 
             Kernel.Bind<IRepository>().To<Repository>();

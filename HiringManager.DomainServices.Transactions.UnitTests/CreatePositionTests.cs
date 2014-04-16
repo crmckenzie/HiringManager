@@ -1,6 +1,5 @@
 ﻿using FizzWare.NBuilder;
 using HiringManager.EntityModel;
-using HiringManager.Mappers;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using NSubstitute;
 using NUnit.Framework;

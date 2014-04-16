@@ -1,6 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using HiringManager.EntityModel;
 using NSubstitute;
 using NUnit.Framework;

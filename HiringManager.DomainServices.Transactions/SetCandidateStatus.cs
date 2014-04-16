@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using HiringManager.EntityModel;
+﻿using HiringManager.EntityModel;
 using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Transactions

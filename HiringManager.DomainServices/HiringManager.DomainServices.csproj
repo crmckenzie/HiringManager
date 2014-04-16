@@ -111,6 +111,7 @@
     <Compile Include="HireCandidateRequest.cs" />
     <Compile Include="CandidateStatusResponse.cs" />
     <Compile Include="Impl\DomainServiceBase.cs" />
+    <Compile Include="Impl\IUnitOfWork.cs" />
     <Compile Include="Impl\PositionService.cs" />
     <Compile Include="Impl\UserSession.cs" />
     <Compile Include="IPositionService.cs" />

@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
+using HiringManager.EntityModel;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 
-namespace HiringManager.Web.UnitTests.AutoMapper
+namespace HiringManager.Web.UnitTests.AutoMapperProfile
 {
     [TestFixture]
     public class PositionSummaryIndexMapperTests
@@ -20,6 +21,31 @@ namespace HiringManager.Web.UnitTests.AutoMapper
         [SetUp]
         public void BeforeEachTestRuns()
         {
+        }
+
+        [Test]
+        public void PositionSummary()
+        {
+            // Arrange
+            var position = Builder<Position>
+                .CreateNew()
+                .Do(row => row.Candidates = Builder<CandidateStatus>
+                    .CreateListOfSize(10)
+                    .TheFirst(4)
+                    .Do(candidate => candidate.Status = "Passed")
+                    .TheNext(1)
+                    .Do(candidate => candidate.Status = "Hired")
+                    .Build()
+                    .ToList())
+                .Build()
+                ;
+
+            // Act
+
+            var summary = global::AutoMapper.Mapper.Map<PositionSummary>(position);
+
+            // Assert
+            Assert.That(summary.CandidatesAwaitingReview, Is.EqualTo(5));
         }
 
         [Test]

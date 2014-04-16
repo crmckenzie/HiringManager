@@ -1,7 +1,7 @@
 ﻿using HiringManager.Web.Infrastructure.AutoMapper;
 using NUnit.Framework;
 
-namespace HiringManager.Web.UnitTests.AutoMapper
+namespace HiringManager.Web.UnitTests.AutoMapperProfile
 {
     [TestFixture]
     public class AutoMapperConfigurationTests

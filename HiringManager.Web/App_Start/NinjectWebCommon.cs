@@ -1,7 +1,5 @@
-using System.Web.Mvc;
 using HiringManager.Web.Infrastructure.Ninject;
 using Ninject;
-using Ninject.Components;
 using Ninject.Web.Common;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(HiringManager.Web.App_Start.NinjectWebCommon), "Start")]
@@ -13,8 +11,6 @@ namespace HiringManager.Web.App_Start
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
 
     public static class NinjectWebCommon 
     {

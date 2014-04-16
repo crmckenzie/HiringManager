@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using HiringManager.EntityModel;
 using HiringManager.Web.Controllers;
-using HiringManager.Web.Models;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using HiringManager.DomainServices;
 using HiringManager.Web.ViewModels;
@@ -21,6 +18,10 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
 
         private void ConfigurePositions()
         {
+            CreateMap<CreatePositionViewModel, CreatePositionRequest>()
+                .ForMember(output => output.HiringManagerId, opt => opt.Ignore())
+                ;
+
             CreateMap<PositionDetails, ClosePositionViewModel>()
                 .ForMember(output => output.PositionTitle, opt => opt.MapFrom(input => input.Title))
                 ;

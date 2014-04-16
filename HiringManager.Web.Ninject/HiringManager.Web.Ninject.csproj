@@ -81,9 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneralModule.cs" />
-    <Compile Include="Mappers\EnumerableFluentMapperSyntax.cs" />
-    <Compile Include="Mappers\FluentMapper.cs" />
-    <Compile Include="Mappers\FluentMapperSyntax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transactions\AuthorizationStep.cs" />
     <Compile Include="Transactions\AuthorizationException.cs" />
@@ -96,6 +93,7 @@
     <Compile Include="Transactions\PerformanceStep.cs" />
     <Compile Include="Transactions\ReflectionExtensions.cs" />
     <Compile Include="Transactions\RequestValidationStep.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

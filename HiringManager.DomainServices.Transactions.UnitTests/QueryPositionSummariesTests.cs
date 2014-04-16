@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
 using HiringManager.EntityModel;
-using HiringManager.Mappers;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using NSubstitute;
 using NUnit.Framework;
@@ -21,11 +20,8 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         public void BeforeEachTestRuns()
         {
             this.Repository = Substitute.For<IRepository>();
-            this.FluentMapper = Substitute.For<IFluentMapper>();
             this.Query = new QueryPositionSummaries(this.Repository);
         }
-
-        public IFluentMapper FluentMapper { get; set; }
 
         public IRepository Repository { get; set; }
 
