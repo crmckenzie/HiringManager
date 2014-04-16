@@ -1,13 +1,11 @@
 ﻿using System.Linq;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FizzWare.NBuilder;
-using HiringManager.DomainServices;
+using HiringManager.DomainServices.AutoMapperProfiles;
 using HiringManager.EntityModel;
-using HiringManager.Web.Infrastructure.AutoMapper;
 using NUnit.Framework;
 
-namespace HiringManager.Mappers.UnitTests.Domain
+namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
 {
     [TestFixture]
     public class PositionSummaryMappingTests
@@ -15,7 +13,8 @@ namespace HiringManager.Mappers.UnitTests.Domain
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-            AutoMapperConfiguration.Configure();
+            AutoMapper.Mapper.Reset();
+            AutoMapper.Mapper.AddProfile<DomainProfile>();
         }
 
         [SetUp]
@@ -33,7 +32,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var result = AutoMapper.Mapper.Map<PositionSummary>(source);
 
             // Assert
-            Assert.That(result, Is.Not.Null);
+            Assert.That((object)result, Is.Not.Null);
         }
 
         [Test]
@@ -69,15 +68,15 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
-            Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
-            Assert.That(result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
-            Assert.That(result.CreatedById, Is.EqualTo(position.CreatedById));
-            Assert.That(result.FilledByCandidateId, Is.Null);
-            Assert.That(result.FilledByName, Is.Null);
-            Assert.That(result.FilledDate, Is.EqualTo(position.FilledDate));
-            Assert.That(result.OpenDate, Is.EqualTo(position.OpenDate));
-            Assert.That(result.Status, Is.EqualTo(position.Status));
-            Assert.That(result.Title, Is.EqualTo(position.Title));
+            Assert.That((object)result.PositionId, Is.EqualTo(position.PositionId));
+            Assert.That((object)result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
+            Assert.That((object)result.CreatedById, Is.EqualTo(position.CreatedById));
+            Assert.That((object)result.FilledByCandidateId, Is.Null);
+            Assert.That((object)result.FilledByName, Is.Null);
+            Assert.That((object)result.FilledDate, Is.EqualTo(position.FilledDate));
+            Assert.That((object)result.OpenDate, Is.EqualTo(position.OpenDate));
+            Assert.That((object)result.Status, Is.EqualTo(position.Status));
+            Assert.That((object)result.Title, Is.EqualTo(position.Title));
         }
 
         [Test]
@@ -120,15 +119,15 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
-            Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
-            Assert.That(result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
-            Assert.That(result.CreatedById, Is.EqualTo(position.CreatedById));
-            Assert.That(result.FilledByCandidateId, Is.EqualTo(position.FilledBy.CandidateId));
-            Assert.That(result.FilledByName, Is.EqualTo(position.FilledBy.Name));
-            Assert.That(result.FilledDate, Is.EqualTo(position.FilledDate));
-            Assert.That(result.OpenDate, Is.EqualTo(position.OpenDate));
-            Assert.That(result.Status, Is.EqualTo(position.Status));
-            Assert.That(result.Title, Is.EqualTo(position.Title));
+            Assert.That((object)result.PositionId, Is.EqualTo(position.PositionId));
+            Assert.That((object)result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
+            Assert.That((object)result.CreatedById, Is.EqualTo(position.CreatedById));
+            Assert.That((object)result.FilledByCandidateId, Is.EqualTo(position.FilledBy.CandidateId));
+            Assert.That((object)result.FilledByName, Is.EqualTo(position.FilledBy.Name));
+            Assert.That((object)result.FilledDate, Is.EqualTo(position.FilledDate));
+            Assert.That((object)result.OpenDate, Is.EqualTo(position.OpenDate));
+            Assert.That((object)result.Status, Is.EqualTo(position.Status));
+            Assert.That((object)result.Title, Is.EqualTo(position.Title));
         }
 
         [Test]
@@ -164,14 +163,14 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
-            Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
-            Assert.That(result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
-            Assert.That(result.CreatedById, Is.EqualTo(position.CreatedById));
-            Assert.That(result.FilledDate, Is.EqualTo(position.FilledDate));
-            Assert.That(result.OpenDate, Is.EqualTo(position.OpenDate));
-            Assert.That(result.Status, Is.EqualTo(position.Status));
-            Assert.That(result.Title, Is.EqualTo(position.Title));
-            Assert.That(result.CandidatesAwaitingReview, Is.EqualTo(7));
+            Assert.That((object)result.PositionId, Is.EqualTo(position.PositionId));
+            Assert.That((object)result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
+            Assert.That((object)result.CreatedById, Is.EqualTo(position.CreatedById));
+            Assert.That((object)result.FilledDate, Is.EqualTo(position.FilledDate));
+            Assert.That((object)result.OpenDate, Is.EqualTo(position.OpenDate));
+            Assert.That((object)result.Status, Is.EqualTo(position.Status));
+            Assert.That((object)result.Title, Is.EqualTo(position.Title));
+            Assert.That((object)result.CandidatesAwaitingReview, Is.EqualTo(7));
         }
 
         [Test]
@@ -208,14 +207,14 @@ namespace HiringManager.Mappers.UnitTests.Domain
             var result = AutoMapper.Mapper.Map<PositionSummary>(position);
 
             // Assert
-            Assert.That(result.PositionId, Is.EqualTo(position.PositionId));
-            Assert.That(result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
-            Assert.That(result.CreatedById, Is.EqualTo(position.CreatedById));
-            Assert.That(result.FilledDate, Is.EqualTo(position.FilledDate));
-            Assert.That(result.OpenDate, Is.EqualTo(position.OpenDate));
-            Assert.That(result.Status, Is.EqualTo(position.Status));
-            Assert.That(result.Title, Is.EqualTo(position.Title));
-            Assert.That(result.CandidatesAwaitingReview, Is.EqualTo(0));
+            Assert.That((object)result.PositionId, Is.EqualTo(position.PositionId));
+            Assert.That((object)result.CreatedByName, Is.EqualTo(position.CreatedBy.Name));
+            Assert.That((object)result.CreatedById, Is.EqualTo(position.CreatedById));
+            Assert.That((object)result.FilledDate, Is.EqualTo(position.FilledDate));
+            Assert.That((object)result.OpenDate, Is.EqualTo(position.OpenDate));
+            Assert.That((object)result.Status, Is.EqualTo(position.Status));
+            Assert.That((object)result.Title, Is.EqualTo(position.Title));
+            Assert.That((object)result.CandidatesAwaitingReview, Is.EqualTo(0));
         }
 
         [Test]

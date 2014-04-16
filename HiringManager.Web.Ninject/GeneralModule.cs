@@ -9,7 +9,6 @@ using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityFramework;
 using HiringManager.Mappers;
-using HiringManager.Mappers.Presentation.Positions;
 using HiringManager.Transactions;
 using HiringManager.Web.Ninject.Mappers;
 using HiringManager.Web.Ninject.Transactions;
@@ -29,12 +28,6 @@ namespace HiringManager.Web.Ninject
 
             Kernel.Bind(configuration => configuration
                 .FromAssemblyContaining<PositionService>()
-                .SelectAllClasses()
-                .BindAllInterfaces()
-                );
-
-            Kernel.Bind(configuration => configuration
-                .FromAssemblyContaining<AddCandidateViewModelMapper>()
                 .SelectAllClasses()
                 .BindAllInterfaces()
                 );

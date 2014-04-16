@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
-using HiringManager.Mappers.Presentation.Positions;
+using HiringManager.Web.Infrastructure.AutoMapper;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 
-namespace HiringManager.Mappers.UnitTests.Presentation.Positions
+namespace HiringManager.Web.UnitTests.AutoMapper
 {
     [TestFixture]
     public class PositionSummaryIndexMapperTests
@@ -12,16 +14,13 @@ namespace HiringManager.Mappers.UnitTests.Presentation.Positions
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new PositionSummaryIndexMapper();
         }
-
-        public PositionSummaryIndexMapper Mapper { get; set; }
 
         [Test]
         public void Map()
@@ -32,11 +31,11 @@ namespace HiringManager.Mappers.UnitTests.Presentation.Positions
                                     Data = Builder<PositionSummary>
                                         .CreateListOfSize(10)
                                         .Build()
-                                        
+
                                 };
 
             // Act
-            var result = this.Mapper.Map(queryResponse);
+            var result = global::AutoMapper.Mapper.Map<IndexViewModel<PositionSummaryIndexItem>>(queryResponse);
 
             // Assert
             Assert.That(result, Is.Not.Null);

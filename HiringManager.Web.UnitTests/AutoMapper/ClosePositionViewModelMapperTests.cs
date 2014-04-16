@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using HiringManager.DomainServices;
-using HiringManager.Mappers.Presentation.Positions;
+using HiringManager.Web.Infrastructure.AutoMapper;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 
-namespace HiringManager.Mappers.UnitTests.Presentation.Positions
+namespace HiringManager.Web.UnitTests.AutoMapper
 {
     [TestFixture]
     public class ClosePositionViewModelMapperTests
@@ -15,15 +12,13 @@ namespace HiringManager.Mappers.UnitTests.Presentation.Positions
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new ClosePositionViewModelMapper();
         }
-
-        public ClosePositionViewModelMapper Mapper { get; set; }
 
         [Test]
         public void Map()
@@ -35,7 +30,7 @@ namespace HiringManager.Mappers.UnitTests.Presentation.Positions
                 ;
 
             // Act
-            var result = this.Mapper.Map(positionDetails);
+            var result = global::AutoMapper.Mapper.Map<ClosePositionViewModel>(positionDetails);
 
             // Assert
             Assert.That(result, Is.Not.Null);

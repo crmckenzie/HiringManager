@@ -1,9 +1,10 @@
 ﻿using FizzWare.NBuilder;
 using HiringManager.DomainServices;
-using HiringManager.Mappers.Presentation.Positions;
+using HiringManager.Web.Infrastructure.AutoMapper;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 
-namespace HiringManager.Mappers.UnitTests.Presentation.Positions
+namespace HiringManager.Web.UnitTests.AutoMapper
 {
     [TestFixture]
     public class CandidateStatusViewModelMapperTests
@@ -11,16 +12,13 @@ namespace HiringManager.Mappers.UnitTests.Presentation.Positions
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new CandidateStatusViewModelMapper();
         }
-
-        public CandidateStatusViewModelMapper Mapper { get; set; }
 
         [Test]
         public void Map()
@@ -32,7 +30,7 @@ namespace HiringManager.Mappers.UnitTests.Presentation.Positions
                 ;
 
             // Act
-            var viewModel = this.Mapper.Map(details);
+            var viewModel = global::AutoMapper.Mapper.Map<CandidateStatusViewModel>(details);
 
             // Assert
             Assert.That(viewModel, Is.Not.Null);

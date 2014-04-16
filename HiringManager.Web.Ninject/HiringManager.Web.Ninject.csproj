@@ -114,10 +114,6 @@
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HiringManager.Mappers\HiringManager.Mappers.csproj">
-      <Project>{CF86D312-49E5-43B2-9397-E2F2721DEAB2}</Project>
-      <Name>HiringManager.Mappers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HiringManager\HiringManager.csproj">
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>
       <Name>HiringManager</Name>

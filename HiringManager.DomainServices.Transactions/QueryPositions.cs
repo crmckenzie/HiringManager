@@ -19,7 +19,7 @@ namespace HiringManager.DomainServices.Transactions
 
         public QueryResponse<PositionSummary> Execute(QueryPositionSummariesRequest request)
         {
-            var specification = AutoMapper.Mapper.Map<PositionSpecification>(request);
+            var specification = global::AutoMapper.Mapper.Map<PositionSpecification>(request);
 
             var query = _repository
                 .Query<Position>()

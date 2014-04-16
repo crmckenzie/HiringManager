@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Web;
-using AutoMapper;
-using HiringManager.DomainServices;
+﻿using AutoMapper;
 using HiringManager.EntityModel;
 using HiringManager.EntityModel.Specifications;
+using System.Linq;
 
-namespace HiringManager.Web.Infrastructure.AutoMapper
+namespace HiringManager.DomainServices.AutoMapperProfiles
 {
     public class DomainProfile : Profile
     {
@@ -67,22 +62,6 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
             CreateMap<Position, PositionDetails>()
                 .ForMember(output => output.CanAddCandidate, opt => opt.ResolveUsing(input => !input.IsFilled()))
                 .ForMember(output => output.CanClose, opt => opt.ResolveUsing(input => !(input.IsClosed() || input.IsFilled())))
-                .AfterMap((position, positionDetails) =>
-                    {
-                        foreach (var candidate in positionDetails.Candidates)
-                        {
-                            if (!position.IsFilled())
-                            {
-                                //candidate.CanPass = candidate.Status != "Passed";
-                                //candidate.CanHire = true;
-                                //candidate.CanSetStatus = true;
-                            }
-                        }
-
-                        //positionDetails.CanAddCandidate = !position.IsFilled();
-                        //positionDetails.CanClose = !(position.IsClosed() || position.IsFilled());
-
-                    })
                 ;
 
         }

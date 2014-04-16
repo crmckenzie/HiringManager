@@ -15,7 +15,7 @@ namespace HiringManager.DomainServices.Transactions
 
         public CreatePositionResponse Execute(CreatePositionRequest request)
         {
-            var position = AutoMapper.Mapper.Map<Position>(request);
+            var position = global::AutoMapper.Mapper.Map<Position>(request);
 
             _repository.Store(position);
 

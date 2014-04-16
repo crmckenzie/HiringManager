@@ -118,7 +118,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapper\AddCandidateViewModelMapperTests.cs" />
     <Compile Include="AutoMapper\AutoMapperConfigurationTests.cs" />
+    <Compile Include="AutoMapper\CandidateStatusViewModelMapperTests.cs" />
+    <Compile Include="AutoMapper\ClosePositionViewModelMapperTests.cs" />
+    <Compile Include="AutoMapper\PositionCandidatesViewModelMapperTests.cs" />
+    <Compile Include="AutoMapper\PositionSummaryIndexMapperTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\PositionsControllerTests.cs" />
     <Compile Include="Controllers\TaskExtensions.cs" />
