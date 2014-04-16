@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using HiringManager.EntityFramework;
 using Configuration = HiringManager.EntityFramework.Migrations.Configuration;
-  
+
 namespace HiringManager.Web.App_Start
 {
     public class DatabaseConfiguration : DbConfiguration
@@ -20,7 +20,7 @@ namespace HiringManager.Web.App_Start
             }
 
             SetConfiguration(new DatabaseConfiguration());
-            new Repository().Database.Initialize(force: false);
+            //new Repository().Database.Initialize(force: false);
         }
 
         public DatabaseConfiguration()

@@ -60,6 +60,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.Web.ViewModels", "HiringManager.Web.ViewModels\HiringManager.Web.ViewModels.csproj", "{D023737E-5EF9-45D1-800D-40CCFDE74661}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".builddb", ".builddb", "{1895D85C-84A0-4666-9983-9E4322F2CA41}"
+	ProjectSection(SolutionItems) = preProject
+		Invoke-BuildDb.ps1 = Invoke-BuildDb.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -6,7 +6,7 @@ namespace HiringManager.EntityFramework.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "HiringManager.EntityFramework.Repository";
         }
 

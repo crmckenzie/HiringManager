@@ -22,10 +22,13 @@ namespace HiringManager.DomainServices.UnitTests
         public void BeforeEachTestRuns()
         {
             this.TransactionBuilder = Substitute.For<IFluentTransactionBuilder>();
-            this.Repository = Substitute.For<IRepository>();
+            this.UnitOfWork = Substitute.For<IUnitOfWork>();
+            this.Repository = this.UnitOfWork.NewRepository();
 
-            this.PositionService = new PositionService(this.TransactionBuilder, this.Repository);
+            this.PositionService = new PositionService(this.TransactionBuilder, this.UnitOfWork);
         }
+
+        public IUnitOfWork UnitOfWork { get; set; }
 
         public IRepository Repository { get; set; }
 
