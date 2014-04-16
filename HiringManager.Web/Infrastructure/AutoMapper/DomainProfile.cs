@@ -59,9 +59,26 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
                               positionSummary.CandidatesAwaitingReview = inReview.Count();
                           })
                 ;
-            //.ForAllMembers(opt => opt.Condition(srs => !srs.IsSourceValueNull))
-
             ;
+
+            CreateMap<Position, PositionDetails>()
+                .AfterMap((position, positionDetails) =>
+                    {
+                        foreach (var candidate in positionDetails.Candidates)
+                        {
+                            if (!position.IsFilled())
+                            {
+                                candidate.CanPass = candidate.Status != "Passed";
+                                candidate.CanHire = true;
+                                candidate.CanSetStatus = true;
+                            }
+                        }
+
+                        positionDetails.CanAddCandidate = !position.IsFilled();
+                        positionDetails.CanClose = !(position.IsClosed() || position.IsFilled());
+
+                    })
+                ;
 
         }
     }

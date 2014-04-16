@@ -69,7 +69,6 @@
     <Compile Include="Domain\CreatePositionRequestMappingTests.cs" />
     <Compile Include="Domain\PositionDetailsMapperTests.cs" />
     <Compile Include="Domain\PositionSummaryMappingTests.cs" />
-    <Compile Include="Domain\QueryPositionSummariesRequestMapperTests.cs" />
     <Compile Include="Presentation\Positions\AddCandidateViewModelMapperTests.cs" />
     <Compile Include="Presentation\Positions\CandidateStatusViewModelMapperTests.cs" />
     <Compile Include="Presentation\Positions\ClosePositionViewModelMapperTests.cs" />

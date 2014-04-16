@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
+using HiringManager.DomainServices;
 using HiringManager.EntityModel;
-using HiringManager.Mappers.Domain;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -13,16 +14,13 @@ namespace HiringManager.Mappers.UnitTests.Domain
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Mapper = new PositionDetailsMapper();
         }
-
-        public PositionDetailsMapper Mapper { get; set; }
 
         [Test]
         public void Map_Position()
@@ -34,7 +32,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details, Is.Not.Null);
@@ -63,7 +61,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             for (var i = 0; i < 10; i++)
@@ -95,7 +93,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             position.IsFilled().Returns(false);
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.True);
@@ -109,7 +107,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             position.IsFilled().Returns(true);
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.False);
@@ -124,7 +122,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             position.IsClosed().Returns(true);
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanClose, Is.False);
@@ -138,7 +136,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             position.IsFilled().Returns(true);
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanClose, Is.False);
@@ -153,7 +151,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
             position.IsFilled().Returns(false);
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanClose, Is.True);
@@ -180,7 +178,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.True);
@@ -211,7 +209,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.True);
@@ -242,7 +240,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.True);
@@ -276,7 +274,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.True);
@@ -305,7 +303,7 @@ namespace HiringManager.Mappers.UnitTests.Domain
                 ;
 
             // Act
-            var details = this.Mapper.Map(position);
+            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
 
             // Assert
             Assert.That(details.CanAddCandidate, Is.False);
