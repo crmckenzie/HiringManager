@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using HiringManager.EntityFramework;
 using WebMatrix.WebData;
 using HiringManager.Web.Models;
 
@@ -25,11 +26,11 @@ namespace HiringManager.Web.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<ApplicationDbContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new ApplicationDbContext())
                     {
                         if (!context.Database.Exists())
                         {

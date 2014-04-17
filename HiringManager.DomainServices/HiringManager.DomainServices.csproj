@@ -48,9 +48,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="HiringManager.Web.Ninject">
-      <HintPath>..\HiringManager.Web.Ninject\bin\Debug\HiringManager.Web.Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="Isg.Specification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Isg.Specification.0.1\lib\net40\Isg.Specification.dll</HintPath>
