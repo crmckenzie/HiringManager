@@ -16,3 +16,5 @@ Scenario: Close the Position
 	And I submit the create position request
 	When I close the position for 'Senior Software Developer'
 	Then I should be redirected to the Position Index page
+	And the position 'Senior Software Developer' should have a status of 'Closed'
+
