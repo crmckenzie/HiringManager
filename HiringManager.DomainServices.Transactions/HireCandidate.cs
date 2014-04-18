@@ -19,10 +19,11 @@ namespace HiringManager.DomainServices.Transactions
         {
             var candidateToHire = _dbContext.Get<CandidateStatus>(request.CandidateStatusId);
             candidateToHire.Status = "Hired";
-            
-            candidateToHire.Position.FilledBy = candidateToHire.Candidate;
-            candidateToHire.Position.FilledDate = _clock.Now;
-            candidateToHire.Position.Status = "Filled";
+
+            var opening = candidateToHire.Position.Openings.First(row => row.FilledBy == null);
+            opening.FilledBy = candidateToHire.Candidate;
+            opening.FilledDate = _clock.Now;
+            opening.Status = "Filled";
 
             var otherCandidates = candidateToHire.Position.Candidates.ToList();
             otherCandidates.Remove(candidateToHire);
@@ -30,6 +31,9 @@ namespace HiringManager.DomainServices.Transactions
             {
                 candidateStatus.Status = "Passed";
             }
+
+            if (candidateToHire.Position.IsFilled())
+                candidateToHire.Position.Status = "Filled";
 
             _dbContext.SaveChanges();
 

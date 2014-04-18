@@ -12,5 +12,10 @@ namespace HiringManager.Web.ViewModels.Positions
         [Required]
         [Display(Name = "Open Date")]
         public DateTime OpenDate { get; set; }
+
+        [Required]
+        [Display(Name = "Number of Openings")]
+        [Range(1, Int32.MaxValue)]
+        public int Openings { get; set; }
     }
 }

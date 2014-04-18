@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Migrations.Infrastructure;
 using HiringManager.EntityFramework;
 
 namespace HiringManager.Web.Integration.Tests
@@ -7,7 +8,7 @@ namespace HiringManager.Web.Integration.Tests
     {
         public IntegrationTestDbConfiguration()
         {
-            base.SetDatabaseInitializer(new DropCreateDatabaseAlways<HiringManagerDbContext>());
+            base.SetDatabaseInitializer<HiringManagerDbContext>(null);
         }
     }
 }

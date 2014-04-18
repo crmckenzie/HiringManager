@@ -88,7 +88,16 @@ namespace HiringManager.EntityFramework
                 ;
 
             modelBuilder.Entity<Position>()
-                .HasOptional(row => row.FilledBy)
+                .HasMany(row => row.Openings)
+                .WithRequired(row=> row.Position)
+                ;
+
+            modelBuilder.Entity<Opening>()
+                .HasRequired(m => m.Position)
+                ;
+
+            modelBuilder.Entity<Opening>()
+                .HasOptional(m => m.FilledBy)
                 ;
 
         }

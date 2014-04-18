@@ -1,8 +1,9 @@
 param(
-	[string] $databaseName = "HiringManagerDb",
+	[string] $databaseName = "HiringManager",
 	[string] $buildType="Debug",
 	[string] $targetMigration = "",
-	[string] $entityFrameworkVersion = "6.1.0"
+	[string] $entityFrameworkVersion = "6.1.0",
+	[string] $environment = ""
 )
 
 $workingDirectory = "HiringManager.EntityFramework.Migrations\bin\$buildType"
@@ -13,10 +14,16 @@ write-host "copying $migrateExe to $workingDirectory"
 copy $migrateExe $workingDirectory 
 $migrateCommand = "$workingDirectory\migrate.exe"
 
+if ([string]::IsNullOrEmpty($environment) -eq $false)
+{
+	$databaseName = $databaseName + $environment;
+}
+$databaseName = $databaseName + "Db";
+
 $connectionString="Data Source=.;Initial Catalog=$databaseName;Integrated Security=True"
 $assembly = "HiringManager.EntityFramework.Migrations.dll"
 
-$cmd = "$migrateCommand ""$assembly"" /startupDirectory:""$workingDirectory"" /connectionstring:""$connectionString"" /connectionProviderName:""System.Data.SqlClient"""
+$cmd = "$migrateCommand ""$assembly"" /startupDirectory:""$workingDirectory"" /connectionstring:""$connectionString"" /connectionProviderName:""System.Data.SqlClient"" /verbose"
 if ([String]::IsNullOrEmpty($targetMigration ) -eq $false){
 	$cmd = $cmd + " /targetMigration:""$targetMigration"""
 }

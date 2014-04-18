@@ -20,6 +20,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             {
                 Title = positionName,
                 OpenDate = startDate,
+                Openings = 1,
             };
 
             ScenarioContext.Current.Set(viewModel);

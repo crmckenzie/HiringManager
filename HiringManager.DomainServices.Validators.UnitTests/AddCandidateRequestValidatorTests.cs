@@ -74,11 +74,8 @@ namespace HiringManager.DomainServices.Validators.UnitTests
                 .Build()
                 ;
 
-            var position = Builder<Position>
-                .CreateNew()
-                .Do(row => row.FilledBy = new Candidate())
-                .Build()
-                ;
+            var position = Substitute.For<Position>();
+            position.IsFilled().Returns(true);
 
             this.DbContext
                 .Get<Position>(request.PositionId)

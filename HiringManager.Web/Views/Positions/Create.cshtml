@@ -1,40 +1,46 @@
 ﻿@model HiringManager.Web.ViewModels.Positions.CreatePositionViewModel
 
 @{
-    ViewBag.Title = "Create Position";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Create Position";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Create Position</h2>
 <div class="container-fluid span12">
-    <form action="Create" method="POST">
-        <div class="form-group">
-            @Html.LabelFor(m => m.Title, "Title")
-            @Html.TextBoxFor(m => m.Title, new {placeholder = "Position Title", @class="form-control"})
-            @Html.ValidationMessageFor(m => m.Title)
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(m => m.OpenDate, "Open Date")
-            <div>
-                @Html.TextBoxFor(m => m.OpenDate, new { placeholder = "Open Date", @class = "k-ui-datepicker form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m.OpenDate)
-        </div>
-        
-        <div class="btn-group">
-            <button type="submit" class="btn btn-primary">Create</button>
-            <a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>            
-        </div>
-    </form>    
+	<form action="Create" method="POST">
+		<div class="form-group">
+			@Html.LabelFor(m => m.Title, "Title")
+			@Html.TextBoxFor(m => m.Title, new { placeholder = "Position Title", @class = "form-control" })
+			@Html.ValidationMessageFor(m => m.Title)
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(m => m.OpenDate, "Open Date")
+			<div>
+				@Html.TextBoxFor(m => m.OpenDate, new { placeholder = "Open Date", @class = "k-ui-datepicker form-control" })
+			</div>
+			@Html.ValidationMessageFor(m => m.OpenDate)
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(m => m.Openings, "Number of Openings to create")
+			@Html.TextBoxFor(m => m.Openings, new { placeholder = "Number of Openings", @class = "form-control" })
+			@Html.ValidationMessageFor(m => m.Openings)
+		</div>
+
+		<div class="btn-group">
+			<button type="submit" class="btn btn-primary">Create</button>
+			<a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>
+		</div>
+	</form>    
 </div>
 
 @Html.ValidationSummary()
 
 @section scripts {
-    <script type="text/javascript">
-        $(function () {
-            $(".k-ui-datepicker").kendoDatePicker();
-        })
-    </script>    
+	<script type="text/javascript">
+		$(function () {
+			$(".k-ui-datepicker").kendoDatePicker();
+		})
+	</script>    
 }

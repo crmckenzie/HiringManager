@@ -36,10 +36,10 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             Assert.That((object) result, Is.Not.Null);
             Assert.That((object) result.Candidates, Is.Empty);
             Assert.That((object) result.CreatedById, Is.EqualTo(request.HiringManagerId));
-            Assert.That((object) result.FilledBy, Is.Null);
             Assert.That((object) result.OpenDate, Is.EqualTo(request.OpenDate));
             Assert.That((object) result.Status, Is.EqualTo("Open"));
             Assert.That((object) result.Title, Is.EqualTo(request.Title));
+            Assert.That(result.Openings, Has.Count.EqualTo(request.Openings));
         }
 
     }

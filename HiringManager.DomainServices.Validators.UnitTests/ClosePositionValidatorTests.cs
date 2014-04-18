@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
 using HiringManager.EntityModel;
+using NSubstitute;
 using NUnit.Framework;
 using Simple.Validation;
 
@@ -58,11 +59,8 @@ namespace HiringManager.DomainServices.Validators.UnitTests
         public void Validate_Filled()
         {
             // Arrange
-            var position = Builder<Position>
-                .CreateNew()
-                .Do(row => row.FilledBy = new Candidate())
-                .Build()
-                ;
+            var position = Substitute.For<Position>();
+            position.IsFilled().Returns(true);
 
             // Act
             var results = this.Validator.Validate(position).ToList();

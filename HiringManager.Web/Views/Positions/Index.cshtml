@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Open Positions</h2>
+<h2>Positions</h2>
     
 <div class="container row col-md-2">
    
@@ -24,6 +24,9 @@
                 <th>Created</th>
                 <th>Status</th>
                 <th>Candidates Awaiting Review</th>
+                <th>Open Date</th>
+                <th>Openings</th>
+                <th>Filled</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +37,9 @@
                     <td>@item.CreatedByName</td>
                     <td>@Html.ActionLink(item.Status, "Index", "Positions", new {status = item.Status}, null)</td>
                     <td>@item.CandidatesAwaitingReview.ToString()</td>
+                    <td>@item.OpenDate</td>
+                    <td>@item.Openings</td>
+                    <td>@item.OpeningsFilled</td>
                 </tr>
             }
         </tbody>
