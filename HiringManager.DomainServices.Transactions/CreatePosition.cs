@@ -5,20 +5,20 @@ namespace HiringManager.DomainServices.Transactions
 {
     public class CreatePosition : ITransaction<CreatePositionRequest, CreatePositionResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
 
-        public CreatePosition(IRepository repository)
+        public CreatePosition(IDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public CreatePositionResponse Execute(CreatePositionRequest request)
         {
             var position = global::AutoMapper.Mapper.Map<Position>(request);
 
-            _repository.Store(position);
+            _dbContext.Add(position);
 
-            _repository.Commit();
+            _dbContext.SaveChanges();
 
             return new CreatePositionResponse()
                    {

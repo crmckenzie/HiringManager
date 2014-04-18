@@ -6,11 +6,11 @@ namespace HiringManager.DomainServices.Transactions
 {
     public class AddCandidate : ITransaction<AddCandidateRequest, AddCandidateResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
 
-        public AddCandidate(IRepository repository)
+        public AddCandidate(IDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public AddCandidateResponse Execute(AddCandidateRequest request)
@@ -33,14 +33,14 @@ namespace HiringManager.DomainServices.Transactions
                                       Candidate = candidate
                                   };
 
-            _repository.Store(candidate);
+            _dbContext.Add(candidate);
 
             foreach (var contactInfo in candidate.ContactInfo)
-                _repository.Store(contactInfo);
+                _dbContext.Add(contactInfo);
 
-            _repository.Store(candidateStatus);
+            _dbContext.Add(candidateStatus);
 
-            _repository.Commit();
+            _dbContext.SaveChanges();
 
             return new AddCandidateResponse()
                    {

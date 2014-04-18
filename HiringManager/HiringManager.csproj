@@ -55,7 +55,7 @@
     <Compile Include="Transactions\IFluentTransactionBuilder.cs" />
     <Compile Include="Transactions\IFluentTransactionPipelineSyntax.cs" />
     <Compile Include="Transactions\IFluentTransactionRequestSyntax.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="IDbContext.cs" />
     <Compile Include="Transactions\ITransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

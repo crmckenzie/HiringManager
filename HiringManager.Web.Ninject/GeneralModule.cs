@@ -36,7 +36,7 @@ namespace HiringManager.Web.Ninject
                 .To<FluentTransactionBuilder>()
                 ;
 
-            Kernel.Bind<IRepository>().To<Repository>();
+            Kernel.Bind<IDbContext>().To<HiringManagerDbContext>();
 
             Kernel.Bind<IPrincipal>()
                 .ToMethod(context =>

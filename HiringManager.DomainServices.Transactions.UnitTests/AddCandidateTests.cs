@@ -17,11 +17,11 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
-            this.AddCandidate = new AddCandidate(this.Repository);
+            this.DbContext = Substitute.For<IDbContext>();
+            this.AddCandidate = new AddCandidate(this.DbContext);
         }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         public AddCandidate AddCandidate { get; set; }
 
@@ -38,11 +38,11 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             const int candidateStatusId = 3;
             const int candidateId = 4;
 
-            this.Repository.When(r => r.Store(Arg.Any<CandidateStatus>()))
+            this.DbContext.When(r => r.Add(Arg.Any<CandidateStatus>()))
                 .Do(arg => arg.Arg<CandidateStatus>().CandidateStatusId = candidateStatusId);
 
 
-            this.Repository.When(r => r.Store(Arg.Any<Candidate>()))
+            this.DbContext.When(r => r.Add(Arg.Any<Candidate>()))
                 .Do(arg => arg.Arg<Candidate>().CandidateId = candidateId);
 
 
@@ -52,19 +52,19 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             // Assert
             Assert.That(response, Is.Not.Null);
 
-            this.Repository.Received()
-                .Store(Arg.Is<Candidate>(arg => arg.Name == request.CandidateName));
+            this.DbContext.Received()
+                .Add(Arg.Is<Candidate>(arg => arg.Name == request.CandidateName));
 
             foreach (var contactInfo in request.ContactInfo)
             {
-                this.Repository.Received()
-                    .Store(Arg.Is<ContactInfo>(arg => arg.Type == contactInfo.Type && arg.Value == contactInfo.Value && arg.Candidate != null));
+                this.DbContext.Received()
+                    .Add(Arg.Is<ContactInfo>(arg => arg.Type == contactInfo.Type && arg.Value == contactInfo.Value && arg.Candidate != null));
                 
             }
 
-            this.Repository
+            this.DbContext
                 .Received()
-                .Store(Arg.Is<CandidateStatus>(arg=> arg.PositionId == request.PositionId && arg.Status == "Resume Received"))
+                .Add(Arg.Is<CandidateStatus>(arg=> arg.PositionId == request.PositionId && arg.Status == "Resume Received"))
                 ;
 
 

@@ -6,19 +6,19 @@ namespace HiringManager.DomainServices.Transactions
 {
     public class ClosePosition : ITransaction<int, IValidatedResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
         private readonly IValidationEngine _validationEngine;
 
-        public ClosePosition(IRepository repository, IValidationEngine validationEngine)
+        public ClosePosition(IDbContext dbContext, IValidationEngine validationEngine)
         {
-            _repository = repository;
+            _dbContext = dbContext;
             _validationEngine = validationEngine;
         }
 
         public IValidatedResponse Execute(int positionId)
         {
 
-            var position = this._repository.Get<Position>(positionId);
+            var position = this._dbContext.Get<Position>(positionId);
             var validationResults = this._validationEngine.Validate(position, "Close");
             if (validationResults.HasErrors())
             {
@@ -33,7 +33,7 @@ namespace HiringManager.DomainServices.Transactions
             foreach (var status in position.Candidates)
                 status.Status = "Passed";
 
-            _repository.Commit();
+            _dbContext.SaveChanges();
 
             return new ValidatedResponse()
                    {

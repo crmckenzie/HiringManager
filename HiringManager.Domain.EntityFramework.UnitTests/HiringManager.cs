@@ -12,13 +12,13 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<Repository>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<HiringManagerDbContext>());
         }
 
         [Test]
         public void Insert()
         {
-            using (var repository = new Repository())
+            using (var repository = new HiringManagerDbContext())
             {
                 // Arrange
                 var hiringManager = Builder<Manager>
@@ -27,8 +27,8 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
                     ;
 
                 // Act
-                repository.Store(hiringManager);
-                repository.Commit();
+                repository.Add(hiringManager);
+                repository.SaveChanges();
 
                 // Assert
                 Assert.That(hiringManager.ManagerId, Is.Not.Null);
@@ -40,7 +40,7 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
         public void Get()
         {
             int? managerId = null;
-            using (var repository = new Repository())
+            using (var repository = new HiringManagerDbContext())
             {
                 // Arrange
                 var hiringManager = Builder<Manager>
@@ -49,15 +49,15 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
                     ;
 
                 // Act
-                repository.Store(hiringManager);
-                repository.Commit();
+                repository.Add(hiringManager);
+                repository.SaveChanges();
 
                 // Assert
                 managerId = hiringManager.ManagerId;
             }
 
             // Act
-            using (var repository = new Repository())
+            using (var repository = new HiringManagerDbContext())
             {
                 var manager = repository.Get<Manager>(managerId.Value);
                 Assert.That(manager, Is.Not.Null);
@@ -68,7 +68,7 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
         [Test]
         public void AddCandidateUsingReferences()
         {
-            using (var repository = new Repository())
+            using (var repository = new HiringManagerDbContext())
             {
                 var hiringManager = Builder<Manager>
                     .CreateNew()
@@ -93,12 +93,12 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
                                           Status = "Resume Received"
                                       };
 
-                repository.Store(hiringManager);
-                repository.Store(position);
-                repository.Store(candidate);
-                repository.Store(candidateStatus);
+                repository.Add(hiringManager);
+                repository.Add(position);
+                repository.Add(candidate);
+                repository.Add(candidateStatus);
 
-                repository.Commit();
+                repository.SaveChanges();
 
 
             }
@@ -108,7 +108,7 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
         [Test]
         public void AddCandidateUsingIds()
         {
-            using (var repository = new Repository())
+            using (var repository = new HiringManagerDbContext())
             {
                 var hiringManager = Builder<Manager>
                     .CreateNew()
@@ -133,12 +133,12 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
                     Status = "Resume Received"
                 };
 
-                repository.Store(hiringManager);
-                repository.Store(position);
-                repository.Store(candidate);
-                repository.Store(candidateStatus);
+                repository.Add(hiringManager);
+                repository.Add(position);
+                repository.Add(candidate);
+                repository.Add(candidateStatus);
 
-                repository.Commit();
+                repository.SaveChanges();
 
 
             }

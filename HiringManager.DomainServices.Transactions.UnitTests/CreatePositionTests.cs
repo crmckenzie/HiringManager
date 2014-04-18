@@ -18,11 +18,11 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
-            this.Transaction = new CreatePosition(this.Repository);
+            this.DbContext = Substitute.For<IDbContext>();
+            this.Transaction = new CreatePosition(this.DbContext);
         }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         public CreatePosition Transaction { get; set; }
 
@@ -31,9 +31,9 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         {
             // Arrange
             var manager = Builder<Manager>.CreateNew().Build();
-            this.Repository.Get<Manager>(25).Returns(manager);
+            this.DbContext.Get<Manager>(25).Returns(manager);
 
-            this.Repository.WhenForAnyArgs(r => r.Store<Position>(null))
+            this.DbContext.WhenForAnyArgs(r => r.Add<Position>(null))
                 .Do(ci => ci.Arg<Position>().PositionId = 1001);
 
             var position = Builder<Position>
@@ -51,8 +51,8 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            this.Repository.Received().Store(Arg.Is<Position>(row => row.OpenDate == request.OpenDate && row.Title == request.Title));
-            this.Repository.Received().Commit();
+            this.DbContext.Received().Add(Arg.Is<Position>(row => row.OpenDate == request.OpenDate && row.Title == request.Title));
+            this.DbContext.Received().SaveChanges();
 
             Assert.That(response.PositionId, Is.EqualTo(1001));
             Assert.That(position.CreatedById, Is.EqualTo(request.HiringManagerId));

@@ -18,14 +18,14 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
+            this.DbContext = Substitute.For<IDbContext>();
             this.ValidationEngine = Substitute.For<IValidationEngine>();
-            this.Transaction = new ClosePosition(this.Repository, this.ValidationEngine);
+            this.Transaction = new ClosePosition(this.DbContext, this.ValidationEngine);
         }
 
         public IValidationEngine ValidationEngine { get; set; }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         public ClosePosition Transaction { get; set; }
 
@@ -38,14 +38,14 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Build()
                 ;
 
-            this.Repository.Get<Position>(position.PositionId.Value).Returns(position);
+            this.DbContext.Get<Position>(position.PositionId.Value).Returns(position);
 
             // Act
             var response = this.Transaction.Execute(position.PositionId.Value);
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            this.Repository.Received().Commit();
+            this.DbContext.Received().SaveChanges();
 
             Assert.That(position.Status, Is.EqualTo("Closed"));
         }
@@ -65,7 +65,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Build()
                 ;
 
-            this.Repository.Get<Position>(position.PositionId.Value).Returns(position);
+            this.DbContext.Get<Position>(position.PositionId.Value).Returns(position);
 
             // Act
             var response = this.Transaction.Execute(position.PositionId.Value);
@@ -99,15 +99,15 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                                     };
             this.ValidationEngine.Validate(position, "Close").Returns(validationResults);
 
-            this.Repository.Get<Position>(position.PositionId.Value).Returns(position);
+            this.DbContext.Get<Position>(position.PositionId.Value).Returns(position);
 
             // Act
             var response = this.Transaction.Execute(position.PositionId.Value);
 
             // Assert
             Assert.That(response.ValidationResults, Is.EquivalentTo(validationResults));
-            this.Repository.DidNotReceive().Store(position);
-            this.Repository.DidNotReceive().Commit();
+            this.DbContext.DidNotReceive().Add(position);
+            this.DbContext.DidNotReceive().SaveChanges();
         }
     }
 }

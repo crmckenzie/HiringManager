@@ -6,11 +6,11 @@ namespace HiringManager.DomainServices.Validators
 {
     public class AddCandidateRequestValidator : IValidator<AddCandidateRequest>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
 
-        public AddCandidateRequestValidator(IRepository repository)
+        public AddCandidateRequestValidator(IDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public bool AppliesTo(string rulesSet)
@@ -20,7 +20,7 @@ namespace HiringManager.DomainServices.Validators
 
         public IEnumerable<ValidationResult> Validate(AddCandidateRequest value)
         {
-            var position = _repository.Get<Position>(value.PositionId);
+            var position = _dbContext.Get<Position>(value.PositionId);
             if (position.IsFilled())
             {
                 yield return new ValidationResult()

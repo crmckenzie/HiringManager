@@ -19,11 +19,11 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
-            this.Query = new QueryPositionSummaries(this.Repository);
+            this.DbContext = Substitute.For<IDbContext>();
+            this.Query = new QueryPositionSummaries(this.DbContext);
         }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         public QueryPositionSummaries Query { get; set; }
 
@@ -39,7 +39,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Build()
                 ;
 
-            this.Repository.Query<Position>()
+            this.DbContext.Query<Position>()
                 .Returns(positions.AsQueryable())
                 ;
 

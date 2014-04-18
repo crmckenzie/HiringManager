@@ -5,7 +5,7 @@ using HiringManager.EntityModel;
 
 namespace HiringManager.EntityFramework
 {
-    public class Repository : DbContext, IRepository
+    public class HiringManagerDbContext : System.Data.Entity.DbContext, IDbContext
     {
         internal IDbSet<Candidate> Candidates { get; set; }
         internal IDbSet<CandidateStatus> CandidateStatuses { get; set; }
@@ -18,7 +18,7 @@ namespace HiringManager.EntityFramework
             return base.Set<T>();
         }
 
-        public void Store<T>(T item) where T:class
+        public void Add<T>(T item) where T:class
         {
             base.Set<T>().Add(item);
         }
@@ -28,7 +28,7 @@ namespace HiringManager.EntityFramework
             base.Set<T>().Remove(item);
         }
 
-        public void Commit()
+        public void SaveChanges()
         {
             try
             {

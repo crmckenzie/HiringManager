@@ -2,15 +2,15 @@ namespace HiringManager.EntityFramework.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    public sealed class Configuration : DbMigrationsConfiguration<Repository>
+    public sealed class Configuration : DbMigrationsConfiguration<HiringManagerDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "HiringManager.EntityFramework.Repository";
+            ContextKey = "HiringManager.EntityFramework.HiringManagerDbContext";
         }
 
-        protected override void Seed(Repository context)
+        protected override void Seed(HiringManagerDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

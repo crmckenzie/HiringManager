@@ -7,7 +7,7 @@ namespace HiringManager.Web.Integration.Tests
     {
         public IntegrationTestDbConfiguration()
         {
-            base.SetDatabaseInitializer(new DropCreateDatabaseAlways<Repository>());
+            base.SetDatabaseInitializer(new DropCreateDatabaseAlways<HiringManagerDbContext>());
         }
     }
 }

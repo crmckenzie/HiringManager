@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository.cs" />
+    <Compile Include="HiringManagerDbContext.cs" />
     <Compile Include="UsersContext.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,19 +5,19 @@ namespace HiringManager.DomainServices.Transactions
 {
     public class SetCandidateStatus : ITransaction<SetCandidateStatusRequest, CandidateStatusResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
 
-        public SetCandidateStatus(IRepository repository)
+        public SetCandidateStatus(IDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public CandidateStatusResponse Execute(SetCandidateStatusRequest request)
         {
-            var candidateStatus = _repository.Get<CandidateStatus>(request.CandidateStatusId);
+            var candidateStatus = _dbContext.Get<CandidateStatus>(request.CandidateStatusId);
             candidateStatus.Status = request.Status;
             
-            _repository.Commit();
+            _dbContext.SaveChanges();
 
             return new CandidateStatusResponse()
                    {

@@ -11,15 +11,15 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
-            this.Command = new SetCandidateStatus(this.Repository);
+            this.DbContext = Substitute.For<IDbContext>();
+            this.Command = new SetCandidateStatus(this.DbContext);
         }
 
         public IClock Clock { get; set; }
 
         public SetCandidateStatus Command { get; set; }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         [Test]
         public void Execute()
@@ -35,7 +35,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Build()
                 ;
 
-            this.Repository.Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value).Returns(candidateStatus);
+            this.DbContext.Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value).Returns(candidateStatus);
 
             // Act
             var request = new SetCandidateStatusRequest()
@@ -50,7 +50,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             Assert.That(response.CandidateStatusId, Is.EqualTo(candidateStatus.CandidateStatusId));
             Assert.That(response.Status, Is.EqualTo("Passed"));
 
-            this.Repository.Received().Commit();
+            this.DbContext.Received().SaveChanges();
         }
     }
 }

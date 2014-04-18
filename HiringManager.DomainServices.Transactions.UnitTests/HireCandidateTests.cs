@@ -12,16 +12,16 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
+            this.DbContext = Substitute.For<IDbContext>();
             this.Clock = Substitute.For<IClock>();
-            this.Command = new HireCandidate(this.Repository, this.Clock);
+            this.Command = new HireCandidate(this.DbContext, this.Clock);
         }
 
         public IClock Clock { get; set; }
 
         public HireCandidate Command { get; set; }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         [Test]
         public void Execute()
@@ -53,7 +53,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
 
 
-            this.Repository.Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value).Returns(candidateStatus);
+            this.DbContext.Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value).Returns(candidateStatus);
 
             // Act
             var request = new HireCandidateRequest()
@@ -71,7 +71,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             Assert.That(position.FilledDate, Is.EqualTo(Clock.Now));
             Assert.That(position.Status, Is.EqualTo("Filled"));
 
-            this.Repository.Received().Commit();
+            this.DbContext.Received().SaveChanges();
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
             var hiredStatus = candidateStatuses.Skip(1).First();
             
-            this.Repository.Get<CandidateStatus>(hiredStatus.CandidateStatusId.Value).Returns(hiredStatus);
+            this.DbContext.Get<CandidateStatus>(hiredStatus.CandidateStatusId.Value).Returns(hiredStatus);
 
             // Act
             var request = new HireCandidateRequest()

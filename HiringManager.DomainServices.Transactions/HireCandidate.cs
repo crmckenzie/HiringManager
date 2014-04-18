@@ -6,18 +6,18 @@ namespace HiringManager.DomainServices.Transactions
 {
     public class HireCandidate : ITransaction<HireCandidateRequest, CandidateStatusResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
         private readonly IClock _clock;
 
-        public HireCandidate(IRepository repository, IClock clock)
+        public HireCandidate(IDbContext dbContext, IClock clock)
         {
-            _repository = repository;
+            _dbContext = dbContext;
             _clock = clock;
         }
 
         public CandidateStatusResponse Execute(HireCandidateRequest request)
         {
-            var candidateToHire = _repository.Get<CandidateStatus>(request.CandidateStatusId);
+            var candidateToHire = _dbContext.Get<CandidateStatus>(request.CandidateStatusId);
             candidateToHire.Status = "Hired";
             
             candidateToHire.Position.FilledBy = candidateToHire.Candidate;
@@ -31,7 +31,7 @@ namespace HiringManager.DomainServices.Transactions
                 candidateStatus.Status = "Passed";
             }
 
-            _repository.Commit();
+            _dbContext.SaveChanges();
 
             return new CandidateStatusResponse()
                    {

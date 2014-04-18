@@ -10,18 +10,18 @@ namespace HiringManager.DomainServices.Transactions
 {
     public class QueryPositionSummaries : ITransaction<QueryPositionSummariesRequest, QueryResponse<PositionSummary>>
     {
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
 
-        public QueryPositionSummaries(IRepository repository)
+        public QueryPositionSummaries(IDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public QueryResponse<PositionSummary> Execute(QueryPositionSummariesRequest request)
         {
             var specification = global::AutoMapper.Mapper.Map<PositionSpecification>(request);
 
-            var query = _repository
+            var query = _dbContext
                 .Query<Position>()
                 .Where(specification.IsSatisfied())
                 //.Project().To<PositionSummary>()

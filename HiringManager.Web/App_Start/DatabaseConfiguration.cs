@@ -20,13 +20,13 @@ namespace HiringManager.Web.App_Start
             }
 
             SetConfiguration(new DatabaseConfiguration());
-            //new Repository().Database.Initialize(force: false);
+            //new HiringManagerDbContext().Database.Initialize(force: false);
         }
 
         public DatabaseConfiguration()
         {
-            var migrateDatabaseToLatestVersion = new MigrateDatabaseToLatestVersion<Repository, Configuration>();
-            base.SetDatabaseInitializer<Repository>(null);
+            var migrateDatabaseToLatestVersion = new MigrateDatabaseToLatestVersion<HiringManagerDbContext, Configuration>();
+            base.SetDatabaseInitializer<HiringManagerDbContext>(null);
 
             var databaseLogFormatter = new DatabaseLogFormatter(row => Trace.WriteLine(row));
             base.AddInterceptor(databaseLogFormatter);

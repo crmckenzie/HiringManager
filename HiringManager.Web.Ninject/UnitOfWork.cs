@@ -7,9 +7,9 @@ namespace HiringManager.Web.Ninject
     {
         private readonly IKernel _kernel;
 
-        public IRepository NewRepository()
+        public IDbContext NewDbContext()
         {
-            return _kernel.Get<IRepository>();
+            return _kernel.Get<IDbContext>();
         }
 
         public UnitOfWork(IKernel kernel)

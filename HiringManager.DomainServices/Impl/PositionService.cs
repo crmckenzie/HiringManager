@@ -48,7 +48,7 @@ namespace HiringManager.DomainServices.Impl
 
         public PositionDetails Details(int id)
         {
-            using (var repository = _unitOfwork.NewRepository())
+            using (var repository = _unitOfwork.NewDbContext())
             {
                 var position = repository.Get<Position>(id);
                 var details = AutoMapper.Mapper.Map<PositionDetails>(position);
@@ -69,7 +69,7 @@ namespace HiringManager.DomainServices.Impl
 
         public CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId)
         {
-            using (var repository = _unitOfwork.NewRepository())
+            using (var repository = _unitOfwork.NewDbContext())
             {
                 var candidateStatus = repository.Get<CandidateStatus>(candidateStatusId);
                 var details = AutoMapper.Mapper.Map<CandidateStatusDetails>(candidateStatus);

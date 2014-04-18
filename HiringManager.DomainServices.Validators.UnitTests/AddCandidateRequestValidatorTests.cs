@@ -12,11 +12,11 @@ namespace HiringManager.DomainServices.Validators.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.Repository = Substitute.For<IRepository>();
-            this.Validator = new AddCandidateRequestValidator(this.Repository);
+            this.DbContext = Substitute.For<IDbContext>();
+            this.Validator = new AddCandidateRequestValidator(this.DbContext);
         }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         public AddCandidateRequestValidator Validator { get; set; }
 
@@ -46,7 +46,7 @@ namespace HiringManager.DomainServices.Validators.UnitTests
                 .Build()
                 ;
 
-            this.Repository
+            this.DbContext
                 .Get<Position>(request.PositionId)
                 .Returns(position)
                 ;
@@ -80,7 +80,7 @@ namespace HiringManager.DomainServices.Validators.UnitTests
                 .Build()
                 ;
 
-            this.Repository
+            this.DbContext
                 .Get<Position>(request.PositionId)
                 .Returns(position)
                 ;

@@ -8,7 +8,7 @@ namespace HiringManager.DomainServices.Impl
     public class UserSession :IUserSession
     {
         private readonly IPrincipal _principal;
-        private readonly IRepository _repository;
+        private readonly IDbContext _dbContext;
         public int? ManagerId { get { return _manager.Value.ManagerId; }}
         public string UserName { get { return _manager.Value.UserName; } }
         public string DisplayName { get { return _manager.Value.Name;  } }
@@ -17,7 +17,7 @@ namespace HiringManager.DomainServices.Impl
 
         private Manager GetOrCreateManager()
         {
-            var result = _repository.Query<Manager>().SingleOrDefault(row => row.UserName == _principal.Identity.Name);
+            var result = _dbContext.Query<Manager>().SingleOrDefault(row => row.UserName == _principal.Identity.Name);
 
             if (result == null)
             {
@@ -27,17 +27,17 @@ namespace HiringManager.DomainServices.Impl
                              UserName = _principal.Identity.Name,
                          };
 
-                _repository.Store(result);
-                _repository.Commit();
+                _dbContext.Add(result);
+                _dbContext.SaveChanges();
             }
             
             return result;
         }        
 
-        public UserSession(IPrincipal principal, IRepository repository)
+        public UserSession(IPrincipal principal, IDbContext dbContext)
         {
             _principal = principal;
-            _repository = repository;
+            _dbContext = dbContext;
 
             this._manager = new Lazy<Manager>(GetOrCreateManager);
         }

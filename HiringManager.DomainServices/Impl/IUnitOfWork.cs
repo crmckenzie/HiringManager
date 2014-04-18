@@ -2,6 +2,6 @@
 {
     public interface IUnitOfWork
     {
-        IRepository NewRepository();
+        IDbContext NewDbContext();
     }
 }

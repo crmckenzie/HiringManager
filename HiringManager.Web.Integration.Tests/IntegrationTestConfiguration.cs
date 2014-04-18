@@ -30,14 +30,14 @@ namespace HiringManager.Web.Integration.Tests
 
         private static void ResetDatabase()
         {
-            var nameOrConnectionString = typeof(Repository).FullName;
+            var nameOrConnectionString = typeof(HiringManagerDbContext).FullName;
             if (!Database.Exists(nameOrConnectionString)) return;
 
             Trace.WriteLine("Deleting database: " + nameOrConnectionString);
             Database.Delete(nameOrConnectionString);
 
             Trace.WriteLine("Creating database: " + nameOrConnectionString);
-            new Repository().Database.Initialize(force: true);
+            new HiringManagerDbContext().Database.Initialize(force: true);
         }
 
 

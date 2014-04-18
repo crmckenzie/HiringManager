@@ -2,7 +2,7 @@
 
 namespace HiringManager.EntityFramework
 {
-    public class UsersContext : DbContext
+    public class UsersContext : System.Data.Entity.DbContext
     {
         public UsersContext()
             : base("DefaultConnection")

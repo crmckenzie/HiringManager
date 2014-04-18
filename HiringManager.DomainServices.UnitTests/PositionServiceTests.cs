@@ -23,14 +23,14 @@ namespace HiringManager.DomainServices.UnitTests
         {
             this.TransactionBuilder = Substitute.For<IFluentTransactionBuilder>();
             this.UnitOfWork = Substitute.For<IUnitOfWork>();
-            this.Repository = this.UnitOfWork.NewRepository();
+            this.DbContext = this.UnitOfWork.NewDbContext();
 
             this.PositionService = new PositionService(this.TransactionBuilder, this.UnitOfWork);
         }
 
         public IUnitOfWork UnitOfWork { get; set; }
 
-        public IRepository Repository { get; set; }
+        public IDbContext DbContext { get; set; }
 
         public IFluentTransactionBuilder TransactionBuilder { get; set; }
 
@@ -136,7 +136,7 @@ namespace HiringManager.DomainServices.UnitTests
                 .CreateNew()
                 .Build();
 
-            this.Repository
+            this.DbContext
                 .Get<Position>(1)
                 .Returns(position);
 
@@ -169,7 +169,7 @@ namespace HiringManager.DomainServices.UnitTests
                 .Build()
                 ;
 
-            this.Repository
+            this.DbContext
                 .Get<CandidateStatus>(candidateStatus.CandidateStatusId.Value)
                 .Returns(candidateStatus);
 
