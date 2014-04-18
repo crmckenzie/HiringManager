@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="HiringManager.EntityModel.Candidate">
-    <Position X="7.75" Y="4.75" Width="1.5" />
+    <Position X="11.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAAAAAAYAAAAAEAACAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAYAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Candidate.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -23,7 +23,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="HiringManager.EntityModel.CandidateStatus">
-    <Position X="9.75" Y="6.75" Width="1.5" />
+    <Position X="7.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAEAAAAAAAgAAAAAIAAAACBAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CandidateStatus.cs</FileName>
@@ -35,27 +35,38 @@
   <Class Name="HiringManager.EntityModel.Position">
     <Position X="5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEACAAAEAAAAQAAIAAAACAIAAAABAAAAAAAAE=</HashCode>
+      <HashCode>AAAEAAAEACAAAEAAAAAAAAAAAACAIEAAABAAAAAAAAE=</HashCode>
       <FileName>Position.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FilledBy" />
       <Property Name="CreatedBy" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Candidates" />
+      <Property Name="Openings" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HiringManager.EntityModel.Manager">
     <Position X="0.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAgAAAIAAYAAAAAAAAAAQAAAQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAgAAAIAAYAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Manager.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Positions" />
       <Property Name="ContactInfo" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="HiringManager.EntityModel.Opening">
+    <Position X="10.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEACAAAAAgAAQAAIAAAACAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Opening.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FilledBy" />
+      <Property Name="Position" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

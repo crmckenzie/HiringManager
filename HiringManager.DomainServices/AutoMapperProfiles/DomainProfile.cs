@@ -1,7 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.Entity.Core.Objects;
+using System.Linq;
+using System.Reflection.Emit;
+using AutoMapper;
 using HiringManager.EntityModel;
 using HiringManager.EntityModel.Specifications;
-using System.Linq;
 
 namespace HiringManager.DomainServices.AutoMapperProfiles
 {
@@ -31,13 +34,21 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
         {
             CreateMap<CreatePositionRequest, Position>()
                 .ForMember(m => m.CreatedById, opt => opt.MapFrom(req => req.HiringManagerId))
+                .ForMember(m => m.Openings,
+                    opt => opt.ResolveUsing(input =>
+                                            {
+                                                var results =
+                                                    Enumerable.Range(0, input.Openings)
+                                                        .Select(i => new Opening
+                                                                     {
+                                                                         Status = "Pending",
+                                                                     }).ToList();
+                                                return results;
+                                            }))
                 .ForMember(m => m.Status, opt => opt.UseValue("Open"))
                 .ForMember(m => m.PositionId, opt => opt.Ignore())
-                .ForMember(m => m.FilledById, opt => opt.Ignore())
-                .ForMember(m => m.FilledBy, opt => opt.Ignore())
                 .ForMember(m => m.CreatedBy, opt => opt.Ignore())
                 .ForMember(m => m.Candidates, opt => opt.Ignore())
-                .ForMember(m => m.FilledDate, opt => opt.Ignore())
                 ;
 
             CreateMap<QueryPositionSummariesRequest, PositionSpecification>()
@@ -46,6 +57,8 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
 
             CreateMap<Position, PositionSummary>()
                 .ForMember(output => output.CandidatesAwaitingReview, opt => opt.Ignore())
+                .ForMember(output => output.Openings, opt => opt.MapFrom(input => input.Openings.Count))
+                .ForMember(output => output.OpeningsFilled, opt => opt.MapFrom(input => input.Openings.Count(row => row.IsFilled())))
                 .AfterMap((position, positionSummary) =>
                           {
                               if (positionSummary.Status == "Filled")
@@ -61,9 +74,9 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
 
             CreateMap<Position, PositionDetails>()
                 .ForMember(output => output.CanAddCandidate, opt => opt.ResolveUsing(input => !input.IsFilled()))
-                .ForMember(output => output.CanClose, opt => opt.ResolveUsing(input => !(input.IsClosed() || input.IsFilled())))
+                .ForMember(output => output.CanClose,
+                    opt => opt.ResolveUsing(input => !(input.IsClosed() || input.IsFilled())))
                 ;
-
         }
     }
 }

@@ -35,7 +35,6 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .CreateListOfSize(10)
                 .All()
                 .Do(row => row.CreatedBy = Builder<Manager>.CreateNew().Build())
-                .Do(row => row.FilledBy = Builder<Candidate>.CreateNew().Build())
                 .Build()
                 ;
 

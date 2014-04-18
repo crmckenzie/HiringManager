@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using NUnit.Framework;
 using Simple.Validation;
 
@@ -8,7 +9,15 @@ namespace HiringManager.DomainServices.Validators.UnitTests
 {
     public static class ValidationExtensions
     {
-        public static void AssertIsValidFor(this IEnumerable<ValidationResult> self, ValidationResult template, string format = null, params object[] args)
+        public static void ContainsValidationResult(this ModelStateDictionary dictionary,
+            ValidationResult validationResult)
+        {
+            Assert.That(dictionary.ContainsKey(validationResult.PropertyName));
+            Assert.That(dictionary[validationResult.PropertyName].Errors.Any(row => row.ErrorMessage == validationResult.Message));
+        }
+
+        public static void AssertIsValidFor(this IEnumerable<ValidationResult> self, ValidationResult template,
+            string format = null, params object[] args)
         {
             var query = GetValidationResultQueryFromTemplate(self, template);
 
@@ -27,7 +36,8 @@ namespace HiringManager.DomainServices.Validators.UnitTests
             }
         }
 
-        public static void AssertInvalidFor(this IEnumerable<ValidationResult> self, ValidationResult template, string format = null, params object[] args)
+        public static void AssertInvalidFor(this IEnumerable<ValidationResult> self, ValidationResult template,
+            string format = null, params object[] args)
         {
             var query = GetValidationResultQueryFromTemplate(self, template).ToList();
             Console.WriteLine("{0} validation results found matching the template.", query.Count);
@@ -48,7 +58,8 @@ namespace HiringManager.DomainServices.Validators.UnitTests
             }
         }
 
-        private static IEnumerable<ValidationResult> GetValidationResultQueryFromTemplate(IEnumerable<ValidationResult> self, ValidationResult template)
+        private static IEnumerable<ValidationResult> GetValidationResultQueryFromTemplate(
+            IEnumerable<ValidationResult> self, ValidationResult template)
         {
             Func<ValidationResult, bool> propertyNamePredicate =
                 row =>

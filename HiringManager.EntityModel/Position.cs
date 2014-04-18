@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace HiringManager.EntityModel
 {
@@ -10,14 +11,10 @@ namespace HiringManager.EntityModel
         public Position()
         {
             this.Candidates = new List<CandidateStatus>();
+            this.Openings = new List<Opening>();
         }
 
         public int? PositionId { get; set; }
-
-        public int? FilledById { get; set; }
-
-        [ForeignKey("FilledById")]
-        public virtual Candidate FilledBy { get; set; }
 
         public int CreatedById { get; set; }
 
@@ -26,6 +23,8 @@ namespace HiringManager.EntityModel
 
         public virtual List<CandidateStatus> Candidates { get; set; }
 
+        public virtual List<Opening> Openings { get; set; }
+            
         [Required]
         [StringLength(50)]
         public string Status { get; set; }
@@ -34,11 +33,10 @@ namespace HiringManager.EntityModel
         public string Title { get; set; }
 
         public DateTime OpenDate { get; set; }
-        public DateTime? FilledDate { get; set; }
 
         public virtual bool IsFilled()
         {
-            return this.FilledBy != null;
+            return Openings.Any() &&  Openings.All(row => row.IsFilled());
         }
 
         public virtual bool IsClosed()

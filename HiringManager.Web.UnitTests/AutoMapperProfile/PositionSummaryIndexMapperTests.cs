@@ -73,9 +73,6 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
 
             Assert.That(actual.CandidatesAwaitingReview, Is.EqualTo(expected.CandidatesAwaitingReview));
             Assert.That(actual.CreatedByName, Is.EqualTo(expected.CreatedByName), "CreatedByName");
-            Assert.That(actual.FilledByCandidateId, Is.EqualTo(expected.FilledByCandidateId));
-            Assert.That(actual.FilledByName, Is.EqualTo(expected.FilledByName));
-            Assert.That(actual.FilledDate, Is.EqualTo(expected.FilledDate));
             Assert.That(actual.OpenDate, Is.EqualTo(expected.OpenDate));
             Assert.That(actual.Status, Is.EqualTo(expected.Status));
             Assert.That(actual.Title, Is.EqualTo(expected.Title));

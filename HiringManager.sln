@@ -62,7 +62,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiringManager.Web.ViewModel
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".builddb", ".builddb", "{1895D85C-84A0-4666-9983-9E4322F2CA41}"
 	ProjectSection(SolutionItems) = preProject
-		Invoke-BuildDb.ps1 = Invoke-BuildDb.ps1
+		Invoke-AddMigration.ps1 = Invoke-AddMigration.ps1
+		Invoke-MigrateDb.ps1 = Invoke-MigrateDb.ps1
 	EndProjectSection
 EndProject
 Global

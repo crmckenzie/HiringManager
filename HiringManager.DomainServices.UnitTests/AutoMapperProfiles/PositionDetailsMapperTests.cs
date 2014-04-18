@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices.AutoMapperProfiles;
 using HiringManager.EntityModel;
@@ -13,8 +14,8 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-            AutoMapper.Mapper.Reset();
-            AutoMapper.Mapper.AddProfile<DomainProfile>();
+            Mapper.Reset();
+            Mapper.AddProfile<DomainProfile>();
         }
 
         [SetUp]
@@ -32,13 +33,13 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details, Is.Not.Null);
-            Assert.That((object) details.PositionId, Is.EqualTo(position.PositionId));
-            Assert.That((object) details.Title, Is.EqualTo(position.Title));
-            Assert.That((object) details.Candidates, Has.Count.EqualTo(position.Candidates.Count));
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.PositionId, Is.EqualTo(position.PositionId));
+            Assert.That(details.Title, Is.EqualTo(position.Title));
+            Assert.That(details.Candidates, Has.Count.EqualTo(position.Candidates.Count));
         }
 
         [Test]
@@ -58,15 +59,15 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
                 .Do(row =>
-                {
-                    foreach (var candidate in row.Candidates)
-                        candidate.Position = row;
-                })
+                    {
+                        foreach (var candidate in row.Candidates)
+                            candidate.Position = row;
+                    })
                 .Build()
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
             for (var i = 0; i < 10; i++)
@@ -74,18 +75,18 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 var expected = candidates[i];
                 var actual = details.Candidates[i];
 
-                Assert.That((object) actual.CandidateName, Is.EqualTo(expected.Candidate.Name));
-                Assert.That((object) actual.CandidateStatusId, Is.EqualTo(expected.CandidateStatusId));
-                Assert.That((object) actual.CandidateId, Is.EqualTo(expected.CandidateId));
+                Assert.That(actual.CandidateName, Is.EqualTo(expected.Candidate.Name));
+                Assert.That(actual.CandidateStatusId, Is.EqualTo(expected.CandidateStatusId));
+                Assert.That(actual.CandidateId, Is.EqualTo(expected.CandidateId));
 
-                Assert.That((object) actual.ContactInfo, Has.Count.EqualTo(expected.Candidate.ContactInfo.Count));
+                Assert.That(actual.ContactInfo, Has.Count.EqualTo(expected.Candidate.ContactInfo.Count));
 
                 for (var j = 0; j < 3; j++)
                 {
                     var expectedContactInfo = expected.Candidate.ContactInfo[j];
                     var actualContactInfo = actual.ContactInfo[j];
-                    Assert.That((object) actualContactInfo.Type, Is.EqualTo(expectedContactInfo.Type));
-                    Assert.That((object) actualContactInfo.Value, Is.EqualTo(expectedContactInfo.Value));
+                    Assert.That(actualContactInfo.Type, Is.EqualTo(expectedContactInfo.Type));
+                    Assert.That(actualContactInfo.Value, Is.EqualTo(expectedContactInfo.Value));
                 }
             }
         }
@@ -98,10 +99,10 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             position.IsFilled().Returns(false);
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.True);
+            Assert.That(details.CanAddCandidate, Is.True);
         }
 
         [Test]
@@ -112,10 +113,10 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             position.IsFilled().Returns(true);
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.False);
+            Assert.That(details.CanAddCandidate, Is.False);
         }
 
 
@@ -127,10 +128,10 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             position.IsClosed().Returns(true);
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanClose, Is.False);
+            Assert.That(details.CanClose, Is.False);
         }
 
         [Test]
@@ -141,10 +142,10 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             position.IsFilled().Returns(true);
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanClose, Is.False);
+            Assert.That(details.CanClose, Is.False);
         }
 
         [Test]
@@ -156,10 +157,10 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             position.IsFilled().Returns(false);
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanClose, Is.True);
+            Assert.That(details.CanClose, Is.True);
         }
 
         [Test]
@@ -180,21 +181,21 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
                 .Do(row =>
-                {
-                    foreach (var candidate in row.Candidates)
-                        candidate.Position = row;
-                })
+                    {
+                        foreach (var candidate in row.Candidates)
+                            candidate.Position = row;
+                    })
                 .Build()
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.True);
+            Assert.That(details.CanAddCandidate, Is.True);
             foreach (var detail in details.Candidates)
             {
-                Assert.That((object) detail.CanHire, Is.True);
+                Assert.That(detail.CanHire, Is.True);
             }
         }
 
@@ -216,21 +217,21 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
                 .Do(row =>
-                {
-                    foreach (var candidate in row.Candidates)
-                        candidate.Position = row;
-                })
+                    {
+                        foreach (var candidate in row.Candidates)
+                            candidate.Position = row;
+                    })
                 .Build()
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.True);
+            Assert.That(details.CanAddCandidate, Is.True);
             foreach (var detail in details.Candidates)
             {
-                Assert.That((object) detail.CanSetStatus, Is.True);
+                Assert.That(detail.CanSetStatus, Is.True);
             }
         }
 
@@ -252,21 +253,21 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 .CreateNew()
                 .Do(row => row.Candidates = candidates)
                 .Do(row =>
-                {
-                    foreach (var candidate in row.Candidates)
-                        candidate.Position = row;
-                })
+                    {
+                        foreach (var candidate in row.Candidates)
+                            candidate.Position = row;
+                    })
                 .Build()
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.True);
+            Assert.That(details.CanAddCandidate, Is.True);
             foreach (var detail in details.Candidates)
             {
-                Assert.That((object) detail.CanPass, Is.True);
+                Assert.That(detail.CanPass, Is.True);
             }
         }
 
@@ -299,11 +300,11 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.True);
-            var detail = Enumerable.Single<CandidateStatusDetails>(details.Candidates, row => row.CandidateId == passedOnCandidate.CandidateId);
+            Assert.That(details.CanAddCandidate, Is.True);
+            var detail = details.Candidates.Single(row => row.CandidateId == passedOnCandidate.CandidateId);
             Assert.That(detail.CanPass, Is.False);
         }
 
@@ -322,7 +323,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
 
             var position = Builder<Position>
                 .CreateNew()
-                .Do(row => row.FilledBy = new Candidate())
+                .Do(row=> row.Openings.Add(new Opening(){ FilledBy = new Candidate()}))
                 .Do(row => row.Candidates = candidates)
                 .Do(row =>
                     {
@@ -333,17 +334,16 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 ;
 
             // Act
-            var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+            var details = Mapper.Map<PositionDetails>(position);
 
             // Assert
-            Assert.That((object) details.CanAddCandidate, Is.False);
+            Assert.That(details.CanAddCandidate, Is.False);
             foreach (var detail in details.Candidates)
             {
-                Assert.That((object) detail.CanHire, Is.False);
-                Assert.That((object) detail.CanPass, Is.False);
-                Assert.That((object) detail.CanSetStatus, Is.False);
+                Assert.That(detail.CanHire, Is.False);
+                Assert.That(detail.CanPass, Is.False);
+                Assert.That(detail.CanSetStatus, Is.False);
             }
         }
-
     }
 }

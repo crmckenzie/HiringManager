@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AddCandidateRequestValidator.cs" />
     <Compile Include="ClosePositionValidator.cs" />
+    <Compile Include="CreatePositionValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

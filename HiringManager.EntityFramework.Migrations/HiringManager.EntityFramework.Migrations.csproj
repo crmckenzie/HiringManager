@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201404172244396_MakePositionOpenDateRequired.Designer.cs">
       <DependentUpon>201404172244396_MakePositionOpenDateRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404181946384_AddOpenings.cs" />
+    <Compile Include="Migrations\201404181946384_AddOpenings.Designer.cs">
+      <DependentUpon>201404181946384_AddOpenings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404182025041_RemoveOpeningIndex.cs" />
+    <Compile Include="Migrations\201404182025041_RemoveOpeningIndex.Designer.cs">
+      <DependentUpon>201404182025041_RemoveOpeningIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +96,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404172244396_MakePositionOpenDateRequired.resx">
       <DependentUpon>201404172244396_MakePositionOpenDateRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404181946384_AddOpenings.resx">
+      <DependentUpon>201404181946384_AddOpenings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404182025041_RemoveOpeningIndex.resx">
+      <DependentUpon>201404182025041_RemoveOpeningIndex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

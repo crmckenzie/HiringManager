@@ -19,12 +19,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         public void ThenTheIShouldBeRedirectedToThePositionIndexPage()
         {
             var response = ScenarioContext.Current.Get<ActionResult>();
-            var redirect = response as RedirectToRouteResult;
-
-            Assert.That(redirect, Is.Not.Null);
-            Assert.That(redirect.RouteValues["action"], Is.EqualTo("Index"));
-            Assert.That(redirect.RouteValues["controller"], Is.EqualTo("Positions"));
-            Assert.That(redirect.RouteValues["status"], Is.EqualTo("Open"));
+            ShouldBeStandardRedirectToRouteResult(response);
         }
 
         [Then(@"the requested position should be listed on the Position Index Page")]
@@ -54,13 +49,38 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             {
                 Title = positionName,
                 OpenDate = startDate,
+                Openings = 1,
             };
 
             ScenarioContext.Current.Set(viewModel);
 
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
 
-            var response = controller.Create(viewModel) as RedirectToRouteResult;            
+            var response = controller.Create(viewModel);
+            ShouldBeStandardRedirectToRouteResult(response);
+
+        }
+
+        private static void ShouldBeStandardRedirectToRouteResult(ActionResult response)
+        {
+            if (response is RedirectToRouteResult)
+            {
+                var redirect = response as RedirectToRouteResult;
+
+                Assert.That(redirect, Is.Not.Null);
+                Assert.That(redirect.RouteValues["action"], Is.EqualTo("Index"));
+                Assert.That(redirect.RouteValues["controller"], Is.EqualTo("Positions"));
+                Assert.That(redirect.RouteValues["status"], Is.EqualTo("Open"));
+            }
+            else
+            {
+                var viewResult = response as ViewResult;
+                var errors = viewResult.ViewData.ModelState.Values.SelectMany(m => m.Errors);
+                foreach (var modelError in errors)
+                {
+                    Assert.Fail(modelError.ErrorMessage);
+                }
+            }
         }
 
 
@@ -162,26 +182,17 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             ScenarioContext.Current.Set(response);
         }
 
-        [Then(@"the position should be filled by '(.*)' on '(.*)'")]
-        public void ThenThePositionShouldBeFilledByOn(string candidateName, string filledByDateArg)
+        [Then(@"the position should be filled")]
+        public void ThenThePositionShouldBeFilled()
         {
-            DateTime? filledByDate = null;
-            if (filledByDateArg == "Today")
-            {
-                filledByDate = DateTime.Today;
-            }
-            else if (!string.IsNullOrWhiteSpace(filledByDateArg))
-            {
-                filledByDate = DateTime.Parse(filledByDateArg);
-            }
-
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
             var view = controller.Index(status: null) as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
             var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
-            Assert.That(positionSummaryItem.FilledByName, Is.EqualTo(candidateName));
-            Assert.That(positionSummaryItem.FilledDate.Date, Is.EqualTo(filledByDate));
+
+            Assert.That(positionSummaryItem.Openings, Is.EqualTo(1));
+            Assert.That(positionSummaryItem.OpeningsFilled, Is.EqualTo(1));
         }
 
         [Then(@"the requested position should have a (.*) candidate\(s\) awaiting review count")]

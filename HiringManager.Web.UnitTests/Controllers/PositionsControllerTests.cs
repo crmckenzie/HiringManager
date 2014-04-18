@@ -98,6 +98,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             var viewModel = result.Model as CreatePositionViewModel;
             Assert.That(viewModel, Is.Not.Null);
             Assert.That(viewModel.OpenDate, Is.EqualTo(this.Clock.Today));
+            Assert.That(viewModel.Openings, Is.EqualTo(1));
         }
 
         [Test]
@@ -105,7 +106,9 @@ namespace HiringManager.Web.UnitTests.Controllers
         {
             // Arrange
             var viewModel = new CreatePositionViewModel();
-            var request = new CreatePositionRequest();
+            var response = new CreatePositionResponse();
+
+            this.PositionService.CreatePosition(Arg.Any<CreatePositionRequest>()).Returns(response);
 
             // Act
             var result = this.Controller.Create(viewModel);
@@ -122,6 +125,63 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(redirect.RouteValues["action"], Is.EqualTo("Index"));
             Assert.That(redirect.RouteValues["controller"], Is.EqualTo("Positions"));
             Assert.That(redirect.RouteValues["status"], Is.EqualTo("Open"));
+        }
+
+
+        [Test]
+        public void Create_HttpPost_ModelStateInValid()
+        {
+            // Arrange
+            var viewModel = new CreatePositionViewModel();
+            var request = new CreatePositionRequest();
+
+            this.Controller.ModelState.AddModelError("Some Property", "Some Message");
+
+            // Act
+            var result = this.Controller.Create(viewModel);
+
+            // Assert
+            this.PositionService
+                .DidNotReceive()
+                .CreatePosition(Arg.Any<CreatePositionRequest>())
+                ;
+
+            var viewResult = result as ViewResult;
+
+            Assert.That(viewResult, Is.Not.Null);
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+        }
+
+        [Test]
+        public void Create_HttpPost_ValidationErrors()
+        {
+            // Arrange
+            var viewModel = new CreatePositionViewModel();
+
+            var validationResult = new ValidationResult()
+                                   {
+                                       PropertyName = "Some Property",
+                                       Message = "Some Message"
+                                   };
+            this.PositionService.CreatePosition(Arg.Any<CreatePositionRequest>())
+                .Returns(new CreatePositionResponse()
+                    {
+                        ValidationResults = new []
+                        {
+                            validationResult
+                        }
+                    });
+
+            // Act
+            var result = this.Controller.Create(viewModel);
+
+            // Assert
+            this.Controller.ModelState.ContainsValidationResult(validationResult);
+
+            var viewResult = result as ViewResult;
+
+            Assert.That(viewResult, Is.Not.Null);
+            Assert.That(viewResult.Model, Is.SameAs(viewModel));
         }
 
         [Test]

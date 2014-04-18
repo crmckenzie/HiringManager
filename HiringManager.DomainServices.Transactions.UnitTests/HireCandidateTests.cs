@@ -32,8 +32,10 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Build()
                 ;
 
+            var opening = new Opening();
             var position = Builder<Position>
                 .CreateNew()
+                .Do(row => row.Openings.Add(opening))
                 .Build()
                 ;
 
@@ -66,9 +68,10 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             Assert.That(response, Is.Not.Null);
             Assert.That(response.CandidateStatusId, Is.EqualTo(candidateStatus.CandidateStatusId));
             Assert.That(response.Status, Is.EqualTo("Hired"));
-
-            Assert.That(position.FilledBy, Is.SameAs(candidate));
-            Assert.That(position.FilledDate, Is.EqualTo(Clock.Now));
+            
+            Assert.That(opening.FilledBy, Is.SameAs(candidate));
+            Assert.That(opening.FilledDate, Is.EqualTo(Clock.Now));
+            Assert.That(opening.Status, Is.EqualTo("Filled"));
             Assert.That(position.Status, Is.EqualTo("Filled"));
 
             this.DbContext.Received().SaveChanges();
@@ -83,8 +86,10 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Build()
                 ;
 
+            var opening = new Opening();
             var position = Builder<Position>
                 .CreateNew()
+                .Do(row => row.Openings.Add(opening))
                 .Build()
                 ;
 

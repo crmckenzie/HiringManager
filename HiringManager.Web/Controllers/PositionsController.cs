@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.Web.Infrastructure;
+using HiringManager.Web.Infrastructure.MVC;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
 using Simple.Validation;
@@ -41,6 +42,7 @@ namespace HiringManager.Web.Controllers
             var viewModel = new CreatePositionViewModel()
                             {
                                 OpenDate = this._clock.Today,
+                                Openings = 1,
                             };
             return View(viewModel);
         }
@@ -53,8 +55,11 @@ namespace HiringManager.Web.Controllers
                 var request = AutoMapper.Mapper.Map<CreatePositionRequest>(viewModel);
 
                 request.HiringManagerId = _userSession.ManagerId.GetValueOrDefault();
-                this._positionService.CreatePosition(request);
-                return RedirectToAction(MVC.Positions.Index("Open"));
+                var response = this._positionService.CreatePosition(request);
+                ModelState.AddModelErrors(response.ValidationResults);
+
+                if (ModelState.IsValid)
+                    return RedirectToAction(MVC.Positions.Index("Open"));
             }
             return View(viewModel);
         }

@@ -60,4 +60,4 @@ Scenario: Hire Candidate
 	| Name     | EmailAddress | PhoneNumber  | Status |
 	| Fred Bob | fred@bob.com | 555-123-1234 | Hired  |
 	| Bob Fred | bob@fred.com | 555-234-1231 | Passed |
-	And the position should be filled by 'Fred Bob' on 'Today'
+	And the position should be filled
