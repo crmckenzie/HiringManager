@@ -248,7 +248,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="CandidateController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -292,14 +296,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\glyphicons-halflings-white.png" />
-    <Content Include="Content\Images\glyphicons-halflings.png" />
-    <Content Include="Content\sass\bootstrap-responsive.css">
-      <DependentUpon>bootstrap-responsive.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\sass\bootstrap.css">
-      <DependentUpon>bootstrap.scss</DependentUpon>
-    </Content>
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -365,49 +361,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\sass\bootstrap-responsive.scss" />
-    <Content Include="Content\sass\bootstrap\responsive.scss" />
-    <Content Include="Content\sass\bootstrap\bootstrap.scss" />
-    <Content Include="Content\sass\bootstrap\_wells.scss" />
-    <Content Include="Content\sass\bootstrap\_variables.scss" />
-    <Content Include="Content\sass\bootstrap\_utilities.scss" />
-    <Content Include="Content\sass\bootstrap\_type.scss" />
-    <Content Include="Content\sass\bootstrap\_tooltip.scss" />
-    <Content Include="Content\sass\bootstrap\_thumbnails.scss" />
-    <Content Include="Content\sass\bootstrap\_tables.scss" />
-    <Content Include="Content\sass\bootstrap\_sprites.scss" />
-    <Content Include="Content\sass\bootstrap\_scaffolding.scss" />
-    <Content Include="Content\sass\bootstrap\_responsive-utilities.scss" />
-    <Content Include="Content\sass\bootstrap\_responsive-navbar.scss" />
-    <Content Include="Content\sass\bootstrap\_responsive-768px-979px.scss" />
-    <Content Include="Content\sass\bootstrap\_responsive-767px-max.scss" />
-    <Content Include="Content\sass\bootstrap\_responsive-1200px-min.scss" />
-    <Content Include="Content\sass\bootstrap\_reset.scss" />
-    <Content Include="Content\sass\bootstrap\_progress-bars.scss" />
-    <Content Include="Content\sass\bootstrap\_popovers.scss" />
-    <Content Include="Content\sass\bootstrap\_pagination.scss" />
-    <Content Include="Content\sass\bootstrap\_pager.scss" />
-    <Content Include="Content\sass\bootstrap\_navs.scss" />
-    <Content Include="Content\sass\bootstrap\_navbar.scss" />
-    <Content Include="Content\sass\bootstrap\_modals.scss" />
-    <Content Include="Content\sass\bootstrap\_mixins.scss" />
-    <Content Include="Content\sass\bootstrap\_media.scss" />
-    <Content Include="Content\sass\bootstrap\_layouts.scss" />
-    <Content Include="Content\sass\bootstrap\_labels-badges.scss" />
-    <Content Include="Content\sass\bootstrap\_hero-unit.scss" />
-    <Content Include="Content\sass\bootstrap\_grid.scss" />
-    <Content Include="Content\sass\bootstrap\_forms.scss" />
-    <Content Include="Content\sass\bootstrap\_dropdowns.scss" />
-    <Content Include="Content\sass\bootstrap\_component-animations.scss" />
-    <Content Include="Content\sass\bootstrap\_code.scss" />
-    <Content Include="Content\sass\bootstrap\_close.scss" />
-    <Content Include="Content\sass\bootstrap\_carousel.scss" />
-    <Content Include="Content\sass\bootstrap\_buttons.scss" />
-    <Content Include="Content\sass\bootstrap\_button-groups.scss" />
-    <Content Include="Content\sass\bootstrap\_breadcrumbs.scss" />
-    <Content Include="Content\sass\bootstrap\_alerts.scss" />
-    <Content Include="Content\sass\bootstrap\_accordion.scss" />
-    <Content Include="Content\sass\bootstrap.scss" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -449,6 +402,11 @@
     </None>
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Positions\Close.cshtml" />
+    <Content Include="Views\Candidate\Create.cshtml" />
+    <Content Include="Views\Candidate\Delete.cshtml" />
+    <Content Include="Views\Candidate\Details.cshtml" />
+    <Content Include="Views\Candidate\Edit.cshtml" />
+    <Content Include="Views\Candidate\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -465,19 +423,6 @@
     <None Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
-    <Content Include="Scripts\bootstrap-affix.js" />
-    <Content Include="Scripts\bootstrap-alert.js" />
-    <Content Include="Scripts\bootstrap-button.js" />
-    <Content Include="Scripts\bootstrap-carousel.js" />
-    <Content Include="Scripts\bootstrap-collapse.js" />
-    <Content Include="Scripts\bootstrap-dropdown.js" />
-    <Content Include="Scripts\bootstrap-modal.js" />
-    <Content Include="Scripts\bootstrap-popover.js" />
-    <Content Include="Scripts\bootstrap-scrollspy.js" />
-    <Content Include="Scripts\bootstrap-tab.js" />
-    <Content Include="Scripts\bootstrap-tooltip.js" />
-    <Content Include="Scripts\bootstrap-transition.js" />
-    <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />

@@ -7,7 +7,7 @@ namespace HiringManager.EntityFramework
 {
     public class HiringManagerDbContext : System.Data.Entity.DbContext, IDbContext
     {
-        internal IDbSet<Candidate> Candidates { get; set; }
+        //internal IDbSet<Candidate> Candidates { get; set; }
         internal IDbSet<CandidateStatus> CandidateStatuses { get; set; }
         internal IDbSet<ContactInfo> ContactInfo { get; set; }
         internal IDbSet<Manager> Managers { get; set; }
@@ -101,6 +101,8 @@ namespace HiringManager.EntityFramework
                 ;
 
         }
+
+        public System.Data.Entity.DbSet<HiringManager.EntityModel.Candidate> Candidates { get; set; }
 
     }
 }

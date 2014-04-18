@@ -10,8 +10,14 @@
 using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
+using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
 
@@ -21,6 +27,7 @@ public static class MVC
     static readonly HelpPageClass s_HelpPage = new HelpPageClass();
     public static HelpPageClass HelpPage { get { return s_HelpPage; } }
     public static HiringManager.Web.Controllers.AccountController Account = new HiringManager.Web.Controllers.T4MVC_AccountController();
+    public static HiringManager.Web.Controllers.CandidateController Candidate = new HiringManager.Web.Controllers.T4MVC_CandidateController();
     public static HiringManager.Web.Controllers.HomeController Home = new HiringManager.Web.Controllers.T4MVC_HomeController();
     public static HiringManager.Web.Controllers.PositionsController Positions = new HiringManager.Web.Controllers.T4MVC_PositionsController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -86,19 +93,6 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
-        public static readonly string bootstrap_affix_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-affix.min.js") ? Url("bootstrap-affix.min.js") : Url("bootstrap-affix.js");
-        public static readonly string bootstrap_alert_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-alert.min.js") ? Url("bootstrap-alert.min.js") : Url("bootstrap-alert.js");
-        public static readonly string bootstrap_button_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-button.min.js") ? Url("bootstrap-button.min.js") : Url("bootstrap-button.js");
-        public static readonly string bootstrap_carousel_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-carousel.min.js") ? Url("bootstrap-carousel.min.js") : Url("bootstrap-carousel.js");
-        public static readonly string bootstrap_collapse_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-collapse.min.js") ? Url("bootstrap-collapse.min.js") : Url("bootstrap-collapse.js");
-        public static readonly string bootstrap_dropdown_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-dropdown.min.js") ? Url("bootstrap-dropdown.min.js") : Url("bootstrap-dropdown.js");
-        public static readonly string bootstrap_modal_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-modal.min.js") ? Url("bootstrap-modal.min.js") : Url("bootstrap-modal.js");
-        public static readonly string bootstrap_popover_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-popover.min.js") ? Url("bootstrap-popover.min.js") : Url("bootstrap-popover.js");
-        public static readonly string bootstrap_scrollspy_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-scrollspy.min.js") ? Url("bootstrap-scrollspy.min.js") : Url("bootstrap-scrollspy.js");
-        public static readonly string bootstrap_tab_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-tab.min.js") ? Url("bootstrap-tab.min.js") : Url("bootstrap-tab.js");
-        public static readonly string bootstrap_tooltip_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-tooltip.min.js") ? Url("bootstrap-tooltip.min.js") : Url("bootstrap-tooltip.js");
-        public static readonly string bootstrap_transition_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-transition.min.js") ? Url("bootstrap-transition.min.js") : Url("bootstrap-transition.js");
-        public static readonly string bootstrap_typeahead_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-typeahead.min.js") ? Url("bootstrap-typeahead.min.js") : Url("bootstrap-typeahead.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js") : Url("jquery-1.8.2.js");
@@ -135,76 +129,6 @@ namespace Links
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Images {
-            private const string URLPATH = "~/Content/Images";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string glyphicons_halflings_white_png = Url("glyphicons-halflings-white.png");
-            public static readonly string glyphicons_halflings_png = Url("glyphicons-halflings.png");
-        }
-    
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class sass {
-            private const string URLPATH = "~/Content/sass";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class bootstrap {
-                private const string URLPATH = "~/Content/sass/bootstrap";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _accordion_scss = Url("_accordion.scss");
-                public static readonly string _alerts_scss = Url("_alerts.scss");
-                public static readonly string _breadcrumbs_scss = Url("_breadcrumbs.scss");
-                public static readonly string _button_groups_scss = Url("_button-groups.scss");
-                public static readonly string _buttons_scss = Url("_buttons.scss");
-                public static readonly string _carousel_scss = Url("_carousel.scss");
-                public static readonly string _close_scss = Url("_close.scss");
-                public static readonly string _code_scss = Url("_code.scss");
-                public static readonly string _component_animations_scss = Url("_component-animations.scss");
-                public static readonly string _dropdowns_scss = Url("_dropdowns.scss");
-                public static readonly string _forms_scss = Url("_forms.scss");
-                public static readonly string _grid_scss = Url("_grid.scss");
-                public static readonly string _hero_unit_scss = Url("_hero-unit.scss");
-                public static readonly string _labels_badges_scss = Url("_labels-badges.scss");
-                public static readonly string _layouts_scss = Url("_layouts.scss");
-                public static readonly string _media_scss = Url("_media.scss");
-                public static readonly string _mixins_scss = Url("_mixins.scss");
-                public static readonly string _modals_scss = Url("_modals.scss");
-                public static readonly string _navbar_scss = Url("_navbar.scss");
-                public static readonly string _navs_scss = Url("_navs.scss");
-                public static readonly string _pager_scss = Url("_pager.scss");
-                public static readonly string _pagination_scss = Url("_pagination.scss");
-                public static readonly string _popovers_scss = Url("_popovers.scss");
-                public static readonly string _progress_bars_scss = Url("_progress-bars.scss");
-                public static readonly string _reset_scss = Url("_reset.scss");
-                public static readonly string _responsive_1200px_min_scss = Url("_responsive-1200px-min.scss");
-                public static readonly string _responsive_767px_max_scss = Url("_responsive-767px-max.scss");
-                public static readonly string _responsive_768px_979px_scss = Url("_responsive-768px-979px.scss");
-                public static readonly string _responsive_navbar_scss = Url("_responsive-navbar.scss");
-                public static readonly string _responsive_utilities_scss = Url("_responsive-utilities.scss");
-                public static readonly string _scaffolding_scss = Url("_scaffolding.scss");
-                public static readonly string _sprites_scss = Url("_sprites.scss");
-                public static readonly string _tables_scss = Url("_tables.scss");
-                public static readonly string _thumbnails_scss = Url("_thumbnails.scss");
-                public static readonly string _tooltip_scss = Url("_tooltip.scss");
-                public static readonly string _type_scss = Url("_type.scss");
-                public static readonly string _utilities_scss = Url("_utilities.scss");
-                public static readonly string _variables_scss = Url("_variables.scss");
-                public static readonly string _wells_scss = Url("_wells.scss");
-                public static readonly string bootstrap_scss = Url("bootstrap.scss");
-                public static readonly string responsive_scss = Url("responsive.scss");
-            }
-        
-            public static readonly string bootstrap_responsive_scss = Url("bootstrap-responsive.scss");
-            public static readonly string bootstrap_responsive_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-responsive.min.css") ? Url("bootstrap-responsive.min.css") : Url("bootstrap-responsive.css");
-                 
-            public static readonly string bootstrap_scss = Url("bootstrap.scss");
-            public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
-                 
-        }
-    
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
