@@ -1,11 +1,6 @@
 ﻿using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Diagnostics;
 using System.Linq;
-using HiringManager.EntityFramework;
-using HiringManager.Web.App_Start;
-using HiringManager.Web.Controllers;
 using Ninject;
 using TechTalk.SpecFlow;
 

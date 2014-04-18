@@ -1,17 +1,14 @@
-﻿using System.Collections;
-
-namespace HiringManager.DomainServices
+﻿namespace HiringManager.DomainServices
 {
     public interface IPositionService
     {
-        QueryResponse<PositionSummary> Query(QueryPositionSummariesRequest request);
+        AddCandidateResponse AddCandidate(AddCandidateRequest request);
+        IValidatedResponse Close(int positionId);
+        CreatePositionResponse CreatePosition(CreatePositionRequest request);
         PositionDetails Details(int id);
         CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId);
-        
-        CreatePositionResponse CreatePosition(CreatePositionRequest request);
-        AddCandidateResponse AddCandidate(AddCandidateRequest request);
-
-        CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status);
         CandidateStatusResponse Hire(int candidateStatusId);
+        QueryResponse<PositionSummary> Query(QueryPositionSummariesRequest request);
+        CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status);
     }
 }

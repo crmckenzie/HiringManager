@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using HiringManager.Web.Controllers;
-using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -43,6 +40,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
                 var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
                 var positionSummaryItem = model.Data.Single(row => row.Title == viewModel.Title);
                 ScenarioContext.Current.Set(positionSummaryItem.PositionId, "PositionId");
+                ScenarioContext.Current.Set(positionSummaryItem.PositionId, positionSummaryItem.Title);
             }
         }
 
@@ -59,5 +57,18 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
             Assert.That(targetRecord.Status, Is.EqualTo("Open"));
         }
+
+        [Then(@"the position '(.*)' should have a status of '(.*)'")]
+        public void ThenThePositionShouldHaveAStatusOf(string positionTitle, string status)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index(null) as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+
+            var targetRecord = model.Data.SingleOrDefault(row => row.Title == positionTitle);
+
+            Assert.That(targetRecord.Status, Is.EqualTo(status));
+        }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Text;
-using HiringManager.Transactions;
+﻿using HiringManager.Transactions;
 using Ninject;
 
 namespace HiringManager.Web.Ninject.Transactions

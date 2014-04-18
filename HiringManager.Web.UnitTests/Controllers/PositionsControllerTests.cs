@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Validators.UnitTests;
-using HiringManager.Mappers;
 using HiringManager.Web.Controllers;
-using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.Infrastructure.AutoMapper;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using Simple.Validation;
 using TestHelpers;
 
@@ -24,6 +21,7 @@ namespace HiringManager.Web.UnitTests.Controllers
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
+            AutoMapperConfiguration.Configure();
         }
 
         [SetUp]
@@ -32,9 +30,8 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.Clock = Substitute.For<IClock>();
 
             this.PositionService = Substitute.For<IPositionService>();
-            this.FluentMapper = Substitute.For<IFluentMapper>();
             this.UserSession = Substitute.For<IUserSession>();
-            this.PositionsController = new PositionsController(this.PositionService, this.FluentMapper, this.UserSession,
+            this.Controller = new PositionsController(this.PositionService, this.UserSession,
                 this.Clock);
         }
 
@@ -42,11 +39,9 @@ namespace HiringManager.Web.UnitTests.Controllers
 
         public IClock Clock { get; set; }
 
-        public IFluentMapper FluentMapper { get; set; }
-
         public IPositionService PositionService { get; set; }
 
-        public PositionsController PositionsController { get; set; }
+        public PositionsController Controller { get; set; }
 
         [Test]
         public void Index()
@@ -64,18 +59,11 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Returns(response)
                 ;
 
-            var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
-            this.FluentMapper
-                .Map<IndexViewModel<PositionSummaryIndexItem>>()
-                .From(response)
-                .Returns(indexViewModel)
-                ;
-
             // Act
-            var viewResult = this.PositionsController.Index("");
+            var viewResult = this.Controller.Index("");
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<IndexViewModel<PositionSummaryIndexItem>>());
         }
 
         [Test]
@@ -90,18 +78,11 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Returns(response)
                 ;
 
-            var indexViewModel = new IndexViewModel<PositionSummaryIndexItem>();
-            this.FluentMapper
-                .Map<IndexViewModel<PositionSummaryIndexItem>>()
-                .From(response)
-                .Returns(indexViewModel)
-                ;
-
             // Act
-            var viewResult = this.PositionsController.Index("Open");
+            var viewResult = this.Controller.Index("Open");
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(indexViewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<IndexViewModel<PositionSummaryIndexItem>>());
         }
 
         [Test]
@@ -111,7 +92,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.Clock.Today.Returns(DateTime.Today);
 
             // Act
-            var result = this.PositionsController.Create();
+            var result = this.Controller.Create();
 
             // Assert
             var viewModel = result.Model as CreatePositionViewModel;
@@ -126,19 +107,13 @@ namespace HiringManager.Web.UnitTests.Controllers
             var viewModel = new CreatePositionViewModel();
             var request = new CreatePositionRequest();
 
-            this.FluentMapper
-                .Map<CreatePositionRequest>()
-                .From(viewModel)
-                .Returns(request)
-                ;
-
             // Act
-            var result = this.PositionsController.Create(viewModel);
+            var result = this.Controller.Create(viewModel);
 
             // Assert
             this.PositionService
                 .Received()
-                .CreatePosition(request)
+                .CreatePosition(Arg.Any<CreatePositionRequest>())
                 ;
 
             var redirect = result as RedirectToRouteResult;
@@ -154,23 +129,14 @@ namespace HiringManager.Web.UnitTests.Controllers
         {
             // Arrange
             var positionDetails = new PositionDetails();
-            var viewModel = new PositionCandidatesViewModel();
-
-            this.PositionService.Details(1).Returns(positionDetails);
-
-            this.FluentMapper
-                .Map<PositionCandidatesViewModel>()
-                .From(positionDetails)
-                .Returns(viewModel)
-                ;
 
             this.PositionService.Details(1).Returns(positionDetails);
 
             // Act
-            var viewResult = this.PositionsController.Candidates(1);
+            var viewResult = this.Controller.Candidates(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<PositionCandidatesViewModel>());
         }
 
         [Test]
@@ -179,7 +145,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Arrange
 
             // Act
-            var viewResult = this.PositionsController.AddCandidate(1);
+            var viewResult = this.Controller.AddCandidate(1);
 
             // Assert
             var viewModel = viewResult.Model as AddCandidateViewModel;
@@ -192,21 +158,14 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Arrange
             var viewModel = new AddCandidateViewModel();
 
-            var request = new AddCandidateRequest();
-            this.FluentMapper
-                .Map<AddCandidateRequest>()
-                .From(viewModel)
-                .Returns(request)
-                ;
-
             var response = Builder<AddCandidateResponse>
                 .CreateNew()
                 .Build();
 
-            this.PositionService.AddCandidate(request).Returns(response);
+            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>()).Returns(response);
 
             // Act
-            var actionResult = this.PositionsController.AddCandidate(viewModel);
+            var actionResult = this.Controller.AddCandidate(viewModel);
 
             // Assert
             var redirectToAction = actionResult as RedirectToRouteResult;
@@ -241,12 +200,12 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Returns(hireResponse);
 
             // Act
-            var result = this.PositionsController.AddCandidate(model) as ViewResult;
+            var result = this.Controller.AddCandidate(model) as ViewResult;
 
             // Assert
             Assert.That(result.Model, Is.SameAs(model));
 
-            var actualResults = this.PositionsController.GetModelStateValidationResults();
+            var actualResults = this.Controller.GetModelStateValidationResults();
 
             foreach (var expectedResult in validationResults)
             {
@@ -262,17 +221,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.GetCandidateStatusDetails(1)
                 .Returns(candidateStatusDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
-            var viewResult = this.PositionsController.Pass(1);
+            var viewResult = this.Controller.Pass(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<CandidateStatusViewModel>());
         }
 
         [Test]
@@ -285,7 +238,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 ;
 
             // Act
-            var result = this.PositionsController.Pass(model) as RedirectToRouteResult;
+            var result = this.Controller.Pass(model) as RedirectToRouteResult;
 
             // Assert
             Assert.That(result.RouteName, Is.EqualTo(""));
@@ -309,17 +262,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.GetCandidateStatusDetails(1)
                 .Returns(candidateStatusDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
-            var viewResult = this.PositionsController.Status(1);
+            var viewResult = this.Controller.Status(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<CandidateStatusViewModel>());
         }
 
         [Test]
@@ -332,7 +279,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 ;
 
             // Act
-            var result = this.PositionsController.Status(model) as RedirectToRouteResult;
+            var result = this.Controller.Status(model) as RedirectToRouteResult;
 
             // Assert
             Assert.That(result.RouteName, Is.EqualTo(""));
@@ -356,17 +303,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.GetCandidateStatusDetails(1)
                 .Returns(candidateStatusDetails);
 
-            var viewModel = new CandidateStatusViewModel();
-            this.FluentMapper.Map<CandidateStatusViewModel>()
-                .From(candidateStatusDetails)
-                .Returns(viewModel)
-                ;
-
             // Act
-            var viewResult = this.PositionsController.Hire(1);
+            var viewResult = this.Controller.Hire(1);
 
             // Assert
-            Assert.That(viewResult.Model, Is.SameAs(viewModel));
+            Assert.That(viewResult.Model, Is.InstanceOf<CandidateStatusViewModel>());
         }
 
         [Test]
@@ -381,7 +322,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.Hire(model.CandidateStatusId).Returns(new CandidateStatusResponse());
 
             // Act
-            var result = this.PositionsController.Hire(model) as RedirectToRouteResult;
+            var result = this.Controller.Hire(model) as RedirectToRouteResult;
 
             // Assert
             Assert.That(result.RouteName, Is.EqualTo(""));
@@ -416,17 +357,129 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.Hire(model.CandidateStatusId).Returns(hireResponse);
 
             // Act
-            var result = this.PositionsController.Hire(model) as ViewResult;
+            var result = this.Controller.Hire(model) as ViewResult;
 
             // Assert
             Assert.That(result.Model, Is.SameAs(model));
 
-            var actualResults = this.PositionsController.GetModelStateValidationResults();
+            var actualResults = this.Controller.GetModelStateValidationResults();
 
             foreach (var expectedResult in validationResults)
             {
                 actualResults.AssertInvalidFor(expectedResult);
             }
         }
+
+        [Test]
+        public void Hire_HttpPost_WithModelStateErrors()
+        {
+            this.Controller.ModelState.AddModelError("", "Test Error Message");
+
+            var model = Builder<CandidateStatusViewModel>
+                .CreateNew()
+                .Build()
+                ;
+
+            // Act
+            var result = this.Controller.Hire(model) as ViewResult;
+
+            // Assert
+            this.PositionService.DidNotReceive().Hire(model.CandidateStatusId);
+            Assert.That(result.Model, Is.SameAs(model));
+        }
+
+        [Test]
+        public void Close_HttpGet()
+        {
+            // Arrange
+            var positionDetails = new PositionDetails();
+            this.PositionService.Details(1)
+                .Returns(positionDetails);
+
+            // Act
+            var viewResult = this.Controller.Close(1) as ViewResult;
+
+            // Assert
+            Assert.That(viewResult.Model, Is.InstanceOf<ClosePositionViewModel>());
+        }
+
+        [Test]
+        public void Close_HttpPost()
+        {
+            // Arrange
+            var model = Builder<ClosePositionViewModel>
+                .CreateNew()
+                .Build()
+                ;
+
+            this.PositionService.Close(model.PositionId).Returns(new CandidateStatusResponse());
+
+            // Act
+            var result = this.Controller.Close(model) as RedirectToRouteResult;
+
+            // Assert
+            Assert.That(result.RouteName, Is.EqualTo(""));
+
+            Assert.That(result.RouteValues.ContainsKey("action"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+
+
+            this.PositionService
+                .Received()
+                .Close(model.PositionId);
+
+        }
+
+        [Test]
+        public void Close_HttpPost_WitValidationErrors()
+        {
+            var model = Builder<ClosePositionViewModel>
+                .CreateNew()
+                .Build()
+                ;
+            var validationResults = Builder<ValidationResult>
+                .CreateListOfSize(3)
+                .Build()
+                ;
+
+            var response = new CandidateStatusResponse()
+            {
+                ValidationResults = validationResults
+            };
+            this.PositionService.Close(model.PositionId).Returns(response);
+
+            // Act
+            var result = this.Controller.Close(model) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.SameAs(model));
+
+            var actualResults = this.Controller.GetModelStateValidationResults();
+
+            foreach (var expectedResult in validationResults)
+            {
+                actualResults.AssertInvalidFor(expectedResult);
+            }
+
+        }
+
+        [Test]
+        public void Close_HttpPost_WithModelStateErrors()
+        {
+            this.Controller.ModelState.AddModelError("", "Test Error Message");
+
+            var model = Builder<ClosePositionViewModel>
+                .CreateNew()
+                .Build()
+                ;
+
+            // Act
+            var result = this.Controller.Close(model) as ViewResult;
+
+            // Assert
+            this.PositionService.DidNotReceive().Close(model.PositionId);
+            Assert.That(result.Model, Is.SameAs(model));
+        }
+
     }
 }

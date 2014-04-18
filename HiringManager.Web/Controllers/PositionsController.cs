@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using HiringManager.DomainServices;
-using HiringManager.Mappers;
 using HiringManager.Web.Infrastructure;
-using HiringManager.Web.Models;
-using HiringManager.Web.Models.Positions;
+using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Positions;
 using Simple.Validation;
 
 namespace HiringManager.Web.Controllers
@@ -13,14 +11,12 @@ namespace HiringManager.Web.Controllers
     public partial class PositionsController : Controller
     {
         private readonly IPositionService _positionService;
-        private readonly IFluentMapper _fluentMapper;
         private readonly IUserSession _userSession;
         private readonly IClock _clock;
 
-        public PositionsController(IPositionService positionService, IFluentMapper fluentMapper, IUserSession userSession, IClock clock)
+        public PositionsController(IPositionService positionService, IUserSession userSession, IClock clock)
         {
             _positionService = positionService;
-            _fluentMapper = fluentMapper;
             _userSession = userSession;
             _clock = clock;
         }
@@ -32,13 +28,10 @@ namespace HiringManager.Web.Controllers
                               ManagerIds = new[] { this._userSession.ManagerId.Value }
                           };
             if (!string.IsNullOrWhiteSpace(status))
-                request.Statuses = new[] {status};
+                request.Statuses = new[] { status };
 
             var openPositions = this._positionService.Query(request);
-            var viewModel = this._fluentMapper
-                .Map<IndexViewModel<PositionSummaryIndexItem>>()
-                .From(openPositions)
-                ;
+            var viewModel = AutoMapper.Mapper.Map<IndexViewModel<PositionSummaryIndexItem>>(openPositions);
 
             return View(viewModel);
         }
@@ -57,10 +50,9 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var request = this._fluentMapper
-                    .Map<CreatePositionRequest>()
-                    .From(viewModel)
-                    ;
+                var request = AutoMapper.Mapper.Map<CreatePositionRequest>(viewModel);
+
+                request.HiringManagerId = _userSession.ManagerId.GetValueOrDefault();
                 this._positionService.CreatePosition(request);
                 return RedirectToAction(MVC.Positions.Index("Open"));
             }
@@ -70,11 +62,7 @@ namespace HiringManager.Web.Controllers
         public virtual ViewResult Candidates(int id)
         {
             var details = this._positionService.Details(id);
-            var viewModel = this._fluentMapper
-                .Map<PositionCandidatesViewModel>()
-                .From(details)
-                ;
-
+            var viewModel = AutoMapper.Mapper.Map<PositionCandidatesViewModel>(details);
             return View(viewModel);
         }
 
@@ -93,9 +81,7 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var request = this._fluentMapper
-                    .Map<AddCandidateRequest>()
-                    .From(viewModel);
+                var request = AutoMapper.Mapper.Map<AddCandidateRequest>(viewModel);
 
                 var response = this._positionService.AddCandidate(request);
                 if (response.ValidationResults.HasErrors())
@@ -104,7 +90,7 @@ namespace HiringManager.Web.Controllers
                     return View(viewModel);
                 }
 
-                return RedirectToAction("Candidates", new {id = response.PositionId});
+                return RedirectToAction("Candidates", new { id = response.PositionId });
             }
             return View(viewModel);
         }
@@ -113,11 +99,7 @@ namespace HiringManager.Web.Controllers
         public virtual ViewResult Pass(int id)
         {
             var details = this._positionService.GetCandidateStatusDetails(id);
-            var viewModel = this._fluentMapper
-                .Map<CandidateStatusViewModel>()
-                .From(details)
-                ;
-
+            var viewModel = AutoMapper.Mapper.Map<CandidateStatusViewModel>(details);
             return View(viewModel);
         }
 
@@ -127,7 +109,7 @@ namespace HiringManager.Web.Controllers
             if (ModelState.IsValid)
             {
                 this._positionService.SetCandidateStatus(model.CandidateStatusId, "Passed");
-                return RedirectToAction("Candidates", new {id = model.PositionId});
+                return RedirectToAction("Candidates", new { id = model.PositionId });
             }
             return View(model);
         }
@@ -136,10 +118,7 @@ namespace HiringManager.Web.Controllers
         public virtual ViewResult Status(int id)
         {
             var details = this._positionService.GetCandidateStatusDetails(id);
-            var viewModel = this._fluentMapper
-                .Map<CandidateStatusViewModel>()
-                .From(details)
-                ;
+            var viewModel = AutoMapper.Mapper.Map<CandidateStatusViewModel>(details);
 
             return View(viewModel);
         }
@@ -159,11 +138,7 @@ namespace HiringManager.Web.Controllers
         public virtual ViewResult Hire(int id)
         {
             var details = this._positionService.GetCandidateStatusDetails(id);
-            var viewModel = this._fluentMapper
-                .Map<CandidateStatusViewModel>()
-                .From(details)
-                ;
-
+            var viewModel = AutoMapper.Mapper.Map<CandidateStatusViewModel>(details);
             return View(viewModel);
         }
 
@@ -184,5 +159,27 @@ namespace HiringManager.Web.Controllers
             return View(model);
         }
 
+        public virtual ActionResult Close(int id)
+        {
+            var details = this._positionService.Details(id);
+            var viewModel = AutoMapper.Mapper.Map<ClosePositionViewModel>(details);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Close(ClosePositionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = this._positionService.Close(model.PositionId);
+                if (response.ValidationResults.HasErrors())
+                {
+                    response.WriteValidationErrorsTo(ModelState);
+                    return View(model);
+                }
+                return RedirectToAction(MVC.Positions.Index());
+            }
+            return View(model);
+        }
     }
 }

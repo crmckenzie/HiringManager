@@ -1,24 +1,27 @@
 ﻿using HiringManager.EntityModel;
-using HiringManager.Mappers;
 using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Impl
 {
     public class PositionService : DomainServiceBase, IPositionService
     {
-        private readonly IRepository _repository;
-        private readonly IFluentMapper _mapper;
+        private readonly IUnitOfWork _unitOfwork;
 
-        public PositionService(IFluentTransactionBuilder builder, IRepository repository, IFluentMapper mapper) : base(builder)
+        public PositionService(IFluentTransactionBuilder builder, IUnitOfWork unitOfwork)
+            : base(builder)
         {
-            _repository = repository;
-            _mapper = mapper;
+            _unitOfwork = unitOfwork;
         }
 
         public QueryResponse<PositionSummary> Query(QueryPositionSummariesRequest request)
         {
             var result = base.Execute<QueryPositionSummariesRequest, QueryResponse<PositionSummary>>(request);
             return result;
+        }
+
+        public IValidatedResponse Close(int positionId)
+        {
+            return base.Execute<int, IValidatedResponse>(positionId);
         }
 
         public CreatePositionResponse CreatePosition(CreatePositionRequest request)
@@ -45,12 +48,12 @@ namespace HiringManager.DomainServices.Impl
 
         public PositionDetails Details(int id)
         {
-            var position = _repository.Get<Position>(id);
-            var details = _mapper
-                .Map<PositionDetails>()
-                .From(position)
-                ;
-            return details;
+            using (var repository = _unitOfwork.NewRepository())
+            {
+                var position = repository.Get<Position>(id);
+                var details = AutoMapper.Mapper.Map<PositionDetails>(position);
+                return details;
+            }
         }
 
         public CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status)
@@ -66,13 +69,12 @@ namespace HiringManager.DomainServices.Impl
 
         public CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId)
         {
-            var candidateStatus = this._repository.Get<CandidateStatus>(candidateStatusId);
-            var details = _mapper
-                .Map<CandidateStatusDetails>()
-                .From(candidateStatus)
-                ;
-
-            return details;
+            using (var repository = _unitOfwork.NewRepository())
+            {
+                var candidateStatus = repository.Get<CandidateStatus>(candidateStatusId);
+                var details = AutoMapper.Mapper.Map<CandidateStatusDetails>(candidateStatus);
+                return details;
+            }
         }
     }
 }

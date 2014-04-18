@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Diagnostics;
 using HiringManager.EntityFramework;
+using HiringManager.Web.Infrastructure.AutoMapper;
 using Ninject;
 
 namespace HiringManager.Web.Integration.Tests
@@ -9,6 +10,10 @@ namespace HiringManager.Web.Integration.Tests
     {
         public static IKernel Configure()
         {
+            AutoMapperConfiguration.Configure();
+
+            DbConfiguration.SetConfiguration(new IntegrationTestDbConfiguration());
+
             var kernel = new StandardKernel();
             new HiringManager.Web.Infrastructure.Ninject.NinjectConfiguration().Configure(kernel);
 
@@ -18,7 +23,6 @@ namespace HiringManager.Web.Integration.Tests
                 .IntegrationTestConfiguration()
                 ;
 
-            DbConfiguration.SetConfiguration(new IntegrationTestDbConfiguration());
             ResetDatabase();
 
             return kernel;
@@ -26,7 +30,7 @@ namespace HiringManager.Web.Integration.Tests
 
         private static void ResetDatabase()
         {
-            var nameOrConnectionString = typeof (Repository).FullName;
+            var nameOrConnectionString = typeof(Repository).FullName;
             if (!Database.Exists(nameOrConnectionString)) return;
 
             Trace.WriteLine("Deleting database: " + nameOrConnectionString);

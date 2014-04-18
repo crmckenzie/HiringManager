@@ -33,19 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AutoMapper, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.3.2.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
+    <Reference Include="AutoMapper.Net4, Version=3.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.2.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServerCompact">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.0.1\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
@@ -115,6 +116,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddCandidate.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Positions\ClosePosition.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClosePosition.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Positions\CreatePosition.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -127,14 +133,21 @@
     <Compile Include="ScenarioContextExtensions.cs" />
     <Compile Include="Models\Positions\CandidateStatusDetailsTestModel.cs" />
     <Compile Include="Steps\Positions\AddCandidateSteps.cs" />
+    <Compile Include="Steps\Positions\ClosePositionSteps.cs" />
     <Compile Include="Steps\Positions\CreatePositionSteps.cs" />
     <Compile Include="Steps\Positions\Shared.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Features\Positions\AddCandidate.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddCandidate.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Positions\ClosePosition.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ClosePosition.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Positions\CreatePosition.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -153,6 +166,10 @@
     <ProjectReference Include="..\HiringManager.EntityModel\HiringManager.EntityModel.csproj">
       <Project>{77b8db13-ec9d-4e56-b298-083b04a8d167}</Project>
       <Name>HiringManager.EntityModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.Web.ViewModels\HiringManager.Web.ViewModels.csproj">
+      <Project>{D023737E-5EF9-45D1-800D-40CCFDE74661}</Project>
+      <Name>HiringManager.Web.ViewModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.Web\HiringManager.Web.csproj">
       <Project>{9406bf32-1749-4a2e-9028-e4d8217f68ef}</Project>
@@ -179,6 +196,7 @@
     if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
     xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\AutoMapper.3.2.0\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.0\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

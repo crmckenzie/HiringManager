@@ -49,16 +49,12 @@
   <ItemGroup>
     <Compile Include="Clock.cs" />
     <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="Mappers\IFluentMapperSyntax.cs" />
     <Compile Include="IClock.cs" />
-    <Compile Include="Mappers\IEnumerableFluentMapperSyntax.cs" />
-    <Compile Include="Mappers\IFluentMapper.cs" />
     <Compile Include="QueryResponse.cs" />
     <Compile Include="Specifications\AlwaysTrueSpecification.cs" />
     <Compile Include="Transactions\IFluentTransactionBuilder.cs" />
     <Compile Include="Transactions\IFluentTransactionPipelineSyntax.cs" />
     <Compile Include="Transactions\IFluentTransactionRequestSyntax.cs" />
-    <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Transactions\ITransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
