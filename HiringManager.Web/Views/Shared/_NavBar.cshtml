@@ -10,7 +10,8 @@
     var controllerAreaIds = new Dictionary<string, string>()
                             {
                                 {"positions", "#nav-bar-area-positions"},
-                                {"candidate", "#nav-bar-area-candidates"}
+                                {"candidate", "#nav-bar-area-candidates"},
+                                {"source", "#nav-bar-area-sources"}
                             };
 
     var activeNavbarHeader = controllerAreaIds.ContainsKey(controllerName) ? 
@@ -41,7 +42,9 @@
                 <li id="nav-bar-area-candidates">
                     @Html.ActionLink("Candidates", MVC.Candidate.Index())
                 </li>
-            </ul>
+                <li id="nav-bar-area-sources">
+                    @Html.ActionLink("Sources", MVC.Source.Index())
+                </li>            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>

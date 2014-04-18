@@ -30,6 +30,7 @@ public static class MVC
     public static HiringManager.Web.Controllers.CandidateController Candidate = new HiringManager.Web.Controllers.T4MVC_CandidateController();
     public static HiringManager.Web.Controllers.HomeController Home = new HiringManager.Web.Controllers.T4MVC_HomeController();
     public static HiringManager.Web.Controllers.PositionsController Positions = new HiringManager.Web.Controllers.T4MVC_PositionsController();
+    public static HiringManager.Web.Controllers.SourceController Source = new HiringManager.Web.Controllers.T4MVC_SourceController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 

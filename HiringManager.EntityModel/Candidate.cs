@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HiringManager.EntityModel
 {
@@ -17,6 +18,10 @@ namespace HiringManager.EntityModel
         public string Name { get; set; }
 
         public virtual IList<ContactInfo> ContactInfo { get; set; } 
-        public virtual IList<CandidateStatus> AppliedTo { get; set; } 
+        public virtual IList<CandidateStatus> AppliedTo { get; set; }
+
+        public int? SourceId { get; set; }
+        [ForeignKey("SourceId")]
+        public Source Source { get; set; }
     }
 }

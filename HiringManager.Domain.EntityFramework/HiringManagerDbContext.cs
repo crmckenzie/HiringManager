@@ -7,11 +7,11 @@ namespace HiringManager.EntityFramework
 {
     public class HiringManagerDbContext : System.Data.Entity.DbContext, IDbContext
     {
-        //internal IDbSet<Candidate> Candidates { get; set; }
-        internal IDbSet<CandidateStatus> CandidateStatuses { get; set; }
-        internal IDbSet<ContactInfo> ContactInfo { get; set; }
-        internal IDbSet<Manager> Managers { get; set; }
-        internal IDbSet<Position> Positions { get; set; }
+        public IDbSet<Candidate> Candidates { get; set; }
+        public IDbSet<CandidateStatus> CandidateStatuses { get; set; }
+        public IDbSet<ContactInfo> ContactInfo { get; set; }
+        public IDbSet<Manager> Managers { get; set; }
+        public IDbSet<Position> Positions { get; set; }
 
         public IQueryable<T> Query<T>() where T: class
         {
@@ -28,7 +28,7 @@ namespace HiringManager.EntityFramework
             base.Set<T>().Remove(item);
         }
 
-        public void SaveChanges()
+        public new void SaveChanges()
         {
             try
             {
@@ -102,7 +102,8 @@ namespace HiringManager.EntityFramework
 
         }
 
-        public System.Data.Entity.DbSet<HiringManager.EntityModel.Candidate> Candidates { get; set; }
+        public System.Data.Entity.DbSet<HiringManager.EntityModel.Source> Sources { get; set; }
+
 
     }
 }

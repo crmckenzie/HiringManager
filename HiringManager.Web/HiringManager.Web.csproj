@@ -255,6 +255,7 @@
     <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
+    <Compile Include="Controllers\SourceController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -281,6 +282,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SourceController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -407,6 +411,11 @@
     <Content Include="Views\Candidate\Details.cshtml" />
     <Content Include="Views\Candidate\Edit.cshtml" />
     <Content Include="Views\Candidate\Index.cshtml" />
+    <Content Include="Views\Source\Create.cshtml" />
+    <Content Include="Views\Source\Delete.cshtml" />
+    <Content Include="Views\Source\Details.cshtml" />
+    <Content Include="Views\Source\Edit.cshtml" />
+    <Content Include="Views\Source\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

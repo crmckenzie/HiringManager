@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201404182025041_RemoveOpeningIndex.Designer.cs">
       <DependentUpon>201404182025041_RemoveOpeningIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404182308375_AddCandidateSource.cs" />
+    <Compile Include="Migrations\201404182308375_AddCandidateSource.Designer.cs">
+      <DependentUpon>201404182308375_AddCandidateSource.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404182025041_RemoveOpeningIndex.resx">
       <DependentUpon>201404182025041_RemoveOpeningIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404182308375_AddCandidateSource.resx">
+      <DependentUpon>201404182308375_AddCandidateSource.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
