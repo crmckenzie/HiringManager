@@ -45,7 +45,6 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
             // Assert
             Assert.That(response, Is.Not.Null);
-            this.Repository.Received().Store(position);
             this.Repository.Received().Commit();
 
             Assert.That(position.Status, Is.EqualTo("Closed"));
@@ -74,7 +73,6 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             // Assert
             foreach (var status in statuses)
             {
-                this.Repository.Received().Store(status);
                 Assert.That(status.Status, Is.EqualTo("Passed"));
             }
 

@@ -57,5 +57,18 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
             Assert.That(targetRecord.Status, Is.EqualTo("Open"));
         }
+
+        [Then(@"the position '(.*)' should have a status of '(.*)'")]
+        public void ThenThePositionShouldHaveAStatusOf(string positionTitle, string status)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var view = controller.Index(null) as ViewResult;
+            var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
+
+            var targetRecord = model.Data.SingleOrDefault(row => row.Title == positionTitle);
+
+            Assert.That(targetRecord.Status, Is.EqualTo(status));
+        }
+
     }
 }

@@ -26,7 +26,7 @@ namespace HiringManager.Web.App_Start
         public DatabaseConfiguration()
         {
             var migrateDatabaseToLatestVersion = new MigrateDatabaseToLatestVersion<Repository, Configuration>();
-            base.SetDatabaseInitializer(migrateDatabaseToLatestVersion);
+            base.SetDatabaseInitializer<Repository>(null);
 
             var databaseLogFormatter = new DatabaseLogFormatter(row => Trace.WriteLine(row));
             base.AddInterceptor(databaseLogFormatter);

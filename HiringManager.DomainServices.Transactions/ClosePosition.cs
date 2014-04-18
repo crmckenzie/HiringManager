@@ -31,12 +31,8 @@ namespace HiringManager.DomainServices.Transactions
             position.Status = "Closed";
 
             foreach (var status in position.Candidates)
-            {
                 status.Status = "Passed";
-                _repository.Store(status);
-            }
 
-            _repository.Store(position);
             _repository.Commit();
 
             return new ValidatedResponse()

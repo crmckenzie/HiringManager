@@ -57,6 +57,5 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             Assert.That(redirect.RouteValues["action"], Is.EqualTo("Index"));
         }
 
-
     }
 }
