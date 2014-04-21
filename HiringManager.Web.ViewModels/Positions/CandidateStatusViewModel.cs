@@ -19,7 +19,7 @@ namespace HiringManager.Web.ViewModels.Positions
         public int? SourceId { get; set; }
 
         [DisplayName("Source")]
-        public string SourceName { get; set; }
+        public string Source { get; set; }
 
         public string Status { get; set; }
     }

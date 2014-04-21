@@ -24,7 +24,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         }
 
         [Test]
-        public void Map_Position()
+        public void Map_PositionDetails()
         {
             // Arrange
             var position = Builder<Position>
@@ -43,7 +43,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         }
 
         [Test]
-        public void Map_PositionDetails()
+        public void Map_CandidateStatus()
         {
             // Arrange
             var candidates = Builder<CandidateStatus>
@@ -51,6 +51,11 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 .All()
                 .Do(row => row.Candidate = Builder<Candidate>.CreateNew().Build())
                 .Do(row => row.Candidate.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build())
+                .Do(row => row.Candidate.Source = new Source()
+                                                  {
+                                                      SourceId = 1,
+                                                      Name = "Some Source",
+                                                  })
                 .Build()
                 .ToList()
                 ;
@@ -80,6 +85,9 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 Assert.That(actual.CandidateId, Is.EqualTo(expected.CandidateId));
 
                 Assert.That(actual.ContactInfo, Has.Count.EqualTo(expected.Candidate.ContactInfo.Count));
+
+                Assert.That(actual.SourceId, Is.EqualTo(expected.Candidate.Source.SourceId));
+                Assert.That(actual.Source, Is.EqualTo(expected.Candidate.Source.Name));
 
                 for (var j = 0; j < 3; j++)
                 {
@@ -323,7 +331,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
 
             var position = Builder<Position>
                 .CreateNew()
-                .Do(row=> row.Openings.Add(new Opening(){ FilledBy = new Candidate()}))
+                .Do(row => row.Openings.Add(new Opening() { FilledBy = new Candidate() }))
                 .Do(row => row.Candidates = candidates)
                 .Do(row =>
                     {

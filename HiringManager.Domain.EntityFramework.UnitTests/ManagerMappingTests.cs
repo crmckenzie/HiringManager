@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace HiringManager.Domain.EntityFramework.IntegrationTests
 {
     [TestFixture]
-    public class HiringManagerTests
+    public class ManagerMappingTests
     {
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()

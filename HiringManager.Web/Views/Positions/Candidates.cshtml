@@ -47,9 +47,13 @@
                     <td>
                         @if (@candidate.SourceId.HasValue)
                         {
-                            @Html.ActionLink(@candidate.Source, MVC.Sour)
+                            @Html.ActionLink(@candidate.Source, MVC.Source.Details(@candidate.SourceId.Value))
                         }
-                        @candidate.Source
+                        else
+                        {
+                            <span>unknown</span>
+                        }
+                        
                     </td>
                     <td>
                         @{

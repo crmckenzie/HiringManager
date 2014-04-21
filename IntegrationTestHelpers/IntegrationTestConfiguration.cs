@@ -1,12 +1,11 @@
 ﻿using System.Data.Entity;
-using System.Diagnostics;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using Ninject;
 
-namespace HiringManager.Web.Integration.Tests
+namespace IntegrationTestHelpers
 {
-    internal static class IntegrationTestConfiguration
+    public static class IntegrationTestConfiguration
     {
         public static IKernel Configure()
         {
@@ -17,7 +16,7 @@ namespace HiringManager.Web.Integration.Tests
             var kernel = new StandardKernel();
             new HiringManager.Web.Infrastructure.Ninject.NinjectConfiguration().Configure(kernel);
 
-            kernel.RebindExternalServices();
+            RebindExternalServices(kernel);
 
             new NBuilderConfiguration()
                 .IntegrationTestConfiguration()

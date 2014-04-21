@@ -50,21 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="201311051741447_InitialCreate.cs" />
-    <Compile Include="201311051741447_InitialCreate.Designer.cs">
+    <Compile Include="Migrations\201311051741447_InitialCreate.cs" />
+    <Compile Include="Migrations\201311051741447_InitialCreate.Designer.cs">
       <DependentUpon>201311051741447_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="201311060021096_Position CreatedBy Relationship.cs" />
-    <Compile Include="201311060021096_Position CreatedBy Relationship.Designer.cs">
+    <Compile Include="Migrations\201311060021096_Position CreatedBy Relationship.cs" />
+    <Compile Include="Migrations\201311060021096_Position CreatedBy Relationship.Designer.cs">
       <DependentUpon>201311060021096_Position CreatedBy Relationship.cs</DependentUpon>
     </Compile>
-    <Compile Include="201311090001082_StringFieldLengths.cs" />
-    <Compile Include="201311090001082_StringFieldLengths.Designer.cs">
+    <Compile Include="Migrations\201311090001082_StringFieldLengths.cs" />
+    <Compile Include="Migrations\201311090001082_StringFieldLengths.Designer.cs">
       <DependentUpon>201311090001082_StringFieldLengths.cs</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs" />
-    <Compile Include="201311192144468_FkCleanup.cs" />
-    <Compile Include="201311192144468_FkCleanup.Designer.cs">
+    <Compile Include="Migrations\201311192144468_FkCleanup.cs" />
+    <Compile Include="Migrations\201311192144468_FkCleanup.Designer.cs">
       <DependentUpon>201311192144468_FkCleanup.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201404172244396_MakePositionOpenDateRequired.cs" />
@@ -86,16 +86,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="201311051741447_InitialCreate.resx">
+    <EmbeddedResource Include="Migrations\201311051741447_InitialCreate.resx">
       <DependentUpon>201311051741447_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="201311060021096_Position CreatedBy Relationship.resx">
+    <EmbeddedResource Include="Migrations\201311060021096_Position CreatedBy Relationship.resx">
       <DependentUpon>201311060021096_Position CreatedBy Relationship.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="201311090001082_StringFieldLengths.resx">
+    <EmbeddedResource Include="Migrations\201311090001082_StringFieldLengths.resx">
       <DependentUpon>201311090001082_StringFieldLengths.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="201311192144468_FkCleanup.resx">
+    <EmbeddedResource Include="Migrations\201311192144468_FkCleanup.resx">
       <DependentUpon>201311192144468_FkCleanup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404172244396_MakePositionOpenDateRequired.resx">

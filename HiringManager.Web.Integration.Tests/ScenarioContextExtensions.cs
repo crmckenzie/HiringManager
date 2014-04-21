@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using IntegrationTestHelpers;
 using Ninject;
 using TechTalk.SpecFlow;
 

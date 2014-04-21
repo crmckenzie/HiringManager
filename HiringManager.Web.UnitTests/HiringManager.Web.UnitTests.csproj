@@ -157,9 +157,9 @@
       <Project>{791DA4A2-74BD-447B-B2A1-17B1750E2785}</Project>
       <Name>HiringManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj">
+    <ProjectReference Include="..\TestHelpers\UnitTestHelpers.csproj">
       <Project>{8EF3434D-873D-4139-9513-758CF15D1097}</Project>
-      <Name>TestHelpers</Name>
+      <Name>UnitTestHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

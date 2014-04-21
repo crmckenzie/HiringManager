@@ -24,7 +24,7 @@ namespace HiringManager.EntityModel
         public virtual List<CandidateStatus> Candidates { get; set; }
 
         public virtual List<Opening> Openings { get; set; }
-            
+
         [Required]
         [StringLength(50)]
         public string Status { get; set; }
@@ -36,12 +36,23 @@ namespace HiringManager.EntityModel
 
         public virtual bool IsFilled()
         {
-            return Openings.Any() &&  Openings.All(row => row.IsFilled());
+            return Openings.Any() && Openings.All(row => row.IsFilled());
         }
 
         public virtual bool IsClosed()
         {
             return this.Status == "Closed";
+        }
+
+        public void Add(Candidate candidate)
+        {
+            var status = new CandidateStatus()
+                         {
+                             Position = this,
+                             Candidate = candidate,
+                             Status = "Resume Received",
+                         };
+            this.Candidates.Add(status);
         }
     }
 }

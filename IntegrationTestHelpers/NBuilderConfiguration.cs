@@ -1,7 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using HiringManager.EntityModel;
 
-namespace HiringManager.Web.Integration.Tests
+namespace IntegrationTestHelpers
 {
     public class NBuilderConfiguration
     {

@@ -30,6 +30,8 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(3).Build())
                 .Do(row =>
                     {
+                        row.SourceId = 1001;
+                        row.Source = "2341234";
                         row.CanHire = true;
                         row.CanPass = true;
                         row.CanSetStatus = true;
@@ -70,6 +72,8 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
 
                 Assert.That(actual.ContactInfo, Has.Count.EqualTo(expected.ContactInfo.Count));
                 Assert.That(actual.Status, Is.EqualTo(expected.Status));
+                Assert.That(actual.Source, Is.EqualTo(expected.Source));
+                Assert.That(actual.SourceId, Is.EqualTo(expected.SourceId));
 
                 for (var j = 0; j < 3; j++)
                 {

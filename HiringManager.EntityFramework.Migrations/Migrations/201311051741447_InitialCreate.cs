@@ -1,7 +1,7 @@
 namespace HiringManager.EntityFramework.Migrations
 {
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
@@ -14,7 +14,7 @@ namespace HiringManager.EntityFramework.Migrations
                         Name = c.String(),
                     })
                 .PrimaryKey(t => t.CandidateId);
-            
+
             CreateTable(
                 "dbo.CandidateStatus",
                 c => new
@@ -29,7 +29,7 @@ namespace HiringManager.EntityFramework.Migrations
                 .ForeignKey("dbo.Positions", t => t.PositionId)
                 .Index(t => t.CandidateId)
                 .Index(t => t.PositionId);
-            
+
             CreateTable(
                 "dbo.Positions",
                 c => new
@@ -49,7 +49,7 @@ namespace HiringManager.EntityFramework.Migrations
                 .ForeignKey("dbo.Candidates", t => t.FilledBy_CandidateId)
                 .Index(t => t.CreatedBy_ManagerId)
                 .Index(t => t.FilledBy_CandidateId);
-            
+
             CreateTable(
                 "dbo.Managers",
                 c => new
@@ -60,7 +60,7 @@ namespace HiringManager.EntityFramework.Migrations
                         UserName = c.String(),
                     })
                 .PrimaryKey(t => t.ManagerId);
-            
+
             CreateTable(
                 "dbo.ContactInfoes",
                 c => new
@@ -76,7 +76,7 @@ namespace HiringManager.EntityFramework.Migrations
                 .ForeignKey("dbo.Managers", t => t.Manager_ManagerId)
                 .Index(t => t.Candidate_CandidateId)
                 .Index(t => t.Manager_ManagerId);
-            
+
             CreateTable(
                 "dbo.Messages",
                 c => new
@@ -92,7 +92,7 @@ namespace HiringManager.EntityFramework.Migrations
                 .ForeignKey("dbo.Managers", t => t.Manager_ManagerId)
                 .Index(t => t.Candidate_CandidateId)
                 .Index(t => t.Manager_ManagerId);
-            
+
             CreateTable(
                 "dbo.Documents",
                 c => new
@@ -108,9 +108,9 @@ namespace HiringManager.EntityFramework.Migrations
                 .ForeignKey("dbo.Candidates", t => t.Candidate_CandidateId)
                 .Index(t => t.Message_MessageId)
                 .Index(t => t.Candidate_CandidateId);
-            
+
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Documents", "Candidate_CandidateId", "dbo.Candidates");
