@@ -4,16 +4,12 @@
 }
 
 <h2>Positions</h2>
-    
-<div class="container row col-md-2">
    
-</div>
-
 <div class="container row col-md-12">
     <table class="table table-bordered table-hover table-striped table-responsive">
         <thead>
             <tr>
-                <td colspan="4">
+                <td colspan="6">
                     <div class="btn-group">
                         <a href="@Url.Action("Create")" class="btn btn-default" role="button">New Position</a>
                     </div>                    
@@ -26,7 +22,6 @@
                 <th>Candidates Awaiting Review</th>
                 <th>Open Date</th>
                 <th>Openings</th>
-                <th>Filled</th>
             </tr>
         </thead>
         <tbody>
@@ -37,9 +32,8 @@
                     <td>@item.CreatedByName</td>
                     <td>@Html.ActionLink(item.Status, "Index", "Positions", new {status = item.Status}, null)</td>
                     <td>@item.CandidatesAwaitingReview.ToString()</td>
-                    <td>@item.OpenDate</td>
-                    <td>@item.Openings</td>
-                    <td>@item.OpeningsFilled</td>
+                    <td>@item.OpenDate.ToShortDateString()</td>
+                    <td>@item.OpeningsFilled of @item.Openings filled.</td>
                 </tr>
             }
         </tbody>

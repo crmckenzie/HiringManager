@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CandidateStatusMappingTests.cs" />
-    <Compile Include="HiringManager.cs" />
+    <Compile Include="ManagerMappingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

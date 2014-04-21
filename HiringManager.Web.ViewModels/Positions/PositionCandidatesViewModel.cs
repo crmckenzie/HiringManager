@@ -9,6 +9,9 @@ namespace HiringManager.Web.ViewModels.Positions
         public int PositionId { get; set; }
         public string Status { get; set; }
 
+        public int Openings { get; set; }
+        public int OpeningsFilled { get; set; }
+
         public bool CanAddCandidate { get; set; }
         public bool CanClose { get; set; }
     }

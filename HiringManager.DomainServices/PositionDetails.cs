@@ -16,6 +16,8 @@ namespace HiringManager.DomainServices
         public bool CanAddCandidate { get; set; }
         public bool CanClose { get; set; }
 
-        public IList<CandidateStatusDetails>  Candidates { get; set; }
+        public IList<CandidateStatusDetails> Candidates { get; set; }
+        public int Openings { get; set; }
+        public int OpeningsFilled { get; set; }
     }
 }

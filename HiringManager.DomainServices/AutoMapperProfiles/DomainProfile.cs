@@ -85,6 +85,8 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
 
             CreateMap<Position, PositionDetails>()
                 .ForMember(output => output.CanAddCandidate, opt => opt.ResolveUsing(input => !input.IsFilled()))
+                .ForMember(output => output.Openings, opt => opt.MapFrom(input => input.Openings.Count))
+                .ForMember(output => output.OpeningsFilled, opt => opt.MapFrom(input => input.Openings.Count(row => row.IsFilled())))
                 .ForMember(output => output.CanClose,
                     opt => opt.ResolveUsing(input => !(input.IsClosed() || input.IsFilled())))
                 ;

@@ -17,11 +17,11 @@ namespace HiringManager.EntityModel
         [StringLength(250)]
         public string Name { get; set; }
 
-        public virtual IList<ContactInfo> ContactInfo { get; set; } 
+        public virtual IList<ContactInfo> ContactInfo { get; set; }
         public virtual IList<CandidateStatus> AppliedTo { get; set; }
 
         public int? SourceId { get; set; }
         [ForeignKey("SourceId")]
-        public Source Source { get; set; }
+        public virtual Source Source { get; set; }
     }
 }

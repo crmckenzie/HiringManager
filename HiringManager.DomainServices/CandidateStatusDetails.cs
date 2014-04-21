@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using HiringManager.EntityModel;
 
 namespace HiringManager.DomainServices
 {

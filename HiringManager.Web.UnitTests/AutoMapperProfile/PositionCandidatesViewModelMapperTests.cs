@@ -56,6 +56,8 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
             Assert.That(viewModel.Title, Is.EqualTo(positionDetails.Title));
             Assert.That(viewModel.CanAddCandidate, Is.EqualTo(positionDetails.CanAddCandidate), "CanAddCandidate");
             Assert.That(viewModel.Candidates, Has.Count.EqualTo(positionDetails.Candidates.Count));
+            Assert.That(viewModel.Openings, Is.EqualTo(positionDetails.Openings));
+            Assert.That(viewModel.OpeningsFilled, Is.EqualTo(positionDetails.OpeningsFilled));
 
             for (var i = 0; i < 10; i++)
             {

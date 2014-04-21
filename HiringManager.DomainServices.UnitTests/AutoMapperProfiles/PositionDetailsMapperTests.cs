@@ -68,11 +68,16 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                         foreach (var candidate in row.Candidates)
                             candidate.Position = row;
                     })
+                .Do(row => row.Openings = Builder<Opening>.CreateListOfSize(3).Build().ToList())
                 .Build()
                 ;
 
+            position.Openings.First().FilledBy = position.Candidates.First().Candidate;
+
             // Act
             var details = Mapper.Map<PositionDetails>(position);
+            Assert.That(details.Openings, Is.EqualTo(3));
+            Assert.That(details.OpeningsFilled, Is.EqualTo(1));
 
             // Assert
             for (var i = 0; i < 10; i++)

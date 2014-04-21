@@ -77,6 +77,8 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
                 var position = db.Get<Position>(positionId.Value);
                 var candidateStatus = position.Candidates.Single();
                 Assert.That(candidateStatus, Is.Not.Null);
+                Assert.That(candidateStatus.Candidate, Is.Not.Null);
+                Assert.That(candidateStatus.Candidate.Source, Is.Not.Null);
             }
         }
 
