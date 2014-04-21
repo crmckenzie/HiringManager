@@ -26,6 +26,7 @@
                 <th>Name</th>
                 <th>Contact Info</th>
                 <th>Status</th>
+                <th>Source</th>
                 <th></th>
             </tr>
         </thead>
@@ -42,8 +43,13 @@
                             }
                         </ul>
                     </td>
+                    <td>@candidate.Status</td>
                     <td>
-                        @candidate.Status
+                        @if (@candidate.SourceId.HasValue)
+                        {
+                            @Html.ActionLink(@candidate.Source, MVC.Sour)
+                        }
+                        @candidate.Source
                     </td>
                     <td>
                         @{

@@ -15,6 +15,9 @@ namespace HiringManager.DomainServices
         public int PositionId { get; set; }
         public string PositionTitle { get; set; }
 
+        public int? SourceId { get; set; }
+        public string SourceName { get; set; }
+
         public string CandidateName { get; set; }
         public string Status { get; set; }
 
