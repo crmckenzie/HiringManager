@@ -6,14 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using HiringManager.DomainServices;
 using HiringManager.EntityModel;
 using HiringManager.EntityFramework;
+using HiringManager.Web.ViewModels.Candidates;
 
 namespace HiringManager.Web.Controllers
 {
     public partial class CandidateController : Controller
     {
-        private HiringManagerDbContext db = new HiringManagerDbContext();
+        private readonly ICandidateService _candidateService;
+        private HiringManagerDbContext db;
+
+        public CandidateController(ICandidateService candidateService, HiringManagerDbContext dbContext)
+        {
+            _candidateService = candidateService;
+            db = dbContext;
+        }
 
         // GET: /Candidate/
         public virtual ActionResult Index()
@@ -47,16 +56,16 @@ namespace HiringManager.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public virtual ActionResult Create([Bind(Include = "CandidateId,Name")] Candidate candidate)
+        public virtual ActionResult Create(EditCandidateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Candidates.Add(candidate);
-                db.SaveChanges();
+                var request = AutoMapper.Mapper.Map<SaveCandidateRequest>(viewModel);
+                var response = this._candidateService.Save(request);
                 return RedirectToAction("Index");
             }
 
-            return View(candidate);
+            return View(viewModel);
         }
 
         // GET: /Candidate/Edit/5

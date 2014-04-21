@@ -25,9 +25,6 @@ namespace HiringManager.Web.Controllers
     public partial class CandidateController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public CandidateController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected CandidateController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -118,7 +115,7 @@ namespace HiringManager.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Create
         {
-            public readonly string candidate = "candidate";
+            public readonly string viewModel = "viewModel";
         }
         static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -155,12 +152,14 @@ namespace HiringManager.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _EditForm = "_EditForm";
                 public readonly string Create = "Create";
                 public readonly string Delete = "Delete";
                 public readonly string Details = "Details";
                 public readonly string Edit = "Edit";
                 public readonly string Index = "Index";
             }
+            public readonly string _EditForm = "~/Views/Candidate/_EditForm.cshtml";
             public readonly string Create = "~/Views/Candidate/Create.cshtml";
             public readonly string Delete = "~/Views/Candidate/Delete.cshtml";
             public readonly string Details = "~/Views/Candidate/Details.cshtml";
@@ -202,13 +201,13 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.EntityModel.Candidate candidate);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Candidates.EditCandidateViewModel viewModel);
 
-        public override System.Web.Mvc.ActionResult Create(HiringManager.EntityModel.Candidate candidate)
+        public override System.Web.Mvc.ActionResult Create(HiringManager.Web.ViewModels.Candidates.EditCandidateViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "candidate", candidate);
-            CreateOverride(callInfo, candidate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            CreateOverride(callInfo, viewModel);
             return callInfo;
         }
 

@@ -107,6 +107,7 @@
     <Compile Include="CreatePositionResponse.cs" />
     <Compile Include="HireCandidateRequest.cs" />
     <Compile Include="CandidateStatusResponse.cs" />
+    <Compile Include="ICandidateService.cs" />
     <Compile Include="Impl\DomainServiceBase.cs" />
     <Compile Include="Impl\IUnitOfWork.cs" />
     <Compile Include="Impl\PositionService.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="IUserSession.cs" />
     <Compile Include="IValidatedResponse.cs" />
     <Compile Include="QuerySourcesRequest.cs" />
+    <Compile Include="SaveCandidateRequest.cs" />
     <Compile Include="SetCandidateStatusRequest.cs" />
     <Compile Include="PositionDetails.cs" />
     <Compile Include="PositionSummary.cs" />

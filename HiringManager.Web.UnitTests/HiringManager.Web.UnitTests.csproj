@@ -121,9 +121,11 @@
     <Compile Include="AutoMapperProfile\AutoMapperConfigurationTests.cs" />
     <Compile Include="AutoMapperProfile\CandidateStatusViewModelMapperTests.cs" />
     <Compile Include="AutoMapperProfile\ClosePositionViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\EditCandidateViewModelMapperTests.cs" />
     <Compile Include="AutoMapperProfile\PositionCandidatesViewModelMapperTests.cs" />
     <Compile Include="AutoMapperProfile\PositionSummaryIndexMapperTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
+    <Compile Include="Controllers\CandidateControllerTests.cs" />
     <Compile Include="Controllers\PositionsControllerTests.cs" />
     <Compile Include="Controllers\TaskExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +135,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj">
+      <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
+      <Name>HiringManager.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>

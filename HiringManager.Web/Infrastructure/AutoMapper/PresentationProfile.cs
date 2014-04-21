@@ -2,6 +2,7 @@
 using AutoMapper;
 using HiringManager.DomainServices;
 using HiringManager.Web.ViewModels;
+using HiringManager.Web.ViewModels.Candidates;
 using HiringManager.Web.ViewModels.Positions;
 
 namespace HiringManager.Web.Infrastructure.AutoMapper
@@ -39,6 +40,14 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
 
         private void ConfigureCandidateModels()
         {
+            CreateMap<ContactInfoDetails, ContactInfoViewModel>()
+                ;
+            CreateMap<ContactInfoViewModel, ContactInfoDetails>()
+                ;
+
+            CreateMap<EditCandidateViewModel, SaveCandidateRequest>()
+                ;
+
             CreateMap<AddCandidateViewModel, AddCandidateRequest>()
                 .ForMember(output => output.CandidateName, opt => opt.MapFrom(input => input.Name))
                 .ForMember(output => output.ContactInfo,

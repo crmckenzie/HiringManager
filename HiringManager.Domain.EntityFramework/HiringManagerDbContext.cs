@@ -1,4 +1,6 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using HiringManager.EntityModel;
@@ -13,17 +15,49 @@ namespace HiringManager.EntityFramework
         public IDbSet<Manager> Managers { get; set; }
         public IDbSet<Position> Positions { get; set; }
 
-        public IQueryable<T> Query<T>() where T: class
+        public IQueryable<T> Query<T>() where T : class
         {
             return base.Set<T>();
         }
 
-        public void Add<T>(T item) where T:class
+        public void Add<T>(T item) where T : class
         {
             base.Set<T>().Add(item);
         }
 
-        public void Delete<T>(T item) where T:class
+        protected ObjectContext ObjectContext
+        {
+            get { return ((IObjectContextAdapter)this).ObjectContext; }
+        }
+
+        object GetPrimaryKeyValue(DbEntityEntry entry)
+        {
+            var objectStateEntry = this.ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
+            return objectStateEntry.EntityKey.EntityKeyValues[0].Value;
+        }
+
+        //public void Save<T>(T item) where T : class
+        //{
+        //    var entry = base.Entry(item);
+        //    if (entry.State == EntityState.Detached)
+        //    {
+        //        base.Set<T>().Attach(item);
+        //        entry = base.Entry(item);
+
+        //        var key = GetPrimaryKeyValue(entry);
+        //        if (key == null)
+        //        {
+        //            entry.State = EntityState.Added;
+        //        }
+        //        else
+        //        {
+        //            entry.State = EntityState.Modified;
+        //        }
+
+        //    }
+        //}
+
+        public void Delete<T>(T item) where T : class
         {
             base.Set<T>().Remove(item);
         }
@@ -56,9 +90,9 @@ namespace HiringManager.EntityFramework
             }
         }
 
-        public T Get<T>(int key) where T:class
+        public T Get<T>(int key) where T : class
         {
-            var result =base.Set<T>().Find(key);
+            var result = base.Set<T>().Find(key);
             return result;
         }
 
@@ -89,7 +123,7 @@ namespace HiringManager.EntityFramework
 
             modelBuilder.Entity<Position>()
                 .HasMany(row => row.Openings)
-                .WithRequired(row=> row.Position)
+                .WithRequired(row => row.Position)
                 ;
 
             modelBuilder.Entity<Opening>()
