@@ -8,6 +8,10 @@ namespace HiringManager.Web.ViewModels.Positions
         public List<ContactInfoViewModel> ContactInfo { get; set; }
         public int CandidateStatusId { get; set; }
         public int CandidateId { get; set; }
+
+        public int? SourceId { get; set; }
+        public string Source { get; set; }
+
         public string Status { get; set; }
         public bool CanPass { get; set; }
         public bool CanSetStatus { get; set; }

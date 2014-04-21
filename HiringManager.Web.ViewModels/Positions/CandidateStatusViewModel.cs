@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HiringManager.Web.ViewModels.Positions
 {
@@ -14,6 +15,11 @@ namespace HiringManager.Web.ViewModels.Positions
 
         [Display(Prompt = "Candidate Name")]
         public string CandidateName { get; set; }
+
+        public int? SourceId { get; set; }
+
+        [DisplayName("Source")]
+        public string SourceName { get; set; }
 
         public string Status { get; set; }
     }
