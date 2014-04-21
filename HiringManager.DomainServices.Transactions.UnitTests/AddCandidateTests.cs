@@ -17,11 +17,11 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         [SetUp]
         public void BeforeEachTestRuns()
         {
-            this.DbContext = Substitute.For<IDbContext>();
-            this.AddCandidate = new AddCandidate(this.DbContext);
+            this.Db = Substitute.For<IDbContext>();
+            this.AddCandidate = new AddCandidate(this.Db);
         }
 
-        public IDbContext DbContext { get; set; }
+        public IDbContext Db { get; set; }
 
         public AddCandidate AddCandidate { get; set; }
 
@@ -38,13 +38,12 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             const int candidateStatusId = 3;
             const int candidateId = 4;
 
-            this.DbContext.When(r => r.Add(Arg.Any<CandidateStatus>()))
+            this.Db.When(r => r.Add(Arg.Any<CandidateStatus>()))
                 .Do(arg => arg.Arg<CandidateStatus>().CandidateStatusId = candidateStatusId);
 
 
-            this.DbContext.When(r => r.Add(Arg.Any<Candidate>()))
+            this.Db.When(r => r.Add(Arg.Any<Candidate>()))
                 .Do(arg => arg.Arg<Candidate>().CandidateId = candidateId);
-
 
             // Act
             var response = this.AddCandidate.Execute(request);
@@ -52,17 +51,17 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             // Assert
             Assert.That(response, Is.Not.Null);
 
-            this.DbContext.Received()
-                .Add(Arg.Is<Candidate>(arg => arg.Name == request.CandidateName));
+            this.Db.Received()
+                .Add(Arg.Is<Candidate>(arg => arg.Name == request.CandidateName && arg.SourceId == request.SourceId));
 
             foreach (var contactInfo in request.ContactInfo)
             {
-                this.DbContext.Received()
+                this.Db.Received()
                     .Add(Arg.Is<ContactInfo>(arg => arg.Type == contactInfo.Type && arg.Value == contactInfo.Value && arg.Candidate != null));
                 
             }
 
-            this.DbContext
+            this.Db
                 .Received()
                 .Add(Arg.Is<CandidateStatus>(arg=> arg.PositionId == request.PositionId && arg.Status == "Resume Received"))
                 ;

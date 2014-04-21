@@ -29,11 +29,14 @@ namespace HiringManager.Web.UnitTests.Controllers
         {
             this.Clock = Substitute.For<IClock>();
 
+            this.SourceService = Substitute.For<ISourceService>();
             this.PositionService = Substitute.For<IPositionService>();
             this.UserSession = Substitute.For<IUserSession>();
-            this.Controller = new PositionsController(this.PositionService, this.UserSession,
+            this.Controller = new PositionsController(this.PositionService, this.SourceService, this.UserSession,
                 this.Clock);
         }
+
+        public ISourceService SourceService { get; set; }
 
         public IUserSession UserSession { get; set; }
 
@@ -203,6 +206,14 @@ namespace HiringManager.Web.UnitTests.Controllers
         public void AddCandidate_HttpGet()
         {
             // Arrange
+            var sources = Builder<SourceSummary>
+                .CreateListOfSize(3)
+                .Build()
+                ;
+            this.SourceService.Query(null).Returns(new QueryResponse<SourceSummary>()
+                                                   {
+                                                       Data = sources.ToArray(),
+                                                   });
 
             // Act
             var viewResult = this.Controller.AddCandidate(1);
@@ -210,6 +221,9 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Assert
             var viewModel = viewResult.Model as AddCandidateViewModel;
             Assert.That(viewModel.PositionId, Is.EqualTo(1));
+            Assert.That(viewModel.SourceId, Is.Null);
+            Assert.That(viewModel.Sources, Is.Not.Null);
+            Assert.That(viewModel.Sources.Items, Is.EqualTo(sources));
         }
 
         [Test]

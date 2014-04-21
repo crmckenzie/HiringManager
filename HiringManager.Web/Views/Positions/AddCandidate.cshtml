@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+<div class="container col-md-12">
     <h2>Add Candidate</h2>
     @Html.ValidationSummary()
     @using (@Html.BeginForm())
@@ -14,8 +14,13 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name, new {@class="form-control"})
+            @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
             @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.SourceId)
+            @Html.DropDownListFor(m => m.SourceId, Model.Sources, "Who told you about this candidate?", new { @class="form-control"})
+            @Html.ValidationMessageFor(m => m.SourceId)
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.EmailAddress)

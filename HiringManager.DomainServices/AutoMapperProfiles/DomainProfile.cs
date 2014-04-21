@@ -3,6 +3,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Reflection.Emit;
 using AutoMapper;
+using HiringManager.DomainServices.Impl;
 using HiringManager.EntityModel;
 using HiringManager.EntityModel.Specifications;
 
@@ -16,6 +17,14 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
 
             ConfigurePositions();
             ConfigureCandidateStatus();
+            ConfigureSources();
+        }
+
+        private void ConfigureSources()
+        {
+            CreateMap<Source, SourceSummary>()
+                .ForMember(output => output.SourceId, opt => opt.MapFrom(input => input.SourceId.Value))
+                ;
         }
 
         private void ConfigureCandidateStatus()

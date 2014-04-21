@@ -110,11 +110,14 @@
     <Compile Include="Impl\DomainServiceBase.cs" />
     <Compile Include="Impl\IUnitOfWork.cs" />
     <Compile Include="Impl\PositionService.cs" />
+    <Compile Include="Impl\SourceService.cs" />
     <Compile Include="Impl\UserSession.cs" />
     <Compile Include="IPositionService.cs" />
+    <Compile Include="ISourceService.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="IUserSession.cs" />
     <Compile Include="IValidatedResponse.cs" />
+    <Compile Include="QuerySourcesRequest.cs" />
     <Compile Include="SetCandidateStatusRequest.cs" />
     <Compile Include="PositionDetails.cs" />
     <Compile Include="PositionSummary.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="QueryPositionSummariesRequest.cs" />
     <Compile Include="RegisterManagerRequest.cs" />
     <Compile Include="Impl\UserManager.cs" />
+    <Compile Include="SourceSummary.cs" />
     <Compile Include="ValidatedResponse.cs" />
   </ItemGroup>
   <ItemGroup>

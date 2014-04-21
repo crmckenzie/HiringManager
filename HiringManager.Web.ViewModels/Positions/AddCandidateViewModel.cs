@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace HiringManager.Web.ViewModels.Positions
 {
@@ -17,5 +18,10 @@ namespace HiringManager.Web.ViewModels.Positions
         [Required]
         [Display(Name = "Phone")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name="Candidate Sourced By")]
+        public int? SourceId { get; set; }
+
+        public SelectList Sources { get; set; }
     }
 }

@@ -9,6 +9,6 @@
         CandidateStatusDetails GetCandidateStatusDetails(int candidateStatusId);
         CandidateStatusResponse Hire(int candidateStatusId);
         QueryResponse<PositionSummary> Query(QueryPositionSummariesRequest request);
-        CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status);
+        CandidateStatusResponse SetCandidateStatus(int candidateStatusId, string status); 
     }
 }

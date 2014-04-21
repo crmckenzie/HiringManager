@@ -18,6 +18,7 @@ namespace HiringManager.DomainServices.Transactions
             var candidate = new Candidate()
                             {
                                 Name = request.CandidateName,
+                                SourceId = request.SourceId,
                             };
             candidate.ContactInfo = request.ContactInfo.Select(row => new ContactInfo()
                                                                  {

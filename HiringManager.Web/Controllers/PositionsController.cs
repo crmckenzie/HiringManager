@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Linq;
+using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.Web.Infrastructure;
 using HiringManager.Web.Infrastructure.MVC;
@@ -12,12 +14,14 @@ namespace HiringManager.Web.Controllers
     public partial class PositionsController : Controller
     {
         private readonly IPositionService _positionService;
+        private readonly ISourceService _sourceService;
         private readonly IUserSession _userSession;
         private readonly IClock _clock;
 
-        public PositionsController(IPositionService positionService, IUserSession userSession, IClock clock)
+        public PositionsController(IPositionService positionService, ISourceService sourceService, IUserSession userSession, IClock clock)
         {
             _positionService = positionService;
+            _sourceService = sourceService;
             _userSession = userSession;
             _clock = clock;
         }
@@ -74,9 +78,11 @@ namespace HiringManager.Web.Controllers
         [HttpGet]
         public virtual ViewResult AddCandidate(int id)
         {
+            var sources = _sourceService.Query(null);
             var viewModel = new AddCandidateViewModel()
                             {
                                 PositionId = id,
+                                Sources = new SelectList(sources.Data, "SourceId", "Name"),
                             };
             return View(viewModel);
         }
