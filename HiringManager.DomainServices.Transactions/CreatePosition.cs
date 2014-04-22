@@ -1,4 +1,5 @@
-﻿using HiringManager.EntityModel;
+﻿using HiringManager.DomainServices.Positions;
+using HiringManager.EntityModel;
 using HiringManager.Transactions;
 using Simple.Validation;
 

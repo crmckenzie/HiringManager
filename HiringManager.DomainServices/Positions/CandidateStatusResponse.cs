@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Simple.Validation;
 
-namespace HiringManager.DomainServices
+namespace HiringManager.DomainServices.Positions
 {
     public class CandidateStatusResponse : IValidatedResponse
     {

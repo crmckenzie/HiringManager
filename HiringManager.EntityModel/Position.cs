@@ -36,6 +36,8 @@ namespace HiringManager.EntityModel
 
         public virtual bool IsFilled()
         {
+            if (Openings == null)
+                return false;
             return Openings.Any() && Openings.All(row => row.IsFilled());
         }
 

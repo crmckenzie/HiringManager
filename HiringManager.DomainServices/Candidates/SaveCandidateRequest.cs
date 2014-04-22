@@ -1,4 +1,4 @@
-﻿namespace HiringManager.DomainServices
+﻿namespace HiringManager.DomainServices.Candidates
 {
     public class SaveCandidateRequest
     {

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Authentication;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Models.Accounts;
 using Microsoft.AspNet.Identity;

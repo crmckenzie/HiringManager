@@ -5,6 +5,7 @@ using System.Text;
 using AutoMapper;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Candidates;

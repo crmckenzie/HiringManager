@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FizzWare.NBuilder;
+using HiringManager.DomainServices.Positions;
 using HiringManager.EntityModel;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using NSubstitute;

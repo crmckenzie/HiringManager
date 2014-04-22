@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
+using HiringManager.DomainServices.Positions;
 using HiringManager.EntityModel;
 using HiringManager.EntityModel.Specifications;
 using HiringManager.Transactions;

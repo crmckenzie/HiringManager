@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Infrastructure.AutoMapper;

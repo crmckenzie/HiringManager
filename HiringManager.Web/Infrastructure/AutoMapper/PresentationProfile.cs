@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Candidates;
+using HiringManager.DomainServices.Positions;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Candidates;
 using HiringManager.Web.ViewModels.Positions;

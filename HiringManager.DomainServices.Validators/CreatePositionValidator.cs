@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HiringManager.DomainServices.Positions;
 using Simple.Validation;
 using Simple.Validation.Validators;
 

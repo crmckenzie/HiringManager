@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Positions;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using HiringManager.Web.ViewModels.Positions;
 using NUnit.Framework;

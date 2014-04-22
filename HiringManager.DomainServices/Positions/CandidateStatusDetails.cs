@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using HiringManager.EntityModel;
 
-namespace HiringManager.DomainServices
+namespace HiringManager.DomainServices.Positions
 {
     public class CandidateStatusDetails
     {

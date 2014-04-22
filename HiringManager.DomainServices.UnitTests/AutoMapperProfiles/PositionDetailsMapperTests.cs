@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices.AutoMapperProfiles;
+using HiringManager.DomainServices.Positions;
 using HiringManager.EntityModel;
 using NSubstitute;
 using NUnit.Framework;
@@ -109,6 +111,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         {
             // Arrange
             var position = Substitute.For<Position>();
+            position.Openings.Returns(new List<Opening>());
             position.IsFilled().Returns(false);
 
             // Act
@@ -123,6 +126,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         {
             // Arrange
             var position = Substitute.For<Position>();
+            position.Openings.Returns(new List<Opening>());
             position.IsFilled().Returns(true);
 
             // Act
@@ -132,6 +136,19 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             Assert.That(details.CanAddCandidate, Is.False);
         }
 
+        [Test]
+        public void BasicMap()
+        {
+            // Arrange
+            var position = Substitute.For<Position>();
+            position.Openings.Returns(new List<Opening>());
+
+            // Act
+            var details = Mapper.Map<Position, PositionDetails>(position);
+
+            // Assert
+            Assert.That(details, Is.Not.Null);
+        }
 
         [Test]
         public void CanClose_WhenPositionClosed()
@@ -139,6 +156,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
             // Arrange
             var position = Substitute.For<Position>();
             position.IsClosed().Returns(true);
+            position.Openings.Returns(new List<Opening>());
 
             // Act
             var details = Mapper.Map<PositionDetails>(position);
@@ -152,6 +170,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         {
             // Arrange
             var position = Substitute.For<Position>();
+            position.Openings.Returns(new List<Opening>());
             position.IsFilled().Returns(true);
 
             // Act
@@ -166,6 +185,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
         {
             // Arrange
             var position = Substitute.For<Position>();
+            position.Openings.Returns(new List<Opening>());
             position.IsClosed().Returns(false);
             position.IsFilled().Returns(false);
 

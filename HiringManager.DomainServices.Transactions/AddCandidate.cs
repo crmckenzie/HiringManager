@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using HiringManager.DomainServices.Positions;
 using HiringManager.EntityModel;
 using HiringManager.Transactions;
 

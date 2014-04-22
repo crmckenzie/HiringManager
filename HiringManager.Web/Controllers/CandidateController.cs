@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.EntityModel;
 using HiringManager.EntityFramework;
 using HiringManager.Web.ViewModels.Candidates;

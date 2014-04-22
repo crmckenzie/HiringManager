@@ -1,4 +1,4 @@
-﻿namespace HiringManager.DomainServices
+﻿namespace HiringManager.DomainServices.Sources
 {
     public class SourceSummary
     {

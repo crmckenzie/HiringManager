@@ -1,4 +1,5 @@
 ﻿using AutoMapper.QueryableExtensions;
+using HiringManager.DomainServices.Sources;
 using HiringManager.EntityModel;
 using System.Linq;
 

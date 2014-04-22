@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace HiringManager.DomainServices
+namespace HiringManager.DomainServices.Authentication
 {
     public interface IUserManager : IDisposable
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Principal;
+using HiringManager.DomainServices.Authentication;
 using HiringManager.EntityModel;
 
 namespace HiringManager.DomainServices.Impl

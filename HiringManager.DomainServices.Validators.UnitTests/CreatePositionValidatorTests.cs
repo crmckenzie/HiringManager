@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using HiringManager.DomainServices.Positions;
 using NUnit.Framework;
 using Simple.Validation;
 

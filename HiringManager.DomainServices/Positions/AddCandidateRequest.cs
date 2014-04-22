@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HiringManager.DomainServices
+namespace HiringManager.DomainServices.Positions
 {
     public class AddCandidateRequest
     {

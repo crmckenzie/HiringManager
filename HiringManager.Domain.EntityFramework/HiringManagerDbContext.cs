@@ -20,9 +20,25 @@ namespace HiringManager.EntityFramework
             return base.Set<T>();
         }
 
-        public void Add<T>(T item) where T : class
+        public IDbContext Add<T>(T item) where T : class
         {
             base.Set<T>().Add(item);
+            return this;
+        }
+
+        public IDbContext Update<T>(T item) where T : class
+        {
+            var entry = base.Entry(item);
+            if (entry.State == EntityState.Detached)
+                base.Set<T>().Attach(item);
+
+            entry.State = EntityState.Modified;
+            return this;
+        }
+
+        public IDbContext AddOrUpdate<T>(T item, object key) where T : class
+        {
+            return key == null ? Add(item) : Update(item);
         }
 
         protected ObjectContext ObjectContext
@@ -30,10 +46,20 @@ namespace HiringManager.EntityFramework
             get { return ((IObjectContextAdapter)this).ObjectContext; }
         }
 
+        ObjectStateEntry GetObjectStateEntry(DbEntityEntry entry)
+        {
+            ObjectStateEntry objectStateEntry = null;
+            var result = this.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(entry.Entity, out objectStateEntry);
+            return objectStateEntry;
+        }
+
         object GetPrimaryKeyValue(DbEntityEntry entry)
         {
-            var objectStateEntry = this.ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
-            return objectStateEntry.EntityKey.EntityKeyValues[0].Value;
+            ObjectStateEntry objectStateEntry = GetObjectStateEntry(entry);
+            if (objectStateEntry != null)
+                return objectStateEntry.EntityKey.EntityKeyValues[0].Value;
+
+            return null;
         }
 
         //public void Save<T>(T item) where T : class
@@ -57,9 +83,18 @@ namespace HiringManager.EntityFramework
         //    }
         //}
 
-        public void Delete<T>(T item) where T : class
+        public IDbContext Delete<T>(T item) where T : class
         {
-            base.Set<T>().Remove(item);
+            var entry = base.Entry(item);
+            if (entry.State == EntityState.Detached)
+                base.Set<T>().Attach(item);
+
+            entry.State = EntityState.Deleted;
+            return this;
+
+
+            //base.Set<T>().Remove(item);
+            return this;
         }
 
         public new void SaveChanges()

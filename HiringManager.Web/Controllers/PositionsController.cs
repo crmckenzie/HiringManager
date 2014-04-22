@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Authentication;
+using HiringManager.DomainServices.Positions;
+using HiringManager.DomainServices.Sources;
 using HiringManager.Web.Infrastructure;
 using HiringManager.Web.Infrastructure.MVC;
 using HiringManager.Web.ViewModels;
