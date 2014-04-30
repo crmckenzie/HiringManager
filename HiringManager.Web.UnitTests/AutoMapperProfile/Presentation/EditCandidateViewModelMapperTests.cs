@@ -28,7 +28,7 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
         }
 
         [Test]
-        public void Map()
+        public void ToSaveCandidateRequest()
         {
             // Arrange
             var expected = Builder<EditCandidateViewModel>
@@ -55,5 +55,36 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
                 Assert.That(actualContact.Value, Is.EqualTo(expectedContact.Value));
             }
         }
+
+        [Test]
+        public void FromCandidateDetails()
+        {
+            // Arrange
+            var expected = Builder<CandidateDetails>
+                .CreateNew()
+                .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(3).Build().ToArray())
+                .Build()
+                ;
+
+            // Act
+            var actual = Mapper.Map<EditCandidateViewModel>(expected);
+
+            // Assert
+            Assert.That(actual.CandidateId, Is.EqualTo(expected.CandidateId));
+            Assert.That(actual.Name, Is.EqualTo(expected.Name));
+            Assert.That(actual.SourceId, Is.EqualTo(expected.SourceId));
+
+            for (int i = 0; i < expected.ContactInfo.Length; i++)
+            {
+                var expectedContact = expected.ContactInfo[i];
+                var actualContact = actual.ContactInfo[i];
+
+                Assert.That(actualContact.ContactInfoId, Is.EqualTo(expectedContact.ContactInfoId));
+                Assert.That(actualContact.Type, Is.EqualTo(expectedContact.Type));
+                Assert.That(actualContact.Value, Is.EqualTo(expectedContact.Value));
+            }
+
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Reflection.Emit;
 using AutoMapper;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
@@ -18,7 +19,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             base.Configure();
 
             ConfigurePositions();
-            ConfigureCandidateStatus();
+            ConfigureCandidates();
             ConfigureSources();
         }
 
@@ -29,10 +30,19 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 ;
         }
 
-        private void ConfigureCandidateStatus()
+        private void ConfigureCandidates()
         {
+            CreateMap<Candidate, CandidateDetails>();
+
+            CreateMap<SaveCandidateRequest, Candidate>()
+                ;
+
             CreateMap<ContactInfo, ContactInfoDetails>()
                 ;
+
+            CreateMap<ContactInfoDetails, ContactInfo>()
+                ;
+
             CreateMap<CandidateStatus, CandidateStatusDetails>()
                 .ForMember(output => output.SourceId, opt => opt.MapFrom(input => input.Candidate.Source.SourceId))
                 .ForMember(output => output.Source, opt => opt.MapFrom(input => input.Candidate.Source.Name))

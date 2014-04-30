@@ -17,6 +17,16 @@ namespace HiringManager.DomainServices.Impl
             _unitOfWork = unitOfWork;
         }
 
+        public CandidateDetails Get(int id)
+        {
+            using (var db = _unitOfWork.NewDbContext())
+            {
+                var candidate = db.Get<Candidate>(id);
+                var details = AutoMapper.Mapper.Map<CandidateDetails>(candidate);
+                return details;
+            }
+        }
+
         public ValidatedResponse Save(SaveCandidateRequest request)
         {
             using (var db = _unitOfWork.NewDbContext())

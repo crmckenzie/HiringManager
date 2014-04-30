@@ -124,7 +124,7 @@ namespace HiringManager.Web.Controllers
         public class ActionParamsClass_Edit
         {
             public readonly string id = "id";
-            public readonly string candidate = "candidate";
+            public readonly string viewModel = "viewModel";
         }
         static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -211,9 +211,9 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
-        public override System.Web.Mvc.ActionResult Edit(int? id)
+        public override System.Web.Mvc.ActionResult Edit(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
@@ -221,13 +221,13 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.EntityModel.Candidate candidate);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Candidates.EditCandidateViewModel viewModel);
 
-        public override System.Web.Mvc.ActionResult Edit(HiringManager.EntityModel.Candidate candidate)
+        public override System.Web.Mvc.ActionResult Edit(HiringManager.Web.ViewModels.Candidates.EditCandidateViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "candidate", candidate);
-            EditOverride(callInfo, candidate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            EditOverride(callInfo, viewModel);
             return callInfo;
         }
 

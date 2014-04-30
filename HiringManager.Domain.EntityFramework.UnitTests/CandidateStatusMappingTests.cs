@@ -57,20 +57,16 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
                 candidate.Source = source;
                 position.Add(candidate);
 
-                db.Update(manager)
-                    .Update(source)
-                    .Update(candidate)
-                    .Update(position)
-                    .Update(position.Candidates.Single())
+                db.Add(manager)
+                    .Add(source)
+                    .Add(candidate)
+                    .Add(position)
+                    .Add(position.Candidates.Single())
                     .SaveChanges()
                     ;
-                //db.Sources.Add(source);
-                //db.Candidates.Add(candidate);
-                //db.Positions.Add(position);
-                //db.CandidateStatuses.Add(position.Candidates.Single());
 
                 // Act
-                //db.SaveChanges();
+                db.SaveChanges();
 
                 positionId = position.PositionId;
 

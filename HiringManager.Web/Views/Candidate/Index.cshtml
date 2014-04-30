@@ -14,6 +14,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
+        <th>@Html.DisplayNameFor(model => model.Source)</th>
         <th></th>
     </tr>
 
@@ -21,6 +22,17 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @if (item.SourceId.HasValue)
+            {
+                @Html.ActionLink(item.Source.Name, MVC.Source.Details(item.SourceId))
+            }
+            else
+            {
+                <span>(none)</span>
+            }
+         
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CandidateId }) |

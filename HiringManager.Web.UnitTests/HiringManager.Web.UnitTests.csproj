@@ -118,13 +118,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoMapperProfile\AddCandidateViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Domain\CandidateMappingTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\AddCandidateViewModelMapperTests.cs" />
     <Compile Include="AutoMapperProfile\AutoMapperConfigurationTests.cs" />
-    <Compile Include="AutoMapperProfile\CandidateStatusViewModelMapperTests.cs" />
-    <Compile Include="AutoMapperProfile\ClosePositionViewModelMapperTests.cs" />
-    <Compile Include="AutoMapperProfile\EditCandidateViewModelMapperTests.cs" />
-    <Compile Include="AutoMapperProfile\PositionCandidatesViewModelMapperTests.cs" />
-    <Compile Include="AutoMapperProfile\PositionSummaryIndexMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\CandidateStatusViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\ClosePositionViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\EditCandidateViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\PositionCandidatesViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\PositionSummaryIndexMapperTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\CandidateControllerTests.cs" />
     <Compile Include="Controllers\PositionsControllerTests.cs" />

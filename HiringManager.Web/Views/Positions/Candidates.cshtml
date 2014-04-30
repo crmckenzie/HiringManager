@@ -34,7 +34,7 @@
             @foreach (var candidate in Model.Candidates)
             {
                 <tr>
-                    <td>@candidate.CandidateName</td>
+                    <td>@Html.ActionLink(candidate.CandidateName, MVC.Candidate.Details(candidate.CandidateId))</td>
                     <td>
                         <ul>
                             @foreach (var contactInfo in candidate.ContactInfo)

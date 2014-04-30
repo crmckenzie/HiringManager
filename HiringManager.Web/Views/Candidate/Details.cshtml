@@ -7,19 +7,35 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Candidate</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+    @Html.LabelFor(model => model.Name)
+    @Html.DisplayFor(model => model.Name)        
 </div>
+<div>
+    @Html.LabelFor(model => model.Source)
+    @if (Model.SourceId.HasValue)
+    {
+        @Html.ActionLink(Model.Source.Name, MVC.Source.Details(Model.SourceId))
+    }
+    else
+    {
+        <span>(none)</span>
+    }
+        
+</div>
+<div>
+    @foreach (var item in Model.ContactInfo)
+    {
+        <div>
+            <label>@item.Type</label>
+            <span>@item.Value</span>
+
+        </div>
+    }
+
+
+
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.CandidateId }) |
     @Html.ActionLink("Back to List", "Index")

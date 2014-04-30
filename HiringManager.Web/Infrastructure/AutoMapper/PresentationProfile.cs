@@ -50,6 +50,9 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
             CreateMap<EditCandidateViewModel, SaveCandidateRequest>()
                 ;
 
+            CreateMap<CandidateDetails, EditCandidateViewModel>()
+                ;
+
             CreateMap<AddCandidateViewModel, AddCandidateRequest>()
                 .ForMember(output => output.CandidateName, opt => opt.MapFrom(input => input.Name))
                 .ForMember(output => output.ContactInfo,
