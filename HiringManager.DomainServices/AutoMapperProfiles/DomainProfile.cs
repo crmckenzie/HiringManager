@@ -35,12 +35,25 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<Candidate, CandidateDetails>();
 
             CreateMap<SaveCandidateRequest, Candidate>()
+                .ForMember(output => output.AppliedTo, opt => opt.Ignore())
+                .ForMember(output => output.Source, opt => opt.Ignore())
                 ;
 
             CreateMap<ContactInfo, ContactInfoDetails>()
                 ;
 
             CreateMap<ContactInfoDetails, ContactInfo>()
+                .ForMember(output => output.Candidate, opt => opt.Ignore())
+                .ForMember(output => output.CandidateId, opt => opt.Ignore())
+                .ForMember(output => output.Manager, opt => opt.Ignore())
+                .ForMember(output => output.ManagerId, opt => opt.Ignore())
+                ;
+
+            CreateMap<AddCandidateRequest, CandidateStatus>()
+                .ForMember(output => output.Status, opt => opt.UseValue("Resume Received"))
+                .ForMember(output => output.Candidate, opt => opt.ResolveUsing(MapCandidate))
+                .ForMember(output => output.CandidateStatusId, opt => opt.Ignore())
+                .ForMember(output => output.Position, opt => opt.Ignore())
                 ;
 
             CreateMap<CandidateStatus, CandidateStatusDetails>()
@@ -51,6 +64,33 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 .ForMember(c => c.CanSetStatus, opt => opt.ResolveUsing(m => !m.Position.IsFilled()))
                 .ForMember(c => c.CanPass, opt => opt.ResolveUsing(m => !m.Position.IsFilled() && m.Status != "Passed"))
                 ;
+        }
+
+        private static Candidate MapCandidate(AddCandidateRequest input)
+        {
+            if (input.CandidateId.HasValue)
+            {
+                return new Candidate()
+                       {
+                           CandidateId =
+                               input.CandidateId,
+                       };
+            }
+
+            var candidate = new Candidate()
+                            {
+                                CandidateId = null,
+                                SourceId = input.SourceId,
+                                Name = input.CandidateName,
+                                ContactInfo = Mapper.Map<ContactInfo[]>(input.ContactInfo),
+                            };
+
+            foreach (var contactInfo in candidate.ContactInfo)
+            {
+                contactInfo.Candidate = candidate;
+            }
+
+            return candidate;
         }
 
         private void ConfigurePositions()
@@ -81,7 +121,8 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<Position, PositionSummary>()
                 .ForMember(output => output.CandidatesAwaitingReview, opt => opt.Ignore())
                 .ForMember(output => output.Openings, opt => opt.MapFrom(input => input.Openings.Count))
-                .ForMember(output => output.OpeningsFilled, opt => opt.MapFrom(input => input.Openings.Count(row => row.IsFilled())))
+                .ForMember(output => output.OpeningsFilled,
+                    opt => opt.MapFrom(input => input.Openings.Count(row => row.IsFilled())))
                 .AfterMap((position, positionSummary) =>
                           {
                               if (positionSummary.Status == "Filled")
@@ -98,7 +139,8 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<Position, PositionDetails>()
                 .ForMember(output => output.CanAddCandidate, opt => opt.ResolveUsing(input => !input.IsFilled()))
                 .ForMember(output => output.Openings, opt => opt.MapFrom(input => input.Openings.Count))
-                .ForMember(output => output.OpeningsFilled, opt => opt.MapFrom(input => input.Openings.Count(row => row.IsFilled())))
+                .ForMember(output => output.OpeningsFilled,
+                    opt => opt.MapFrom(input => input.Openings.Count(row => row.IsFilled())))
                 .ForMember(output => output.CanClose,
                     opt => opt.ResolveUsing(input => !(input.IsClosed() || input.IsFilled())))
                 ;

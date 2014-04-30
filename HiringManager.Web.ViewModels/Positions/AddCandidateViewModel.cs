@@ -10,7 +10,7 @@ namespace HiringManager.Web.ViewModels.Positions
 
         [Required]
         public string Name { get; set; }
-        
+
         [Required]
         [Display(Name = "Email")]
         public string EmailAddress { get; set; }
@@ -19,8 +19,10 @@ namespace HiringManager.Web.ViewModels.Positions
         [Display(Name = "Phone")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name="Candidate Sourced By")]
+        [Display(Name = "Candidate Sourced By")]
         public int? SourceId { get; set; }
+
+        public int? CandidateId { get; set; }
 
         public SelectList Sources { get; set; }
     }

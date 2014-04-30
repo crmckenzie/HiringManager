@@ -51,6 +51,8 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
                 ;
 
             CreateMap<CandidateDetails, EditCandidateViewModel>()
+                .ForMember(output => output.SourceName, opt => opt.Ignore())
+                .ForMember(output => output.Sources, opt => opt.Ignore())
                 ;
 
             CreateMap<AddCandidateViewModel, AddCandidateRequest>()

@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddCandidate.cs" />
+    <Compile Include="AddCandidateToPosition.cs" />
     <Compile Include="ClosePosition.cs" />
     <Compile Include="CreatePosition.cs" />
     <Compile Include="HireCandidate.cs" />

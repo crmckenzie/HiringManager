@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
 using HiringManager.DomainServices.Validators.UnitTests;
@@ -133,7 +134,6 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(redirect.RouteValues["status"], Is.EqualTo("Open"));
         }
 
-
         [Test]
         public void Create_HttpPost_ModelStateInValid()
         {
@@ -172,7 +172,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.CreatePosition(Arg.Any<CreatePositionRequest>())
                 .Returns(new CreatePositionResponse()
                     {
-                        ValidationResults = new []
+                        ValidationResults = new[]
                         {
                             validationResult
                         }
