@@ -274,6 +274,7 @@
     </Compile>
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\PresentationProfile.cs" />
+    <Compile Include="Infrastructure\MVC\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\MVC\ModelStateExtensions.cs" />
     <Compile Include="Infrastructure\ValidatedResponseExtensions.cs" />
     <Compile Include="Infrastructure\Ninject\NinjectConfiguration.cs" />

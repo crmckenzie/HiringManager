@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using HiringManager.DomainServices.Candidates;
 using HiringManager.EntityModel;
 
@@ -36,6 +37,26 @@ namespace HiringManager.DomainServices.Impl
                 db.SaveChanges();
 
                 return new ValidatedResponse();
+            }
+        }
+
+        public QueryResponse<CandidateSummary> Query(QueryCandidatesRequest request)
+        {
+            using (var db = _unitOfWork.NewDbContext())
+            {
+                var results = db.Query<Candidate>()
+                    .Project().To<CandidateSummary>()
+                    .ToArray()
+                    ;
+                
+                return new QueryResponse<CandidateSummary>()
+                       {
+                           Data = results,
+                           Page = 1,
+                           PageSize = 1,
+                           TotalRecords = results.Length,
+                       };
+
             }
         }
     }

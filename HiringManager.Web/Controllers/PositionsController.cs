@@ -3,8 +3,10 @@ using System.Linq;
 using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
+using HiringManager.EntityModel;
 using HiringManager.Web.Infrastructure;
 using HiringManager.Web.Infrastructure.MVC;
 using HiringManager.Web.ViewModels;
@@ -18,13 +20,15 @@ namespace HiringManager.Web.Controllers
     {
         private readonly IPositionService _positionService;
         private readonly ISourceService _sourceService;
+        private readonly ICandidateService _candidateService;
         private readonly IUserSession _userSession;
         private readonly IClock _clock;
 
-        public PositionsController(IPositionService positionService, ISourceService sourceService, IUserSession userSession, IClock clock)
+        public PositionsController(IPositionService positionService, ISourceService sourceService, ICandidateService candidateService, IUserSession userSession, IClock clock)
         {
             _positionService = positionService;
             _sourceService = sourceService;
+            _candidateService = candidateService;
             _userSession = userSession;
             _clock = clock;
         }
@@ -82,10 +86,13 @@ namespace HiringManager.Web.Controllers
         public virtual ViewResult AddCandidate(int id)
         {
             var sources = _sourceService.Query(null);
+            var candidates = _candidateService.Query(null);
+
             var viewModel = new AddCandidateViewModel()
                             {
                                 PositionId = id,
                                 Sources = new SelectList(sources.Data, "SourceId", "Name"),
+                                Candidates = new SelectList(candidates.Data, "CandidateId", "Name"),
                             };
             return View(viewModel);
         }
@@ -98,14 +105,18 @@ namespace HiringManager.Web.Controllers
                 var request = AutoMapper.Mapper.Map<AddCandidateRequest>(viewModel);
 
                 var response = this._positionService.AddCandidate(request);
-                if (response.ValidationResults.HasErrors())
-                {
-                    response.WriteValidationErrorsTo(ModelState);
-                    return View(viewModel);
-                }
+                this.ModelState.Accept(response);
 
-                return RedirectToAction("Candidates", new { id = response.PositionId });
+                if (this.ModelState.IsValid)
+                    return RedirectToAction("Candidates", new { id = response.PositionId });
             }
+            
+            var sources = _sourceService.Query(null);
+            var candidates = _candidateService.Query(null);
+            
+            viewModel.Sources = new SelectList(sources.Data, "SourceId", "Name");
+            viewModel.Candidates = new SelectList(candidates.Data, "CandidateId", "Name");
+            
             return View(viewModel);
         }
 

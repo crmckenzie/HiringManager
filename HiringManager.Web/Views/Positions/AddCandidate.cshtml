@@ -1,4 +1,5 @@
-﻿@model HiringManager.Web.ViewModels.Positions.AddCandidateViewModel
+﻿@using HiringManager.Web.Infrastructure.MVC
+@model HiringManager.Web.ViewModels.Positions.AddCandidateViewModel
 
 @{
     ViewBag.Title = "Add Candidate";
@@ -48,8 +49,28 @@
         </div>
     </div>
     <div class="tab-pane" id="existing-candidate">
-        Existing Candidate
+        @Html.ValidationSummary()
+        @using (Html.BeginForm())
+        {
+            <div class="form-group">
+                @Html.LabelFor(m=> m.CandidateId, new {@class="control-label"})
+                <input id="CandidateId" name="CandidateId" class="form-control"/>
+            </div>
+        }
     </div>    
 </div>
 
-
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var model = @Html.ToJson(Model);
+            $("#CandidateId").kendoAutoComplete({
+                dataSource: model.Candidates,
+                filter: "contains",
+                placeholder: "Select Candidate",
+                dataTextField: "Name",
+                dataValueField: "CandidateId"
+            });
+        });
+    </script>
+}

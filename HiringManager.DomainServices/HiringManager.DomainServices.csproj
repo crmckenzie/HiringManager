@@ -102,7 +102,9 @@
     <Compile Include="Authentication\IUserSession.cs" />
     <Compile Include="AutoMapperProfiles\DomainProfile.cs" />
     <Compile Include="Candidates\CandidateDetails.cs" />
+    <Compile Include="Candidates\CandidateSummary.cs" />
     <Compile Include="Candidates\ICandidateService.cs" />
+    <Compile Include="Candidates\QueryCandidatesRequest.cs" />
     <Compile Include="Candidates\SaveCandidateRequest.cs" />
     <Compile Include="ContactInfoDetails.cs" />
     <Compile Include="Impl\CandidateService.cs" />

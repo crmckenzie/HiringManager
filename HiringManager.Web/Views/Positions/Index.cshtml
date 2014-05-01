@@ -5,48 +5,38 @@
 
 <h2>Positions</h2>
    
-                                                      <ul class="nav nav-tabs">
-                                                          <li class="active">
-                                                              <a href="#">New Candidate</a>
-                                                          </li>
-                                                          <li><a href="#">Existing Candidate</a></li>
+<div class="container row col-md-12">
+    <table class="table table-bordered table-hover table-striped table-responsive">
+        <thead>
+            <tr>
+                <td colspan="6">
+                    <div class="btn-group">
+                        <a href="@Url.Action("Create")" class="btn btn-default" role="button">New Position</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Candidates Awaiting Review</th>
+                <th>Open Date</th>
+                <th>Openings</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Data)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Title, MVC.Positions.Candidates(item.PositionId))</td>
+                    <td>@item.CreatedByName</td>
+                    <td>@Html.ActionLink(item.Status, "Index", "Positions", new {status = item.Status}, null)</td>
+                    <td>@item.CandidatesAwaitingReview.ToString()</td>
+                    <td>@item.OpenDate.ToShortDateString()</td>
+                    <td>@item.OpeningsFilled of @item.Openings filled.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-                                                          <div class="container row col-md-12">
-                                                              <table class="table table-bordered table-hover table-striped table-responsive">
-                                                                  <thead>
-                                                                      <tr>
-                                                                          <td colspan="6">
-                                                                              <div class="btn-group">
-                                                                                  <a href="@Url.Action("Create")" class="btn btn-default" role="button">New Position</a>
-                                                                              </div>
-                                                                          </td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <th>Position</th>
-                                                                          <th>Created</th>
-                                                                          <th>Status</th>
-                                                                          <th>Candidates Awaiting Review</th>
-                                                                          <th>Open Date</th>
-                                                                          <th>Openings</th>
-                                                                      </tr>
-                                                                  </thead>
-                                                                  <tbody>
-                                                                      @foreach (var item in Model.Data)
-                                                                      {
-                                                                          <tr>
-                                                                              <td>@Html.ActionLink(item.Title, MVC.Positions.Candidates(item.PositionId))</td>
-                                                                              <td>@item.CreatedByName</td>
-                                                                              <td>@Html.ActionLink(item.Status, "Index", "Positions", new { status = item.Status }, null)</td>
-                                                                              <td>@item.CandidatesAwaitingReview.ToString()</td>
-                                                                              <td>@item.OpenDate.ToShortDateString()</td>
-                                                                              <td>@item.OpeningsFilled of @item.Openings filled.</td>
-                                                                          </tr>
-                                                                      }
-                                                                  </tbody>
-                                                              </table>
-
-                                                          </div>
-                                                          <div>
-                                                              Existing Candidate
-                                                          </div>
-                                                      </ul>
+</div>
