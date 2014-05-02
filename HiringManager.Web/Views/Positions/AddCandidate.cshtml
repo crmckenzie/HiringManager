@@ -56,7 +56,12 @@
                 @Html.LabelFor(m=> m.CandidateId, new {@class="control-label"})
                 <input id="CandidateId" name="CandidateId" class="form-control"/>
             </div>
-        }
+   
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary">OK</button>
+                <a type="button" href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn btn-default" role="button">Cancel</a>
+            </div>
+     }
     </div>    
 </div>
 
@@ -68,8 +73,8 @@
                 dataSource: model.Candidates,
                 filter: "contains",
                 placeholder: "Select Candidate",
-                dataTextField: "Name",
-                dataValueField: "CandidateId"
+                dataTextField: "Text",
+                dataValueField: "Value"
             });
         });
     </script>
