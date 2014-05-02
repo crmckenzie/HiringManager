@@ -25,6 +25,5 @@ namespace HiringManager.Web.ViewModels.Positions
         public int? CandidateId { get; set; }
 
         public SelectList Sources { get; set; }
-        public SelectList Candidates { get; set; }
     }
 }

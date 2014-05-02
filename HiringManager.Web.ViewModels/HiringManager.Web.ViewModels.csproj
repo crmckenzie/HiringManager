@@ -73,6 +73,7 @@
     <Compile Include="Candidates\EditCandidateViewModel.cs" />
     <Compile Include="ContactInfoViewModel.cs" />
     <Compile Include="IndexViewModel.cs" />
+    <Compile Include="Positions\AddCandidateViewModel.cs" />
     <Compile Include="Positions\NewCandidateViewModel.cs" />
     <Compile Include="Positions\CandidateStatusViewModel.cs" />
     <Compile Include="Positions\ClosePositionViewModel.cs" />

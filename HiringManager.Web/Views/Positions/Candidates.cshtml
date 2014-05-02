@@ -17,6 +17,7 @@
                             var canClose = Model.CanClose ? "" : "disabled";
                         }
                         <a class="btn btn-default @canAdd" title="Add a candidate to an open position." href="@Url.Action(MVC.Positions.NewCandidate(Model.PositionId))">Add New Candidate</a>
+                        <a class="btn btn-default @canAdd" title="Add a candidate to an open position." href="@Url.Action(MVC.Positions.AddCandidate(Model.PositionId))">Add Existing Candidate</a>
                         <a class="btn btn-default @canClose" title="Close the position without hiring a candidate" href="@Url.Action(MVC.Positions.Close(Model.PositionId))">Close Without Hiring</a>
                     </div>
 

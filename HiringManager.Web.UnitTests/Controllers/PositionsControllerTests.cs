@@ -257,7 +257,6 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(viewModel.SourceId, Is.Null);
             Assert.That(viewModel.Sources, Is.Not.Null);
             Assert.That(viewModel.Sources.Items, Is.EqualTo(this.Sources));
-            Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
         }
 
         [Test]
@@ -300,12 +299,12 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            var hireResponse = new NewCandidateResponse
+            var response = new NewCandidateResponse
                                {
                                    ValidationResults = validationResults
                                };
             this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
-                .Returns(hireResponse);
+                .Returns(response);
 
             // Act
             var result = this.Controller.NewCandidate(model) as ViewResult;
@@ -322,9 +321,88 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             var viewModel = result.Model as NewCandidateViewModel;
             Assert.That(viewModel.Sources.Items, Is.EqualTo(this.Sources));
-            Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
-
         }
+
+
+        [Test]
+        public void AddCandidate_HttpGet()
+        {
+            // Arrange
+
+            // Act
+            var viewResult = this.Controller.AddCandidate(1);
+
+            // Assert
+            var viewModel = viewResult.Model as AddCandidateViewModel;
+            Assert.That(viewModel.PositionId, Is.EqualTo(1));
+            Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
+        }
+
+        [Test]
+        public void AddCandidate_HttpPost()
+        {
+            // Arrange
+            var viewModel = new AddCandidateViewModel();
+
+            var response = Builder<NewCandidateResponse>
+                .CreateNew()
+                .Build();
+
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
+
+            // Act
+            var actionResult = this.Controller.AddCandidate(viewModel);
+
+            // Assert
+            var redirectToAction = actionResult as RedirectToRouteResult;
+            Assert.That(redirectToAction, Is.Not.Null);
+
+            Assert.That(redirectToAction.RouteName, Is.EqualTo(""));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("action"), Is.True);
+            Assert.That(redirectToAction.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("id"), Is.True);
+            Assert.That(redirectToAction.RouteValues["id"], Is.EqualTo(response.PositionId));
+        }
+
+        [Test]
+        public void AddCandidate_HttpPost_WithValidationErrors()
+        {
+            var model = Builder<AddCandidateViewModel>
+                .CreateNew()
+                .Build()
+                ;
+            var validationResults = Builder<ValidationResult>
+                .CreateListOfSize(3)
+                .Build()
+                ;
+
+            var response = new NewCandidateResponse
+            {
+                ValidationResults = validationResults
+            };
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
+                .Returns(response);
+
+            // Act
+            var result = this.Controller.AddCandidate(model) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.SameAs(model));
+
+            var actualResults = this.Controller.GetModelStateValidationResults();
+
+            foreach (var expectedResult in validationResults)
+            {
+                actualResults.AssertInvalidFor(expectedResult);
+            }
+
+            var viewModel = result.Model as AddCandidateViewModel;
+            Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
+        }
+
+
 
         [Test]
         public void PassOnCandidate_HttpGet()

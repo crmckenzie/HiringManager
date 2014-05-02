@@ -78,6 +78,12 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
                         }))
                 ;
 
+            CreateMap<AddCandidateViewModel, NewCandidateRequest>()
+                .ForMember(output => output.CandidateName, opt => opt.Ignore())
+                .ForMember(output => output.SourceId, opt => opt.Ignore())
+                .ForMember(output => output.ContactInfo, opt => opt.Ignore())
+                ;
+
             CreateMap<CandidateStatusDetails, CandidateStatusViewModel>()
                 ;
 

@@ -61,6 +61,12 @@ namespace HiringManager.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ViewResult AddCandidate()
+        {
+            return new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.AddCandidate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ViewResult Pass()
         {
             return new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Pass);
@@ -103,6 +109,7 @@ namespace HiringManager.Web.Controllers
             public readonly string Create = "Create";
             public readonly string Candidates = "Candidates";
             public readonly string NewCandidate = "NewCandidate";
+            public readonly string AddCandidate = "AddCandidate";
             public readonly string Pass = "Pass";
             public readonly string Status = "Status";
             public readonly string Hire = "Hire";
@@ -116,6 +123,7 @@ namespace HiringManager.Web.Controllers
             public const string Create = "Create";
             public const string Candidates = "Candidates";
             public const string NewCandidate = "NewCandidate";
+            public const string AddCandidate = "AddCandidate";
             public const string Pass = "Pass";
             public const string Status = "Status";
             public const string Hire = "Hire";
@@ -152,6 +160,15 @@ namespace HiringManager.Web.Controllers
         public ActionParamsClass_NewCandidate NewCandidateParams { get { return s_params_NewCandidate; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_NewCandidate
+        {
+            public readonly string id = "id";
+            public readonly string viewModel = "viewModel";
+        }
+        static readonly ActionParamsClass_AddCandidate s_params_AddCandidate = new ActionParamsClass_AddCandidate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddCandidate AddCandidateParams { get { return s_params_AddCandidate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddCandidate
         {
             public readonly string id = "id";
             public readonly string viewModel = "viewModel";
@@ -202,6 +219,7 @@ namespace HiringManager.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string AddCandidate = "AddCandidate";
                 public readonly string Candidates = "Candidates";
                 public readonly string Close = "Close";
                 public readonly string Create = "Create";
@@ -211,6 +229,7 @@ namespace HiringManager.Web.Controllers
                 public readonly string Pass = "Pass";
                 public readonly string Status = "Status";
             }
+            public readonly string AddCandidate = "~/Views/Positions/AddCandidate.cshtml";
             public readonly string Candidates = "~/Views/Positions/Candidates.cshtml";
             public readonly string Close = "~/Views/Positions/Close.cshtml";
             public readonly string Create = "~/Views/Positions/Create.cshtml";
@@ -283,6 +302,26 @@ namespace HiringManager.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NewCandidate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
             NewCandidateOverride(callInfo, viewModel);
+            return callInfo;
+        }
+
+        partial void AddCandidateOverride(T4MVC_System_Web_Mvc_ViewResult callInfo, int id);
+
+        public override System.Web.Mvc.ViewResult AddCandidate(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.AddCandidate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            AddCandidateOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void AddCandidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Positions.AddCandidateViewModel viewModel);
+
+        public override System.Web.Mvc.ActionResult AddCandidate(HiringManager.Web.ViewModels.Positions.AddCandidateViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCandidate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            AddCandidateOverride(callInfo, viewModel);
             return callInfo;
         }
 
