@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddCandidateRequestValidator.cs" />
+    <Compile Include="NewCandidateRequestValidator.cs" />
     <Compile Include="ClosePositionValidator.cs" />
     <Compile Include="CreatePositionValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

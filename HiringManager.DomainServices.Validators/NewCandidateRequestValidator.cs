@@ -5,11 +5,11 @@ using Simple.Validation;
 
 namespace HiringManager.DomainServices.Validators
 {
-    public class AddCandidateRequestValidator : IValidator<AddCandidateRequest>
+    public class NewCandidateRequestValidator : IValidator<NewCandidateRequest>
     {
         private readonly IDbContext _dbContext;
 
-        public AddCandidateRequestValidator(IDbContext dbContext)
+        public NewCandidateRequestValidator(IDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -19,7 +19,7 @@ namespace HiringManager.DomainServices.Validators
             return true;
         }
 
-        public IEnumerable<ValidationResult> Validate(AddCandidateRequest value)
+        public IEnumerable<ValidationResult> Validate(NewCandidateRequest value)
         {
             var position = _dbContext.Get<Position>(value.PositionId);
             if (position.IsFilled())

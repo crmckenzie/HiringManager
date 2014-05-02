@@ -1,17 +1,16 @@
-HiringManager
-=============
+<h1>HiringManager</h1>
 
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<p><link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" /></p>
 
-# Powershell Scripts
+<h1>Powershell Scripts</h1>
 
-## Invoke-MigrateDB.ps1
+<h2>Invoke-MigrateDB.ps1</h2>
 
 <div class="well">
     Creates and/or migrates a database to the target version.
 </div>
 
-### Parameters
+<h3>Parameters</h3>
 
 <ul>
     <li>
@@ -94,13 +93,13 @@ HiringManager
     </li>
 </ul>
 
-## Invoke-AddMigration.ps1
+<h2>Invoke-AddMigration.ps1</h2>
 
 <div class="well">
     Creates a migration in the migrations assembly with the specified name.
 </div>
 
-### Parameters
+<h3>Parameters</h3>
 
 <ul>
     <li>
@@ -121,10 +120,12 @@ HiringManager
     </li>
 </ul>
 
-## To add a migration and migrate your database
+<h2>To add a migration and migrate your database</h2>
 
-1. Make the necessary changes to the Entity Model.
-2. Compile.
-3. Execute ./Invoke-AddMigration.ps1 $Name
-4. Compile.
-5. Execute ./Invoke-MigrateDb.ps1
+<ol>
+<li>Make the necessary changes to the Entity Model.</li>
+<li>Compile.</li>
+<li>Execute ./Invoke-AddMigration.ps1 $Name</li>
+<li>Compile.</li>
+<li>Execute ./Invoke-MigrateDb.ps1</li>
+</ol>

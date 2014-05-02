@@ -4,5 +4,6 @@
     {
         CandidateDetails Get(int id);
         ValidatedResponse Save(SaveCandidateRequest request);
+        QueryResponse<CandidateSummary> Query(QueryCandidatesRequest request);
     }
 }

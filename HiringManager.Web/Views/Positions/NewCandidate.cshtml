@@ -1,0 +1,42 @@
+﻿@using HiringManager.Web.Infrastructure.MVC
+@model HiringManager.Web.ViewModels.Positions.NewCandidateViewModel
+
+@{
+    ViewBag.Title = "Add Candidate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container col-md-12">
+    <h2>Add Candidate</h2>
+    @Html.ValidationSummary()
+    @using (@Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.PositionId)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.SourceId)
+            @Html.DropDownListFor(m => m.SourceId, Model.Sources, "Who told you about this candidate?", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SourceId)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EmailAddress)
+            <input name="EmailAddress" type="email" value="@Model.EmailAddress" class="form-control" />
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneNumber)
+            <input name="PhoneNumber" type="tel" value="@Model.PhoneNumber" class="form-control" />
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">OK</button>
+            <a type="button" href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn btn-default" role="button">Cancel</a>
+        </div>
+    }
+</div>

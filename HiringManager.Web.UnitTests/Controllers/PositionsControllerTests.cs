@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using FizzWare.NBuilder;
-using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
 using HiringManager.DomainServices.Validators.UnitTests;
@@ -34,10 +34,49 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             this.SourceService = Substitute.For<ISourceService>();
             this.PositionService = Substitute.For<IPositionService>();
+            this.CandidateService = Substitute.For<ICandidateService>();
             this.UserSession = Substitute.For<IUserSession>();
-            this.Controller = new PositionsController(this.PositionService, this.SourceService, this.UserSession,
+            this.Controller = new PositionsController(this.PositionService, this.SourceService, this.CandidateService, this.UserSession,
                 this.Clock);
+
+            StubSources();
+
+            StubCandidates();
         }
+
+        private void StubCandidates()
+        {
+            this.Candidates = Builder<CandidateSummary>
+                .CreateListOfSize(3)
+                .Build()
+                .ToArray()
+                ;
+
+
+            this.CandidateService.Query(null).Returns(new QueryResponse<CandidateSummary>
+                                                      {
+                                                          Data = this.Candidates
+                                                      });
+        }
+
+        private void StubSources()
+        {
+            this.Sources = Builder<SourceSummary>
+                .CreateListOfSize(3)
+                .Build()
+                .ToArray()
+                ;
+            this.SourceService.Query(null).Returns(new QueryResponse<SourceSummary>
+                                                   {
+                                                       Data = this.Sources,
+                                                   });
+        }
+
+        public CandidateSummary[] Candidates { get; set; }
+
+        public SourceSummary[] Sources { get; set; }
+
+        public ICandidateService CandidateService { get; set; }
 
         public ISourceService SourceService { get; set; }
 
@@ -133,7 +172,6 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(redirect.RouteValues["status"], Is.EqualTo("Open"));
         }
 
-
         [Test]
         public void Create_HttpPost_ModelStateInValid()
         {
@@ -164,19 +202,19 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Arrange
             var viewModel = new CreatePositionViewModel();
 
-            var validationResult = new ValidationResult()
+            var validationResult = new ValidationResult
                                    {
                                        PropertyName = "Some Property",
                                        Message = "Some Message"
                                    };
             this.PositionService.CreatePosition(Arg.Any<CreatePositionRequest>())
-                .Returns(new CreatePositionResponse()
-                    {
-                        ValidationResults = new []
-                        {
-                            validationResult
-                        }
-                    });
+                .Returns(new CreatePositionResponse
+                         {
+                             ValidationResults = new[]
+                                                 {
+                                                     validationResult
+                                                 }
+                         });
 
             // Act
             var result = this.Controller.Create(viewModel);
@@ -191,7 +229,7 @@ namespace HiringManager.Web.UnitTests.Controllers
         }
 
         [Test]
-        public void Candidates()
+        public void Candidates_HttpGet()
         {
             // Arrange
             var positionDetails = new PositionDetails();
@@ -206,17 +244,90 @@ namespace HiringManager.Web.UnitTests.Controllers
         }
 
         [Test]
-        public void AddCandidate_HttpGet()
+        public void NewCandidate_HttpGet()
         {
             // Arrange
-            var sources = Builder<SourceSummary>
+
+            // Act
+            var viewResult = this.Controller.NewCandidate(1);
+
+            // Assert
+            var viewModel = viewResult.Model as NewCandidateViewModel;
+            Assert.That(viewModel.PositionId, Is.EqualTo(1));
+            Assert.That(viewModel.SourceId, Is.Null);
+            Assert.That(viewModel.Sources, Is.Not.Null);
+            Assert.That(viewModel.Sources.Items, Is.EqualTo(this.Sources));
+        }
+
+        [Test]
+        public void NewCandidate_HttpPost()
+        {
+            // Arrange
+            var viewModel = new NewCandidateViewModel();
+
+            var response = Builder<NewCandidateResponse>
+                .CreateNew()
+                .Build();
+
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
+
+            // Act
+            var actionResult = this.Controller.NewCandidate(viewModel);
+
+            // Assert
+            var redirectToAction = actionResult as RedirectToRouteResult;
+            Assert.That(redirectToAction, Is.Not.Null);
+
+            Assert.That(redirectToAction.RouteName, Is.EqualTo(""));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("action"), Is.True);
+            Assert.That(redirectToAction.RouteValues["action"], Is.EqualTo("Candidates"));
+
+            Assert.That(redirectToAction.RouteValues.ContainsKey("id"), Is.True);
+            Assert.That(redirectToAction.RouteValues["id"], Is.EqualTo(response.PositionId));
+        }
+
+        [Test]
+        public void NewCandidate_HttpPost_WithValidationErrors()
+        {
+            var model = Builder<NewCandidateViewModel>
+                .CreateNew()
+                .Build()
+                ;
+            var validationResults = Builder<ValidationResult>
                 .CreateListOfSize(3)
                 .Build()
                 ;
-            this.SourceService.Query(null).Returns(new QueryResponse<SourceSummary>()
-                                                   {
-                                                       Data = sources.ToArray(),
-                                                   });
+
+            var response = new NewCandidateResponse
+                               {
+                                   ValidationResults = validationResults
+                               };
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
+                .Returns(response);
+
+            // Act
+            var result = this.Controller.NewCandidate(model) as ViewResult;
+
+            // Assert
+            Assert.That(result.Model, Is.SameAs(model));
+
+            var actualResults = this.Controller.GetModelStateValidationResults();
+
+            foreach (var expectedResult in validationResults)
+            {
+                actualResults.AssertInvalidFor(expectedResult);
+            }
+
+            var viewModel = result.Model as NewCandidateViewModel;
+            Assert.That(viewModel.Sources.Items, Is.EqualTo(this.Sources));
+        }
+
+
+        [Test]
+        public void AddCandidate_HttpGet()
+        {
+            // Arrange
 
             // Act
             var viewResult = this.Controller.AddCandidate(1);
@@ -224,9 +335,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Assert
             var viewModel = viewResult.Model as AddCandidateViewModel;
             Assert.That(viewModel.PositionId, Is.EqualTo(1));
-            Assert.That(viewModel.SourceId, Is.Null);
-            Assert.That(viewModel.Sources, Is.Not.Null);
-            Assert.That(viewModel.Sources.Items, Is.EqualTo(sources));
+            Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
         }
 
         [Test]
@@ -235,11 +344,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Arrange
             var viewModel = new AddCandidateViewModel();
 
-            var response = Builder<AddCandidateResponse>
+            var response = Builder<NewCandidateResponse>
                 .CreateNew()
                 .Build();
 
-            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>()).Returns(response);
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
 
             // Act
             var actionResult = this.Controller.AddCandidate(viewModel);
@@ -269,12 +378,12 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            var hireResponse = new AddCandidateResponse()
+            var response = new NewCandidateResponse
             {
                 ValidationResults = validationResults
             };
-            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>())
-                .Returns(hireResponse);
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
+                .Returns(response);
 
             // Act
             var result = this.Controller.AddCandidate(model) as ViewResult;
@@ -288,7 +397,12 @@ namespace HiringManager.Web.UnitTests.Controllers
             {
                 actualResults.AssertInvalidFor(expectedResult);
             }
+
+            var viewModel = result.Model as AddCandidateViewModel;
+            Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
         }
+
+
 
         [Test]
         public void PassOnCandidate_HttpGet()
@@ -427,7 +541,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            var hireResponse = new CandidateStatusResponse()
+            var hireResponse = new CandidateStatusResponse
                                {
                                    ValidationResults = validationResults
                                };
@@ -504,7 +618,6 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService
                 .Received()
                 .Close(model.PositionId);
-
         }
 
         [Test]
@@ -519,10 +632,10 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            var response = new CandidateStatusResponse()
-            {
-                ValidationResults = validationResults
-            };
+            var response = new CandidateStatusResponse
+                           {
+                               ValidationResults = validationResults
+                           };
             this.PositionService.Close(model.PositionId).Returns(response);
 
             // Act
@@ -537,7 +650,6 @@ namespace HiringManager.Web.UnitTests.Controllers
             {
                 actualResults.AssertInvalidFor(expectedResult);
             }
-
         }
 
         [Test]
@@ -557,6 +669,5 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.PositionService.DidNotReceive().Close(model.PositionId);
             Assert.That(result.Model, Is.SameAs(model));
         }
-
     }
 }

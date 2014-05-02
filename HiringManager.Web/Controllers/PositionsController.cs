@@ -3,8 +3,10 @@ using System.Linq;
 using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
+using HiringManager.DomainServices.Candidates;
 using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
+using HiringManager.EntityModel;
 using HiringManager.Web.Infrastructure;
 using HiringManager.Web.Infrastructure.MVC;
 using HiringManager.Web.ViewModels;
@@ -18,13 +20,20 @@ namespace HiringManager.Web.Controllers
     {
         private readonly IPositionService _positionService;
         private readonly ISourceService _sourceService;
+        private readonly ICandidateService _candidateService;
         private readonly IUserSession _userSession;
         private readonly IClock _clock;
 
-        public PositionsController(IPositionService positionService, ISourceService sourceService, IUserSession userSession, IClock clock)
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
+
+        public PositionsController(IPositionService positionService, ISourceService sourceService, ICandidateService candidateService, IUserSession userSession, IClock clock)
         {
             _positionService = positionService;
             _sourceService = sourceService;
+            _candidateService = candidateService;
             _userSession = userSession;
             _clock = clock;
         }
@@ -79,10 +88,11 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpGet]
-        public virtual ViewResult AddCandidate(int id)
+        public virtual ViewResult NewCandidate(int id)
         {
             var sources = _sourceService.Query(null);
-            var viewModel = new AddCandidateViewModel()
+
+            var viewModel = new NewCandidateViewModel()
                             {
                                 PositionId = id,
                                 Sources = new SelectList(sources.Data, "SourceId", "Name"),
@@ -91,23 +101,61 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
+        public virtual ActionResult NewCandidate(NewCandidateViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var request = AutoMapper.Mapper.Map<NewCandidateRequest>(viewModel);
+
+                var response = this._positionService.AddCandidate(request);
+                this.ModelState.Accept(response);
+
+                if (this.ModelState.IsValid)
+                    return RedirectToAction("Candidates", new { id = response.PositionId });
+            }
+
+            var sources = _sourceService.Query(null);
+
+            viewModel.Sources = new SelectList(sources.Data, "SourceId", "Name");
+
+            return View(viewModel);
+        }
+
+
+        [HttpGet]
+        public virtual ViewResult AddCandidate(int id)
+        {
+            var candidates = _candidateService.Query(null);
+
+            var viewModel = new AddCandidateViewModel()
+            {
+                PositionId = id,
+                Candidates = new SelectList(candidates.Data, "CandidateId", "Name"),
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
         public virtual ActionResult AddCandidate(AddCandidateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var request = AutoMapper.Mapper.Map<AddCandidateRequest>(viewModel);
+                var request = AutoMapper.Mapper.Map<NewCandidateRequest>(viewModel);
 
                 var response = this._positionService.AddCandidate(request);
-                if (response.ValidationResults.HasErrors())
-                {
-                    response.WriteValidationErrorsTo(ModelState);
-                    return View(viewModel);
-                }
+                this.ModelState.Accept(response);
 
-                return RedirectToAction("Candidates", new { id = response.PositionId });
+                if (this.ModelState.IsValid)
+                    return RedirectToAction("Candidates", new { id = response.PositionId });
             }
+
+            var candidates = _candidateService.Query(null);
+
+            viewModel.Candidates = new SelectList(candidates.Data, "CandidateId", "Name");
+
             return View(viewModel);
         }
+
 
         [HttpGet]
         public virtual ViewResult Pass(int id)
@@ -195,5 +243,6 @@ namespace HiringManager.Web.Controllers
             }
             return View(model);
         }
+
     }
 }
