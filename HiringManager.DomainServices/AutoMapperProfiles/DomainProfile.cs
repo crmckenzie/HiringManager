@@ -53,7 +53,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 .ForMember(output => output.ManagerId, opt => opt.Ignore())
                 ;
 
-            CreateMap<AddCandidateRequest, CandidateStatus>()
+            CreateMap<NewCandidateRequest, CandidateStatus>()
                 .ForMember(output => output.Status, opt => opt.UseValue("Resume Received"))
                 .ForMember(output => output.Candidate, opt => opt.ResolveUsing(MapCandidate))
                 .ForMember(output => output.CandidateStatusId, opt => opt.Ignore())
@@ -70,7 +70,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 ;
         }
 
-        private static Candidate MapCandidate(AddCandidateRequest input)
+        private static Candidate MapCandidate(NewCandidateRequest input)
         {
             if (input.CandidateId.HasValue)
             {

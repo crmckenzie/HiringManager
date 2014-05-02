@@ -32,7 +32,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         public void Execute_WithNewCandidate()
         {
             // Arrange
-            var request = Builder<AddCandidateRequest>
+            var request = Builder<NewCandidateRequest>
                 .CreateNew()
                 .Do(row => row.CandidateId = null)
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(2).Build())
@@ -86,7 +86,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
             const int candidateId = 4;
 
             // Arrange
-            var request = Builder<AddCandidateRequest>
+            var request = Builder<NewCandidateRequest>
                 .CreateNew()
                 .Do(row => row.CandidateId = candidateId)
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(2).Build())

@@ -94,12 +94,12 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
             var positionSummaryItem = model.Data.Single(row => row.Title == createPositionViewModel.Title);
 
-            var candidates = table.CreateSet<AddCandidateViewModel>();
+            var candidates = table.CreateSet<NewCandidateViewModel>();
 
             foreach (var addCandidateViewModel in candidates)
             {
                 addCandidateViewModel.PositionId = positionSummaryItem.PositionId;
-                controller.AddCandidate(addCandidateViewModel);
+                controller.NewCandidate(addCandidateViewModel);
             }
         }
 
@@ -227,7 +227,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
                 Assert.That(actual, Is.Not.Null);
                 Assert.That(actual.Status, Is.EqualTo(expected.Status));
-                
+
                 var emailAddress = actual.ContactInfo.Single(row => row.Type == "Email").Value;
                 Assert.That(emailAddress, Is.EqualTo(expected.EmailAddress));
 

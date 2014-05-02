@@ -83,12 +83,12 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpGet]
-        public virtual ViewResult AddCandidate(int id)
+        public virtual ViewResult NewCandidate(int id)
         {
             var sources = _sourceService.Query(null);
             var candidates = _candidateService.Query(null);
 
-            var viewModel = new AddCandidateViewModel()
+            var viewModel = new NewCandidateViewModel()
                             {
                                 PositionId = id,
                                 Sources = new SelectList(sources.Data, "SourceId", "Name"),
@@ -98,11 +98,11 @@ namespace HiringManager.Web.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult AddCandidate(AddCandidateViewModel viewModel)
+        public virtual ActionResult NewCandidate(NewCandidateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var request = AutoMapper.Mapper.Map<AddCandidateRequest>(viewModel);
+                var request = AutoMapper.Mapper.Map<NewCandidateRequest>(viewModel);
 
                 var response = this._positionService.AddCandidate(request);
                 this.ModelState.Accept(response);

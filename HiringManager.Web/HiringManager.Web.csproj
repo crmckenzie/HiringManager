@@ -403,7 +403,7 @@
     <Content Include="Views\Positions\Candidates.cshtml" />
     <Content Include="Views\Positions\Pass.cshtml" />
     <Content Include="Views\Positions\Status.cshtml" />
-    <Content Include="Views\Positions\AddCandidate.cshtml" />
+    <Content Include="Views\Positions\NewCandidate.cshtml" />
     <Content Include="Views\Positions\Hire.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <None Include="T4MVC.tt.hooks.t4" />

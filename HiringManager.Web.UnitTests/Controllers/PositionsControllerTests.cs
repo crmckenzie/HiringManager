@@ -244,15 +244,15 @@ namespace HiringManager.Web.UnitTests.Controllers
         }
 
         [Test]
-        public void AddCandidate_HttpGet()
+        public void NewCandidate_HttpGet()
         {
             // Arrange
 
             // Act
-            var viewResult = this.Controller.AddCandidate(1);
+            var viewResult = this.Controller.NewCandidate(1);
 
             // Assert
-            var viewModel = viewResult.Model as AddCandidateViewModel;
+            var viewModel = viewResult.Model as NewCandidateViewModel;
             Assert.That(viewModel.PositionId, Is.EqualTo(1));
             Assert.That(viewModel.SourceId, Is.Null);
             Assert.That(viewModel.Sources, Is.Not.Null);
@@ -261,19 +261,19 @@ namespace HiringManager.Web.UnitTests.Controllers
         }
 
         [Test]
-        public void AddCandidate_HttpPost()
+        public void NewCandidate_HttpPost()
         {
             // Arrange
-            var viewModel = new AddCandidateViewModel();
+            var viewModel = new NewCandidateViewModel();
 
-            var response = Builder<AddCandidateResponse>
+            var response = Builder<NewCandidateResponse>
                 .CreateNew()
                 .Build();
 
-            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>()).Returns(response);
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
 
             // Act
-            var actionResult = this.Controller.AddCandidate(viewModel);
+            var actionResult = this.Controller.NewCandidate(viewModel);
 
             // Assert
             var redirectToAction = actionResult as RedirectToRouteResult;
@@ -289,9 +289,9 @@ namespace HiringManager.Web.UnitTests.Controllers
         }
 
         [Test]
-        public void AddCandidate_HttpPost_WithValidationErrors()
+        public void NewCandidate_HttpPost_WithValidationErrors()
         {
-            var model = Builder<AddCandidateViewModel>
+            var model = Builder<NewCandidateViewModel>
                 .CreateNew()
                 .Build()
                 ;
@@ -300,15 +300,15 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            var hireResponse = new AddCandidateResponse
+            var hireResponse = new NewCandidateResponse
                                {
                                    ValidationResults = validationResults
                                };
-            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>())
+            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
                 .Returns(hireResponse);
 
             // Act
-            var result = this.Controller.AddCandidate(model) as ViewResult;
+            var result = this.Controller.NewCandidate(model) as ViewResult;
 
             // Assert
             Assert.That(result.Model, Is.SameAs(model));
@@ -320,7 +320,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 actualResults.AssertInvalidFor(expectedResult);
             }
 
-            var viewModel = result.Model as AddCandidateViewModel;
+            var viewModel = result.Model as NewCandidateViewModel;
             Assert.That(viewModel.Sources.Items, Is.EqualTo(this.Sources));
             Assert.That(viewModel.Candidates.Items, Is.EqualTo(this.Candidates));
 

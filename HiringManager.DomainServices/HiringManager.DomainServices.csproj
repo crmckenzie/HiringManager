@@ -115,8 +115,8 @@
     <Compile Include="Impl\SourceService.cs" />
     <Compile Include="Impl\UserSession.cs" />
     <Compile Include="IValidatedResponse.cs" />
-    <Compile Include="Positions\AddCandidateRequest.cs" />
-    <Compile Include="Positions\AddCandidateResponse.cs" />
+    <Compile Include="Positions\NewCandidateRequest.cs" />
+    <Compile Include="Positions\NewCandidateResponse.cs" />
     <Compile Include="Positions\CandidateStatusDetails.cs" />
     <Compile Include="Positions\CandidateStatusResponse.cs" />
     <Compile Include="Positions\CreatePositionRequest.cs" />

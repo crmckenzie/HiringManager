@@ -3,7 +3,7 @@ using Simple.Validation;
 
 namespace HiringManager.DomainServices.Positions
 {
-    public class AddCandidateResponse : ValidatedResponse
+    public class NewCandidateResponse : ValidatedResponse
     {
 
         public int CandidateStatusId { get; set; }

@@ -83,7 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddCandidateRequestValidatorTests.cs" />
+    <Compile Include="NewCandidateRequestValidatorTests.cs" />
     <Compile Include="ClosePositionValidatorTests.cs" />
     <Compile Include="CreatePositionValidatorTests.cs" />
     <Compile Include="ValidationExtensions.cs" />

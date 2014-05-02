@@ -17,7 +17,7 @@ namespace HiringManager.Web.Infrastructure.Ninject
             kernel.Load(new SimpleValidationNinjectModule());
 
             kernel.Bind(configuration => configuration
-                .FromAssemblyContaining<AddCandidateRequestValidator>()
+                .FromAssemblyContaining<NewCandidateRequestValidator>()
                 .SelectAllClasses()
                 .BindAllInterfaces()
                 );

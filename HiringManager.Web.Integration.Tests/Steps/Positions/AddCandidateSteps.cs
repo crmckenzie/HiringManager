@@ -19,7 +19,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         {
             var positionId = ScenarioContext.Current.Get<int>("PositionId");
 
-            var viewModel = table.CreateInstance<AddCandidateViewModel>();
+            var viewModel = table.CreateInstance<NewCandidateViewModel>();
             viewModel.PositionId = positionId;
    
             ScenarioContext.Current.Set(viewModel);
@@ -28,9 +28,9 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [When(@"I submit the the candidate to AddCandidate")]
         public void WhenISubmitTheTheCandidateToAddCandidate()
         {
-            var viewModel = ScenarioContext.Current.Get<AddCandidateViewModel>();
+            var viewModel = ScenarioContext.Current.Get<NewCandidateViewModel>();
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var response = controller.AddCandidate(viewModel);
+            var response = controller.NewCandidate(viewModel);
             ScenarioContext.Current.Set(response);
         }
 
@@ -67,10 +67,10 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         {
             var positionId = ScenarioContext.Current.Get<int>("PositionId");
 
-            var viewModel = table.CreateInstance<AddCandidateViewModel>();
+            var viewModel = table.CreateInstance<NewCandidateViewModel>();
             viewModel.PositionId = positionId;
             var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
-            var response = controller.AddCandidate(viewModel);
+            var response = controller.NewCandidate(viewModel);
             ScenarioContext.Current.Set(response);
             ScenarioContext.Current.Set(viewModel);
         }
@@ -100,7 +100,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var response = ScenarioContext.Current.Get<ActionResult>() as ViewResult;
             Assert.That(response, Is.Not.Null);
 
-            var addCandidateViewModel = ScenarioContext.Current.Get<AddCandidateViewModel>();
+            var addCandidateViewModel = ScenarioContext.Current.Get<NewCandidateViewModel>();
 
             Assert.That(response.Model, Is.SameAs(addCandidateViewModel));
         }

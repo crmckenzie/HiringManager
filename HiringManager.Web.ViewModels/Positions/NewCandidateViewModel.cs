@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace HiringManager.Web.ViewModels.Positions
 {
-    public class AddCandidateViewModel
+    public class NewCandidateViewModel
     {
         [Required]
         public int PositionId { get; set; }

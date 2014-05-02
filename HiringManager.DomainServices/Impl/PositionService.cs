@@ -31,9 +31,9 @@ namespace HiringManager.DomainServices.Impl
             return result;
         }
 
-        public AddCandidateResponse AddCandidate(AddCandidateRequest request)
+        public NewCandidateResponse AddCandidate(NewCandidateRequest request)
         {
-            var result = base.Execute<AddCandidateRequest, AddCandidateResponse>(request);
+            var result = base.Execute<NewCandidateRequest, NewCandidateResponse>(request);
             return result;
         }
 

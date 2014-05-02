@@ -2,7 +2,7 @@
 {
     public interface IPositionService
     {
-        AddCandidateResponse AddCandidate(AddCandidateRequest request);
+        NewCandidateResponse AddCandidate(NewCandidateRequest request);
         IValidatedResponse Close(int positionId);
         CreatePositionResponse CreatePosition(CreatePositionRequest request);
         PositionDetails Details(int id);

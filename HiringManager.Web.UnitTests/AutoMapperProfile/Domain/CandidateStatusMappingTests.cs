@@ -31,7 +31,7 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile.Domain
         public void FromAddCandidateRequest_WithNewCandidate()
         {
             // Arrange
-            var expected = Builder<AddCandidateRequest>
+            var expected = Builder<NewCandidateRequest>
                 .CreateNew()
                 .Do(row => row.CandidateId = null)
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(2).Build())

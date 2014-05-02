@@ -26,13 +26,13 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile
         public void Map()
         {
             // Arrange
-            var viewModel = Builder<AddCandidateViewModel>
+            var viewModel = Builder<NewCandidateViewModel>
                 .CreateNew()
                 .Build()
                 ;
 
             // Act
-            var result = global::AutoMapper.Mapper.Map<AddCandidateRequest>(viewModel);
+            var result = global::AutoMapper.Mapper.Map<NewCandidateRequest>(viewModel);
 
             // Assert
             Assert.That(result, Is.Not.Null);

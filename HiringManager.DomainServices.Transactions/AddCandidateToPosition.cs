@@ -5,7 +5,7 @@ using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Transactions
 {
-    public class AddCandidateToPosition : ITransaction<AddCandidateRequest, AddCandidateResponse>
+    public class AddCandidateToPosition : ITransaction<NewCandidateRequest, NewCandidateResponse>
     {
         private readonly IDbContext _dbContext;
 
@@ -14,7 +14,7 @@ namespace HiringManager.DomainServices.Transactions
             _dbContext = dbContext;
         }
 
-        public AddCandidateResponse Execute(AddCandidateRequest request)
+        public NewCandidateResponse Execute(NewCandidateRequest request)
         {
             var candidateStatus = AutoMapper.Mapper.Map<CandidateStatus>(request);
 
@@ -34,7 +34,7 @@ namespace HiringManager.DomainServices.Transactions
 
             _dbContext.SaveChanges();
 
-            return new AddCandidateResponse()
+            return new NewCandidateResponse()
                    {
                        CandidateId = candidateStatus.CandidateId.Value,
                        CandidateStatusId = candidateStatus.CandidateStatusId.Value,

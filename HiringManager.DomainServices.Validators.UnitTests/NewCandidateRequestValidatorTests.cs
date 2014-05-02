@@ -8,18 +8,18 @@ using Simple.Validation;
 namespace HiringManager.DomainServices.Validators.UnitTests
 {
     [TestFixture]
-    public class AddCandidateRequestValidatorTests
+    public class NewCandidateRequestValidatorTests
     {
         [SetUp]
         public void BeforeEachTestRuns()
         {
             this.DbContext = Substitute.For<IDbContext>();
-            this.Validator = new AddCandidateRequestValidator(this.DbContext);
+            this.Validator = new NewCandidateRequestValidator(this.DbContext);
         }
 
         public IDbContext DbContext { get; set; }
 
-        public AddCandidateRequestValidator Validator { get; set; }
+        public NewCandidateRequestValidator Validator { get; set; }
 
         [Test]
         public void AppliesTo()
@@ -37,7 +37,7 @@ namespace HiringManager.DomainServices.Validators.UnitTests
         public void PositionIsNotFilled()
         {
             // Arrange
-            var request = Builder<AddCandidateRequest>
+            var request = Builder<NewCandidateRequest>
                 .CreateNew()
                 .Build()
                 ;
@@ -70,7 +70,7 @@ namespace HiringManager.DomainServices.Validators.UnitTests
         public void PositionIsFilled()
         {
             // Arrange
-            var request = Builder<AddCandidateRequest>
+            var request = Builder<NewCandidateRequest>
                 .CreateNew()
                 .Build()
                 ;

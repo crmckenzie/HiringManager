@@ -2,9 +2,9 @@
 
 namespace HiringManager.DomainServices.Positions
 {
-    public class AddCandidateRequest
+    public class NewCandidateRequest
     {
-        public AddCandidateRequest()
+        public NewCandidateRequest()
         {
             this.ContactInfo = new List<ContactInfoDetails>();
         }
