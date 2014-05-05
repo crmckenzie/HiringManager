@@ -62,27 +62,6 @@ namespace HiringManager.EntityFramework
             return null;
         }
 
-        //public void Save<T>(T item) where T : class
-        //{
-        //    var entry = base.Entry(item);
-        //    if (entry.State == EntityState.Detached)
-        //    {
-        //        base.Set<T>().Attach(item);
-        //        entry = base.Entry(item);
-
-        //        var key = GetPrimaryKeyValue(entry);
-        //        if (key == null)
-        //        {
-        //            entry.State = EntityState.Added;
-        //        }
-        //        else
-        //        {
-        //            entry.State = EntityState.Modified;
-        //        }
-
-        //    }
-        //}
-
         public IDbContext Delete<T>(T item) where T : class
         {
             var entry = base.Entry(item);
@@ -90,10 +69,6 @@ namespace HiringManager.EntityFramework
                 base.Set<T>().Attach(item);
 
             entry.State = EntityState.Deleted;
-            return this;
-
-
-            //base.Set<T>().Remove(item);
             return this;
         }
 

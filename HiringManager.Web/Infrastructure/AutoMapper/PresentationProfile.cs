@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Candidates;
@@ -57,31 +58,12 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
 
             CreateMap<NewCandidateViewModel, NewCandidateRequest>()
                 .ForMember(output => output.CandidateName, opt => opt.MapFrom(input => input.Name))
-                .ForMember(output => output.ContactInfo,
-                    opt => opt.ResolveUsing(input =>
-                        {
-                            var results = new List<ContactInfoDetails>
-                                          {
-                                              new ContactInfoDetails()
-                                              {
-                                                  Type = "Email",
-                                                  Value = input.EmailAddress
-                                              },
-                                              new ContactInfoDetails()
-                                              {
-                                                  Type = "Phone",
-                                                  Value = input.PhoneNumber
-                                              }
-                                          };
-
-                            return results;
-                        }))
+                .ForMember(output => output.ContactInfo, opt => opt.ResolveUsing(MapContactInfo))
+                .ForMember(output => output.Documents,
+                    opt => opt.ResolveUsing(input => input.Documents.ToDictionary(e => e.FileName, e => e.InputStream)))
                 ;
 
-            CreateMap<AddCandidateViewModel, NewCandidateRequest>()
-                .ForMember(output => output.CandidateName, opt => opt.Ignore())
-                .ForMember(output => output.SourceId, opt => opt.Ignore())
-                .ForMember(output => output.ContactInfo, opt => opt.Ignore())
+            CreateMap<AddCandidateViewModel, AddCandidateRequest>()
                 ;
 
             CreateMap<CandidateStatusDetails, CandidateStatusViewModel>()
@@ -92,6 +74,25 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
 
             CreateMap<ContactInfoDetails, ContactInfoViewModel>()
                 ;
+        }
+
+        private static object MapContactInfo(NewCandidateViewModel input)
+        {
+            var results = new List<ContactInfoDetails>
+                          {
+                              new ContactInfoDetails()
+                              {
+                                  Type = "Email",
+                                  Value = input.EmailAddress
+                              },
+                              new ContactInfoDetails()
+                              {
+                                  Type = "Phone",
+                                  Value = input.PhoneNumber
+                              }
+                          };
+
+            return results;
         }
     }
 }

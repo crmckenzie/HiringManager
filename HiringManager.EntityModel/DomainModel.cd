@@ -3,12 +3,13 @@
   <Class Name="HiringManager.EntityModel.Candidate">
     <Position X="11.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAAAAAAAYAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAgAAAAAAAAAAAAZAAAAAEAACAAAAAAAAAAA=</HashCode>
       <FileName>Candidate.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="ContactInfo" />
       <Property Name="AppliedTo" />
+      <Property Name="Documents" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HiringManager.EntityModel.ContactInfo">
@@ -35,7 +36,7 @@
   <Class Name="HiringManager.EntityModel.Position">
     <Position X="5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAEACAAAEAAAAAAAAAAAACAIEAAABAAAAAAAAE=</HashCode>
+      <HashCode>AAIEAAAEACAAAEAAAAAAAAAAAACAIEAAABAAAAAAAAE=</HashCode>
       <FileName>Position.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -64,8 +65,18 @@
       <FileName>Opening.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FilledBy" />
       <Property Name="Position" />
+      <Property Name="FilledBy" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HiringManager.EntityModel.Document">
+    <Position X="14.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAgAAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Document.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Candidate" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />

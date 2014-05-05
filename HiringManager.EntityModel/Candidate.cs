@@ -10,6 +10,7 @@ namespace HiringManager.EntityModel
         {
             this.ContactInfo = new List<ContactInfo>();
             this.AppliedTo = new List<CandidateStatus>();
+            this.Documents = new List<Document>();
         }
 
         public int? CandidateId { get; set; }
@@ -19,6 +20,7 @@ namespace HiringManager.EntityModel
 
         public virtual IList<ContactInfo> ContactInfo { get; set; }
         public virtual IList<CandidateStatus> AppliedTo { get; set; }
+        public virtual IList<Document> Documents { get; set; }
 
         public int? SourceId { get; set; }
         [ForeignKey("SourceId")]

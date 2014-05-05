@@ -32,7 +32,9 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
 
         private void ConfigureCandidates()
         {
-            CreateMap<Candidate, CandidateDetails>();
+            CreateMap<Candidate, CandidateDetails>()
+                ;
+
             CreateMap<Candidate, CandidateSummary>()
                 .ForMember(output => output.CandidateId, opt => opt.MapFrom(input => input.CandidateId.Value))
                 .ForMember(output => output.Source, opt => opt.MapFrom(input => input.Source.Name))
@@ -41,6 +43,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<SaveCandidateRequest, Candidate>()
                 .ForMember(output => output.AppliedTo, opt => opt.Ignore())
                 .ForMember(output => output.Source, opt => opt.Ignore())
+                .ForMember(output => output.Documents, opt => opt.Ignore())
                 ;
 
             CreateMap<ContactInfo, ContactInfoDetails>()
@@ -56,9 +59,18 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<NewCandidateRequest, CandidateStatus>()
                 .ForMember(output => output.Status, opt => opt.UseValue("Resume Received"))
                 .ForMember(output => output.Candidate, opt => opt.ResolveUsing(MapCandidate))
+                .ForMember(output => output.CandidateId, opt => opt.Ignore())
                 .ForMember(output => output.CandidateStatusId, opt => opt.Ignore())
                 .ForMember(output => output.Position, opt => opt.Ignore())
                 ;
+
+            CreateMap<AddCandidateRequest, CandidateStatus>()
+                .ForMember(output => output.Status, opt => opt.UseValue("Resume Received"))
+                .ForMember(output => output.CandidateId, opt => opt.MapFrom(input => input.CandidateId))
+                .ForMember(output => output.Candidate, opt => opt.Ignore())
+                .ForMember(output => output.CandidateStatusId, opt => opt.Ignore())
+                .ForMember(output => output.Position, opt => opt.Ignore())
+            ;
 
             CreateMap<CandidateStatus, CandidateStatusDetails>()
                 .ForMember(output => output.SourceId, opt => opt.MapFrom(input => input.Candidate.Source.SourceId))
@@ -72,14 +84,6 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
 
         private static Candidate MapCandidate(NewCandidateRequest input)
         {
-            if (input.CandidateId.HasValue)
-            {
-                return new Candidate()
-                       {
-                           CandidateId =
-                               input.CandidateId,
-                       };
-            }
 
             var candidate = new Candidate()
                             {
@@ -93,6 +97,12 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             {
                 contactInfo.Candidate = candidate;
             }
+
+            candidate.Documents = input.Documents.Select(row => new Document()
+                                                                {
+                                                                    DisplayName = row.Key
+                                                                }).ToList()
+                ;
 
             return candidate;
         }

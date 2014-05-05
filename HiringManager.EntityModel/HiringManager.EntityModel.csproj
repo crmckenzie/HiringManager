@@ -58,6 +58,7 @@
     <Compile Include="Candidate.cs" />
     <Compile Include="CandidateStatus.cs" />
     <Compile Include="ContactInfo.cs" />
+    <Compile Include="Document.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Opening.cs" />
     <Compile Include="Position.cs" />

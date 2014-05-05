@@ -276,6 +276,7 @@
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\App\UploadService.cs" />
     <Compile Include="Infrastructure\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Infrastructure\AutoMapper\PresentationProfile.cs" />
     <Compile Include="Infrastructure\MVC\HtmlHelperExtensions.cs" />
@@ -499,6 +500,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_Upload\" />
     <Folder Include="Models\Positions\" />
   </ItemGroup>
   <ItemGroup>

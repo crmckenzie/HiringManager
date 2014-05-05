@@ -121,7 +121,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            this.CandidateController.ModelState.AddModelError("Some Property", "Some Message");
+            this.CandidateController.ModelState.AddModelError("Some DocumentId", "Some Message");
 
             this.CandidateService.Save(Arg.Any<SaveCandidateRequest>()).Returns(new ValidatedResponse());
 
@@ -280,7 +280,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            this.CandidateController.ModelState.AddModelError("Some Property", "Some Message");
+            this.CandidateController.ModelState.AddModelError("Some DocumentId", "Some Message");
 
             this.CandidateService.Save(Arg.Any<SaveCandidateRequest>()).Returns(new ValidatedResponse());
 

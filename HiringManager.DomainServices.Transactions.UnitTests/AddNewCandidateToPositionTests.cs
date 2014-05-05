@@ -1,4 +1,5 @@
-﻿using FizzWare.NBuilder;
+﻿using System.IO;
+using FizzWare.NBuilder;
 using HiringManager.DomainServices.AutoMapperProfiles;
 using HiringManager.DomainServices.Positions;
 using HiringManager.EntityModel;
@@ -8,7 +9,7 @@ using NUnit.Framework;
 namespace HiringManager.DomainServices.Transactions.UnitTests
 {
     [TestFixture]
-    public class AddCandidateToPositionTests
+    public class AddNewCandidateToPositionTests
     {
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
@@ -21,20 +22,22 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         public void BeforeEachTestRuns()
         {
             this.Db = Substitute.For<IDbContext>();
-            this.AddCandidateToPosition = new AddCandidateToPosition(this.Db);
+            this.UploadService = Substitute.For<IUploadService>();
+            this.AddNewCandidateToPosition = new AddNewCandidateToPosition(this.Db, this.UploadService);
         }
+
+        public IUploadService UploadService { get; set; }
 
         public IDbContext Db { get; set; }
 
-        public AddCandidateToPosition AddCandidateToPosition { get; set; }
+        public AddNewCandidateToPosition AddNewCandidateToPosition { get; set; }
 
         [Test]
-        public void Execute_WithNewCandidate()
+        public void Execute()
         {
             // Arrange
             var request = Builder<NewCandidateRequest>
                 .CreateNew()
-                .Do(row => row.CandidateId = null)
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(2).Build())
                 .Build()
                 ;
@@ -53,7 +56,7 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                     });
 
             // Act
-            var response = this.AddCandidateToPosition.Execute(request);
+            var response = this.AddNewCandidateToPosition.Execute(request);
 
             // Assert
             Assert.That(response, Is.Not.Null);
@@ -73,6 +76,10 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
                 .Add(Arg.Is<CandidateStatus>(arg => arg.PositionId == request.PositionId && arg.Status == "Resume Received"))
                 ;
 
+            this.Db
+                .Received()
+                .Add(Arg.Is<Candidate>(arg => arg.Name == request.CandidateName))
+                ;
 
             Assert.That(response.PositionId, Is.EqualTo(request.PositionId));
             Assert.That(response.CandidateStatusId, Is.EqualTo(candidateStatusId));
@@ -80,41 +87,67 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
         }
 
         [Test]
-        public void Execute_WithExistingCandidate()
+        public void Execute_WithDocuments()
         {
-            const int candidateStatusId = 3;
-            const int candidateId = 4;
-
             // Arrange
+            var document1 = new { Name = "Resume 1", Stream = new MemoryStream() };
+            var document2 = new { Name = "Resume 2", Stream = new MemoryStream() };
+            var documents = new[]
+                            {
+                                document1, 
+                                document2, 
+                            };
+
             var request = Builder<NewCandidateRequest>
                 .CreateNew()
-                .Do(row => row.CandidateId = candidateId)
                 .Do(row => row.ContactInfo = Builder<ContactInfoDetails>.CreateListOfSize(2).Build())
+                .Do(row =>
+                {
+                    foreach (var document in documents)
+                    {
+                        row.Documents.Add(document.Name, document.Stream);
+                    }
+                })
                 .Build()
                 ;
 
+            const int candidateStatusId = 3;
+            const int candidateId = 4;
 
-            var candidate = new Candidate();
-            this.Db.Get<Candidate>(candidateId).Returns(candidate);
+            this.Db.When(r => r.Add(Arg.Any<Candidate>()))
+                .Do(arg => arg.Arg<Candidate>().CandidateId = candidateId);
 
             this.Db.When(r => r.Add(Arg.Any<CandidateStatus>()))
-                .Do(arg => arg.Arg<CandidateStatus>().CandidateStatusId = candidateStatusId);
+                .Do(arg =>
+                {
+                    arg.Arg<CandidateStatus>().CandidateStatusId = candidateStatusId;
+                    arg.Arg<CandidateStatus>().CandidateId = candidateId;
+                });
+
+            const string fileName1 = "filename1";
+            const string fileName2 = "filename2";
+            this.UploadService.Save(document1.Stream).Returns(fileName1);
+            this.UploadService.Save(document2.Stream).Returns(fileName2);
 
             // Act
-            var response = this.AddCandidateToPosition.Execute(request);
+            var response = this.AddNewCandidateToPosition.Execute(request);
 
             // Assert
             Assert.That(response, Is.Not.Null);
 
-            this.Db
-                .Received()
-                .Add(Arg.Is<CandidateStatus>(arg => arg.PositionId == request.PositionId && arg.Status == "Resume Received" && arg.Candidate == candidate))
-                ;
+            foreach (var document in documents)
+            {
+                this.UploadService.Received().Save(document.Stream);
+            }
 
+            this.Db.Received()
+                .Add(Arg.Is<Document>(
+                        d => d.FileName == fileName1 && d.DisplayName == document1.Name && d.CandidateId == candidateId));
 
-            Assert.That(response.PositionId, Is.EqualTo(request.PositionId));
-            Assert.That(response.CandidateStatusId, Is.EqualTo(candidateStatusId));
-            Assert.That(response.CandidateId, Is.EqualTo(candidateId));
+            this.Db.Received()
+                .Add(Arg.Is<Document>(
+                        d => d.FileName == fileName2 && d.DisplayName == document2.Name && d.CandidateId == candidateId));
+
         }
 
     }

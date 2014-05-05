@@ -118,7 +118,7 @@
   <ItemGroup>
     <Compile Include="AutoMapperProfile\Domain\CandidateMappingTests.cs" />
     <Compile Include="AutoMapperProfile\Domain\CandidateStatusMappingTests.cs" />
-    <Compile Include="AutoMapperProfile\Presentation\AddCandidateViewModelMapperTests.cs" />
+    <Compile Include="AutoMapperProfile\Presentation\NewCandidateViewModelMapperTests.cs" />
     <Compile Include="AutoMapperProfile\AutoMapperConfigurationTests.cs" />
     <Compile Include="AutoMapperProfile\Presentation\CandidateStatusViewModelMapperTests.cs" />
     <Compile Include="AutoMapperProfile\Presentation\ClosePositionViewModelMapperTests.cs" />
