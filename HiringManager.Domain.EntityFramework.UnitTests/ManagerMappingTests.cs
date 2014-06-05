@@ -12,7 +12,8 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
         [TestFixtureSetUp]
         public void BeforeAnyTestRuns()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<HiringManagerDbContext>());
+            IntegrationTestHelpers.IntegrationTestConfiguration.Configure();
+            //            Database.SetInitializer(new DropCreateDatabaseAlways<HiringManagerDbContext>());
         }
 
         [Test]
@@ -128,8 +129,8 @@ namespace HiringManager.Domain.EntityFramework.IntegrationTests
 
                 var candidateStatus = new CandidateStatus()
                 {
-                    CandidateId = candidate.CandidateId,
-                    PositionId = position.PositionId,
+                    Candidate = candidate,
+                    Position = position,
                     Status = "Resume Received"
                 };
 
