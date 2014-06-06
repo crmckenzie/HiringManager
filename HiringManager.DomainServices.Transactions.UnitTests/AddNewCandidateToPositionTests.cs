@@ -142,11 +142,11 @@ namespace HiringManager.DomainServices.Transactions.UnitTests
 
             this.Db.Received()
                 .Add(Arg.Is<Document>(
-                        d => d.FileName == fileName1 && d.DisplayName == document1.Name && d.CandidateId == candidateId));
+                        d => d.FileName == fileName1 && d.DisplayName == document1.Name && d.Candidate != null));
 
             this.Db.Received()
                 .Add(Arg.Is<Document>(
-                        d => d.FileName == fileName2 && d.DisplayName == document2.Name && d.CandidateId == candidateId));
+                        d => d.FileName == fileName2 && d.DisplayName == document2.Name && d.Candidate != null));
 
         }
 

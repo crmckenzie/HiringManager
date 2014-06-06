@@ -87,6 +87,10 @@
     <Compile Include="Migrations\201405022150038_AddUniqueConstraintToCandidateStatus.Designer.cs">
       <DependentUpon>201405022150038_AddUniqueConstraintToCandidateStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406062224176_AddDocumentsTable.cs" />
+    <Compile Include="Migrations\201406062224176_AddDocumentsTable.Designer.cs">
+      <DependentUpon>201406062224176_AddDocumentsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201405022150038_AddUniqueConstraintToCandidateStatus.resx">
       <DependentUpon>201405022150038_AddUniqueConstraintToCandidateStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406062224176_AddDocumentsTable.resx">
+      <DependentUpon>201406062224176_AddDocumentsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

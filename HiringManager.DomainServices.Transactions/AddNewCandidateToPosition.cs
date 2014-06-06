@@ -27,7 +27,7 @@ namespace HiringManager.DomainServices.Transactions
                 var fileName = _uploadService.Save(document.Value);
                 _dbContext.Add(new Document()
                                {
-                                   CandidateId = candidateStatus.Candidate.CandidateId.Value,
+                                   Candidate = candidateStatus.Candidate,
                                    DisplayName = document.Key,
                                    FileName = fileName,
                                });

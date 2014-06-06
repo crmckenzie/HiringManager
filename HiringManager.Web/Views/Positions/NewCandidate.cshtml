@@ -9,8 +9,7 @@
 <div class="container col-md-12">
     <h2>Add Candidate</h2>
     @Html.ValidationSummary()
-    @*@using (Html.BeginForm("NewCandidate","Positions", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("NewCandidate","Positions", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(m => m.PositionId)
 
@@ -47,7 +46,7 @@
 @section scripts {
     <script type="text/javascript">
         $(function() {
-            $("input[text=file]").kendoUpload({
+            $("input[type=file]").kendoUpload({
                 multiple: true,
                 showFileList:true
             });
