@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using FizzWare.NBuilder;
 using HiringManager.EntityModel.Specifications;
 using NUnit.Framework;
@@ -48,7 +50,7 @@ namespace HiringManager.EntityModel.UnitTests
         public void Statuses()
         {
             // Arrange
-            this.Specification.Statuses = new[] {"Status2", "Status4", "Status6"};
+            this.Specification.Statuses = new[] { "Status2", "Status4", "Status6" };
 
 
             // Act
@@ -71,7 +73,7 @@ namespace HiringManager.EntityModel.UnitTests
         public void ManagerIds()
         {
             // Arrange
-            this.Specification.ManagerIds = new[] {7, 8, 9};
+            this.Specification.ManagerIds = new[] { 7, 8, 9 };
 
             // Act
             var results = this.AllPositions

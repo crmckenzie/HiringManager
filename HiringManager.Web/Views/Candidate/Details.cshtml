@@ -4,39 +4,83 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Details</h2>
 
-<div>
-    @Html.LabelFor(model => model.Name)
-    @Html.DisplayFor(model => model.Name)        
-</div>
-<div>
-    @Html.LabelFor(model => model.Source)
-    @if (Model.SourceId.HasValue)
-    {
-        @Html.ActionLink(Model.Source.Name, MVC.Source.Details(Model.SourceId))
-    }
-    else
-    {
-        <span>(none)</span>
-    }
-        
-</div>
-<div>
-    @foreach (var item in Model.ContactInfo)
-    {
         <div>
-            <label>@item.Type</label>
-            <span>@item.Value</span>
+            @Html.LabelFor(model => model.Name)
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Source)
+            @if (Model.SourceId.HasValue)
+            {
+                @Html.ActionLink(Model.Source.Name, MVC.Source.Details(Model.SourceId))
+            }
+            else
+            {
+                <span>(none)</span>
+            }
 
         </div>
-    }
-
-
-
+        <div>
+            @foreach (var item in Model.ContactInfo)
+            {
+                <div>
+                    <label>@item.Type</label>
+                    <span>@item.Value</span>
+                </div>
+            }
+        </div>
+    </div>
+    
 </div>
 
-<p>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Documents</h3>
+        <table class="table table-bordered table-hover table-responsive table-striped">
+            <thead>
+            <th>Title</th>
+            <th></th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Documents)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(@item.DisplayName, "Download", new { id = @item.DocumentId })</td>
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteDocument", "Candidate", new { id = @item.DocumentId }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-3">
+        <h3>Upload New Document</h3>
+        <form>
+            <input type="file" />
+            <input type='submit' class="btn btn-default" />
+        </form>
+    </div>
+    
+</div>
+
+<div class="row">
     @Html.ActionLink("Edit", "Edit", new { id = Model.CandidateId }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("input[type=file]").kendoUpload({
+                multiple: true,
+                showFileList: true
+            });
+        });
+    </script>
+}

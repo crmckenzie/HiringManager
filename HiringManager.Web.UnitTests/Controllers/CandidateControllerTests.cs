@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -32,11 +33,14 @@ namespace HiringManager.Web.UnitTests.Controllers
         [SetUp]
         public void BeforeEachTestRuns()
         {
+            this.UploadService = Substitute.For<IUploadService>();
             this.CandidateService = Substitute.For<ICandidateService>();
             this.SourceService = Substitute.For<ISourceService>();
             this.DbContext = Substitute.For<HiringManagerDbContext>();
-            this.CandidateController = new CandidateController(this.CandidateService, this.SourceService, this.DbContext);
+            this.CandidateController = new CandidateController(this.CandidateService, this.SourceService, this.UploadService, this.DbContext);
         }
+
+        public IUploadService UploadService { get; set; }
 
         public ISourceService SourceService { get; set; }
 
@@ -359,5 +363,30 @@ namespace HiringManager.Web.UnitTests.Controllers
             return req =>
                 req.CandidateId == null && req.Name == viewModel.Name && req.SourceId == viewModel.SourceId;
         }
+
+        [Test]
+        public void DownloadDocument()
+        {
+            // Arrange
+            var download = new FileDownload()
+                           {
+                               Stream = new MemoryStream(),
+                               FileName = "filename.pdf",
+                           };
+
+            this.UploadService.Download(11234).Returns(download);
+
+            // Act
+            var response = this.CandidateController.Download(11234);
+
+            // Assert
+            Assert.That(response, Is.InstanceOf<FileStreamResult>());
+            var fsr = (FileStreamResult)response;
+
+            Assert.That(fsr.FileDownloadName, Is.EqualTo(download.FileName));
+            Assert.That(fsr.ContentType, Is.EqualTo("application/pdf"));
+            Assert.That(fsr.FileStream, Is.SameAs(download.Stream));
+        }
+
     }
 }

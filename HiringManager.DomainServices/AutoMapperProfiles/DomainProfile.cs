@@ -49,6 +49,10 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<ContactInfo, ContactInfoDetails>()
                 ;
 
+            CreateMap<Document, DocumentDetails>()
+                .ForMember(output => output.Name, opt => opt.MapFrom(input => input.DisplayName))
+                ;
+
             CreateMap<ContactInfoDetails, ContactInfo>()
                 .ForMember(output => output.Candidate, opt => opt.Ignore())
                 .ForMember(output => output.CandidateId, opt => opt.Ignore())
@@ -75,6 +79,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             CreateMap<CandidateStatus, CandidateStatusDetails>()
                 .ForMember(output => output.SourceId, opt => opt.MapFrom(input => input.Candidate.Source.SourceId))
                 .ForMember(output => output.Source, opt => opt.MapFrom(input => input.Candidate.Source.Name))
+                .ForMember(output => output.Documents, opt => opt.MapFrom(input => input.Candidate.Documents))
                 .ForMember(c => c.ContactInfo, opt => opt.MapFrom(m => m.Candidate.ContactInfo))
                 .ForMember(c => c.CanHire, opt => opt.ResolveUsing(m => !m.Position.IsFilled()))
                 .ForMember(c => c.CanSetStatus, opt => opt.ResolveUsing(m => !m.Position.IsFilled()))
