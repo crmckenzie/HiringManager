@@ -1,4 +1,4 @@
-﻿@model HiringManager.EntityModel.Candidate
+﻿@model HiringManager.Web.ViewModels.Candidates.CandidateDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -16,7 +16,7 @@
             @Html.LabelFor(model => model.Source)
             @if (Model.SourceId.HasValue)
             {
-                @Html.ActionLink(Model.Source.Name, MVC.Source.Details(Model.SourceId))
+                @Html.ActionLink(Model.Source, MVC.Source.Details(Model.SourceId.Value))
             }
             else
             {
@@ -49,9 +49,9 @@
                 @foreach (var item in Model.Documents)
                 {
                     <tr>
-                        <td>@Html.ActionLink(@item.DisplayName, "Download", new { id = @item.DocumentId })</td>
+                        <td>@Html.ActionLink(@item.Text, "Download", new { id = @item.Value })</td>
                         <td>
-                            @Html.ActionLink("Delete", "DeleteDocument", "Candidate", new { id = @item.DocumentId }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                            @Html.ActionLink("Delete", "DeleteDocument", "Candidate", new { id = @item.Value }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
                         </td>
                     </tr>
                 }

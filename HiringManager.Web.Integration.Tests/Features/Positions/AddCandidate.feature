@@ -13,10 +13,16 @@ Scenario: Add Candidate
 	| Name  | Fred Bob     |
 	| Email | fred@bob.com |
 	| Phone | 123-456-7890 |
+	And the candidate has the following resumes
+	| FileName       |
+	| Resume.pdf |
 	When I submit the the candidate to AddCandidate
 	Then I should be redirected to the Position Candidates Page
 	And the requested position should have a status of 'Open'
 	And 'Fred Bob' should be listed as a candidate with a status of 'Resume Received'
+	And the candidate details page for 'Fred Bob' should show the following resumes
+	| Title      |
+	| Resume.pdf |
 
 Scenario: Add Candidate after position has been filled
 	Given I have added the following candidate

@@ -19,6 +19,7 @@ namespace HiringManager.Web.Ninject
         {
             Bind<IClock>().To<Clock>();
             Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<HttpContext>().ToConstant(HttpContext.Current);
 
             Kernel.Bind(configuration => configuration
                 .FromAssemblyContaining<PositionService>()

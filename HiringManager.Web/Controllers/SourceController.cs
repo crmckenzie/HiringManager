@@ -22,7 +22,7 @@ namespace HiringManager.Web.Controllers
         }
 
         // GET: /Source/Details/5
-        public virtual ActionResult Details(int? id)
+        public virtual ActionResult Details(int id)
         {
             if (id == null)
             {

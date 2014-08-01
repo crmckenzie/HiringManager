@@ -183,9 +183,9 @@ namespace HiringManager.Web.Controllers
             return callInfo;
         }
 
-        partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
-        public override System.Web.Mvc.ActionResult Details(int? id)
+        public override System.Web.Mvc.ActionResult Details(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);

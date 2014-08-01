@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
 using System.Web;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Impl;
@@ -13,10 +10,19 @@ namespace HiringManager.Web.Infrastructure.App
     public class UploadService : IUploadService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly HttpContextBase _httpContext;
 
-        public UploadService(IUnitOfWork unitOfWork)
+        public UploadService(IUnitOfWork unitOfWork, HttpContextBase httpContext)
         {
             _unitOfWork = unitOfWork;
+            _httpContext = httpContext;
+
+            if (_unitOfWork == null)
+                throw new ArgumentNullException("unitOfWork");
+
+            if (_httpContext == null)
+                throw new ArgumentNullException("httpContext");
+
         }
 
         public FileDownload Download(int documentId)
@@ -40,7 +46,7 @@ namespace HiringManager.Web.Infrastructure.App
 
         public string Save(Stream stream)
         {
-            var directory = HttpContext.Current.Server.MapPath("~/App_Upload");
+            var directory = _httpContext.Server.MapPath("~/App_Upload");
             var fileName = string.Format("{0}.file", Guid.NewGuid());
             var path = System.IO.Path.Combine(directory, fileName);
             var file = new System.IO.FileInfo(path);

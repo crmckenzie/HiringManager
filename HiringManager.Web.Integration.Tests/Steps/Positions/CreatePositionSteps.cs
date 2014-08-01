@@ -5,6 +5,7 @@ using HiringManager.Web.Controllers;
 using HiringManager.Web.Integration.Tests.Models.Positions;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
+using IntegrationTestHelpers;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -27,7 +28,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         {
             var viewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
 
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
 
             var view = controller.Index("Open") as ViewResult;
 
@@ -54,7 +55,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
             ScenarioContext.Current.Set(viewModel);
 
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
 
             var response = controller.Create(viewModel);
             ShouldBeStandardRedirectToRouteResult(response);
@@ -88,7 +89,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Given(@"I have received resumes from the following candidates")]
         public void WhenIReceiveResumesFromTheFollowingCandidates(Table table)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index("Open");
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
@@ -106,7 +107,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [When(@"I pass on the candidate '(.*)'")]
         public void WhenIPassOnTheCandidate(string candidateName)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index("Open") as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
@@ -134,7 +135,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [When(@"I set the candidate status for '(.*)' to '(.*)'")]
         public void WhenISetTheCandidateStatusForTo(string candidateName, string status)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index("Open") as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
@@ -159,7 +160,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [When(@"I hire the candidate '(.*)'")]
         public void WhenIHireTheCandidate(string candidateName)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index("Open") as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
@@ -185,7 +186,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Then(@"the position should be filled")]
         public void ThenThePositionShouldBeFilled()
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index(status: null) as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
@@ -198,7 +199,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Then(@"the requested position should have a (.*) candidate\(s\) awaiting review count")]
         public void ThenTheRequestedPositionShouldHaveACandidateSAwaitingReviewCountOf(int candidatesAwaitingReview)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index(status: null) as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();
@@ -210,7 +211,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Then(@"the position details should contain the following candidates")]
         public void ThenThePositionDetailsShouldContainTheFollowingCandidates(Table table)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var indexView = controller.Index(status: null) as ViewResult;
             var model = indexView.Model as IndexViewModel<PositionSummaryIndexItem>;
             var createPositionViewModel = ScenarioContext.Current.Get<CreatePositionViewModel>();

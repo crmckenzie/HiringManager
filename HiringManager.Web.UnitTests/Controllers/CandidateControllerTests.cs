@@ -15,6 +15,8 @@ using HiringManager.Web.Controllers;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Candidates;
+using HiringManager.Web.ViewModels.Positions;
+using IntegrationTestHelpers;
 using NSubstitute;
 using NUnit.Framework;
 using Simple.Validation;
@@ -357,6 +359,75 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(model.Sources.SelectedValue, Is.EqualTo(viewModel.SourceId.Value));
         }
 
+        [Test]
+        public void Details()
+        {
+            // Arrange
+            const int candidateId = 67;
+            const string emailAddress = "candidate@candidate.com";
+            const string phoneNumber = "555-123-4567";
+            const int documentCount = 2;
+            var details = CreateCandidateDetails(candidateId, emailAddress, phoneNumber, documentCount);
+
+
+            this.CandidateService.Get(candidateId).Returns(details);
+
+            // Act
+            var result = this.CandidateController.Details(candidateId);
+
+            // Assert
+            var viewModel = result.GetViewModel<CandidateDetailsViewModel>();
+
+            Assert.That(viewModel.CandidateId, Is.EqualTo(details.CandidateId));
+            Assert.That(viewModel.Name, Is.EqualTo(details.Name));
+            Assert.That(viewModel.Source, Is.EqualTo(details.Source));
+            Assert.That(viewModel.SourceId, Is.EqualTo(details.SourceId));
+
+            Assert.That(viewModel.ContactInfo, Is.EquivalentTo(details.ContactInfo)
+                .Using<ContactInfoDetails, ContactInfoViewModel>(ContactInfoMatches)
+                );
+
+
+            Assert.That(viewModel.Documents, Is.EquivalentTo(details.Documents)
+                .Using<DocumentItem, SelectListItem>((expected, actual) =>
+                    expected.DocumentId.ToString() == actual.Value && expected.Title == actual.Text));
+        }
+
+        private static bool ContactInfoMatches(ContactInfoDetails expected, ContactInfoViewModel actual)
+        {
+            return expected.ContactInfoId == actual.ContactInfoId && expected.Type == actual.Type && expected.Value == actual.Value;
+        }
+
+        private static CandidateDetails CreateCandidateDetails(int candidateId, string emailAddress, string phoneNumber, int documentCount)
+        {
+            var details = Builder<CandidateDetails>.CreateNew().Build();
+            details.CandidateId = candidateId;
+            details.ContactInfo = Builder<ContactInfoDetails>
+                .CreateListOfSize(2)
+                .TheFirst(1)
+                .Do(row =>
+                    {
+                        row.Type = "Email";
+                        row.Value = emailAddress;
+                    })
+                .TheLast(1)
+                .Do(row =>
+                    {
+                        row.Type = "Phone";
+                        row.Value = phoneNumber;
+                    })
+                .Build()
+                .ToArray()
+                ;
+
+            details.Documents = Builder<DocumentItem>
+                .CreateListOfSize(documentCount)
+                .Build()
+                .ToArray()
+                ;
+
+            return details;
+        }
 
         private static Expression<Predicate<SaveCandidateRequest>> MatchesViewModel(EditCandidateViewModel viewModel)
         {

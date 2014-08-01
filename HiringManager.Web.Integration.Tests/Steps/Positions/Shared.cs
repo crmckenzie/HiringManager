@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Positions;
+using IntegrationTestHelpers;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -35,7 +36,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var response = controller.Create(viewModel);
             ScenarioContext.Current.Set(response);
 
-            if (response.GetType() == typeof (RedirectToRouteResult))
+            if (response.GetType() == typeof(RedirectToRouteResult))
             {
                 var view = controller.Index("Open");
                 var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
@@ -50,7 +51,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         {
             var positionId = ScenarioContext.Current.Get<int>("PositionId");
 
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index("Open") as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
 
@@ -62,7 +63,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Then(@"the position '(.*)' should have a status of '(.*)'")]
         public void ThenThePositionShouldHaveAStatusOf(string positionTitle, string status)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var view = controller.Index(null) as ViewResult;
             var model = view.Model as IndexViewModel<PositionSummaryIndexItem>;
 

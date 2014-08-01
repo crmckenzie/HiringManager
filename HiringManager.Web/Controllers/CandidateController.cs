@@ -10,6 +10,7 @@ using HiringManager.EntityModel;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Infrastructure.MVC;
 using HiringManager.Web.ViewModels.Candidates;
+using HiringManager.Web.ViewModels.Positions;
 
 namespace HiringManager.Web.Controllers
 {
@@ -35,18 +36,11 @@ namespace HiringManager.Web.Controllers
         }
 
         // GET: /Candidate/Details/5
-        public virtual ActionResult Details(int? id)
+        public virtual ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Candidate candidate = _db.Candidates.Find(id);
-            if (candidate == null)
-            {
-                return HttpNotFound();
-            }
-            return View(candidate);
+            var details = _candidateService.Get(id);
+            var viewModel = AutoMapper.Mapper.Map<CandidateDetailsViewModel>(details);
+            return View(viewModel);
         }
 
         // GET: /Candidate/Create
@@ -154,7 +148,7 @@ namespace HiringManager.Web.Controllers
             base.Dispose(disposing);
         }
 
-        public FileResult Download(int id)
+        public virtual FileResult Download(int id)
         {
             var download = _uploadService.Download(id);
 
