@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using HiringManager.DomainServices.Validators.UnitTests;
 using HiringManager.EntityModel;
 using HiringManager.Web.Controllers;
+using HiringManager.Web.ViewModels.Candidates;
 using HiringManager.Web.ViewModels.Positions;
 using IntegrationTestHelpers;
 using NSubstitute;
@@ -104,7 +105,8 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var candidate = positionDetails.Candidates.SingleOrDefault(row => row.CandidateName == candidateName);
             var candidateController =
                 ScenarioContext.Current.GetFromNinject<CandidateController>();
-            var candidateDetails = (candidateController.Details(candidate.CandidateId) as ViewResult).Model as Candidate;
+            var viewResult = candidateController.Details(candidate.CandidateId) as ViewResult;
+            var candidateDetails = viewResult.Model as CandidateDetailsViewModel;
 
             table.CompareToSet(candidateDetails.Documents);
         }

@@ -21,7 +21,7 @@ Scenario: Add Candidate
 	And the requested position should have a status of 'Open'
 	And 'Fred Bob' should be listed as a candidate with a status of 'Resume Received'
 	And the candidate details page for 'Fred Bob' should show the following resumes
-	| Title      |
+	| Text       |
 	| Resume.pdf |
 
 Scenario: Add Candidate after position has been filled

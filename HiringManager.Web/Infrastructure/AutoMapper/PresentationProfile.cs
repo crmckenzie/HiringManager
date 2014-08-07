@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using AutoMapper;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Candidates;
@@ -43,6 +44,12 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
 
         private void ConfigureCandidateModels()
         {
+            CreateMap<DocumentDetails, SelectListItem>()
+                .ForMember(sli => sli.Text, opt => opt.MapFrom(m => m.Title))
+                .ForMember(sli => sli.Value, opt => opt.MapFrom(m => m.DocumentId.ToString()))
+                .ForMember(sli => sli.Selected, opt => opt.UseValue(false))
+                ;
+
             CreateMap<ContactInfoDetails, ContactInfoViewModel>()
                 ;
             CreateMap<ContactInfoViewModel, ContactInfoDetails>()
@@ -54,6 +61,9 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
             CreateMap<CandidateDetails, EditCandidateViewModel>()
                 .ForMember(output => output.SourceName, opt => opt.Ignore())
                 .ForMember(output => output.Sources, opt => opt.Ignore())
+                ;
+
+            CreateMap<CandidateDetails, CandidateDetailsViewModel>()
                 ;
 
             CreateMap<NewCandidateViewModel, NewCandidateRequest>()

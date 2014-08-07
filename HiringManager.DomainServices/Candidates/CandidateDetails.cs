@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HiringManager.DomainServices.Positions;
 
 namespace HiringManager.DomainServices.Candidates
 {
@@ -6,7 +7,7 @@ namespace HiringManager.DomainServices.Candidates
     {
         public CandidateDetails()
         {
-            this.Documents = new DocumentItem[0];
+            this.Documents = new DocumentDetails[0];
         }
 
         public int CandidateId { get; set; }
@@ -16,6 +17,6 @@ namespace HiringManager.DomainServices.Candidates
 
         public int? SourceId { get; set; }
         public string Source { get; set; }
-        public DocumentItem[] Documents { get; set; }
+        public DocumentDetails[] Documents { get; set; }
     }
 }

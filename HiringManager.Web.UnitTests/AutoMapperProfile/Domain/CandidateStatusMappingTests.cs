@@ -74,15 +74,7 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile.Domain
                 Assert.That(actualContactInfo.Value, Is.EqualTo(expectedContactInfo.Value));
             }
 
-            Assert.That(actual.Candidate.Documents.Count, Is.EqualTo(expected.Documents.Count));
-            foreach (var key in expected.Documents.Keys)
-            {
-                var actualDocument = actual.Candidate.Documents.SingleOrDefault(row => row.DisplayName == key);
-                Assert.That(actualDocument, Is.Not.Null);
-                Assert.That(actualDocument.DisplayName, Is.EqualTo(key));
-                Assert.That(actualDocument.FileName, Is.Null);
-            }
-
+            Assert.That(actual.Candidate.Documents.Count, Is.EqualTo(0), "Documents should not be mapped.");
         }
 
         [Test]

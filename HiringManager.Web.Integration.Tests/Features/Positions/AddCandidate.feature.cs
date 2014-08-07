@@ -117,7 +117,7 @@ this.FeatureBackground();
  testRunner.And("\'Fred Bob\' should be listed as a candidate with a status of \'Resume Received\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Text"});
             table3.AddRow(new string[] {
                         "Resume.pdf"});
 #line 23

@@ -50,7 +50,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 ;
 
             CreateMap<Document, DocumentDetails>()
-                .ForMember(output => output.Name, opt => opt.MapFrom(input => input.DisplayName))
+                .ForMember(output => output.Title, opt => opt.MapFrom(input => input.DisplayName))
                 ;
 
             CreateMap<ContactInfoDetails, ContactInfo>()
@@ -102,12 +102,6 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
             {
                 contactInfo.Candidate = candidate;
             }
-
-            candidate.Documents = input.Documents.Select(row => new Document()
-                                                                {
-                                                                    DisplayName = row.Key
-                                                                }).ToList()
-                ;
 
             return candidate;
         }

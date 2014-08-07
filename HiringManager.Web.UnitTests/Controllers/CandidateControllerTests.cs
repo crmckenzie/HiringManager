@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Candidates;
+using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Controllers;
@@ -389,7 +390,7 @@ namespace HiringManager.Web.UnitTests.Controllers
 
 
             Assert.That(viewModel.Documents, Is.EquivalentTo(details.Documents)
-                .Using<DocumentItem, SelectListItem>((expected, actual) =>
+                .Using<DocumentDetails, SelectListItem>((expected, actual) =>
                     expected.DocumentId.ToString() == actual.Value && expected.Title == actual.Text));
         }
 
@@ -420,7 +421,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .ToArray()
                 ;
 
-            details.Documents = Builder<DocumentItem>
+            details.Documents = Builder<DocumentDetails>
                 .CreateListOfSize(documentCount)
                 .Build()
                 .ToArray()

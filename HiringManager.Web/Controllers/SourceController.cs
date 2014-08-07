@@ -24,10 +24,6 @@ namespace HiringManager.Web.Controllers
         // GET: /Source/Details/5
         public virtual ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             Source source = db.Sources.Find(id);
             if (source == null)
             {

@@ -75,7 +75,7 @@ namespace HiringManager.DomainServices.UnitTests.AutoMapperProfiles
                 var actual = result.Documents[i];
 
                 Assert.That(actual.DocumentId, Is.EqualTo(expected.DocumentId));
-                Assert.That(actual.Name, Is.EqualTo(expected.DisplayName));
+                Assert.That(actual.Title, Is.EqualTo(expected.DisplayName));
             }
         }
 
