@@ -1,8 +1,15 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using HiringManager.DomainServices.Validators.UnitTests;
+using HiringManager.EntityModel;
 using HiringManager.Web.Controllers;
+using HiringManager.Web.ViewModels.Candidates;
 using HiringManager.Web.ViewModels.Positions;
+using IntegrationTestHelpers;
+using NSubstitute;
 using NUnit.Framework;
 using Simple.Validation;
 using TechTalk.SpecFlow;
@@ -21,9 +28,37 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
             var viewModel = table.CreateInstance<NewCandidateViewModel>();
             viewModel.PositionId = positionId;
-   
+
             ScenarioContext.Current.Set(viewModel);
         }
+
+
+        [Given(@"the candidate has the following resumes")]
+        public void GivenTheCandidateHasAResume(Table resumes)
+        {
+            var viewModel = ScenarioContext.Current.Get<NewCandidateViewModel>();
+
+
+            viewModel.Documents = resumes.Rows.Select(row =>
+                                                      {
+                                                          var memoryStream = new MemoryStream();
+                                                          using (
+                                                              var streamWriter = new StreamWriter(memoryStream,
+                                                                  Encoding.ASCII, 1024, leaveOpen: true))
+                                                          {
+                                                              streamWriter.WriteLine("I'm a resume!");
+                                                          }
+                                                          memoryStream.Position = 0;
+
+
+                                                          var fileName = row["FileName"].ToString();
+                                                          var resume = Substitute.For<HttpPostedFileBase>();
+                                                          resume.InputStream.Returns(memoryStream);
+                                                          resume.FileName.Returns(fileName);
+                                                          return resume;
+                                                      }).ToArray();
+        }
+
 
         [When(@"I submit the the candidate to AddCandidate")]
         public void WhenISubmitTheTheCandidateToAddCandidate()
@@ -60,6 +95,22 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             Assert.That(candidate.Status, Is.EqualTo(status));
         }
 
+        [Then(@"the candidate details page for '(.*)' should show the following resumes")]
+        public void ThenTheCandidateDetailsPageForShouldShowTheFollowingResumes(string candidateName, Table table)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var positionId = ScenarioContext.Current.Get<int>("PositionId");
+            var positionDetails = controller.Candidates(positionId).Model as PositionCandidatesViewModel;
+
+            var candidate = positionDetails.Candidates.SingleOrDefault(row => row.CandidateName == candidateName);
+            var candidateController =
+                ScenarioContext.Current.GetFromNinject<CandidateController>();
+            var viewResult = candidateController.Details(candidate.CandidateId) as ViewResult;
+            var candidateDetails = viewResult.Model as CandidateDetailsViewModel;
+
+            table.CompareToSet(candidateDetails.Documents);
+        }
+
 
         [Given(@"I have added the following candidate")]
         [When(@"I add the following candidate")]
@@ -69,7 +120,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
 
             var viewModel = table.CreateInstance<NewCandidateViewModel>();
             viewModel.PositionId = positionId;
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var response = controller.NewCandidate(viewModel);
             ScenarioContext.Current.Set(response);
             ScenarioContext.Current.Set(viewModel);
@@ -78,7 +129,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         [Given(@"I have hired the candidate '(.*)'")]
         public void GivenIHaveHiredTheCandidate(string candidateName)
         {
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var positionId = ScenarioContext.Current.Get<int>("PositionId");
             var details = controller.Candidates(positionId).Model as PositionCandidatesViewModel;
 
@@ -90,7 +141,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
                                                CandidateStatusId = candidate.CandidateStatusId,
                                                PositionId = positionId,
                                            });
-   
+
             ScenarioContext.Current.Set(response);
         }
 
@@ -109,7 +160,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         public void ThenThePageShouldReportTheFollowingErrors(Table table)
         {
             var validationResults = table.CreateSet<ValidationResult>();
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             controller.OutputModelState();
 
             var actualResults = controller.GetModelStateValidationResults();

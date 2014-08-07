@@ -1,7 +1,9 @@
 ﻿using System.Data.Entity;
+using System.Web;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using Ninject;
+using NSubstitute;
 
 namespace IntegrationTestHelpers
 {
@@ -17,6 +19,7 @@ namespace IntegrationTestHelpers
             new HiringManager.Web.Infrastructure.Ninject.NinjectConfiguration().Configure(kernel);
 
             RebindExternalServices(kernel);
+            RebindWebStack(kernel);
 
             new NBuilderConfiguration()
                 .IntegrationTestConfiguration()
@@ -25,6 +28,11 @@ namespace IntegrationTestHelpers
             ResetDatabase();
 
             return kernel;
+        }
+
+        private static void RebindWebStack(StandardKernel kernel)
+        {
+            kernel.Bind<HttpContextBase>().ToConstant(Fakes.FakeHttpContext());
         }
 
         private static void ResetDatabase()
@@ -62,14 +70,6 @@ namespace IntegrationTestHelpers
 
             }
 
-            //var nameOrConnectionString = typeof(HiringManagerDbContext).FullName;
-            //if (!Database.Exists(nameOrConnectionString)) return;
-
-            //Trace.WriteLine("Deleting database: " + nameOrConnectionString);
-            //Database.Delete(nameOrConnectionString);
-
-            //Trace.WriteLine("Creating database: " + nameOrConnectionString);
-            //new HiringManagerDbContext().Database.Initialize(force: true);
         }
 
 

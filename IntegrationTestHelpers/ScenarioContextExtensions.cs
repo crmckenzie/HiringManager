@@ -1,29 +1,30 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using IntegrationTestHelpers;
+using System.Web.Mvc;
 using Ninject;
 using TechTalk.SpecFlow;
 
-namespace HiringManager.Web.Integration.Tests
+namespace IntegrationTestHelpers
 {
-    internal static class ScenarioContextExtensions
+    public static class ScenarioContextExtensions
     {
         public static T GetFromNinject<T>(this ScenarioContext current)
         {
+            var kernel = GetNinjectKernel(current);
             if (!current.ContainsKey(typeof(T).FullName))
             {
-                var t = current.GetNewInstanceFromNinject<T>();
-                current.Add(typeof(T).FullName, t);
+                var instance = kernel.Get<T>();
+                current.Set<T>(instance, typeof(T).FullName);
             }
-            return (T) current[typeof(T).FullName];
 
+            var result = current.Get<T>(typeof(T).FullName);
+            return result;
         }
-
 
         public static T GetNewInstanceFromNinject<T>(this ScenarioContext current)
         {
-            return current.GetNinjectKernel().Get<T>();
+            return GetNinjectKernel(current).Get<T>();
         }
 
         public static IKernel GetNinjectKernel(this ScenarioContext current)
@@ -42,6 +43,14 @@ namespace HiringManager.Web.Integration.Tests
             }
             var result = current["Ninject.Kernel"] as IKernel;
             return result;
+        }
+
+
+
+        public static T GetController<T>(this ScenarioContext context) where T : Controller
+        {
+            var controller = GetFromNinject<T>(context).Fake();
+            return controller;
         }
     }
 }

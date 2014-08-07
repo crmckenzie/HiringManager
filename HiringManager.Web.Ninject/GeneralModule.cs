@@ -17,8 +17,9 @@ namespace HiringManager.Web.Ninject
     {
         public override void Load()
         {
-            Kernel.Bind<IClock>().To<Clock>();
+            Bind<IClock>().To<Clock>();
             Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<HttpContext>().ToConstant(HttpContext.Current);
 
             Kernel.Bind(configuration => configuration
                 .FromAssemblyContaining<PositionService>()
@@ -32,13 +33,13 @@ namespace HiringManager.Web.Ninject
                 .BindAllInterfaces()
                 );
 
-            Kernel.Bind<IFluentTransactionBuilder>()
+            Bind<IFluentTransactionBuilder>()
                 .To<FluentTransactionBuilder>()
                 ;
 
-            Kernel.Bind<IDbContext>().To<HiringManagerDbContext>();
+            Bind<IDbContext>().To<HiringManagerDbContext>();
 
-            Kernel.Bind<IPrincipal>()
+            Bind<IPrincipal>()
                 .ToMethod(context =>
                           {
                               if (HttpContext.Current != null)

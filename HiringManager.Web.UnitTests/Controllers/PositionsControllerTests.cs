@@ -179,7 +179,7 @@ namespace HiringManager.Web.UnitTests.Controllers
             var viewModel = new CreatePositionViewModel();
             var request = new CreatePositionRequest();
 
-            this.Controller.ModelState.AddModelError("Some Property", "Some Message");
+            this.Controller.ModelState.AddModelError("Some DocumentId", "Some Message");
 
             // Act
             var result = this.Controller.Create(viewModel);
@@ -204,7 +204,7 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             var validationResult = new ValidationResult
                                    {
-                                       PropertyName = "Some Property",
+                                       PropertyName = "Some DocumentId",
                                        Message = "Some Message"
                                    };
             this.PositionService.CreatePosition(Arg.Any<CreatePositionRequest>())
@@ -269,7 +269,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .CreateNew()
                 .Build();
 
-            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
+            this.PositionService.AddNewCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
 
             // Act
             var actionResult = this.Controller.NewCandidate(viewModel);
@@ -303,7 +303,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                                {
                                    ValidationResults = validationResults
                                };
-            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
+            this.PositionService.AddNewCandidate(Arg.Any<NewCandidateRequest>())
                 .Returns(response);
 
             // Act
@@ -344,11 +344,11 @@ namespace HiringManager.Web.UnitTests.Controllers
             // Arrange
             var viewModel = new AddCandidateViewModel();
 
-            var response = Builder<NewCandidateResponse>
+            var response = Builder<AddCandidateResponse>
                 .CreateNew()
                 .Build();
 
-            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>()).Returns(response);
+            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>()).Returns(response);
 
             // Act
             var actionResult = this.Controller.AddCandidate(viewModel);
@@ -378,11 +378,11 @@ namespace HiringManager.Web.UnitTests.Controllers
                 .Build()
                 ;
 
-            var response = new NewCandidateResponse
+            var response = new AddCandidateResponse
             {
                 ValidationResults = validationResults
             };
-            this.PositionService.AddCandidate(Arg.Any<NewCandidateRequest>())
+            this.PositionService.AddCandidate(Arg.Any<AddCandidateRequest>())
                 .Returns(response);
 
             // Act

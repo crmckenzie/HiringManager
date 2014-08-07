@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
@@ -7,8 +8,18 @@ using HiringManager.EntityModel;
 
 namespace HiringManager.EntityFramework
 {
-    public class HiringManagerDbContext : System.Data.Entity.DbContext, IDbContext
+    public class HiringManagerDbContext : DbContext, IDbContext
     {
+        public HiringManagerDbContext()
+        {
+#if DEBUG
+
+            if (this.Database.Log == null)
+                this.Database.Log = Console.Write;
+#endif
+
+        }
+
         public IDbSet<Candidate> Candidates { get; set; }
         public IDbSet<CandidateStatus> CandidateStatuses { get; set; }
         public IDbSet<ContactInfo> ContactInfo { get; set; }
@@ -46,43 +57,6 @@ namespace HiringManager.EntityFramework
             get { return ((IObjectContextAdapter)this).ObjectContext; }
         }
 
-        ObjectStateEntry GetObjectStateEntry(DbEntityEntry entry)
-        {
-            ObjectStateEntry objectStateEntry = null;
-            var result = this.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(entry.Entity, out objectStateEntry);
-            return objectStateEntry;
-        }
-
-        object GetPrimaryKeyValue(DbEntityEntry entry)
-        {
-            ObjectStateEntry objectStateEntry = GetObjectStateEntry(entry);
-            if (objectStateEntry != null)
-                return objectStateEntry.EntityKey.EntityKeyValues[0].Value;
-
-            return null;
-        }
-
-        //public void Save<T>(T item) where T : class
-        //{
-        //    var entry = base.Entry(item);
-        //    if (entry.State == EntityState.Detached)
-        //    {
-        //        base.Set<T>().Attach(item);
-        //        entry = base.Entry(item);
-
-        //        var key = GetPrimaryKeyValue(entry);
-        //        if (key == null)
-        //        {
-        //            entry.State = EntityState.Added;
-        //        }
-        //        else
-        //        {
-        //            entry.State = EntityState.Modified;
-        //        }
-
-        //    }
-        //}
-
         public IDbContext Delete<T>(T item) where T : class
         {
             var entry = base.Entry(item);
@@ -90,10 +64,6 @@ namespace HiringManager.EntityFramework
                 base.Set<T>().Attach(item);
 
             entry.State = EntityState.Deleted;
-            return this;
-
-
-            //base.Set<T>().Remove(item);
             return this;
         }
 
@@ -171,7 +141,7 @@ namespace HiringManager.EntityFramework
 
         }
 
-        public System.Data.Entity.DbSet<HiringManager.EntityModel.Source> Sources { get; set; }
+        public DbSet<Source> Sources { get; set; }
 
 
     }

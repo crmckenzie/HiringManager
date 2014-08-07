@@ -1,2 +1,15 @@
 *.ldf
 *.ncrunch*
+*.user
+*.cache
+*.mdf
+*.dll
+*.pdb
+*.xml
+*.dll.config
+*.suo
+Debug
+amd64
+x86
+packages
+HiringManager.Web/App_Upload/

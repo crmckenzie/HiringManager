@@ -1,12 +1,16 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Services.Description;
+using HiringManager.DomainServices;
 using HiringManager.DomainServices.Candidates;
 using HiringManager.DomainServices.Sources;
 using HiringManager.EntityModel;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Infrastructure.MVC;
 using HiringManager.Web.ViewModels.Candidates;
+using HiringManager.Web.ViewModels.Positions;
 
 namespace HiringManager.Web.Controllers
 {
@@ -14,34 +18,29 @@ namespace HiringManager.Web.Controllers
     {
         private readonly ICandidateService _candidateService;
         private readonly ISourceService _sourceService;
-        private readonly HiringManagerDbContext db;
+        private readonly IUploadService _uploadService;
+        private readonly HiringManagerDbContext _db;
 
-        public CandidateController(ICandidateService candidateService, ISourceService sourceService, HiringManagerDbContext dbContext)
+        public CandidateController(ICandidateService candidateService, ISourceService sourceService, IUploadService uploadService, HiringManagerDbContext dbContext)
         {
             _candidateService = candidateService;
             _sourceService = sourceService;
-            db = dbContext;
+            _uploadService = uploadService;
+            _db = dbContext;
         }
 
         // GET: /Candidate/
         public virtual ActionResult Index()
         {
-            return View(db.Candidates.ToList());
+            return View(_db.Candidates.ToList());
         }
 
         // GET: /Candidate/Details/5
-        public virtual ActionResult Details(int? id)
+        public virtual ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Candidate candidate = db.Candidates.Find(id);
-            if (candidate == null)
-            {
-                return HttpNotFound();
-            }
-            return View(candidate);
+            var details = _candidateService.Get(id);
+            var viewModel = AutoMapper.Mapper.Map<CandidateDetailsViewModel>(details);
+            return View(viewModel);
         }
 
         // GET: /Candidate/Create
@@ -121,7 +120,7 @@ namespace HiringManager.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Candidate candidate = db.Candidates.Find(id);
+            Candidate candidate = _db.Candidates.Find(id);
             if (candidate == null)
             {
                 return HttpNotFound();
@@ -134,9 +133,9 @@ namespace HiringManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult DeleteConfirmed(int id)
         {
-            Candidate candidate = db.Candidates.Find(id);
-            db.Candidates.Remove(candidate);
-            db.SaveChanges();
+            Candidate candidate = _db.Candidates.Find(id);
+            _db.Candidates.Remove(candidate);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -144,9 +143,18 @@ namespace HiringManager.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public virtual FileResult Download(int id)
+        {
+            var download = _uploadService.Download(id);
+
+            var mimeType = System.Web.MimeMapping.GetMimeMapping(download.FileName);
+
+            return File(download.Stream, mimeType, download.FileName);
         }
     }
 }

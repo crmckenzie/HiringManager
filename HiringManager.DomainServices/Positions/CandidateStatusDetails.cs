@@ -7,6 +7,7 @@ namespace HiringManager.DomainServices.Positions
         public CandidateStatusDetails()
         {
             this.ContactInfo = new List<ContactInfoDetails>();
+            this.Documents = new List<DocumentDetails>();
         }
 
         public int CandidateStatusId { get; set; }
@@ -22,6 +23,8 @@ namespace HiringManager.DomainServices.Positions
         public string Status { get; set; }
 
         public IList<ContactInfoDetails> ContactInfo { get; set; }
+        public IList<DocumentDetails> Documents { get; set; }
+
         public bool CanHire { get; set; }
         public bool CanPass { get; set; }
         public bool CanSetStatus { get; set; }

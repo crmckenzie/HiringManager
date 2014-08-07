@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.ViewModels.Positions;
+using IntegrationTestHelpers;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -14,7 +15,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         public void WhenINavigateToTheClosePositionPageFor(string positionName)
         {
             var positionId = ScenarioContext.Current.Get<int>(positionName);
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var page = controller.Close(positionId);
             var key = string.Format("Positions/Close/{0}", positionId);
             ScenarioContext.Current.Set(page, key);
@@ -39,7 +40,7 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
         public void WhenICloseThePositionFor(string positionName)
         {
             var positionId = ScenarioContext.Current.Get<int>(positionName);
-            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var controller = ScenarioContextExtensions.GetFromNinject<PositionsController>(ScenarioContext.Current);
             var page = controller.Close(new ClosePositionViewModel()
                                         {
                                             PositionId = positionId,

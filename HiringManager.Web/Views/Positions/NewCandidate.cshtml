@@ -9,7 +9,7 @@
 <div class="container col-md-12">
     <h2>Add Candidate</h2>
     @Html.ValidationSummary()
-    @using (@Html.BeginForm())
+    @using (Html.BeginForm("NewCandidate","Positions", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(m => m.PositionId)
 
@@ -33,10 +33,23 @@
             <input name="PhoneNumber" type="tel" value="@Model.PhoneNumber" class="form-control" />
             @Html.ValidationMessageFor(m => m.PhoneNumber)
         </div>
-
+        <div class="form-group">
+            @Html.LabelFor(m => m.Documents)
+            <input id="Documents" type="file" name="Documents" class="form-control" />
+        </div>
         <div class="btn-group">
             <button type="submit" class="btn btn-primary">OK</button>
             <a type="button" href="@Url.Action("Candidates", new {id = Model.PositionId})" class="btn btn-default" role="button">Cancel</a>
         </div>
     }
 </div>
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            $("input[type=file]").kendoUpload({
+                multiple: true,
+                showFileList:true
+            });
+        });
+    </script>
+}

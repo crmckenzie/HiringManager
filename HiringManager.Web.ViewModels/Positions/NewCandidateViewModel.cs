@@ -1,10 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
 
 namespace HiringManager.Web.ViewModels.Positions
 {
     public class NewCandidateViewModel
     {
+        public NewCandidateViewModel()
+        {
+            this.Documents = new HttpPostedFileBase[0];
+        }
+
         [Required]
         public int PositionId { get; set; }
 
@@ -25,5 +32,8 @@ namespace HiringManager.Web.ViewModels.Positions
         public int? CandidateId { get; set; }
 
         public SelectList Sources { get; set; }
+
+        [Display(Name = "Resume")]
+        public HttpPostedFileBase[] Documents { get; set; }
     }
 }

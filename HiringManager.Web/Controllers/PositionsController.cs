@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
@@ -23,11 +24,6 @@ namespace HiringManager.Web.Controllers
         private readonly ICandidateService _candidateService;
         private readonly IUserSession _userSession;
         private readonly IClock _clock;
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
 
         public PositionsController(IPositionService positionService, ISourceService sourceService, ICandidateService candidateService, IUserSession userSession, IClock clock)
         {
@@ -107,7 +103,7 @@ namespace HiringManager.Web.Controllers
             {
                 var request = AutoMapper.Mapper.Map<NewCandidateRequest>(viewModel);
 
-                var response = this._positionService.AddCandidate(request);
+                var response = this._positionService.AddNewCandidate(request);
                 this.ModelState.Accept(response);
 
                 if (this.ModelState.IsValid)
@@ -140,7 +136,7 @@ namespace HiringManager.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var request = AutoMapper.Mapper.Map<NewCandidateRequest>(viewModel);
+                var request = AutoMapper.Mapper.Map<AddCandidateRequest>(viewModel);
 
                 var response = this._positionService.AddCandidate(request);
                 this.ModelState.Accept(response);

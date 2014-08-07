@@ -10,6 +10,7 @@ namespace IntegrationTestHelpers
             BuilderSetup.DisablePropertyNamingFor<Position, int?>(model => model.PositionId);
 
             BuilderSetup.DisablePropertyNamingFor<Candidate, int?>(model => model.CandidateId);
+            BuilderSetup.DisablePropertyNamingFor<Candidate, int?>(model => model.SourceId);
 
             BuilderSetup.DisablePropertyNamingFor<CandidateStatus, int?>(model => model.CandidateStatusId);
 
