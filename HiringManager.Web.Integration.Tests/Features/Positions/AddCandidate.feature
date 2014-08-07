@@ -6,13 +6,51 @@
 Background: 
 	Given I want to create the position 'Senior Software Developer' to start on 'June 1, 2011'
 	And I submit the create position request
+	And I have the following sources
+	| Name            |
+	| College         |
+	| Recruiter       |
+	| Human Resources |
 
-Scenario: Add Candidate
+Scenario: Add Candidate Without Source or Documents
 	Given I have the following candidate
-	| Field | Value        |
-	| Name  | Fred Bob     |
-	| Email | fred@bob.com |
-	| Phone | 123-456-7890 |
+	| Field  | Value           |
+	| Name   | Fred Bob        |
+	| Email  | fred@bob.com    |
+	| Phone  | 123-456-7890    |
+	And the candidate has the following resumes
+	| FileName       |
+	| Resume.pdf |
+	When I submit the the candidate to AddCandidate
+	Then I should be redirected to the Position Candidates Page
+	And the requested position should have a status of 'Open'
+	And 'Fred Bob' should be listed as a candidate with a status of 'Resume Received'
+
+
+Scenario: Add Candidate With Source
+	Given I have the following candidate
+	| Field  | Value           |
+	| Name   | Fred Bob        |
+	| Email  | fred@bob.com    |
+	| Phone  | 123-456-7890    |
+	| Source | Human Resources |
+	And the candidate has the following resumes
+	| FileName       |
+	| Resume.pdf |
+	When I submit the the candidate to AddCandidate
+	Then I should be redirected to the Position Candidates Page
+	And the requested position should have a status of 'Open'
+	And 'Fred Bob' should be listed as a candidate with a status of 'Resume Received'
+	And the candidate details page for 'Fred Bob' should have the following fields
+	| Field  | Value           |
+	| Source | Human Resources |
+
+Scenario: Add Candidate With Documents
+	Given I have the following candidate
+	| Field  | Value           |
+	| Name   | Fred Bob        |
+	| Email  | fred@bob.com    |
+	| Phone  | 123-456-7890    |
 	And the candidate has the following resumes
 	| FileName       |
 	| Resume.pdf |

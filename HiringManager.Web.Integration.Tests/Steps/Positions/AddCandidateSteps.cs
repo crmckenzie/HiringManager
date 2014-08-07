@@ -29,6 +29,18 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var viewModel = table.CreateInstance<NewCandidateViewModel>();
             viewModel.PositionId = positionId;
 
+            var sourceRow = table.Rows.FirstOrDefault(r => r["Field"] == "Source");
+            if (sourceRow != null)
+            {
+                var sourceName = sourceRow["Value"];
+                if (!string.IsNullOrWhiteSpace(sourceName))
+                {
+                    var dbContext = ScenarioContext.Current.GetNewInstanceFromNinject<IDbContext>();
+                    var source = dbContext.Query<Source>().Single(row => row.Name == sourceName);
+                    viewModel.SourceId = source.SourceId;
+                }
+            }
+
             ScenarioContext.Current.Set(viewModel);
         }
 
@@ -109,6 +121,22 @@ namespace HiringManager.Web.Integration.Tests.Steps.Positions
             var candidateDetails = viewResult.Model as CandidateDetailsViewModel;
 
             table.CompareToSet(candidateDetails.Documents);
+        }
+
+        [Then(@"the candidate details page for '(.*)' should have the following fields")]
+        public void ThenTheCandidateDetailsPageForShouldHaveTheFollowingFields(string candidateName, Table table)
+        {
+            var controller = ScenarioContext.Current.GetFromNinject<PositionsController>();
+            var positionId = ScenarioContext.Current.Get<int>("PositionId");
+            var positionDetails = controller.Candidates(positionId).Model as PositionCandidatesViewModel;
+
+            var candidate = positionDetails.Candidates.SingleOrDefault(row => row.CandidateName == candidateName);
+            var candidateController =
+                ScenarioContext.Current.GetFromNinject<CandidateController>();
+            var viewResult = candidateController.Details(candidate.CandidateId) as ViewResult;
+            var candidateDetails = viewResult.Model as CandidateDetailsViewModel;
+
+            table.CompareToInstance(candidateDetails);
         }
 
 

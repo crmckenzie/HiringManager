@@ -12,12 +12,8 @@ namespace HiringManager.EntityFramework
     {
         public HiringManagerDbContext()
         {
-#if DEBUG
-
-            if (this.Database.Log == null)
-                this.Database.Log = Console.Write;
-#endif
-
+            //if (this.Database.Log == null)
+            //    this.Database.Log = (s) => Trace.Write(s);
         }
 
         public IDbSet<Candidate> Candidates { get; set; }

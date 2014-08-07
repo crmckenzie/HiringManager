@@ -59,6 +59,11 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile.Domain
             // Arrange
             var expected = Builder<Candidate>
                 .CreateNew()
+                .Do(row => row.Source = new Source()
+                                        {
+                                            SourceId = 12341234,
+                                            Name = Guid.NewGuid().ToString(),
+                                        })
                 .Do(row => row.ContactInfo = Builder<ContactInfo>.CreateListOfSize(3).Build().ToArray())
                 .Build()
                 ;
@@ -70,6 +75,7 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile.Domain
             Assert.That(actual.CandidateId, Is.EqualTo(expected.CandidateId));
             Assert.That(actual.Name, Is.EqualTo(expected.Name));
             Assert.That(actual.SourceId, Is.EqualTo(expected.SourceId));
+            Assert.That(actual.Source, Is.EqualTo(expected.Source.Name));
 
             for (var i = 0; i < expected.ContactInfo.Count; i++)
             {
