@@ -26,7 +26,7 @@
         <td>
             @if (item.SourceId.HasValue)
             {
-                @Html.ActionLink(item.Source.Name, MVC.Source.Details(item.SourceId))
+                @Html.ActionLink(item.Source.Name, MVC.Source.Details(item.SourceId.Value))
             }
             else
             {
