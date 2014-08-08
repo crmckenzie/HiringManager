@@ -63,10 +63,12 @@
     <Compile Include="AddNewCandidateToPosition.cs" />
     <Compile Include="ClosePosition.cs" />
     <Compile Include="CreatePosition.cs" />
+    <Compile Include="DeleteDocument.cs" />
     <Compile Include="HireCandidate.cs" />
     <Compile Include="SetCandidateStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryPositions.cs" />
+    <Compile Include="UploadDocument.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">

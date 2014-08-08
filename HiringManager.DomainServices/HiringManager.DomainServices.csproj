@@ -49,6 +49,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HiringManager.DomainServices.Transactions">
+      <HintPath>..\HiringManager.Web\Bin\HiringManager.DomainServices.Transactions.dll</HintPath>
+    </Reference>
     <Reference Include="Isg.Specification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Isg.Specification.0.1\lib\net40\Isg.Specification.dll</HintPath>
@@ -107,7 +110,9 @@
     <Compile Include="Candidates\ICandidateService.cs" />
     <Compile Include="Candidates\QueryCandidatesRequest.cs" />
     <Compile Include="Candidates\SaveCandidateRequest.cs" />
+    <Compile Include="Candidates\UploadDocumentRequest.cs" />
     <Compile Include="ContactInfoDetails.cs" />
+    <Compile Include="DocumentDetails.cs" />
     <Compile Include="FileDownload.cs" />
     <Compile Include="Impl\CandidateService.cs" />
     <Compile Include="Impl\DomainServiceBase.cs" />
@@ -119,7 +124,6 @@
     <Compile Include="IValidatedResponse.cs" />
     <Compile Include="Positions\AddCandidateRequest.cs" />
     <Compile Include="Positions\AddCandidateResponse.cs" />
-    <Compile Include="Positions\DocumentDetails.cs" />
     <Compile Include="Positions\NewCandidateRequest.cs" />
     <Compile Include="Positions\NewCandidateResponse.cs" />
     <Compile Include="Positions\CandidateStatusDetails.cs" />

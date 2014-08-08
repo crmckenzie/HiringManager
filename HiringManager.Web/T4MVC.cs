@@ -145,6 +145,37 @@ namespace Links
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class fonts {
+            private const string URLPATH = "~/Content/fonts";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string glyphicons_halflings_regular_eot = Url("glyphicons-halflings-regular.eot");
+            public static readonly string glyphicons_halflings_regular_svg = Url("glyphicons-halflings-regular.svg");
+            public static readonly string glyphicons_halflings_regular_ttf = Url("glyphicons-halflings-regular.ttf");
+            public static readonly string glyphicons_halflings_regular_woff = Url("glyphicons-halflings-regular.woff");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Images {
+            private const string URLPATH = "~/Content/Images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string accent_png = Url("accent.png");
+            public static readonly string bullet_png = Url("bullet.png");
+            public static readonly string heroAccent_png = Url("heroAccent.png");
+            public static readonly string orderedList0_png = Url("orderedList0.png");
+            public static readonly string orderedList1_png = Url("orderedList1.png");
+            public static readonly string orderedList2_png = Url("orderedList2.png");
+            public static readonly string orderedList3_png = Url("orderedList3.png");
+            public static readonly string orderedList4_png = Url("orderedList4.png");
+            public static readonly string orderedList5_png = Url("orderedList5.png");
+            public static readonly string orderedList6_png = Url("orderedList6.png");
+            public static readonly string orderedList7_png = Url("orderedList7.png");
+            public static readonly string orderedList8_png = Url("orderedList8.png");
+            public static readonly string orderedList9_png = Url("orderedList9.png");
+        }
+    
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
