@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using HiringManager.DomainServices.Candidates;
+using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityModel;
 using HiringManager.Transactions;
 
@@ -69,7 +70,17 @@ namespace HiringManager.DomainServices.Impl
 
         public ValidatedResponse Delete(int documentId)
         {
-            return null;
+            var transaction = _builder
+                .Receives<int>()
+                .Returns<ValidatedResponse>()
+                .WithRequestValidation()
+                .WithPerformanceLogging()
+                .Build<DeleteDocument>()
+                ;
+
+            var response = transaction.Execute(documentId);
+
+            return response;
         }
     }
 }

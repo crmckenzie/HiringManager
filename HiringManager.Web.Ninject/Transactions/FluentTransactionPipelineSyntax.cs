@@ -82,6 +82,19 @@ namespace HiringManager.Web.Ninject.Transactions
 
         }
 
+        public ITransaction<TRequest, TResponse> Build<TTransaction>() where TTransaction : ITransaction<TRequest, TResponse>
+        {
+            if (_baseCommand == null)
+                _baseCommand = _kernel.Get<TTransaction>();
+
+            var result = _baseCommand;
+            foreach (var decorator in _instructions)
+            {
+                result = decorator.Invoke(result);
+            }
+            return result;
+        }
+
         public FluentTransactionPipelineSyntax(IKernel kernel)
         {
             _kernel = kernel;

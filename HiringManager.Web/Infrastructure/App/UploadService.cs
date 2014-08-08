@@ -58,5 +58,13 @@ namespace HiringManager.Web.Infrastructure.App
             }
             return fileName;
         }
+
+        public void Delete(string fileName)
+        {
+            var directory = _httpContext.Server.MapPath("~/App_Upload");
+            var path = System.IO.Path.Combine(directory, fileName);
+            var file = new System.IO.FileInfo(path);
+            file.Delete();
+        }
     }
 }

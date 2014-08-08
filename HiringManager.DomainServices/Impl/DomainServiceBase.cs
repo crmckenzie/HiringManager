@@ -4,7 +4,7 @@ namespace HiringManager.DomainServices.Impl
 {
     public class DomainServiceBase
     {
-        private readonly IFluentTransactionBuilder _builder;
+        protected readonly IFluentTransactionBuilder _builder;
 
         public DomainServiceBase(IFluentTransactionBuilder builder)
         {
@@ -24,7 +24,7 @@ namespace HiringManager.DomainServices.Impl
             var response = transaction.Execute(request);
 
             return response;
-          
+
         }
     }
 }

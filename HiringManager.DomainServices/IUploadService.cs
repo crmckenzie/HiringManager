@@ -6,5 +6,6 @@ namespace HiringManager.DomainServices
     {
         FileDownload Download(int documentId);
         string Save(Stream stream);
+        void Delete(string fileName);
     }
 }

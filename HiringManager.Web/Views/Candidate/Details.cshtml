@@ -73,7 +73,12 @@
                     <tr>
                         <td>@Html.ActionLink(@item.Text, "Download", new { id = @item.Value })</td>
                         <td>
-                            @Html.ActionLink("Delete", "DeleteDocument", "Candidate", new { id = @item.Value }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                            @using (Html.BeginRouteForm(MVC.Candidate.DeleteDocument()))
+                            {
+                                @Html.HiddenFor(m => m.CandidateId)
+                                <input type='hidden' name="DocumentId" value="@item.Value"/>
+                                <button type='submit' class="btn btn-danger glyphicon glyphicon-trash">Delete</button>
+                            }
                         </td>
                     </tr>
                 }

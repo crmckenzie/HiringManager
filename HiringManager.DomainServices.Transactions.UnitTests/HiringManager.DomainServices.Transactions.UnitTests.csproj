@@ -74,6 +74,7 @@
     <Compile Include="AddNewCandidateToPositionTests.cs" />
     <Compile Include="CloseTemplateTests.cs" />
     <Compile Include="CreatePositionTests.cs" />
+    <Compile Include="DeleteDocumentTests.cs" />
     <Compile Include="HireCandidateTests.cs" />
     <Compile Include="SetCandidateStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Candidates\CandidateDetailsViewModel.cs" />
+    <Compile Include="Candidates\DeleteDocumentViewModel.cs" />
     <Compile Include="Candidates\EditCandidateViewModel.cs" />
     <Compile Include="Candidates\UploadDocumentViewModel.cs" />
     <Compile Include="ContactInfoViewModel.cs" />

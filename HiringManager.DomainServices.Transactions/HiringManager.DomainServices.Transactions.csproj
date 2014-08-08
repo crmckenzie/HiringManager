@@ -63,6 +63,7 @@
     <Compile Include="AddNewCandidateToPosition.cs" />
     <Compile Include="ClosePosition.cs" />
     <Compile Include="CreatePosition.cs" />
+    <Compile Include="DeleteDocument.cs" />
     <Compile Include="HireCandidate.cs" />
     <Compile Include="SetCandidateStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

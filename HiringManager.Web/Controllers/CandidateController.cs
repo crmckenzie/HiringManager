@@ -169,5 +169,13 @@ namespace HiringManager.Web.Controllers
 
             return RedirectToAction(MVC.Candidate.Details(viewModel.CandidateId));
         }
+
+        [HttpPost]
+        public virtual ActionResult DeleteDocument(DeleteDocumentViewModel viewModel)
+        {
+            this._candidateService.Delete(viewModel.DocumentId);
+
+            return RedirectToAction(MVC.Candidate.Details(viewModel.CandidateId));
+        }
     }
 }

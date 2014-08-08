@@ -492,5 +492,28 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(redirect.RouteValues["action"], Is.EqualTo("Details"));
             Assert.That(redirect.RouteValues["id"], Is.EqualTo(viewModel.CandidateId));
         }
+
+        [Test]
+        public void DeleteDocument()
+        {
+            // Arrange
+            const int id = 3143214;
+            var viewModel = new DeleteDocumentViewModel()
+                            {
+                                CandidateId = 3214312,
+                                DocumentId = id,
+                            };
+            // Act
+            var result = this.CandidateController.DeleteDocument(viewModel);
+
+            // Assert
+            this.CandidateService.Received().Delete(id);
+
+            Assert.That(result, Is.InstanceOf<RedirectToRouteResult>());
+            var redirect = result as RedirectToRouteResult;
+            Assert.That(redirect.RouteValues["action"], Is.EqualTo("Details"));
+            Assert.That(redirect.RouteValues["id"], Is.EqualTo(viewModel.CandidateId));
+
+        }
     }
 }

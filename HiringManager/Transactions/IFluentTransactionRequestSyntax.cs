@@ -1,6 +1,6 @@
 ﻿namespace HiringManager.Transactions
 {
-    public interface IFluentTransactionRequestSyntax<in TRequest>
+    public interface IFluentTransactionRequestSyntax<TRequest>
     {
         IFluentTransactionPipelineSyntax<TRequest, TResponse> Returns<TResponse>();
     }
