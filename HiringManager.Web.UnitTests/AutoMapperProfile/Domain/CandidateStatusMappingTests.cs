@@ -8,6 +8,7 @@ using HiringManager.DomainServices;
 using HiringManager.DomainServices.AutoMapperProfiles;
 using HiringManager.DomainServices.Positions;
 using HiringManager.EntityModel;
+using IntegrationTestHelpers;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -27,6 +28,35 @@ namespace HiringManager.Web.UnitTests.AutoMapperProfile.Domain
         {
             AutoMapper.Mapper.Reset();
             AutoMapper.Mapper.AddProfile<DomainProfile>();
+        }
+
+        [Test]
+        public void ToCandidateStatusDetails()
+        {
+            // Arrange
+            var candidateStatus = new CandidateStatus()
+                                  {
+                                      Position = new Position(),
+                                      Candidate = Builder<Candidate>
+                                        .CreateNew()
+                                        .Do(row => row.CandidateId = 3124123)
+                                        .Build(),
+                                      CandidateId = 32141234,
+                                      CandidateStatusId = 2341234,
+                                  };
+
+            // Act
+            var details = AutoMapper.Mapper.Map<CandidateStatus, CandidateStatusDetails>(candidateStatus);
+
+            // Assert
+            Assert.That(details.CanHire, Is.EqualTo(candidateStatus.CanHire()));
+            Assert.That(details.CanPass, Is.EqualTo(candidateStatus.CanPass()));
+            Assert.That(details.CanSetStatus, Is.EqualTo(candidateStatus.CanSetStatus()));
+            Assert.That(details.CandidateId, Is.EqualTo(candidateStatus.CandidateId.Value));
+            Assert.That(details.CandidateName, Is.EqualTo(candidateStatus.Candidate.Name));
+            Assert.That(details.CandidateStatusId, Is.EqualTo(candidateStatus.CandidateStatusId));
+            Assert.That(details.ContactInfo, Has.Count.EqualTo(candidateStatus.Candidate.ContactInfo.Count));
+            Assert.That(details.Documents, Has.Count.EqualTo(candidateStatus.Candidate.Documents.Count));
         }
 
         [Test]

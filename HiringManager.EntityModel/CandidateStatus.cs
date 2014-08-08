@@ -2,6 +2,8 @@
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Linq;
 
 namespace HiringManager.EntityModel
 {
@@ -21,5 +23,41 @@ namespace HiringManager.EntityModel
 
         [StringLength(50)]
         public string Status { get; set; }
+
+        public bool IsHired()
+        {
+            return this.Position.Openings.Any(row => row.FilledBy == this.Candidate);
+        }
+
+        public bool CanHire()
+        {
+            if (this.Position.IsFilled())
+                return false;
+
+            if (this.Position.Openings.Any(row => row.FilledBy == this.Candidate))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanPass()
+        {
+            if (Position.IsFilled())
+            {
+                return false;
+            }
+            if (IsHired())
+            {
+                return false;
+            }
+            return this.Status != "Passed";
+        }
+
+        public bool CanSetStatus()
+        {
+            return !Position.IsFilled() && this.CanHire() && this.CanPass();
+        }
     }
 }

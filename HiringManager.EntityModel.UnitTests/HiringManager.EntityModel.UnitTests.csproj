@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CandidateStatusDetailsEntityTests.cs" />
     <Compile Include="PositionEntityTests.cs" />
     <Compile Include="PositionSpecificationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
