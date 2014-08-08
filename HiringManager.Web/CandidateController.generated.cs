@@ -71,6 +71,12 @@ namespace HiringManager.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.Download);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Upload()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Upload);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CandidateController Actions { get { return MVC.Candidate; } }
@@ -94,6 +100,7 @@ namespace HiringManager.Web.Controllers
             public readonly string Delete = "Delete";
             public readonly string DeleteConfirmed = "Delete";
             public readonly string Download = "Download";
+            public readonly string Upload = "Upload";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -106,6 +113,7 @@ namespace HiringManager.Web.Controllers
             public const string Delete = "Delete";
             public const string DeleteConfirmed = "Delete";
             public const string Download = "Download";
+            public const string Upload = "Upload";
         }
 
 
@@ -157,6 +165,14 @@ namespace HiringManager.Web.Controllers
         public class ActionParamsClass_Download
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Upload s_params_Upload = new ActionParamsClass_Upload();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Upload UploadParams { get { return s_params_Upload; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Upload
+        {
+            public readonly string viewModel = "viewModel";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -274,6 +290,16 @@ namespace HiringManager.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.Download);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             DownloadOverride(callInfo, id);
+            return callInfo;
+        }
+
+        partial void UploadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, HiringManager.Web.ViewModels.Candidates.UploadDocumentViewModel viewModel);
+
+        public override System.Web.Mvc.ActionResult Upload(HiringManager.Web.ViewModels.Candidates.UploadDocumentViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Upload);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            UploadOverride(callInfo, viewModel);
             return callInfo;
         }
 

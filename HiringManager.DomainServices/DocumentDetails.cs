@@ -1,4 +1,4 @@
-﻿namespace HiringManager.DomainServices.Positions
+namespace HiringManager.DomainServices
 {
     public class DocumentDetails
     {

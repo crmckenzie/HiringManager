@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using HiringManager.DomainServices.Candidates;
 using HiringManager.EntityModel;
+using HiringManager.Transactions;
 
 namespace HiringManager.DomainServices.Impl
 {
-    public class CandidateService : ICandidateService
+    public class CandidateService : DomainServiceBase, ICandidateService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CandidateService(IUnitOfWork unitOfWork)
+        public CandidateService(IFluentTransactionBuilder fluentTransactionBuilder, IUnitOfWork unitOfWork)
+            : base(fluentTransactionBuilder)
         {
             _unitOfWork = unitOfWork;
         }
@@ -48,7 +50,7 @@ namespace HiringManager.DomainServices.Impl
                     .Project().To<CandidateSummary>()
                     .ToArray()
                     ;
-                
+
                 return new QueryResponse<CandidateSummary>()
                        {
                            Data = results,
@@ -58,6 +60,16 @@ namespace HiringManager.DomainServices.Impl
                        };
 
             }
+        }
+
+        public DocumentDetails Upload(UploadDocumentRequest request)
+        {
+            return base.Execute<UploadDocumentRequest, DocumentDetails>(request);
+        }
+
+        public ValidatedResponse Delete(int documentId)
+        {
+            return null;
         }
     }
 }

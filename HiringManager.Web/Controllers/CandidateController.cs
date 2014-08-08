@@ -156,5 +156,18 @@ namespace HiringManager.Web.Controllers
 
             return File(download.Stream, mimeType, download.FileName);
         }
+
+        [HttpPost]
+        public virtual ActionResult Upload(UploadDocumentViewModel viewModel)
+        {
+            var result = this._candidateService.Upload(new UploadDocumentRequest()
+                                                       {
+                                                           CandidateId = viewModel.CandidateId,
+                                                           Document = viewModel.Document.InputStream,
+                                                           FileName = viewModel.Document.FileName,
+                                                       });
+
+            return RedirectToAction(MVC.Candidate.Details(viewModel.CandidateId));
+        }
     }
 }

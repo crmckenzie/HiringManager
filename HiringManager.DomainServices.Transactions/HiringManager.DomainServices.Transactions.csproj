@@ -67,6 +67,7 @@
     <Compile Include="SetCandidateStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryPositions.cs" />
+    <Compile Include="UploadDocument.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">

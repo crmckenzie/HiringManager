@@ -5,7 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Xml.XPath;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Candidates;
@@ -460,5 +462,35 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(fsr.FileStream, Is.SameAs(download.Stream));
         }
 
+        [Test]
+        public void UploadDocument()
+        {
+            // Arrange
+            var postedFile = Substitute.For<HttpPostedFileBase>();
+            postedFile.InputStream.Returns(new MemoryStream());
+            postedFile.FileName.Returns("Some test file");
+
+            var viewModel = new UploadDocumentViewModel()
+                            {
+                                CandidateId = 21341234,
+                                Document = postedFile,
+                            };
+
+            // Act
+            var result = this.CandidateController.Upload(viewModel);
+
+            // Assert
+            this.CandidateService
+                .Received()
+                .Upload(Arg.Is<UploadDocumentRequest>(
+                        r =>
+                            r.CandidateId == viewModel.CandidateId && r.Document == viewModel.Document.InputStream &&
+                            r.FileName == viewModel.Document.FileName));
+
+            Assert.That(result, Is.InstanceOf<RedirectToRouteResult>());
+            var redirect = result as RedirectToRouteResult;
+            Assert.That(redirect.RouteValues["action"], Is.EqualTo("Details"));
+            Assert.That(redirect.RouteValues["id"], Is.EqualTo(viewModel.CandidateId));
+        }
     }
 }

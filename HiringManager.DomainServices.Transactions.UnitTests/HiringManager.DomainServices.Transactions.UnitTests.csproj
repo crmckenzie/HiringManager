@@ -78,6 +78,7 @@
     <Compile Include="SetCandidateStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryPositionSummariesTests.cs" />
+    <Compile Include="UploadDocumentTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
