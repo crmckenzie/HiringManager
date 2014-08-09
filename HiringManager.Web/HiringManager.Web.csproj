@@ -263,6 +263,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
+    <Compile Include="Infrastructure\App\UserManager.cs" />
     <Compile Include="Infrastructure\MVC\Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -514,6 +515,10 @@
     <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj">
       <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
       <Name>HiringManager.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.DomainServices.Transactions\HiringManager.DomainServices.Transactions.csproj">
+      <Project>{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}</Project>
+      <Name>HiringManager.DomainServices.Transactions</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.DomainServices.Validators\HiringManager.DomainServices.Validators.csproj">
       <Project>{F44AE5B2-6B7E-41DC-B9BA-75F7595ECF74}</Project>

@@ -1,4 +1,5 @@
-using HiringManager.DomainServices.Impl;
+using HiringManager.DomainServices;
+using HiringManager.DomainServices.Transactions;
 using Ninject;
 
 namespace HiringManager.Web.Ninject

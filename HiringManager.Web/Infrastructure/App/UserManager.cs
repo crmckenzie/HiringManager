@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
 using Microsoft.AspNet.Identity;
 
-namespace HiringManager.DomainServices.Impl
+namespace HiringManager.Web.Infrastructure.App
 {
 
     public class UserManager : IUserManager, System.IDisposable

@@ -2,7 +2,7 @@
 using HiringManager.EntityModel;
 using HiringManager.Transactions;
 
-namespace HiringManager.DomainServices.Impl
+namespace HiringManager.DomainServices.Transactions
 {
     public class PositionService : DomainServiceBase, IPositionService
     {
