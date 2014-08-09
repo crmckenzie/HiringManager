@@ -263,7 +263,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
-    <Compile Include="Infrastructure\App\UserManager.cs" />
+    <Compile Include="Infrastructure\App\ClaimsIdentityUserManager.cs" />
     <Compile Include="Infrastructure\MVC\Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">

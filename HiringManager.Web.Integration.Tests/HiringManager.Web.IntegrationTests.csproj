@@ -130,6 +130,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CreatePosition.feature</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Ninject\NinjectBindingsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Positions\CandidateStatusDetailsTestModel.cs" />
     <Compile Include="Steps\Positions\AddCandidateSteps.cs" />
@@ -162,6 +163,10 @@
     <ProjectReference Include="..\HiringManager.Domain.EntityFramework\HiringManager.EntityFramework.csproj">
       <Project>{9A9F6DF1-F1B4-45F1-992D-B140A33558A0}</Project>
       <Name>HiringManager.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
+      <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
+      <Name>HiringManager.DomainServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\HiringManager.EntityModel\HiringManager.EntityModel.csproj">
       <Project>{77b8db13-ec9d-4e56-b298-083b04a8d167}</Project>

@@ -8,11 +8,11 @@ using Microsoft.AspNet.Identity;
 namespace HiringManager.Web.Infrastructure.App
 {
 
-    public class UserManager : IUserManager, System.IDisposable
+    public class ClaimsIdentityUserManager : IUserManager, System.IDisposable
     {
         private readonly UserManager<ApplicationUser> _db;
 
-        public UserManager(UserManager<ApplicationUser> db)
+        public ClaimsIdentityUserManager(UserManager<ApplicationUser> db)
         {
             this._db = db;
             _db.ClaimsIdentityFactory = new CustomClaimsIdentityFactory();
