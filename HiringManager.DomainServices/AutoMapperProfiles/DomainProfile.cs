@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection.Emit;
 using AutoMapper;
 using HiringManager.DomainServices.Candidates;
-using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
 using HiringManager.EntityModel;

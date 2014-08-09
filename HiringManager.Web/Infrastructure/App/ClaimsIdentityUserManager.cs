@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HiringManager.DomainServices;
 using HiringManager.DomainServices.Authentication;
 using Microsoft.AspNet.Identity;
 
-namespace HiringManager.DomainServices.Impl
+namespace HiringManager.Web.Infrastructure.App
 {
 
-    public class UserManager : IUserManager, System.IDisposable
+    public class ClaimsIdentityUserManager : IUserManager, System.IDisposable
     {
         private readonly UserManager<ApplicationUser> _db;
 
-        public UserManager(UserManager<ApplicationUser> db)
+        public ClaimsIdentityUserManager(UserManager<ApplicationUser> db)
         {
             this._db = db;
             _db.ClaimsIdentityFactory = new CustomClaimsIdentityFactory();

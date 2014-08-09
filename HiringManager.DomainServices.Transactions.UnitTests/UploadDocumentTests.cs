@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using HiringManager.DomainServices.Candidates;
-using HiringManager.DomainServices.Impl;
 using HiringManager.EntityModel;
 using NSubstitute;
 using NUnit.Framework;

@@ -1,7 +1,6 @@
 ﻿using System.Security.Principal;
 using System.Web;
 using HiringManager.DomainServices;
-using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityFramework;
 using HiringManager.Transactions;
@@ -21,11 +20,11 @@ namespace HiringManager.Web.Ninject
             Bind<IUnitOfWork>().To<UnitOfWork>();
             Bind<HttpContext>().ToConstant(HttpContext.Current);
 
-            Kernel.Bind(configuration => configuration
-                .FromAssemblyContaining<PositionService>()
-                .SelectAllClasses()
-                .BindAllInterfaces()
-                );
+            //Kernel.Bind(configuration => configuration
+            //    .FromAssemblyContaining<IUploadService>()
+            //    .SelectAllClasses()
+            //    .BindAllInterfaces()
+            //    );
 
             Kernel.Bind(configuration => configuration
                 .FromAssemblyContaining<CreatePosition>()

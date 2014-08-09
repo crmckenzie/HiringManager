@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using HiringManager.DomainServices;
+using HiringManager.DomainServices.Authentication;
 using HiringManager.DomainServices.Validators;
 using HiringManager.Web.Infrastructure.App;
 using HiringManager.Web.Ninject;
@@ -18,6 +19,7 @@ namespace HiringManager.Web.Infrastructure.Ninject
             kernel.Load(new SimpleValidationNinjectModule());
 
             kernel.Bind<IUploadService>().To<UploadService>();
+            kernel.Bind<IUserManager>().To<ClaimsIdentityUserManager>();
 
             kernel.Bind(configuration => configuration
                 .FromAssemblyContaining<NewCandidateRequestValidator>()

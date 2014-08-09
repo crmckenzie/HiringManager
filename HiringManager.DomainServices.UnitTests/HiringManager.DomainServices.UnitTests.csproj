@@ -73,6 +73,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HiringManager.DomainServices.Transactions\HiringManager.DomainServices.Transactions.csproj">
+      <Project>{D45B2834-2AE2-4B87-A3D3-F06D8D077C49}</Project>
+      <Name>HiringManager.DomainServices.Transactions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HiringManager.DomainServices\HiringManager.DomainServices.csproj">
       <Project>{F2CD0E3D-A396-4885-B79A-7810F0A39714}</Project>
       <Name>HiringManager.DomainServices</Name>

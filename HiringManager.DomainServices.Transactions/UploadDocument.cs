@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HiringManager.DomainServices.Candidates;
-using HiringManager.DomainServices.Impl;
 using HiringManager.EntityModel;
 using HiringManager.Transactions;
 

@@ -1,9 +1,9 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using AutoMapper.QueryableExtensions;
 using HiringManager.DomainServices.Sources;
 using HiringManager.EntityModel;
-using System.Linq;
 
-namespace HiringManager.DomainServices.Impl
+namespace HiringManager.DomainServices.Transactions
 {
     public class SourceService : ISourceService
     {

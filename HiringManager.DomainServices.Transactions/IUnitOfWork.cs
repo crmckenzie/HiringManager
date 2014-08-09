@@ -1,4 +1,4 @@
-﻿namespace HiringManager.DomainServices.Impl
+namespace HiringManager.DomainServices.Transactions
 {
     public interface IUnitOfWork
     {

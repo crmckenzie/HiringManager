@@ -4,7 +4,7 @@ using System.Security.Principal;
 using HiringManager.DomainServices.Authentication;
 using HiringManager.EntityModel;
 
-namespace HiringManager.DomainServices.Impl
+namespace HiringManager.DomainServices.Transactions
 {
     public class UserSession :IUserSession
     {

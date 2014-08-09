@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web;
 using HiringManager.DomainServices;
-using HiringManager.DomainServices.Impl;
+using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityModel;
 
 namespace HiringManager.Web.Infrastructure.App

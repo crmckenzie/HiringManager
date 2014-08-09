@@ -1,7 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using HiringManager.DomainServices.AutoMapperProfiles;
-using HiringManager.DomainServices.Impl;
 using HiringManager.DomainServices.Positions;
+using HiringManager.DomainServices.Transactions;
 using HiringManager.EntityModel;
 using HiringManager.Transactions;
 using NSubstitute;
