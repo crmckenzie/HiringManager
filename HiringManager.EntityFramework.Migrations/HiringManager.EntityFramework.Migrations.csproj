@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201406062224176_AddDocumentsTable.Designer.cs">
       <DependentUpon>201406062224176_AddDocumentsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408112126144_AddNotesTable.cs" />
+    <Compile Include="Migrations\201408112126144_AddNotesTable.Designer.cs">
+      <DependentUpon>201408112126144_AddNotesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406062224176_AddDocumentsTable.resx">
       <DependentUpon>201406062224176_AddDocumentsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408112126144_AddNotesTable.resx">
+      <DependentUpon>201408112126144_AddNotesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

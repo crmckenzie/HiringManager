@@ -1,14 +1,17 @@
-﻿
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 
 namespace HiringManager.EntityModel
 {
     public class CandidateStatus
     {
+        public CandidateStatus()
+        {
+            this.Notes = new List<Note>();
+        }
+
         public int? CandidateStatusId { get; set; }
 
         [Index("UQ_CandidateStatus", IsUnique = true, Order = 2)]
@@ -23,6 +26,8 @@ namespace HiringManager.EntityModel
 
         [StringLength(50)]
         public string Status { get; set; }
+
+        public virtual IList<Note> Notes { get; set; }
 
         public bool IsHired()
         {
