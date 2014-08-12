@@ -2,8 +2,8 @@
 {
     public interface IUserSession
     {
-        int? ManagerId { get; }
+        int ManagerId { get; }
         string UserName { get; }
-        string DisplayName { get;  }
+        string DisplayName { get; }
     }
 }

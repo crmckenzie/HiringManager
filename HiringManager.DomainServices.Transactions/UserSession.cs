@@ -6,13 +6,13 @@ using HiringManager.EntityModel;
 
 namespace HiringManager.DomainServices.Transactions
 {
-    public class UserSession :IUserSession
+    public class UserSession : IUserSession
     {
         private readonly IPrincipal _principal;
         private readonly IDbContext _dbContext;
-        public int? ManagerId { get { return _manager.Value.ManagerId; }}
+        public int ManagerId { get { return _manager.Value.ManagerId.Value; } }
         public string UserName { get { return _manager.Value.UserName; } }
-        public string DisplayName { get { return _manager.Value.Name;  } }
+        public string DisplayName { get { return _manager.Value.Name; } }
 
         private readonly Lazy<Manager> _manager;
 
@@ -31,9 +31,9 @@ namespace HiringManager.DomainServices.Transactions
                 _dbContext.Add(result);
                 _dbContext.SaveChanges();
             }
-            
+
             return result;
-        }        
+        }
 
         public UserSession(IPrincipal principal, IDbContext dbContext)
         {

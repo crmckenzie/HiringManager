@@ -80,7 +80,7 @@ namespace HiringManager.DomainServices.Transactions
 
         public ValidatedResponse AddNote(AddNoteRequest request)
         {
-            return null;
+            return base.Execute<AddNoteRequest, ValidatedResponse>(request);
         }
 
         public ValidatedResponse EditNote(EditNoteRequest request)
@@ -90,7 +90,10 @@ namespace HiringManager.DomainServices.Transactions
 
         public ValidatedResponse DeleteNote(int noteId)
         {
-            return null;
+            return base.Execute<DeleteNoteRequest, ValidatedResponse>(new DeleteNoteRequest()
+                                                                      {
+                                                                          NoteId = noteId,
+                                                                      });
         }
     }
 }

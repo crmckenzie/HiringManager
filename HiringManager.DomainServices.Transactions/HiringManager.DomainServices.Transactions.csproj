@@ -61,10 +61,13 @@
   <ItemGroup>
     <Compile Include="AddExistingCandidateToPosition.cs" />
     <Compile Include="AddNewCandidateToPosition.cs" />
+    <Compile Include="AddNote.cs" />
     <Compile Include="CandidateService.cs" />
     <Compile Include="ClosePosition.cs" />
     <Compile Include="CreatePosition.cs" />
     <Compile Include="DeleteDocument.cs" />
+    <Compile Include="DeleteNote.cs" />
+    <Compile Include="DeleteNoteRequest.cs" />
     <Compile Include="DomainServiceBase.cs" />
     <Compile Include="HireCandidate.cs" />
     <Compile Include="IUnitOfWork.cs" />

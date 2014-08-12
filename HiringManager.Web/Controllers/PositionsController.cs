@@ -38,7 +38,7 @@ namespace HiringManager.Web.Controllers
         {
             var request = new QueryPositionSummariesRequest()
                           {
-                              ManagerIds = new[] { this._userSession.ManagerId.Value }
+                              ManagerIds = new[] { this._userSession.ManagerId }
                           };
             if (!string.IsNullOrWhiteSpace(status))
                 request.Statuses = new[] { status };
@@ -66,7 +66,7 @@ namespace HiringManager.Web.Controllers
             {
                 var request = AutoMapper.Mapper.Map<CreatePositionRequest>(viewModel);
 
-                request.HiringManagerId = _userSession.ManagerId.GetValueOrDefault();
+                request.HiringManagerId = _userSession.ManagerId;
                 var response = this._positionService.CreatePosition(request);
                 ModelState.AddModelErrors(response.ValidationResults);
 

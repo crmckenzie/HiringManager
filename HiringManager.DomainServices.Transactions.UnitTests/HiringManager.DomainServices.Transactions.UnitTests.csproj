@@ -72,9 +72,11 @@
   <ItemGroup>
     <Compile Include="AddExistingCandidateToPositionTests.cs" />
     <Compile Include="AddNewCandidateToPositionTests.cs" />
+    <Compile Include="AddNoteTests.cs" />
     <Compile Include="CloseTemplateTests.cs" />
     <Compile Include="CreatePositionTests.cs" />
     <Compile Include="DeleteDocumentTests.cs" />
+    <Compile Include="DeleteNoteTests.cs" />
     <Compile Include="HireCandidateTests.cs" />
     <Compile Include="SetCandidateStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
