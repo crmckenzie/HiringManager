@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
@@ -78,6 +79,7 @@
     <Compile Include="..\HiringManager.DomainServices.Validators.UnitTests\ValidationExtensions.cs">
       <Link>ValidationExtensions.cs</Link>
     </Compile>
+    <Compile Include="ActionResultExtensions.cs" />
     <Compile Include="ControllerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

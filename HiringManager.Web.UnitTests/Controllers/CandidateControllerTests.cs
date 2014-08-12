@@ -1,28 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Xml.XPath;
 using FizzWare.NBuilder;
 using HiringManager.DomainServices;
 using HiringManager.DomainServices.Candidates;
-using HiringManager.DomainServices.Positions;
 using HiringManager.DomainServices.Sources;
 using HiringManager.EntityFramework;
 using HiringManager.Web.Controllers;
 using HiringManager.Web.Infrastructure.AutoMapper;
 using HiringManager.Web.ViewModels;
 using HiringManager.Web.ViewModels.Candidates;
-using HiringManager.Web.ViewModels.Positions;
 using IntegrationTestHelpers;
 using NSubstitute;
 using NUnit.Framework;
 using Simple.Validation;
+using TestHelpers;
 
 namespace HiringManager.Web.UnitTests.Controllers
 {
@@ -42,7 +37,8 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.CandidateService = Substitute.For<ICandidateService>();
             this.SourceService = Substitute.For<ISourceService>();
             this.DbContext = Substitute.For<HiringManagerDbContext>();
-            this.CandidateController = new CandidateController(this.CandidateService, this.SourceService, this.UploadService, this.DbContext);
+            this.CandidateController = new CandidateController(this.CandidateService, this.SourceService,
+                this.UploadService, this.DbContext);
         }
 
         public IUploadService UploadService { get; set; }
@@ -176,7 +172,7 @@ namespace HiringManager.Web.UnitTests.Controllers
                            {
                                ValidationResults = new[]
                                                    {
-                                                       validationResult, 
+                                                       validationResult,
                                                    },
                            };
 
@@ -194,7 +190,9 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(view.Model, Is.SameAs(viewModel));
 
             Assert.That(this.CandidateController.ModelState.ContainsKey(validationResult.PropertyName));
-            Assert.That(this.CandidateController.ModelState[validationResult.PropertyName].Errors.Any(row => row.ErrorMessage == validationResult.Message));
+            Assert.That(
+                this.CandidateController.ModelState[validationResult.PropertyName].Errors.Any(
+                    row => row.ErrorMessage == validationResult.Message));
 
             var model = view.Model as EditCandidateViewModel;
             Assert.That(model.Sources.DataTextField, Is.EqualTo("Name"));
@@ -332,12 +330,12 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             var validationResult = Builder<ValidationResult>.CreateNew().Build();
             var response = new ValidatedResponse()
-            {
-                ValidationResults = new[]
+                           {
+                               ValidationResults = new[]
                                                    {
-                                                       validationResult, 
+                                                       validationResult,
                                                    },
-            };
+                           };
 
             this.CandidateService.Save(Arg.Any<SaveCandidateRequest>()).Returns(response);
 
@@ -353,7 +351,9 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(view.Model, Is.SameAs(viewModel));
 
             Assert.That(this.CandidateController.ModelState.ContainsKey(validationResult.PropertyName));
-            Assert.That(this.CandidateController.ModelState[validationResult.PropertyName].Errors.Any(row => row.ErrorMessage == validationResult.Message));
+            Assert.That(
+                this.CandidateController.ModelState[validationResult.PropertyName].Errors.Any(
+                    row => row.ErrorMessage == validationResult.Message));
 
             var model = view.Model as EditCandidateViewModel;
             Assert.That(model.Sources.DataTextField, Is.EqualTo("Name"));
@@ -398,10 +398,12 @@ namespace HiringManager.Web.UnitTests.Controllers
 
         private static bool ContactInfoMatches(ContactInfoDetails expected, ContactInfoViewModel actual)
         {
-            return expected.ContactInfoId == actual.ContactInfoId && expected.Type == actual.Type && expected.Value == actual.Value;
+            return expected.ContactInfoId == actual.ContactInfoId && expected.Type == actual.Type &&
+                   expected.Value == actual.Value;
         }
 
-        private static CandidateDetails CreateCandidateDetails(int candidateId, string emailAddress, string phoneNumber, int documentCount)
+        private static CandidateDetails CreateCandidateDetails(int candidateId, string emailAddress, string phoneNumber,
+            int documentCount)
         {
             var details = Builder<CandidateDetails>.CreateNew().Build();
             details.CandidateId = candidateId;
@@ -483,9 +485,9 @@ namespace HiringManager.Web.UnitTests.Controllers
             this.CandidateService
                 .Received()
                 .Upload(Arg.Is<UploadDocumentRequest>(
-                        r =>
-                            r.CandidateId == viewModel.CandidateId && r.Document == viewModel.Document.InputStream &&
-                            r.FileName == viewModel.Document.FileName));
+                    r =>
+                        r.CandidateId == viewModel.CandidateId && r.Document == viewModel.Document.InputStream &&
+                        r.FileName == viewModel.Document.FileName));
 
             Assert.That(result, Is.InstanceOf<RedirectToRouteResult>());
             var redirect = result as RedirectToRouteResult;
@@ -513,7 +515,132 @@ namespace HiringManager.Web.UnitTests.Controllers
             var redirect = result as RedirectToRouteResult;
             Assert.That(redirect.RouteValues["action"], Is.EqualTo("Details"));
             Assert.That(redirect.RouteValues["id"], Is.EqualTo(viewModel.CandidateId));
-
         }
+
+        [Test]
+        public void AddNote()
+        {
+            // Arrange
+            var viewModel = new AddNoteViewModel
+                            {
+                                CandidateId = 54564789,
+                                CandidateStatusId = 21234132,
+                                Text = Guid.NewGuid().ToString(),
+                            };
+
+            this.CandidateService.AddNote(Arg.Any<AddNoteRequest>()).Returns(new ValidatedResponse());
+
+            // Act
+            var response = this.CandidateController.AddNote(viewModel);
+
+            // Assert
+            this.CandidateService
+                .Received()
+                .AddNote(Arg
+                    .Is<AddNoteRequest>(
+                        req => req.CandidateStatusId == viewModel.CandidateStatusId && req.Text == viewModel.Text));
+
+            response.AssertRedirect("Details", viewModel.CandidateId.ToString());
+        }
+
+
+        [Test]
+        public void AddNoteWithValidationErrors()
+        {
+            // Arrange
+            var viewModel = new AddNoteViewModel
+                            {
+                                CandidateId = 54564789,
+                                CandidateStatusId = 21234132,
+                                Text = Guid.NewGuid().ToString(),
+                            };
+
+            var validationResult = new ValidationResult()
+                                   {
+                                       PropertyName = "Test 1",
+                                       Message = "Ooops!"
+                                   };
+            this.CandidateService.AddNote(Arg.Any<AddNoteRequest>())
+                .Returns(new ValidatedResponse()
+                         {
+                             ValidationResults = new[]
+                                                 {
+                                                     validationResult,
+                                                 }
+                         });
+
+            // Act
+            var response = this.CandidateController.AddNote(viewModel);
+
+            // Assert
+            this.CandidateService
+                .Received()
+                .AddNote(Arg
+                    .Is<AddNoteRequest>(
+                        req => req.CandidateStatusId == viewModel.CandidateStatusId && req.Text == viewModel.Text));
+
+            response.AssertView("OperationFailed");
+            this.CandidateController.AssertModelStateError(validationResult.PropertyName, validationResult.Message);
+        }
+
+        [Test]
+        public void DeleteNote()
+        {
+            // Arrange
+            var viewModel = new DeleteNoteViewModel()
+            {
+                CandidateId = 1234123,
+                NoteId = 324412312,
+            };
+
+            this.CandidateService.DeleteNote(viewModel.NoteId).Returns(new ValidatedResponse());
+
+            // Act
+            var response = this.CandidateController.DeleteNote(viewModel);
+
+            // Assert
+            this.CandidateService
+                .Received()
+                .DeleteNote(viewModel.NoteId);
+
+            response.AssertRedirect("Details", viewModel.CandidateId.ToString());
+        }
+
+        [Test]
+        public void DeleteNoteWithValidationErrors()
+        {
+            // Arrange
+            var viewModel = new DeleteNoteViewModel()
+            {
+                CandidateId = 1234123,
+                NoteId = 324412312,
+            };
+
+            var validationResult = new ValidationResult()
+            {
+                PropertyName = "Test 1",
+                Message = "Ooops!"
+            };
+            this.CandidateService.DeleteNote(viewModel.NoteId)
+                .Returns(new ValidatedResponse()
+                {
+                    ValidationResults = new[]
+                                                 {
+                                                     validationResult,
+                                                 }
+                });
+
+            // Act
+            var response = this.CandidateController.DeleteNote(viewModel);
+
+            // Assert
+            this.CandidateService
+                .Received()
+                .DeleteNote(viewModel.NoteId);
+
+            response.AssertView("OperationFailed");
+            this.CandidateController.AssertModelStateError(validationResult.PropertyName, validationResult.Message);
+        }
+
     }
 }

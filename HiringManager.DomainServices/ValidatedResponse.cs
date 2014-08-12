@@ -11,5 +11,10 @@ namespace HiringManager.DomainServices
         }
 
         public IEnumerable<ValidationResult> ValidationResults { get; set; }
+
+        public bool HasErrors()
+        {
+            return ValidationResults != null && ValidationResults.HasErrors();
+        }
     }
 }

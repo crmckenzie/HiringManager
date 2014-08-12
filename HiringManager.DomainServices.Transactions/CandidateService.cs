@@ -77,5 +77,20 @@ namespace HiringManager.DomainServices.Transactions
 
             return response;
         }
+
+        public ValidatedResponse AddNote(AddNoteRequest request)
+        {
+            return null;
+        }
+
+        public ValidatedResponse EditNote(EditNoteRequest request)
+        {
+            return null;
+        }
+
+        public ValidatedResponse DeleteNote(int noteId)
+        {
+            return null;
+        }
     }
 }

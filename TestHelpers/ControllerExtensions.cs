@@ -42,6 +42,10 @@ namespace TestHelpers
 
         }
 
-    }
+        public static void AssertModelStateError(this Controller controller, string propertyName, string message)
+        {
+            controller.ModelState.AssertModelStateError(propertyName, message);
+        }
 
+    }
 }

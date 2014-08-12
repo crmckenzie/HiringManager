@@ -40,7 +40,14 @@
                         <ul>
                             @foreach (var contactInfo in candidate.ContactInfo)
                             {
-                                <li>@contactInfo.Type: @contactInfo.Value</li>
+                                if (contactInfo.Type == "Email")
+                                {
+                                    <li>Email: <a href="mailto:@contactInfo.Value">@contactInfo.Value</a></li>
+                                }
+                                else
+                                {
+                                    <li>@contactInfo.Type: @contactInfo.Value</li>
+                                }
                             }
                         </ul>
                     </td>

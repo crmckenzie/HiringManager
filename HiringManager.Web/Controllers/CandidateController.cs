@@ -177,5 +177,35 @@ namespace HiringManager.Web.Controllers
 
             return RedirectToAction(MVC.Candidate.Details(viewModel.CandidateId));
         }
+
+        public ActionResult AddNote(AddNoteViewModel viewModel)
+        {
+            var response = this._candidateService.AddNote(new AddNoteRequest()
+                                           {
+                                               CandidateStatusId = viewModel.CandidateStatusId,
+                                               Text = viewModel.Text,
+                                           });
+
+            if (response.HasErrors())
+            {
+                this.ModelState.Accept(response);
+                return View("OperationFailed");
+            }
+
+            return RedirectToAction(MVC.Candidate.Details(viewModel.CandidateId));
+        }
+
+        public ActionResult DeleteNote(DeleteNoteViewModel viewModel)
+        {
+            var response = this._candidateService.DeleteNote(viewModel.NoteId);
+
+            if (response.HasErrors())
+            {
+                this.ModelState.Accept(response);
+                return View("OperationFailed");
+            }
+
+            return RedirectToAction(MVC.Candidate.Details(viewModel.CandidateId));
+        }
     }
 }
