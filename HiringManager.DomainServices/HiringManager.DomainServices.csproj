@@ -110,7 +110,9 @@
     <Compile Include="Candidates\CandidateSummary.cs" />
     <Compile Include="Candidates\EditNoteRequest.cs" />
     <Compile Include="Candidates\ICandidateService.cs" />
+    <Compile Include="Candidates\NoteDetails.cs" />
     <Compile Include="Candidates\QueryCandidatesRequest.cs" />
+    <Compile Include="Candidates\QueryNotesRequest.cs" />
     <Compile Include="Candidates\SaveCandidateRequest.cs" />
     <Compile Include="Candidates\UploadDocumentRequest.cs" />
     <Compile Include="ContactInfoDetails.cs" />

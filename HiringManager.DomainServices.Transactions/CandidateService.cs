@@ -58,6 +58,11 @@ namespace HiringManager.DomainServices.Transactions
             }
         }
 
+        public QueryResponse<NoteDetails> QueryNotes(QueryNotesRequest request)
+        {
+            return null;
+        }
+
         public DocumentDetails Upload(UploadDocumentRequest request)
         {
             return base.Execute<UploadDocumentRequest, DocumentDetails>(request);

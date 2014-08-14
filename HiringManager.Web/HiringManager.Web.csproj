@@ -421,6 +421,7 @@
     <Content Include="Scripts\knockout-3.0.0.debug.js" />
     <Content Include="Scripts\knockout-3.0.0.js" />
     <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="Scripts\require.config.js" />
     <Content Include="Views\Positions\Index.cshtml" />
     <Content Include="Views\Positions\Create.cshtml" />
     <Content Include="Views\Positions\Candidates.cshtml" />

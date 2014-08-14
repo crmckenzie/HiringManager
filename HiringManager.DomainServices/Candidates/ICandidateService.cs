@@ -10,6 +10,8 @@ namespace HiringManager.DomainServices.Candidates
         DocumentDetails Upload(UploadDocumentRequest request);
         ValidatedResponse Delete(int documentId);
 
+        QueryResponse<NoteDetails> QueryNotes(QueryNotesRequest request);
+
         ValidatedResponse AddNote(AddNoteRequest request);
         ValidatedResponse EditNote(EditNoteRequest request);
         ValidatedResponse DeleteNote(int noteId);

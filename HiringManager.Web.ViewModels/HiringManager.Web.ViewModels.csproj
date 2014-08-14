@@ -77,6 +77,8 @@
     <Compile Include="Candidates\DeleteDocumentViewModel.cs" />
     <Compile Include="Candidates\DeleteNoteViewModel.cs" />
     <Compile Include="Candidates\EditCandidateViewModel.cs" />
+    <Compile Include="Candidates\NoteDetails.cs" />
+    <Compile Include="Candidates\QueryNotesRequest.cs" />
     <Compile Include="Candidates\UploadDocumentViewModel.cs" />
     <Compile Include="ContactInfoViewModel.cs" />
     <Compile Include="IndexViewModel.cs" />

@@ -6,14 +6,12 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
-        <link href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.common.min.css" rel="stylesheet">        
-        <link href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.default.min.css" rel="stylesheet">    
-        @*<link href="http://cdn.kendostatic.com/2014.1.416/styles/kendo.black.min.css" rel="stylesheet" />*@      
+        <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.common.min.css" rel="stylesheet">        
+        <link href="http://cdn.kendostatic.com/2014.2.716/styles/kendo.default.min.css" rel="stylesheet">    
         @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        <script type="text/javascript" src="http://cdn.kendostatic.com/2014.1.416/js/kendo.all.min.js"></script>
 
+        <script src="http://requirejs.org/docs/release/2.1.11/minified/require.js"></script>
+        @Scripts.Render("~/scripts/require.config.js")
     </head>
 <body>
     @Html.Partial(MVC.Shared.Views._NavBar)

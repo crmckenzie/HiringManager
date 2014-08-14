@@ -14,8 +14,8 @@
                                 {"source", "#nav-bar-area-sources"}
                             };
 
-    var activeNavbarHeader = controllerAreaIds.ContainsKey(controllerName) ? 
-            controllerAreaIds[controllerName] : 
+    var activeNavbarHeader = controllerAreaIds.ContainsKey(controllerName) ?
+            controllerAreaIds[controllerName] :
             null;
 
 }
@@ -31,7 +31,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li id="nav-bar-area-positions" class="dropdown" >
+                <li id="nav-bar-area-positions" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Positions <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Open Positions", MVC.Positions.Index("Open"))</li>
@@ -44,12 +44,13 @@
                 </li>
                 <li id="nav-bar-area-sources">
                     @Html.ActionLink("Sources", MVC.Source.Index())
-                </li>            </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("About", MVC.Home.About())</li>                        
+                        <li>@Html.ActionLink("About", MVC.Home.About())</li>
                     </ul>
                 </li>
             </ul>
@@ -59,11 +60,15 @@
     </div>
 </div>
 
-@if (!string.IsNullOrWhiteSpace(activeNavbarHeader))
-{
-    <script type="text/javascript">
+<script type="text/javascript">
+    require(['jquery', 'bootstrap'], function ($) {
         $(function () {
-            $("@activeNavbarHeader").addClass("active");
+            // placeholder to make sure jquery and bootstrap is loaded.
+            @if (!string.IsNullOrWhiteSpace(activeNavbarHeader))
+            {
+                @:$("@activeNavbarHeader").addClass("active");
+            }
+
         });
-    </script>
-}
+    });
+</script>
