@@ -66,6 +66,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 .ForMember(output => output.CandidateId, opt => opt.Ignore())
                 .ForMember(output => output.CandidateStatusId, opt => opt.Ignore())
                 .ForMember(output => output.Position, opt => opt.Ignore())
+                .ForMember(output => output.Notes, opt => opt.Ignore())
                 ;
 
             CreateMap<AddCandidateRequest, CandidateStatus>()
@@ -74,6 +75,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
                 .ForMember(output => output.Candidate, opt => opt.Ignore())
                 .ForMember(output => output.CandidateStatusId, opt => opt.Ignore())
                 .ForMember(output => output.Position, opt => opt.Ignore())
+                .ForMember(output => output.Notes, opt => opt.Ignore())
             ;
 
             CreateMap<CandidateStatus, CandidateStatusDetails>()
