@@ -33,6 +33,7 @@ namespace HiringManager.DomainServices.AutoMapperProfiles
         {
             CreateMap<Candidate, CandidateDetails>()
                 .ForMember(output => output.Source, opt => opt.MapFrom(input => input.Source.Name))
+                .ForMember(output => output.Notes, opt => opt.Ignore())
                 ;
 
             CreateMap<Candidate, CandidateSummary>()

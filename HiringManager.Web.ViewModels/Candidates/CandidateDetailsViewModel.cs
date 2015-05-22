@@ -20,6 +20,6 @@ namespace HiringManager.Web.ViewModels.Candidates
         public int? SourceId { get; set; }
         public SelectListItem[] Documents { get; set; }
         public ContactInfoViewModel[] ContactInfo { get; set; }
-
+        public NoteViewModel[] Notes { get; set; }
     }
 }

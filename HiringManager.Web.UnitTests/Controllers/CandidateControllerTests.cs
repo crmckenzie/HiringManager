@@ -18,6 +18,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Simple.Validation;
 using TestHelpers;
+using NoteDetails = HiringManager.DomainServices.Candidates.NoteDetails;
 
 namespace HiringManager.Web.UnitTests.Controllers
 {
@@ -238,7 +239,6 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(model.Sources.SelectedValue, Is.EqualTo(candidateDetails.SourceId.Value));
         }
 
-
         [Test]
         public void Edit_HttpPost()
         {
@@ -370,7 +370,8 @@ namespace HiringManager.Web.UnitTests.Controllers
             const string emailAddress = "candidate@candidate.com";
             const string phoneNumber = "555-123-4567";
             const int documentCount = 2;
-            var details = CreateCandidateDetails(candidateId, emailAddress, phoneNumber, documentCount);
+            const int notesCount = 4;
+            var details = CreateCandidateDetails(candidateId, emailAddress, phoneNumber, documentCount, notesCount);
 
 
             this.CandidateService.Get(candidateId).Returns(details);
@@ -394,6 +395,20 @@ namespace HiringManager.Web.UnitTests.Controllers
             Assert.That(viewModel.Documents, Is.EquivalentTo(details.Documents)
                 .Using<DocumentDetails, SelectListItem>((expected, actual) =>
                     expected.DocumentId.ToString() == actual.Value && expected.Title == actual.Text));
+
+            Assert.That(viewModel.Notes, Is.EquivalentTo(details.Notes)
+                .Using<NoteDetails, NoteViewModel>((expected, actual) => 
+                    expected.AuthorId == actual.AuthorId &&
+                    expected.Author == actual.Author &&
+                    expected.Authored == actual.Authored &&
+                    expected.CandidateId == actual.CandidateId &&
+                    expected.Candidate == actual.Candidate &&
+                    expected.NoteId == actual.NoteId &&
+                    expected.PositionId == actual.PositionId &&
+                    expected.Position == actual.Position &&
+                    expected.Text == actual.Text
+                    ))
+                    ;
         }
 
         private static bool ContactInfoMatches(ContactInfoDetails expected, ContactInfoViewModel actual)
@@ -403,7 +418,7 @@ namespace HiringManager.Web.UnitTests.Controllers
         }
 
         private static CandidateDetails CreateCandidateDetails(int candidateId, string emailAddress, string phoneNumber,
-            int documentCount)
+            int documentCount, int notesCount)
         {
             var details = Builder<CandidateDetails>.CreateNew().Build();
             details.CandidateId = candidateId;
@@ -427,6 +442,12 @@ namespace HiringManager.Web.UnitTests.Controllers
 
             details.Documents = Builder<DocumentDetails>
                 .CreateListOfSize(documentCount)
+                .Build()
+                .ToArray()
+                ;
+
+            details.Notes = Builder<NoteDetails>
+                .CreateListOfSize(notesCount)
                 .Build()
                 .ToArray()
                 ;

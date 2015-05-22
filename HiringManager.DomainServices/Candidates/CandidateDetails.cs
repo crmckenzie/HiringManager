@@ -18,5 +18,6 @@ namespace HiringManager.DomainServices.Candidates
         public int? SourceId { get; set; }
         public string Source { get; set; }
         public DocumentDetails[] Documents { get; set; }
+        public NoteDetails[] Notes { get; set; }
     }
 }

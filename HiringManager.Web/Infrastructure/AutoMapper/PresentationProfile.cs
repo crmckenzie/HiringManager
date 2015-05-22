@@ -70,7 +70,9 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
                 .ForMember(output => output.CandidateName, opt => opt.MapFrom(input => input.Name))
                 .ForMember(output => output.ContactInfo, opt => opt.ResolveUsing(MapContactInfo))
                 .ForMember(output => output.Documents,
-                    opt => opt.ResolveUsing(input => input.Documents.ToDictionary(e => e.FileName, e => e.InputStream)))
+                    opt => opt.ResolveUsing(input => input.Documents
+                        .Where(row => row != null)
+                        .ToDictionary(e => e.FileName, e => e.InputStream)))
                 ;
 
             CreateMap<AddCandidateViewModel, AddCandidateRequest>()
@@ -84,6 +86,8 @@ namespace HiringManager.Web.Infrastructure.AutoMapper
 
             CreateMap<ContactInfoDetails, ContactInfoViewModel>()
                 ;
+
+            CreateMap<HiringManager.DomainServices.Candidates.NoteDetails, NoteViewModel>();
         }
 
         private static object MapContactInfo(NewCandidateViewModel input)

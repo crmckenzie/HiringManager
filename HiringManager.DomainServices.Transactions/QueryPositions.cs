@@ -25,12 +25,12 @@ namespace HiringManager.DomainServices.Transactions
             var query = _dbContext
                 .Query<Position>()
                 .Where(specification.IsSatisfied())
-                //.Project().To<PositionSummary>()
+                .Project().To<PositionSummary>()
                 ;
 
-            var projection = query.ToList().Select(AutoMapper.Mapper.Map<PositionSummary>);
+            //var projection = query.ToList().Select(AutoMapper.Mapper.Map<PositionSummary>);
 
-            var materialized = projection.ToList();
+            var materialized = query.ToList();
             var response = new QueryResponse<PositionSummary>
                            {
                                Data = materialized,
